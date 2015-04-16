@@ -5,6 +5,6 @@ package youdrive.today;
  */
 public interface RegistrationInteractor {
 
-    void invite(String name, String phone, String region, RegistrationActionListener listener);
+    void getRequest(String name, String phone, String region, RegistrationActionListener listener);
 
 }

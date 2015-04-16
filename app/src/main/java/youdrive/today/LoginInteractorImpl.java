@@ -7,6 +7,6 @@ public class LoginInteractorImpl implements LoginInteractor {
 
     @Override
     public void login(String name, String password, LoginActionListener listener) {
-
+        listener.onSuccess();
     }
 }

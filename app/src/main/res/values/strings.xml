@@ -6,4 +6,8 @@
     <string name="registration">Регистрация</string>
     <string name="login">Войти</string>
     <string name="receive_an_invitation">Получить приглашение</string>
+    <string name="thanks">Спасибо</string>
+    <string name="location_service">Сервис работает для людей, живущих или работающих внутри</string>
+    <string name="it_fits">Мне это подходит</string>
+    <string name="it_does_not_fit">Мне это не подходит</string>
 </resources>

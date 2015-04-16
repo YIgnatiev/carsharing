@@ -6,7 +6,7 @@ package youdrive.today;
 public class RegistrationInteractorImpl implements RegistrationInteractor {
 
     @Override
-    public void invite(String name, String phone, String region, RegistrationActionListener listener) {
-
+    public void getRequest(String name, String phone, String region, RegistrationActionListener listener) {
+        listener.onRequest("Hello");
     }
 }

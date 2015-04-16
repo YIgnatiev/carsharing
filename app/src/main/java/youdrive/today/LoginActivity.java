@@ -60,7 +60,7 @@ public class LoginActivity extends BaseActivity implements LoginActionListener {
 
     @Override
     public void onSuccess() {
-        //TODO Success
+        startActivity(new Intent(this, MapsActivity.class));
     }
 
     @Override

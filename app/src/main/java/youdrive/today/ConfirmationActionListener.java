@@ -3,9 +3,9 @@ package youdrive.today;
 /**
  * Created by psuhoterin on 16.04.15.
  */
-public interface RegistrationActionListener {
+public interface ConfirmationActionListener {
 
-    void onRequest(String request);
+    void onSuccess();
     void onError();
 
 }
