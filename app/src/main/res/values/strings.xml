@@ -10,4 +10,11 @@
     <string name="location_service">Сервис работает для людей, живущих или работающих внутри</string>
     <string name="it_fits">Мне это подходит</string>
     <string name="it_does_not_fit">Мне это не подходит</string>
+    <string name="reserve">Забронировать</string>
+    <string name="distance">Расстояние до авто:</string>
+    <string name="time_to">Время пешком:</string>
+    <string name="type">Тип КПП:</string>
+    <string name="full">Заполненность бака:</string>
+    <string name="tax_drive">Тариф движения:</string>
+    <string name="tax_park">Тариф парковки:</string>
 </resources>
