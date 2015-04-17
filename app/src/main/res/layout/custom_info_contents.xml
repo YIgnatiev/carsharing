@@ -8,12 +8,6 @@
     android:background="@color/white">
 
     <TextView
-        android:id="@+id/txtModel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"/>
-
-    <TextView
         android:id="@+id/txtDistance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -53,14 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/tax_park"
-        android:layout_marginTop="5dp"/>
-
-    <Button
-        android:id="@+id/btnReserve"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/reserve"
         android:layout_marginTop="5dp"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_marginBottom="15dp"/>
 
 </LinearLayout>

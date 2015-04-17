@@ -11,6 +11,10 @@ public abstract class BaseActivity extends ActionBarActivity {
 
     private Toolbar toolbar;
 
+    protected void setActionBarIcon(int iconRes) {
+        toolbar.setNavigationIcon(iconRes);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
