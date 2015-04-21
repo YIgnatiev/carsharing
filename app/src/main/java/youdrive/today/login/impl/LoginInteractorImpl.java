@@ -1,0 +1,81 @@
+package youdrive.today.login.impl;
+
+import android.util.Log;
+
+import com.google.gson.Gson;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+
+import timber.log.Timber;
+import youdrive.today.*;
+import youdrive.today.Error;
+import youdrive.today.data.ApiClient;
+import youdrive.today.login.LoginActionListener;
+import youdrive.today.login.interactors.LoginInteractor;
+
+/**
+ * Created by psuhoterin on 15.04.15.
+ */
+public class LoginInteractorImpl implements LoginInteractor {
+
+    private final ApiClient mApiClient;
+
+    public LoginInteractorImpl() {
+        Timber.tag("Login");
+        mApiClient = new ApiClient();
+    }
+
+    @Override
+    public void login(String email, String password, final LoginActionListener listener) {
+        Timber.d("LoginInteractorImpl");
+        try {
+            mApiClient.login(email, password, new Callback() {
+
+                public boolean success;
+
+                @Override
+                public void onFailure(Request request, IOException e) {
+                    Timber.e("Exception " + Log.getStackTraceString(e));
+                    listener.onError();
+                }
+
+                @Override
+                public void onResponse(Response response) throws IOException {
+                    String json = response.body().string();
+                    try {
+                        success = new JSONObject(json).getBoolean("success");
+                        if (success){
+                            listener.onSuccess(new Gson().fromJson(json, User.class));
+                        } else {
+                            handlingError(new Gson().fromJson(json, Error.class), listener);
+                        }
+                    } catch (JSONException e) {
+                        Timber.e("Exception " + Log.getStackTraceString(e));
+                        listener.onError();
+                    }
+
+                }
+            });
+        } catch (UnsupportedEncodingException e) {
+            Timber.e("Exception " + Log.getStackTraceString(e));
+            listener.onError();
+        }
+    }
+
+    private void handlingError(Error error, LoginActionListener listener) {
+        if (error.getCode() == Error.EMPTY){
+            listener.onErrorEmpty();
+        } else if (error.getCode() == Error.NOT_FOUND){
+            listener.onErrorNotFound();
+        } else {
+            listener.onError();
+        }
+    }
+}

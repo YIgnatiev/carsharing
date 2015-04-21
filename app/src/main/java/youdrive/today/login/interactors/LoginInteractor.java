@@ -1,4 +1,6 @@
-package youdrive.today;
+package youdrive.today.login.interactors;
+
+import youdrive.today.login.LoginActionListener;
 
 /**
  * Created by psuhoterin on 15.04.15.

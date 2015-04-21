@@ -1,13 +1,14 @@
-package youdrive.today;
+package youdrive.today.maps;
 
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ListView;
-
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -19,6 +20,9 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import youdrive.today.BaseActivity;
+import youdrive.today.Item;
+import youdrive.today.R;
 
 public class MapsActivity extends BaseActivity {
 
@@ -96,16 +100,22 @@ public class MapsActivity extends BaseActivity {
         });
     }
 
+    private View mContainer;
     GoogleMap.OnMarkerClickListener onMarkerClickListener = new GoogleMap.OnMarkerClickListener() {
         @Override
         public boolean onMarkerClick(Marker marker) {
 
-            new MaterialDialog.Builder(MapsActivity.this)
-                    .title("Skoda Rapid")
-                    .customView(R.layout.custom_info_contents, true)
-                    .positiveText("Забронировать")
-                    .negativeText("Отмена")
-                    .show();
+//            new MaterialDialog.Builder(MapsActivity.this)
+//                    .title("Skoda Rapid")
+//                    .customView(R.layout.custom_info_contents, true)
+//                    .positiveText("Забронировать")
+//                    .negativeText("Отмена")
+//                    .show();
+
+            Animation anim = AnimationUtils.loadAnimation(MapsActivity.this, R.anim.bottom_up);
+            mContainer = findViewById(R.id.container);
+            mContainer.setAnimation(anim);
+            mContainer.setVisibility(View.VISIBLE);
 
             return false;
         }
@@ -113,7 +123,7 @@ public class MapsActivity extends BaseActivity {
 
     private void setUpMap() {
 //        mMap.setInfoWindowAdapter(new CInfoWindowAdapter());
-        mMap.addMarker(new MarkerOptions().position(new LatLng(55.764703, 37.561451)).title("Marker"));
+        mMap.addMarker(new MarkerOptions().position(new LatLng(55.764703, 37.561451)).title("Skoda Rapid"));
         getCurrentLocation();
     }
 

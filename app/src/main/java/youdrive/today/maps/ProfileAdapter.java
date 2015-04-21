@@ -1,4 +1,4 @@
-package youdrive.today;
+package youdrive.today.maps;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,6 +12,8 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import youdrive.today.Item;
+import youdrive.today.R;
 
 /**
  * Created by psuhoterin on 17.04.15.

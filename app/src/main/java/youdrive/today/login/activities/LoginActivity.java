@@ -1,13 +1,21 @@
-package youdrive.today;
+package youdrive.today.login.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import timber.log.Timber;
+import youdrive.today.BaseActivity;
+import youdrive.today.User;
+import youdrive.today.maps.MapsActivity;
+import youdrive.today.R;
+import youdrive.today.login.LoginActionListener;
+import youdrive.today.login.impl.LoginInteractorImpl;
 
 /**
  * Created by psuhoterin on 15.04.15.
@@ -59,12 +67,23 @@ public class LoginActivity extends BaseActivity implements LoginActionListener {
     }
 
     @Override
-    public void onSuccess() {
+    public void onSuccess(User user) {
+        Timber.d("User " + user.toString());
         startActivity(new Intent(this, MapsActivity.class));
     }
 
     @Override
     public void onError() {
         //TODO Error
+    }
+
+    @Override
+    public void onErrorNotFound() {
+
+    }
+
+    @Override
+    public void onErrorEmpty() {
+
     }
 }

@@ -1,4 +1,4 @@
-package youdrive.today;
+package youdrive.today.login.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,10 @@ import android.widget.Spinner;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import youdrive.today.BaseActivity;
+import youdrive.today.R;
+import youdrive.today.login.RegistrationActionListener;
+import youdrive.today.login.impl.RegistrationInteractorImpl;
 
 /**
  * Created by psuhoterin on 15.04.15.

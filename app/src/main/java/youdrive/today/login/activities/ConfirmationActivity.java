@@ -1,4 +1,4 @@
-package youdrive.today;
+package youdrive.today.login.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,11 +6,15 @@ import android.view.View;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import youdrive.today.BaseActivity;
+import youdrive.today.R;
+import youdrive.today.login.ConfirmationActionListener;
+import youdrive.today.login.impl.ConfirmationInteractorImpl;
 
 /**
  * Created by psuhoterin on 16.04.15.
  */
-public class ConfirmationActivity extends BaseActivity implements ConfirmationActionListener{
+public class ConfirmationActivity extends BaseActivity implements ConfirmationActionListener {
 
     public static final String REQUEST = "youdrive.today.REQUEST";
     private ConfirmationInteractorImpl mInteractor;
