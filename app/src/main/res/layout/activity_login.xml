@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/etLogin"
         android:inputType="textPassword"
-        android:text="test123"/>
+        android:text="test1234"/>
 
     <Button
         android:id="@+id/btnLogin"

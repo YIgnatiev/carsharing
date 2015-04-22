@@ -1,6 +1,5 @@
-package youdrive.today.data;
+package youdrive.today.data.network;
 
-import com.google.gson.Gson;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.MediaType;
@@ -27,7 +26,12 @@ public class ApiClient {
 
     public ApiClient() {
         mClient = new OkHttpClient();
+        setCookie();
+    }
 
+    private void setCookie(){
+        mClient.interceptors().add(new AddCookiesInterceptor());
+        mClient.interceptors().add(new ReceivedCookiesInterceptor());
     }
 
     public void login(String email, String password, Callback callback) throws UnsupportedEncodingException {
@@ -36,7 +40,18 @@ public class ApiClient {
         post(url, json, callback);
     }
 
+    public void logout(Callback callback) {
+        String url = HOST + "/session";
+        delete(url, callback);
+    }
+
+    public void getStatusCars(Callback callback){
+        String url = HOST + "/status";
+        get(url, callback);
+    }
+
     private void get(String url, Callback callback){
+        Timber.d("URL " + url);
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -53,7 +68,16 @@ public class ApiClient {
         mClient.newCall(request).enqueue(callback);
     }
 
+    private void delete(String url, Callback callback){
+        Request request = new Request.Builder()
+                .url(url)
+                .delete()
+                .build();
+        mClient.newCall(request).enqueue(callback);
+    }
+
     private String getEncode(String params) throws UnsupportedEncodingException {
         return URLEncoder.encode(params, "utf-8");
     }
+
 }

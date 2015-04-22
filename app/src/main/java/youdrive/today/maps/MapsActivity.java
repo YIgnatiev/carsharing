@@ -20,13 +20,20 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnItemClick;
+import timber.log.Timber;
 import youdrive.today.BaseActivity;
+import youdrive.today.Car;
 import youdrive.today.Item;
 import youdrive.today.R;
+import youdrive.today.profile.ProfileActionListener;
+import youdrive.today.profile.ProfileAdapter;
+import youdrive.today.profile.ProfileInteractorImpl;
 
-public class MapsActivity extends BaseActivity {
+public class MapsActivity extends BaseActivity implements MapsActionListener, ProfileActionListener {
 
     private GoogleMap mMap;
+    private ProfileInteractorImpl mProfileInteractor;
 
     @InjectView(R.id.drawer)
     DrawerLayout mDrawer;
@@ -34,18 +41,40 @@ public class MapsActivity extends BaseActivity {
     @InjectView(R.id.lvProfile)
     ListView lvProfile;
 
+    @OnItemClick(R.id.lvProfile)
+    void onItemSelected(int position) {
+        switch (position){
+            case 1:
+                Timber.d("TARIFF");
+                break;
+            case 2:
+                Timber.d("HELP");
+                break;
+            case 3:
+                Timber.d("CALL");
+                break;
+            case 4:
+                Timber.d("LOGOUT");
+                mProfileInteractor.logout(MapsActivity.this);
+                break;
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.inject(this);
+        Timber.tag("Maps");
 
         setActionBarIcon(R.drawable.ic_ab_drawer);
         setUpMapIfNeeded();
 
         lvProfile.addHeaderView(getLayoutInflater().inflate(R.layout.header_profile, null));
         lvProfile.setAdapter(new ProfileAdapter(this, R.layout.item_profile, getMenu()));
-
         mDrawer.setDrawerShadow(R.drawable.drawer_shadow, Gravity.START);
+
+        mProfileInteractor = new ProfileInteractorImpl();
+        new MapsInteractorImpl().getStatusCars(this);
     }
 
     private List<Item> getMenu() {
@@ -125,6 +154,41 @@ public class MapsActivity extends BaseActivity {
 //        mMap.setInfoWindowAdapter(new CInfoWindowAdapter());
         mMap.addMarker(new MarkerOptions().position(new LatLng(55.764703, 37.561451)).title("Skoda Rapid"));
         getCurrentLocation();
+    }
+
+    @Override
+    public void onLogout() {
+        Timber.d("LOGOUT");
+    }
+
+    @Override
+    public void onError() {
+        Timber.d("ERROR");
+    }
+
+    @Override
+    public void onCars(List<Car> cars) {
+        Timber.d("Cars " + cars.toString());
+    }
+
+    @Override
+    public void onForbidden() {
+
+    }
+
+    @Override
+    public void onTariffNotFound() {
+
+    }
+
+    @Override
+    public void onSessionNotFound() {
+        Timber.d("SessionNotFound");
+    }
+
+    @Override
+    public void onInvalidRequest() {
+        Timber.d("InvalidRequest");
     }
 
 //    private class CInfoWindowAdapter implements GoogleMap.InfoWindowAdapter{

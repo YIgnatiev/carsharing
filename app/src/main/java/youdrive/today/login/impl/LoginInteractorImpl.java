@@ -15,8 +15,8 @@ import java.io.UnsupportedEncodingException;
 
 import timber.log.Timber;
 import youdrive.today.*;
-import youdrive.today.Error;
-import youdrive.today.data.ApiClient;
+import youdrive.today.ApiError;
+import youdrive.today.data.network.ApiClient;
 import youdrive.today.login.LoginActionListener;
 import youdrive.today.login.interactors.LoginInteractor;
 
@@ -38,8 +38,6 @@ public class LoginInteractorImpl implements LoginInteractor {
         try {
             mApiClient.login(email, password, new Callback() {
 
-                public boolean success;
-
                 @Override
                 public void onFailure(Request request, IOException e) {
                     Timber.e("Exception " + Log.getStackTraceString(e));
@@ -50,11 +48,11 @@ public class LoginInteractorImpl implements LoginInteractor {
                 public void onResponse(Response response) throws IOException {
                     String json = response.body().string();
                     try {
-                        success = new JSONObject(json).getBoolean("success");
+                        boolean success = new JSONObject(json).getBoolean("success");
                         if (success){
                             listener.onSuccess(new Gson().fromJson(json, User.class));
                         } else {
-                            handlingError(new Gson().fromJson(json, Error.class), listener);
+                            handlingError(new Gson().fromJson(json, ApiError.class), listener);
                         }
                     } catch (JSONException e) {
                         Timber.e("Exception " + Log.getStackTraceString(e));
@@ -69,10 +67,10 @@ public class LoginInteractorImpl implements LoginInteractor {
         }
     }
 
-    private void handlingError(Error error, LoginActionListener listener) {
-        if (error.getCode() == Error.EMPTY){
+    private void handlingError(ApiError error, LoginActionListener listener) {
+        if (error.getCode() == ApiError.FIELD_IS_EMPTY){
             listener.onErrorEmpty();
-        } else if (error.getCode() == Error.NOT_FOUND){
+        } else if (error.getCode() == ApiError.USER_NOT_FOUND){
             listener.onErrorNotFound();
         } else {
             listener.onError();
