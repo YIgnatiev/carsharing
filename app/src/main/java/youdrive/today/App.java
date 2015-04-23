@@ -4,6 +4,7 @@ import android.app.Application;
 
 import timber.log.Timber;
 import youdrive.today.data.PreferenceHelper;
+import youdrive.today.data.network.ApiClient;
 
 /**
  * Created by psuhoterin on 21.04.15.
@@ -12,6 +13,7 @@ public class App extends Application {
 
     private static App sInstance;
     private PreferenceHelper mPreference;
+    private ApiClient mApiClient;
 
     public App() {
         sInstance = this;
@@ -22,6 +24,7 @@ public class App extends Application {
         super.onCreate();
 
         mPreference = new PreferenceHelper(getApplicationContext());
+        mApiClient = new ApiClient();
 
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
@@ -30,6 +33,10 @@ public class App extends Application {
 
     public PreferenceHelper getPreference(){
         return mPreference;
+    }
+
+    public ApiClient getApiClient(){
+        return mApiClient;
     }
 
     public static App getInstance(){

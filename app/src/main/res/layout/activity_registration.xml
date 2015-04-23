@@ -8,14 +8,16 @@
         android:id="@+id/etLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true"
+        android:text="test@test.ru" />
 
     <EditText
         android:id="@+id/etPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/etLogin"
-        android:inputType="phone"/>
+        android:inputType="phone"
+        android:text="770070070" />
 
     <Spinner
         android:id="@+id/spRegion"

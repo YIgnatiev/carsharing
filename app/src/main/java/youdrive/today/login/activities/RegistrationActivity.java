@@ -2,16 +2,23 @@ package youdrive.today.login.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.LogRecord;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import timber.log.Timber;
 import youdrive.today.BaseActivity;
 import youdrive.today.R;
+import youdrive.today.Region;
 import youdrive.today.login.RegistrationActionListener;
 import youdrive.today.login.impl.RegistrationInteractorImpl;
 
@@ -22,7 +29,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationAc
 
     private static final int DEFAULT_POSITION = 0;
 
-    String[] mRegions = {"Москва", "Санкт-Петербург"};
+    Handler mHandler = new Handler();
 
     @InjectView(R.id.etLogin)
     EditText etLogin;
@@ -34,18 +41,15 @@ public class RegistrationActivity extends BaseActivity implements RegistrationAc
     Spinner spRegion;
 
     private RegistrationInteractorImpl mInteractor;
+    private List<Region> mRegions;
 
     @OnClick(R.id.btnInvite)
     public void invite(View view) {
-        if (spRegion.getSelectedItemPosition() != DEFAULT_POSITION){
-            startActivity(new Intent(this, ThanksActivity.class));
-        } else {
-            mInteractor.getRequest(
+        mInteractor.getRequest(
                     etLogin.getText().toString(),
                     etPhone.getText().toString(),
-                    spRegion.getSelectedItem().toString(),
+                    mRegions.get(spRegion.getSelectedItemPosition()).getId(),
                     this);
-        }
     }
 
     @OnClick(R.id.txtLogin)
@@ -69,22 +73,49 @@ public class RegistrationActivity extends BaseActivity implements RegistrationAc
         ButterKnife.inject(this);
 
         mInteractor = new RegistrationInteractorImpl();
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, mRegions);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spRegion.setAdapter(adapter);
-        spRegion.setSelection(DEFAULT_POSITION);
+        mInteractor.getRegions(this);
     }
 
     @Override
-    public void onRequest(String request) {
-        startActivity(new Intent(this, ConfirmationActivity.class).putExtra(ConfirmationActivity.REQUEST, request));
+    public void onRequest() {
+            startActivity(new Intent(this, ThanksActivity.class));
+    }
+
+    @Override
+    public void onRegions(List<Region> regions) {
+        Timber.d("Regions " + regions.toString());
+        mRegions = regions;
+
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(RegistrationActivity.this,
+                        android.R.layout.simple_spinner_item, getRegions(mRegions));
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                spRegion.setAdapter(adapter);
+                spRegion.setSelection(DEFAULT_POSITION);
+            }
+        });
+
+    }
+
+    private List<String> getRegions(List<Region> regions){
+        List<String> array = new ArrayList<>();
+        for (Region r: regions){
+            array.add(r.getName());
+        }
+        return array;
     }
 
     @Override
     public void onError() {
+        Timber.d("onError");
+    }
 
+    @Override
+    public void onUnknownError() {
+        Timber.d("onUnknownError");
     }
 }

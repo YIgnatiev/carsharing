@@ -27,11 +27,16 @@ public class ApiClient {
     public ApiClient() {
         mClient = new OkHttpClient();
         setCookie();
+        setLogging();
     }
 
     private void setCookie(){
         mClient.interceptors().add(new AddCookiesInterceptor());
         mClient.interceptors().add(new ReceivedCookiesInterceptor());
+    }
+
+    private void setLogging() {
+        mClient.interceptors().add(new LoggingInterceptors());
     }
 
     public void login(String email, String password, Callback callback) throws UnsupportedEncodingException {
@@ -50,8 +55,18 @@ public class ApiClient {
         get(url, callback);
     }
 
+    public void getRegions(Callback callback){
+        String url = HOST + "/regions";
+        get(url, callback);
+    }
+
+    public void invite(String email, String phone, String region, Callback callback) {
+        String url = HOST + "/invite";
+        String json = "{\"email\":\"" + email + "\", \"phone\":\"" + phone +"\", \"region_id\":\"" + region + "\", \"ready_to_use\": true}";
+        post(url, json, callback);
+    }
+
     private void get(String url, Callback callback){
-        Timber.d("URL " + url);
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -79,5 +94,4 @@ public class ApiClient {
     private String getEncode(String params) throws UnsupportedEncodingException {
         return URLEncoder.encode(params, "utf-8");
     }
-
 }
