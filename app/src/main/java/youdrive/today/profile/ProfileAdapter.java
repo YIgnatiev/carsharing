@@ -12,19 +12,19 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import youdrive.today.Item;
+import youdrive.today.Menu;
 import youdrive.today.R;
 
 /**
  * Created by psuhoterin on 17.04.15.
  */
-public class ProfileAdapter extends ArrayAdapter<Item> {
+public class ProfileAdapter extends ArrayAdapter<Menu> {
 
     private final Context mContext;
     private final int mResource;
-    private final List<Item> mObjects;
+    private final List<Menu> mObjects;
 
-    public ProfileAdapter(Context context, int resource, List<Item> objects) {
+    public ProfileAdapter(Context context, int resource, List<Menu> objects) {
         super(context, resource, objects);
         this.mContext = context;
         this.mResource = resource;
@@ -50,7 +50,7 @@ public class ProfileAdapter extends ArrayAdapter<Item> {
             holder = (ItemHolder)row.getTag();
         }
 
-        Item item = mObjects.get(position);
+        Menu item = mObjects.get(position);
         holder.txtTitle.setText(item.title);
         holder.ivIcon.setImageResource(item.icon);
 

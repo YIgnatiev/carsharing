@@ -118,4 +118,14 @@ public class RegistrationActivity extends BaseActivity implements RegistrationAc
     public void onUnknownError() {
         Timber.d("onUnknownError");
     }
+
+    @Override
+    public void onRegionNotFound() {
+        Timber.d("onRegionNotFound");
+    }
+
+    @Override
+    public void onUserAlreadyExist() {
+        Timber.d("onUserAlreadyExist");
+    }
 }

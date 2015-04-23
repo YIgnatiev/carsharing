@@ -66,6 +66,12 @@ public class ApiClient {
         post(url, json, callback);
     }
 
+    public void order(String car, float lat, float lon, Callback callback){
+        String url = HOST + "/order";
+        String json = "{\"car_id\":\"" + car + "\", \"lat\":" + lat +", \"lon\":" + lon + "}";
+        post(url, json, callback);
+    }
+
     private void get(String url, Callback callback){
         Request request = new Request.Builder()
                 .url(url)

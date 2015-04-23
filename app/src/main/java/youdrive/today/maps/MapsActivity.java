@@ -2,6 +2,7 @@ package youdrive.today.maps;
 
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ListView;
+
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -24,7 +27,7 @@ import butterknife.OnItemClick;
 import timber.log.Timber;
 import youdrive.today.BaseActivity;
 import youdrive.today.Car;
-import youdrive.today.Item;
+import youdrive.today.Menu;
 import youdrive.today.R;
 import youdrive.today.profile.ProfileActionListener;
 import youdrive.today.profile.ProfileAdapter;
@@ -34,12 +37,14 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     private GoogleMap mMap;
     private ProfileInteractorImpl mProfileInteractor;
+    Handler mHandler = new Handler();
 
     @InjectView(R.id.drawer)
     DrawerLayout mDrawer;
 
     @InjectView(R.id.lvProfile)
     ListView lvProfile;
+    private List<Car> mCars;
 
     @OnItemClick(R.id.lvProfile)
     void onItemSelected(int position) {
@@ -77,12 +82,12 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         new MapsInteractorImpl().getStatusCars(this);
     }
 
-    private List<Item> getMenu() {
-        List<Item> items = new ArrayList<>();
-        items.add(new Item(R.drawable.ic_ab_drawer, "Тарифы"));
-        items.add(new Item(R.drawable.ic_ab_drawer, "Помощь"));
-        items.add(new Item(R.drawable.ic_ab_drawer, "Позвонить оператору"));
-        items.add(new Item(R.drawable.ic_ab_drawer, "Выход"));
+    private List<Menu> getMenu() {
+        List<Menu> items = new ArrayList<>();
+        items.add(new Menu(R.drawable.ic_ab_drawer, "Тарифы"));
+        items.add(new Menu(R.drawable.ic_ab_drawer, "Помощь"));
+        items.add(new Menu(R.drawable.ic_ab_drawer, "Позвонить оператору"));
+        items.add(new Menu(R.drawable.ic_ab_drawer, "Выход"));
         return items;
     }
 
@@ -134,21 +139,35 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         @Override
         public boolean onMarkerClick(Marker marker) {
 
-//            new MaterialDialog.Builder(MapsActivity.this)
-//                    .title("Skoda Rapid")
-//                    .customView(R.layout.custom_info_contents, true)
-//                    .positiveText("Забронировать")
-//                    .negativeText("Отмена")
-//                    .show();
+            new MaterialDialog.Builder(MapsActivity.this)
+                    .title("Skoda Rapid")
+                    .customView(R.layout.custom_info_contents, true)
+                    .positiveText("Забронировать")
+                    .negativeText("Отмена")
+                    .callback(new MaterialDialog.ButtonCallback() {
+                        @Override
+                        public void onPositive(MaterialDialog dialog) {
 
-            Animation anim = AnimationUtils.loadAnimation(MapsActivity.this, R.anim.bottom_up);
-            mContainer = findViewById(R.id.container);
-            mContainer.setAnimation(anim);
-            mContainer.setVisibility(View.VISIBLE);
+                        }
+
+                        @Override
+                        public void onNegative(MaterialDialog dialog) {
+                        }
+                    })
+                    .show();
+
+//            Animation anim = AnimationUtils.loadAnimation(MapsActivity.this, R.anim.bottom_up);
+//            mContainer = findViewById(R.id.container);
+//            mContainer.setAnimation(anim);
+//            mContainer.setVisibility(View.VISIBLE);
 
             return false;
         }
     };
+
+    private void addMarker(Car car){
+        mMap.addMarker(new MarkerOptions().position(new LatLng(car.getLat(), car.getLon())).title(car.getModel()));
+    }
 
     private void setUpMap() {
 //        mMap.setInfoWindowAdapter(new CInfoWindowAdapter());
@@ -169,6 +188,15 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     public void onCars(List<Car> cars) {
         Timber.d("Cars " + cars.toString());
+        mCars = cars;
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                for (Car c: mCars){
+                    addMarker(c);
+                }
+            }
+        });
     }
 
     @Override
