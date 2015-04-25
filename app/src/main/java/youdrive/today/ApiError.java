@@ -14,6 +14,9 @@ public class ApiError {
     public static int UNKNOWN_ERROR = 13101;
     public static final int USER_ALREADY_EXISTS = 14102;
     public static final int REGION_NOT_FOUND = 14101;
+    public static final int CAR_NOT_FOUND = 19101;
+    public static final int NOT_INFO = 19102;
+    public static final int NOT_ORDER = 19103;
 
     int code;
     String message;

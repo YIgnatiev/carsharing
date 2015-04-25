@@ -62,6 +62,36 @@ public class MapsInteractorImpl implements MapsInteractor {
         });
     }
 
+    @Override
+    public void order(String id, double lat, double lon, final MapsActionListener listener) {
+        mApiClient.order(id, lat, lon, new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                Timber.e("Exception " + Log.getStackTraceString(e));
+                listener.onError();
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                String json = response.body().string();
+                Timber.d("JSON " + json);
+                try {
+                    JSONObject object = new JSONObject(json);
+                    boolean success = object.getBoolean("success");
+                    if (success){
+                        Car car = new Gson().fromJson(object.getString("car"), Car.class);
+                        listener.onOrder(car);
+                    } else {
+                        handlingError(new Gson().fromJson(json, ApiError.class), listener);
+                    }
+                } catch (JSONException e) {
+                    Timber.e("Exception " + Log.getStackTraceString(e));
+                    listener.onError();
+                }
+            }
+        });
+    }
+
     private void handlingError(ApiError error, MapsActionListener listener) {
         if (error.getCode() == ApiError.FORBIDDEN){
             listener.onForbidden();

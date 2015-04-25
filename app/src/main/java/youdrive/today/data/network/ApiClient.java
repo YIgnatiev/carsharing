@@ -22,21 +22,16 @@ public class ApiClient {
     private static final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
 
-    private static String HOST = "http://54.191.119.69";
+    private static String HOST = "http://54.191.34.18";
 
     public ApiClient() {
         mClient = new OkHttpClient();
         setCookie();
-        setLogging();
     }
 
     private void setCookie(){
         mClient.interceptors().add(new AddCookiesInterceptor());
         mClient.interceptors().add(new ReceivedCookiesInterceptor());
-    }
-
-    private void setLogging() {
-        mClient.interceptors().add(new LoggingInterceptors());
     }
 
     public void login(String email, String password, Callback callback) throws UnsupportedEncodingException {
@@ -66,9 +61,9 @@ public class ApiClient {
         post(url, json, callback);
     }
 
-    public void order(String car, float lat, float lon, Callback callback){
+    public void order(String id, double lat, double lon, Callback callback){
         String url = HOST + "/order";
-        String json = "{\"car_id\":\"" + car + "\", \"lat\":" + lat +", \"lon\":" + lon + "}";
+        String json = "{\"car_id\":\"" + id + "\", \"lat\":" + lat +", \"lon\":" + lon + "}";
         post(url, json, callback);
     }
 

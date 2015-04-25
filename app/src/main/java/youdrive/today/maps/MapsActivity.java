@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.gms.maps.GoogleMap;
@@ -19,6 +20,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -36,7 +38,10 @@ import youdrive.today.profile.ProfileInteractorImpl;
 public class MapsActivity extends BaseActivity implements MapsActionListener, ProfileActionListener {
 
     private GoogleMap mMap;
+
     private ProfileInteractorImpl mProfileInteractor;
+    private MapsInteractorImpl mMapsInteractor;
+
     Handler mHandler = new Handler();
 
     @InjectView(R.id.drawer)
@@ -46,9 +51,12 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     ListView lvProfile;
     private List<Car> mCars;
 
+    private double mLat = 0.0d;
+    private double mLon = 0.0d;
+
     @OnItemClick(R.id.lvProfile)
     void onItemSelected(int position) {
-        switch (position){
+        switch (position) {
             case 1:
                 Timber.d("TARIFF");
                 break;
@@ -79,7 +87,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         mDrawer.setDrawerShadow(R.drawable.drawer_shadow, Gravity.START);
 
         mProfileInteractor = new ProfileInteractorImpl();
-        new MapsInteractorImpl().getStatusCars(this);
+        mMapsInteractor = new MapsInteractorImpl();
+        mMapsInteractor.getStatusCars(this);
     }
 
     private List<Menu> getMenu() {
@@ -123,12 +132,14 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         }
     }
 
-    void getCurrentLocation(){
+    void getCurrentLocation() {
         mMap.setMyLocationEnabled(true);
         mMap.setOnMarkerClickListener(onMarkerClickListener);
         mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
             @Override
             public void onMyLocationChange(Location location) {
+                mLat = location.getLatitude();
+                mLon = location.getLongitude();
                 mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).title("It's Me!"));
             }
         });
@@ -137,7 +148,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private View mContainer;
     GoogleMap.OnMarkerClickListener onMarkerClickListener = new GoogleMap.OnMarkerClickListener() {
         @Override
-        public boolean onMarkerClick(Marker marker) {
+        public boolean onMarkerClick(final Marker marker) {
 
             new MaterialDialog.Builder(MapsActivity.this)
                     .title("Skoda Rapid")
@@ -147,7 +158,16 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                     .callback(new MaterialDialog.ButtonCallback() {
                         @Override
                         public void onPositive(MaterialDialog dialog) {
-
+                            Car car = mMarkerCar.get(marker);
+                            if (car != null
+                                    && car.getId() != null
+                                    && mLat > 0.0d
+                                    && mLon > 0.0d) {
+                                Timber.d("Get Order");
+                                mMapsInteractor.order(car.getId(), mLat, mLon, MapsActivity.this);
+                            } else {
+                                Toast.makeText(MapsActivity.this, "Не удалось установить месторасположение", Toast.LENGTH_LONG).show();
+                            }
                         }
 
                         @Override
@@ -165,13 +185,18 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         }
     };
 
-    private void addMarker(Car car){
-        mMap.addMarker(new MarkerOptions().position(new LatLng(car.getLat(), car.getLon())).title(car.getModel()));
+    HashMap<Marker, Car> mMarkerCar = new HashMap<>();
+
+    private void addMarker(Car car) {
+        mMarkerCar.put(mMap.addMarker(
+                        new MarkerOptions()
+                                .position(new LatLng(car.getLat(), car.getLon()))
+                                .title(car.getModel())),
+                car);
     }
 
     private void setUpMap() {
 //        mMap.setInfoWindowAdapter(new CInfoWindowAdapter());
-        mMap.addMarker(new MarkerOptions().position(new LatLng(55.764703, 37.561451)).title("Skoda Rapid"));
         getCurrentLocation();
     }
 
@@ -187,12 +212,11 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onCars(List<Car> cars) {
-        Timber.d("Cars " + cars.toString());
         mCars = cars;
         mHandler.post(new Runnable() {
             @Override
             public void run() {
-                for (Car c: mCars){
+                for (Car c : mCars) {
                     addMarker(c);
                 }
             }
@@ -206,6 +230,21 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onTariffNotFound() {
+
+    }
+
+    @Override
+    public void onOrder(final Car car) {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                mMarkerCar.clear();
+                mMarkerCar.put(mMap.addMarker(
+                        new MarkerOptions()
+                                .position(new LatLng(car.getLat(), car.getLon()))
+                                .title(car.getModel())), car);
+            }
+        });
 
     }
 

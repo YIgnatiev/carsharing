@@ -16,4 +16,6 @@ public interface MapsActionListener {
     void onForbidden();
 
     void onTariffNotFound();
+
+    void onOrder(Car car);
 }

@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:text="testmail@example.com"/>
+        android:text="3@ex.com"/>
 
     <EditText
         android:id="@+id/etPassword"
@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/etLogin"
         android:inputType="textPassword"
-        android:text="test1234"/>
+        android:text="1234"/>
 
     <Button
         android:id="@+id/btnLogin"

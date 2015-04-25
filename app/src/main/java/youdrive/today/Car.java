@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Car {
 
-    @SerializedName("region_id")
+    @SerializedName("car_id")
     String id;
     String model;
     String number;

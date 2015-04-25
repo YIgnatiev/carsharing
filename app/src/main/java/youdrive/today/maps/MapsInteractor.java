@@ -6,5 +6,6 @@ package youdrive.today.maps;
 public interface MapsInteractor {
 
     void getStatusCars(MapsActionListener listener);
+    void order(String id, double lat, double lon, MapsActionListener listener);
 
 }
