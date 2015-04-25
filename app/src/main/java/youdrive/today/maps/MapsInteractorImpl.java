@@ -19,6 +19,7 @@ import timber.log.Timber;
 import youdrive.today.ApiError;
 import youdrive.today.App;
 import youdrive.today.Car;
+import youdrive.today.Result;
 import youdrive.today.Status;
 import youdrive.today.data.network.ApiClient;
 
@@ -51,49 +52,20 @@ public class MapsInteractorImpl implements MapsInteractor {
                 try {
                     JSONObject object = new JSONObject(json);
                     boolean success = object.getBoolean("success");
-                    if (success){
-                        if (object.has("cars")){
-                            Type listType = new TypeToken<List<Car>>(){}.getType();
+                    if (success) {
+                        if (object.has("cars")) {
+                            Type listType = new TypeToken<List<Car>>() {
+                            }.getType();
                             List<Car> cars = mGson.fromJson(object.getString("cars"), listType);
                             listener.onCars(cars);
-                        } else if (object.has("car")){
+                        } else if (object.has("car")) {
                             Car car = mGson.fromJson(object.getString("car"), Car.class);
-                            if (object.has("status")){
+                            if (object.has("status")) {
                                 car.setStatus(Status.fromString(object.getString("status")));
                             }
                             listener.onCar(car);
                         }
 
-                    } else {
-                        handlingError(new Gson().fromJson(json, ApiError.class), listener);
-                    }
-                } catch (JSONException e) {
-                    Timber.e("Exception " + Log.getStackTraceString(e));
-                    listener.onError();
-                }
-            }
-        });
-    }
-
-    @Override
-    public void order(String id, double lat, double lon, final MapsActionListener listener) {
-        mApiClient.order(id, lat, lon, new Callback() {
-            @Override
-            public void onFailure(Request request, IOException e) {
-                Timber.e("Exception " + Log.getStackTraceString(e));
-                listener.onError();
-            }
-
-            @Override
-            public void onResponse(Response response) throws IOException {
-                String json = response.body().string();
-                Timber.d("JSON " + json);
-                try {
-                    JSONObject object = new JSONObject(json);
-                    boolean success = object.getBoolean("success");
-                    if (success) {
-                        Car car = mGson.fromJson(object.getString("car"), Car.class);
-                        listener.onOrder(car);
                     } else {
                         handlingError(new Gson().fromJson(json, ApiError.class), listener);
                     }

@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import timber.log.Timber;
+import youdrive.today.Car;
 
 /**
  * Created by psuhoterin on 21.04.15.
@@ -72,6 +73,12 @@ public class ApiClient {
         post(url, json, callback);
     }
 
+    public void open(Callback callback) {
+        String url = HOST + "/action";
+        String json = "{\"command\": \"open\"}";
+        post(url, json, callback);
+    }
+
     private void get(String url, Callback callback){
         Request request = new Request.Builder()
                 .url(url)
@@ -87,6 +94,11 @@ public class ApiClient {
                 .post(body)
                 .build();
         mClient.newCall(request).enqueue(callback);
+    }
+
+    public void getResult(String token, Callback callback) {
+        String url = HOST + "/action/" + token;
+        get(url, callback);
     }
 
     private void delete(String url, Callback callback){

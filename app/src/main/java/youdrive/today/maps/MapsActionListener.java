@@ -17,7 +17,6 @@ public interface MapsActionListener {
 
     void onTariffNotFound();
 
-    void onOrder(Car car);
-
     void onCar(Car car);
+
 }

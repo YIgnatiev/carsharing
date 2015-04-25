@@ -2,17 +2,16 @@ package youdrive.today.maps;
 
 import android.location.Location;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.gc.materialdesign.widgets.ProgressDialog;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -31,11 +30,14 @@ import youdrive.today.BaseActivity;
 import youdrive.today.Car;
 import youdrive.today.Menu;
 import youdrive.today.R;
+import youdrive.today.Status;
+import youdrive.today.car.CarActionListener;
+import youdrive.today.car.CarInteractorImpl;
 import youdrive.today.profile.ProfileActionListener;
 import youdrive.today.profile.ProfileAdapter;
 import youdrive.today.profile.ProfileInteractorImpl;
 
-public class MapsActivity extends BaseActivity implements MapsActionListener, ProfileActionListener {
+public class MapsActivity extends BaseActivity implements MapsActionListener, ProfileActionListener, CarActionListener {
 
     private GoogleMap mMap;
 
@@ -53,6 +55,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     private double mLat = 0.0d;
     private double mLon = 0.0d;
+    private String mToken;
+    private ProgressDialog mProgressDialog;
+    private CarInteractorImpl mCarInteractor;
 
     @OnItemClick(R.id.lvProfile)
     void onItemSelected(int position) {
@@ -88,7 +93,10 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         mProfileInteractor = new ProfileInteractorImpl();
         mMapsInteractor = new MapsInteractorImpl();
+        mCarInteractor = new CarInteractorImpl();
+
         mMapsInteractor.getStatusCars(this);
+        mProgressDialog = new ProgressDialog(MapsActivity.this, "Please wait...");
     }
 
     private List<Menu> getMenu() {
@@ -145,36 +153,66 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         });
     }
 
+    private void showCarsDialog(final Car car){
+        new MaterialDialog.Builder(MapsActivity.this)
+                .title(car.getModel())
+                .customView(R.layout.custom_info_contents, true)
+                .positiveText("Забронировать")
+                .negativeText("Отмена")
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+                        if (car.getId() != null
+                                && mLat > 0.0d
+                                && mLon > 0.0d) {
+                            Timber.d("Get Order");
+                            mCarInteractor.order(car.getId(), mLat, mLon, MapsActivity.this);
+                        } else {
+                            Toast.makeText(MapsActivity.this, "Не удалось установить месторасположение", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onNegative(MaterialDialog dialog) {
+                    }
+                })
+                .show();
+    }
+
+    private void showOpenDialog(final Car car){
+        new MaterialDialog.Builder(MapsActivity.this)
+                .title(car.getModel())
+                .customView(R.layout.custom_info_contents, true)
+                .positiveText("Открыть")
+                .negativeText("Отменить")
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+                        mCarInteractor.open(MapsActivity.this);
+                    }
+
+                    @Override
+                    public void onNegative(MaterialDialog dialog) {
+                    }
+                })
+                .show();
+    }
+
 //    private View mContainer;
     GoogleMap.OnMarkerClickListener onMarkerClickListener = new GoogleMap.OnMarkerClickListener() {
         @Override
         public boolean onMarkerClick(final Marker marker) {
 
-            new MaterialDialog.Builder(MapsActivity.this)
-                    .title("Skoda Rapid")
-                    .customView(R.layout.custom_info_contents, true)
-                    .positiveText("Забронировать")
-                    .negativeText("Отмена")
-                    .callback(new MaterialDialog.ButtonCallback() {
-                        @Override
-                        public void onPositive(MaterialDialog dialog) {
-                            Car car = mMarkerCar.get(marker);
-                            if (car != null
-                                    && car.getId() != null
-                                    && mLat > 0.0d
-                                    && mLon > 0.0d) {
-                                Timber.d("Get Order");
-                                mMapsInteractor.order(car.getId(), mLat, mLon, MapsActivity.this);
-                            } else {
-                                Toast.makeText(MapsActivity.this, "Не удалось установить месторасположение", Toast.LENGTH_LONG).show();
-                            }
-                        }
+            if (mMarkerCar.size() > 1){
+                showCarsDialog(mMarkerCar.get(marker));
+            } else {
+                Car car = mMarkerCar.get(marker);
+                if (car.getStatus().equals(Status.PARKING)){
+                    showOpenDialog(mMarkerCar.get(marker));
+                }
+            }
 
-                        @Override
-                        public void onNegative(MaterialDialog dialog) {
-                        }
-                    })
-                    .show();
+
 
 //            Animation anim = AnimationUtils.loadAnimation(MapsActivity.this, R.anim.bottom_up);
 //            mContainer = findViewById(R.id.container);
@@ -208,6 +246,26 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     public void onError() {
         Timber.d("ERROR");
+    }
+
+    @Override
+    public void onAccessDenied() {
+        Timber.d("onAccessDenied");
+    }
+
+    @Override
+    public void onCommandNotSupported() {
+        Timber.d("onCommandNotSupported");
+    }
+
+    @Override
+    public void onTokenNotFound() {
+        Timber.d("onTokenNotFound");
+    }
+
+    @Override
+    public void onInternalError() {
+        Timber.d("onInternalError");
     }
 
     @Override
@@ -253,6 +311,62 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 addMarker(car);
             }
         });
+    }
+
+    @Override
+    public void onCarNotFound() {
+        Timber.d("onCarNotFound");
+    }
+
+    @Override
+    public void onNotInfo() {
+        Timber.d("onNotInfo");
+    }
+
+    @Override
+    public void onNotOrder() {
+        Timber.d("onNotOrder");
+    }
+
+    @Override
+    public void onToken(String token) {
+        Timber.d("onToken");
+        mToken = token;
+    }
+
+    @Override
+    public void onPleaseWait() {
+        Timber.d("onPleaseWait");
+        if (mToken != null) {
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    new CountDownTimer(5000, 1000) {
+
+                        public void onTick(long millisUntilFinished) {
+                            Timber.d("ProgressDialog " + mProgressDialog);
+                            if (mProgressDialog != null){
+                                mProgressDialog.setTitle("Seconds remaining: " + millisUntilFinished / 1000);
+                            }
+                        }
+
+                        public void onFinish() {
+                            mCarInteractor.result(mToken, MapsActivity.this);
+                        }
+                    }.start();
+                }
+            });
+        }
+    }
+
+    @Override
+    public void onErrorOpen() {
+        Timber.d("onErrorOpen");
+    }
+
+    @Override
+    public void onOpen() {
+        Timber.d("onOpen");
     }
 
     @Override

@@ -12,7 +12,7 @@ public enum Status {
 
     private final String text;
 
-    private Status(final String text) {
+    Status(final String text) {
         this.text = text;
     }
 
