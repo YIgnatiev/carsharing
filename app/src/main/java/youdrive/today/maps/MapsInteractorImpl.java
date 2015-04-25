@@ -17,7 +17,9 @@ import java.util.List;
 
 import timber.log.Timber;
 import youdrive.today.ApiError;
+import youdrive.today.App;
 import youdrive.today.Car;
+import youdrive.today.Status;
 import youdrive.today.data.network.ApiClient;
 
 /**
@@ -26,9 +28,11 @@ import youdrive.today.data.network.ApiClient;
 public class MapsInteractorImpl implements MapsInteractor {
 
     private final ApiClient mApiClient;
+    private final Gson mGson;
 
     public MapsInteractorImpl() {
-        mApiClient = new ApiClient();
+        mApiClient = App.getInstance().getApiClient();
+        mGson = App.getInstance().getGson();
     }
 
     @Override
@@ -48,9 +52,18 @@ public class MapsInteractorImpl implements MapsInteractor {
                     JSONObject object = new JSONObject(json);
                     boolean success = object.getBoolean("success");
                     if (success){
-                        Type listType = new TypeToken<List<Car>>(){}.getType();
-                        List<Car> cars = new Gson().fromJson(object.getString("cars"), listType);
-                        listener.onCars(cars);
+                        if (object.has("cars")){
+                            Type listType = new TypeToken<List<Car>>(){}.getType();
+                            List<Car> cars = mGson.fromJson(object.getString("cars"), listType);
+                            listener.onCars(cars);
+                        } else if (object.has("car")){
+                            Car car = mGson.fromJson(object.getString("car"), Car.class);
+                            if (object.has("status")){
+                                car.setStatus(Status.fromString(object.getString("status")));
+                            }
+                            listener.onCar(car);
+                        }
+
                     } else {
                         handlingError(new Gson().fromJson(json, ApiError.class), listener);
                     }
@@ -78,8 +91,8 @@ public class MapsInteractorImpl implements MapsInteractor {
                 try {
                     JSONObject object = new JSONObject(json);
                     boolean success = object.getBoolean("success");
-                    if (success){
-                        Car car = new Gson().fromJson(object.getString("car"), Car.class);
+                    if (success) {
+                        Car car = mGson.fromJson(object.getString("car"), Car.class);
                         listener.onOrder(car);
                     } else {
                         handlingError(new Gson().fromJson(json, ApiError.class), listener);

@@ -7,8 +7,13 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.CookieHandler;
+import java.net.URI;
 import java.net.URLEncoder;
+import java.util.List;
+import java.util.Map;
 
 import timber.log.Timber;
 

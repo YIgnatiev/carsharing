@@ -21,4 +21,15 @@ public enum Status {
         return text;
     }
 
+    public static Status fromString(String text) {
+        if (text != null) {
+            for (Status status : Status.values()) {
+                if (text.equalsIgnoreCase(status.text)) {
+                    return status;
+                }
+            }
+        }
+        return null;
+    }
+
 }

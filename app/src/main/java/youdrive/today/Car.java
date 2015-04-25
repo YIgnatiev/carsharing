@@ -17,6 +17,7 @@ public class Car {
     int walktime;
     String transmission;
     int fuel;
+    Status status;
 
     public String getId() {
         return id;
@@ -54,6 +55,14 @@ public class Car {
         return fuel;
     }
 
+    public Status getStatus(){
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Car{" +
@@ -66,6 +75,7 @@ public class Car {
                 ", walktime=" + walktime +
                 ", transmission='" + transmission + '\'' +
                 ", fuel=" + fuel +
+                ", status=" + status +
                 '}';
     }
 }

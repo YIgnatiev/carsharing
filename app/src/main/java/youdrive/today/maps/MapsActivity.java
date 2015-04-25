@@ -145,7 +145,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         });
     }
 
-    private View mContainer;
+//    private View mContainer;
     GoogleMap.OnMarkerClickListener onMarkerClickListener = new GoogleMap.OnMarkerClickListener() {
         @Override
         public boolean onMarkerClick(final Marker marker) {
@@ -239,13 +239,20 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             @Override
             public void run() {
                 mMarkerCar.clear();
-                mMarkerCar.put(mMap.addMarker(
-                        new MarkerOptions()
-                                .position(new LatLng(car.getLat(), car.getLon()))
-                                .title(car.getModel())), car);
+                addMarker(car);
             }
         });
 
+    }
+
+    @Override
+    public void onCar(final Car car) {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                addMarker(car);
+            }
+        });
     }
 
     @Override
