@@ -1,6 +1,7 @@
 package youdrive.today.car;
 
 import youdrive.today.Car;
+import youdrive.today.Command;
 
 /**
  * Created by psuhoterin on 26.04.15.
@@ -13,7 +14,7 @@ public interface CarActionListener {
 
     void onNotOrder();
 
-    void onToken(String token);
+    void onToken(Command command, String token);
 
     void onPleaseWait();
 
@@ -32,4 +33,6 @@ public interface CarActionListener {
     void onTokenNotFound();
 
     void onInternalError();
+
+    void onClose();
 }

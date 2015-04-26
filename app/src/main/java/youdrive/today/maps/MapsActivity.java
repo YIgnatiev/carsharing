@@ -1,5 +1,6 @@
 package youdrive.today.maps;
 
+import android.app.ProgressDialog;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -11,7 +12,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.gc.materialdesign.widgets.ProgressDialog;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -28,6 +28,7 @@ import butterknife.OnItemClick;
 import timber.log.Timber;
 import youdrive.today.BaseActivity;
 import youdrive.today.Car;
+import youdrive.today.Command;
 import youdrive.today.Menu;
 import youdrive.today.R;
 import youdrive.today.Status;
@@ -42,7 +43,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private GoogleMap mMap;
 
     private ProfileInteractorImpl mProfileInteractor;
-    private MapsInteractorImpl mMapsInteractor;
 
     Handler mHandler = new Handler();
 
@@ -58,6 +58,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private String mToken;
     private ProgressDialog mProgressDialog;
     private CarInteractorImpl mCarInteractor;
+    private Car mCar;
+    private Command mCommand;
 
     @OnItemClick(R.id.lvProfile)
     void onItemSelected(int position) {
@@ -92,11 +94,11 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         mDrawer.setDrawerShadow(R.drawable.drawer_shadow, Gravity.START);
 
         mProfileInteractor = new ProfileInteractorImpl();
-        mMapsInteractor = new MapsInteractorImpl();
         mCarInteractor = new CarInteractorImpl();
 
-        mMapsInteractor.getStatusCars(this);
-        mProgressDialog = new ProgressDialog(MapsActivity.this, "Please wait...");
+        new MapsInteractorImpl().getStatusCars(this);
+        mProgressDialog = new ProgressDialog(MapsActivity.this);
+        mProgressDialog.setMessage("Please wait");
     }
 
     private List<Menu> getMenu() {
@@ -188,7 +190,26 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
-                        mCarInteractor.open(MapsActivity.this);
+                        mCarInteractor.command(Command.OPEN, MapsActivity.this);
+                    }
+
+                    @Override
+                    public void onNegative(MaterialDialog dialog) {
+                    }
+                })
+                .show();
+    }
+
+    private void showCloseDialog(final Car car){
+        new MaterialDialog.Builder(MapsActivity.this)
+                .title(car.getModel())
+                .customView(R.layout.custom_info_contents, true)
+                .positiveText("Закрыть")
+                .negativeText("Закончить")
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+                        mCarInteractor.command(Command.CLOSE, MapsActivity.this);
                     }
 
                     @Override
@@ -206,9 +227,10 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             if (mMarkerCar.size() > 1){
                 showCarsDialog(mMarkerCar.get(marker));
             } else {
-                Car car = mMarkerCar.get(marker);
-                if (car.getStatus().equals(Status.PARKING)){
+                if (mCar.getStatus().equals(Status.PARKING)){
                     showOpenDialog(mMarkerCar.get(marker));
+                } else if (mCar.getStatus().equals(Status.USAGE)){
+                    showCloseDialog(mMarkerCar.get(marker));
                 }
             }
 
@@ -269,6 +291,12 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
     @Override
+    public void onClose() {
+        Timber.d("onInternalError");
+        mCar.setStatus(Status.PARKING);
+    }
+
+    @Override
     public void onCars(List<Car> cars) {
         mCars = cars;
         mHandler.post(new Runnable() {
@@ -283,12 +311,12 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onForbidden() {
-
+        Timber.d("onForbidden");
     }
 
     @Override
     public void onTariffNotFound() {
-
+        Timber.d("onTariffNotFound");
     }
 
     @Override
@@ -305,6 +333,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onCar(final Car car) {
+        mCar = car;
         mHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -329,29 +358,33 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
     @Override
-    public void onToken(String token) {
+    public void onToken(Command command, String token) {
         Timber.d("onToken");
         mToken = token;
+        mCommand = command;
     }
 
     @Override
     public void onPleaseWait() {
         Timber.d("onPleaseWait");
-        if (mToken != null) {
+        if (mToken != null
+                && mCommand != null) {
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
+                    mProgressDialog.show();
                     new CountDownTimer(5000, 1000) {
 
                         public void onTick(long millisUntilFinished) {
                             Timber.d("ProgressDialog " + mProgressDialog);
                             if (mProgressDialog != null){
-                                mProgressDialog.setTitle("Seconds remaining: " + millisUntilFinished / 1000);
+                                mProgressDialog.setMessage("Seconds remaining: " + millisUntilFinished / 1000);
                             }
                         }
 
                         public void onFinish() {
-                            mCarInteractor.result(mToken, MapsActivity.this);
+                            mProgressDialog.hide();
+                            mCarInteractor.result(mCommand, mToken, MapsActivity.this);
                         }
                     }.start();
                 }
@@ -367,6 +400,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     public void onOpen() {
         Timber.d("onOpen");
+        mCar.setStatus(Status.USAGE);
     }
 
     @Override

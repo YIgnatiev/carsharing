@@ -17,6 +17,7 @@ import java.util.Map;
 
 import timber.log.Timber;
 import youdrive.today.Car;
+import youdrive.today.Command;
 
 /**
  * Created by psuhoterin on 21.04.15.
@@ -73,10 +74,15 @@ public class ApiClient {
         post(url, json, callback);
     }
 
-    public void open(Callback callback) {
+    public void command(Command command, Callback callback) {
         String url = HOST + "/action";
-        String json = "{\"command\": \"open\"}";
+        String json = "{\"command\": \"" + command + "\"}";
         post(url, json, callback);
+    }
+
+    public void complete(Callback callback){
+        String url = HOST + "/order";
+        delete(url, callback);
     }
 
     private void get(String url, Callback callback){

@@ -16,6 +16,7 @@ import timber.log.Timber;
 import youdrive.today.ApiError;
 import youdrive.today.App;
 import youdrive.today.Car;
+import youdrive.today.Command;
 import youdrive.today.Result;
 import youdrive.today.data.network.ApiClient;
 
@@ -63,8 +64,8 @@ public class CarInteractorImpl implements CarInteractor {
     }
 
     @Override
-    public void open(final CarActionListener listener) {
-        mApiClient.open(new Callback() {
+    public void command(final Command command, final CarActionListener listener) {
+        mApiClient.command(command, new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
                 Timber.e("Exception " + Log.getStackTraceString(e));
@@ -80,8 +81,8 @@ public class CarInteractorImpl implements CarInteractor {
                     boolean success = object.getBoolean("success");
                     if (success) {
                         String token = object.getString("result_token");
-                        listener.onToken(token);
-                        result(token, listener);
+                        listener.onToken(command, token);
+                        result(command, token, listener);
                     } else {
                         handlingError(new Gson().fromJson(json, ApiError.class), listener);
                     }
@@ -94,7 +95,7 @@ public class CarInteractorImpl implements CarInteractor {
     }
 
     @Override
-    public void result(String token, final CarActionListener listener) {
+    public void result(final Command command, String token, final CarActionListener listener) {
         mApiClient.getResult(token, new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
@@ -117,7 +118,11 @@ public class CarInteractorImpl implements CarInteractor {
                         } else if (Result.fromString(result).equals(Result.ERROR)) {
                             listener.onErrorOpen();
                         } else {
-                            listener.onOpen();
+                            if (command.equals(Command.OPEN)){
+                                listener.onOpen();
+                            } else {
+                                listener.onClose();
+                            }
                         }
                     } else {
                         handlingError(new Gson().fromJson(json, ApiError.class), listener);
@@ -128,6 +133,11 @@ public class CarInteractorImpl implements CarInteractor {
                 }
             }
         });
+    }
+
+    @Override
+    public void complete(CarActionListener listener) {
+
     }
 
     private void handlingError(ApiError error, CarActionListener listener) {
