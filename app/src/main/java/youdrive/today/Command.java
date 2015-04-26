@@ -6,7 +6,8 @@ package youdrive.today;
 public enum Command {
 
     OPEN("open"),
-    CLOSE("close");
+    CLOSE("close"),
+    COMPLETE("complete");
 
     private final String text;
 

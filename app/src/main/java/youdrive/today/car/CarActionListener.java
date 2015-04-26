@@ -35,4 +35,6 @@ public interface CarActionListener {
     void onInternalError();
 
     void onClose();
+
+    void onComplete();
 }

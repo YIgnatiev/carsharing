@@ -60,6 +60,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private CarInteractorImpl mCarInteractor;
     private Car mCar;
     private Command mCommand;
+    private MapsInteractorImpl mMapsInteractor;
 
     @OnItemClick(R.id.lvProfile)
     void onItemSelected(int position) {
@@ -96,7 +97,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         mProfileInteractor = new ProfileInteractorImpl();
         mCarInteractor = new CarInteractorImpl();
 
-        new MapsInteractorImpl().getStatusCars(this);
+        mMapsInteractor = new MapsInteractorImpl();
+        mMapsInteractor.getStatusCars(this);
+
         mProgressDialog = new ProgressDialog(MapsActivity.this);
         mProgressDialog.setMessage("Please wait");
     }
@@ -214,6 +217,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
                     @Override
                     public void onNegative(MaterialDialog dialog) {
+                        mCarInteractor.complete(Command.COMPLETE, MapsActivity.this);
                     }
                 })
                 .show();
@@ -292,8 +296,14 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onClose() {
-        Timber.d("onInternalError");
+        Timber.d("onClose");
         mCar.setStatus(Status.PARKING);
+    }
+
+    @Override
+    public void onComplete() {
+        Timber.d("onComplete");
+        mMapsInteractor.getStatusCars(this);
     }
 
     @Override

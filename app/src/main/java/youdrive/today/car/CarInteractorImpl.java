@@ -95,6 +95,37 @@ public class CarInteractorImpl implements CarInteractor {
     }
 
     @Override
+    public void complete(final Command command, final CarActionListener listener) {
+        mApiClient.complete(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                Timber.e("Exception " + Log.getStackTraceString(e));
+                listener.onError();
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                String json = response.body().string();
+                Timber.d("JSON " + json);
+                try {
+                    JSONObject object = new JSONObject(json);
+                    boolean success = object.getBoolean("success");
+                    if (success) {
+                        String token = object.getString("result_token");
+                        listener.onToken(command, token);
+                        result(command, token, listener);
+                    } else {
+                        handlingError(new Gson().fromJson(json, ApiError.class), listener);
+                    }
+                } catch (JSONException e) {
+                    Timber.e("Exception " + Log.getStackTraceString(e));
+                    listener.onError();
+                }
+            }
+        });
+    }
+
+    @Override
     public void result(final Command command, String token, final CarActionListener listener) {
         mApiClient.getResult(token, new Callback() {
             @Override
@@ -118,10 +149,12 @@ public class CarInteractorImpl implements CarInteractor {
                         } else if (Result.fromString(result).equals(Result.ERROR)) {
                             listener.onErrorOpen();
                         } else {
-                            if (command.equals(Command.OPEN)){
+                            if (command.equals(Command.OPEN)) {
                                 listener.onOpen();
-                            } else {
+                            } else if (command.equals(Command.CLOSE)){
                                 listener.onClose();
+                            } else {
+                                listener.onComplete();
                             }
                         }
                     } else {
@@ -133,11 +166,6 @@ public class CarInteractorImpl implements CarInteractor {
                 }
             }
         });
-    }
-
-    @Override
-    public void complete(CarActionListener listener) {
-
     }
 
     private void handlingError(ApiError error, CarActionListener listener) {
