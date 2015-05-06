@@ -2,14 +2,39 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="30dp">
+    android:background="@drawable/bg">
+
+    <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo_wg"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"/>
+
+    <TextView
+        android:id="@+id/txtEntrance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/entrance"
+        android:textAllCaps="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/ivLogo"
+        android:layout_marginTop="60dp"
+        android:textColor="@color/white"
+        android:textAppearance="@android:style/TextAppearance.Large"/>
 
     <EditText
         android:id="@+id/etLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:text="3@ex.com"/>
+        android:layout_below="@id/txtEntrance"
+        android:text="3@ex.com"
+        android:textColor="@color/white"
+        android:textColorHint="@color/hint"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"/>
 
     <EditText
         android:id="@+id/etPassword"
@@ -17,7 +42,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/etLogin"
         android:inputType="textPassword"
-        android:text="1234"/>
+        android:text="1234"
+        android:textColor="@color/white"
+        android:textColorHint="@color/hint"
+        android:layout_alignLeft="@+id/etLogin"
+        android:layout_alignRight="@+id/etLogin"/>
 
     <Button
         android:id="@+id/btnLogin"
@@ -25,34 +54,59 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/etPassword"
         android:layout_alignRight="@+id/etPassword"
-        android:layout_alignEnd="@+id/etPassword"
-        android:text="@string/login"/>
+        android:layout_alignLeft="@+id/etPassword"
+        android:text="@string/login"
+        android:textAppearance="@android:style/TextAppearance.Medium"
+        android:background="@color/main"
+        android:textColor="@color/white"
+        android:layout_marginTop="15dp"/>
+
+    <TextView
+        android:id="@+id/txtQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lines="2"
+        android:text="@string/question_password"
+        android:layout_below="@id/btnLogin"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/white"/>
 
     <TextView
         android:id="@+id/txtRestore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:lines="2"
         android:text="@string/restore_password"
-        android:layout_below="@+id/etPassword"
-        android:layout_alignLeft="@+id/etPassword"
-        android:layout_alignStart="@+id/etPassword" />
+        android:layout_below="@id/txtQuestion"
+        android:layout_centerHorizontal="true"
+        android:textAllCaps="true"
+        android:textColor="@color/main"/>
 
-    <TextView
-        android:id="@+id/txtAbout"
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/about"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:background="@color/translucent_white">
 
-    <TextView
-        android:id="@+id/txtRegistration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/registration"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"/>
+        <TextView
+            android:id="@+id/txtAbout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about"
+            android:layout_gravity="left"
+            android:padding="20dp"/>
+
+        <TextView
+            android:id="@+id/txtRegistration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/registration"
+            android:layout_gravity="right"
+            android:padding="20dp"/>
+
+    </FrameLayout>
+
+
 
 
 </RelativeLayout>

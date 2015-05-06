@@ -1,22 +1,20 @@
 package youdrive.today.data.network;
 
-import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.CookieHandler;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
 import java.net.URI;
 import java.net.URLEncoder;
-import java.util.List;
-import java.util.Map;
 
 import timber.log.Timber;
-import youdrive.today.Car;
+import youdrive.today.App;
 import youdrive.today.Command;
 
 /**
@@ -37,8 +35,18 @@ public class ApiClient {
     }
 
     private void setCookie(){
-        mClient.interceptors().add(new AddCookiesInterceptor());
-        mClient.interceptors().add(new ReceivedCookiesInterceptor());
+//        mClient.interceptors().add(new AddCookiesInterceptor());
+//        mClient.interceptors().add(new ReceivedCookiesInterceptor());
+
+//        CookieManager cookieManager = new CookieManager();
+//        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+//        mClient.setCookieHandler(cookieManager);
+
+        mClient.setCookieHandler(new CookieManager(
+                new PersistentCookieStore(App.getInstance()),
+                CookiePolicy.ACCEPT_ALL));
+
+//        mClient.setCookieHandler(new CookieManager(new NewPersistentCookieStore(), CookiePolicy.ACCEPT_ALL));
     }
 
     public void login(String email, String password, Callback callback) throws UnsupportedEncodingException {
@@ -85,6 +93,11 @@ public class ApiClient {
         delete(url, callback);
     }
 
+    public void result(String token, Callback callback) {
+        String url = HOST + "/action/" + token;
+        get(url, callback);
+    }
+
     private void get(String url, Callback callback){
         Request request = new Request.Builder()
                 .url(url)
@@ -100,11 +113,6 @@ public class ApiClient {
                 .post(body)
                 .build();
         mClient.newCall(request).enqueue(callback);
-    }
-
-    public void getResult(String token, Callback callback) {
-        String url = HOST + "/action/" + token;
-        get(url, callback);
     }
 
     private void delete(String url, Callback callback){

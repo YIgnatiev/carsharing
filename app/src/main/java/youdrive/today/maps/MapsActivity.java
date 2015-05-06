@@ -231,9 +231,10 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             if (mMarkerCar.size() > 1){
                 showCarsDialog(mMarkerCar.get(marker));
             } else {
-                if (mCar.getStatus().equals(Status.PARKING)){
+                if (Status.PARKING.equals(mCar.getStatus())
+                        || Status.BOOKING.equals(mCar.getStatus())){
                     showOpenDialog(mMarkerCar.get(marker));
-                } else if (mCar.getStatus().equals(Status.USAGE)){
+                } else if (Status.USAGE.equals(mCar.getStatus())){
                     showCloseDialog(mMarkerCar.get(marker));
                 }
             }
@@ -331,10 +332,16 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onOrder(final Car car) {
+        mCar = car;
         mHandler.post(new Runnable() {
             @Override
             public void run() {
                 mMarkerCar.clear();
+                mMap.clear();
+
+                //TODO Обработка статуса в Interactor-e
+
+                mCar.setStatus(Status.BOOKING);
                 addMarker(car);
             }
         });

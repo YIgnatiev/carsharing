@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="white">#AAFFFFFF</color>
+    <color name="translucent_white">#AAFFFFFF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="main">#24DDAD</color>
+    <color name="hint">#CCCCCC</color>
+    <color name="error">#FF98C0</color>
+
 </resources>

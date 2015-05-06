@@ -127,7 +127,7 @@ public class CarInteractorImpl implements CarInteractor {
 
     @Override
     public void result(final Command command, String token, final CarActionListener listener) {
-        mApiClient.getResult(token, new Callback() {
+        mApiClient.result(token, new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
                 Timber.e("Exception " + Log.getStackTraceString(e));
@@ -151,7 +151,7 @@ public class CarInteractorImpl implements CarInteractor {
                         } else {
                             if (command.equals(Command.OPEN)) {
                                 listener.onOpen();
-                            } else if (command.equals(Command.CLOSE)){
+                            } else if (command.equals(Command.CLOSE)) {
                                 listener.onClose();
                             } else {
                                 listener.onComplete();

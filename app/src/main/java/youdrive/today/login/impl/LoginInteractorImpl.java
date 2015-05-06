@@ -14,8 +14,9 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 import timber.log.Timber;
-import youdrive.today.*;
 import youdrive.today.ApiError;
+import youdrive.today.App;
+import youdrive.today.User;
 import youdrive.today.data.network.ApiClient;
 import youdrive.today.login.LoginActionListener;
 import youdrive.today.login.interactors.LoginInteractor;
@@ -29,7 +30,7 @@ public class LoginInteractorImpl implements LoginInteractor {
 
     public LoginInteractorImpl() {
         Timber.tag("Login");
-        mApiClient = new ApiClient();
+        mApiClient = App.getInstance().getApiClient();
     }
 
     @Override
@@ -49,7 +50,7 @@ public class LoginInteractorImpl implements LoginInteractor {
                     String json = response.body().string();
                     try {
                         boolean success = new JSONObject(json).getBoolean("success");
-                        if (success){
+                        if (success) {
                             listener.onSuccess(new Gson().fromJson(json, User.class));
                         } else {
                             handlingError(new Gson().fromJson(json, ApiError.class), listener);
@@ -67,10 +68,41 @@ public class LoginInteractorImpl implements LoginInteractor {
         }
     }
 
+//    @Override
+//    public Subscription reLogin(final String email, final String password, final LoginActionListener listener) {
+//            return BaseObservable.ApiObservable(new RequestListener() {
+//                @Override
+//                public String onRequest() {
+//                    try {
+//                        return mReApiClietn.login(email, password);
+//                    } catch (IOException e) {
+//                        Timber.e(Log.getStackTraceString(e));
+//                        listener.onError();
+//                        return null;
+//                    }
+//                }
+//            }).subscribe(new Action1<String>() {
+//                @Override
+//                public void call(String s) {
+//                    try {
+//                        boolean success = new JSONObject(s).getBoolean("success");
+//                        if (success) {
+//                            listener.onSuccess(new Gson().fromJson(s, User.class));
+//                        } else {
+//                            handlingError(new Gson().fromJson(s, ApiError.class), listener);
+//                        }
+//                    } catch (JSONException e) {
+//                        Timber.e("Exception " + Log.getStackTraceString(e));
+//                        listener.onError();
+//                    }
+//                }
+//            });
+//    }
+
     private void handlingError(ApiError error, LoginActionListener listener) {
-        if (error.getCode() == ApiError.FIELD_IS_EMPTY){
+        if (error.getCode() == ApiError.FIELD_IS_EMPTY) {
             listener.onErrorEmpty();
-        } else if (error.getCode() == ApiError.USER_NOT_FOUND){
+        } else if (error.getCode() == ApiError.USER_NOT_FOUND) {
             listener.onErrorNotFound();
         } else {
             listener.onError();

@@ -2,14 +2,39 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="30dp">
+    android:background="@drawable/bg">
+
+    <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo_wg"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"/>
+
+    <TextView
+        android:id="@+id/txtInvitation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/receive_an_invitation"
+        android:textAllCaps="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/ivLogo"
+        android:layout_marginTop="60dp"
+        android:textColor="@color/white"
+        android:textAppearance="@android:style/TextAppearance.Large"/>
 
     <EditText
         android:id="@+id/etLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:text="test@test.ru" />
+        android:layout_below="@id/txtInvitation"
+        android:text="3@ex.com"
+        android:textColor="@color/white"
+        android:textColorHint="@color/hint"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp" />
 
     <EditText
         android:id="@+id/etPhone"
@@ -17,13 +42,21 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/etLogin"
         android:inputType="phone"
-        android:text="770070070" />
+        android:text="770070070"
+        android:textColor="@color/white"
+        android:textColorHint="@color/hint"
+        android:layout_alignLeft="@+id/etLogin"
+        android:layout_alignRight="@+id/etLogin"/>
 
     <Spinner
         android:id="@+id/spRegion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/etPhone"/>
+        android:layout_below="@id/etPhone"
+        android:layout_alignLeft="@+id/etLogin"
+        android:layout_alignRight="@+id/etLogin"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"/>
 
     <Button
         android:id="@+id/btnInvite"
@@ -31,23 +64,37 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/spRegion"
         android:layout_centerHorizontal="true"
-        android:text="@string/receive_an_invitation"/>
+        android:text="@string/invitation"
+        android:layout_alignRight="@+id/etPhone"
+        android:layout_alignLeft="@+id/etPhone"
+        android:textAppearance="@android:style/TextAppearance.Medium"
+        android:background="@color/main"
+        android:textColor="@color/white"
+        android:layout_marginTop="15dp"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/translucent_white">
 
     <TextView
         android:id="@+id/txtAbout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/about"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"/>
+        android:padding="20dp"
+        android:layout_gravity="left"/>
 
     <TextView
         android:id="@+id/txtLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/login"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"/>
+        android:padding="20dp"
+        android:layout_gravity="right"/>
+
+    </FrameLayout>
 
 
 </RelativeLayout>

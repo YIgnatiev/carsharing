@@ -1,5 +1,7 @@
 package youdrive.today.login.interactors;
 
+import rx.Subscription;
+import youdrive.today.User;
 import youdrive.today.login.LoginActionListener;
 
 /**
@@ -8,5 +10,6 @@ import youdrive.today.login.LoginActionListener;
 public interface LoginInteractor {
 
     void login(String name, String password, LoginActionListener listener);
+//    Subscription reLogin(String email, String password, LoginActionListener listener);
 
 }

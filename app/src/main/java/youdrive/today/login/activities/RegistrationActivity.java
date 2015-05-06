@@ -91,7 +91,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationAc
             public void run() {
 
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(RegistrationActivity.this,
-                        android.R.layout.simple_spinner_item, getRegions(mRegions));
+                        R.layout.item_spinner, getRegions(mRegions));
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
                 spRegion.setAdapter(adapter);
