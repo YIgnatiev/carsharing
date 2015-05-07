@@ -8,6 +8,7 @@
     <string name="receive_an_invitation">Запрос приглашения</string>
     <string name="thanks">Спасибо</string>
     <string name="location_service">Сервис работает для людей, живущих или работающих внутри</string>
+    <string name="manager">Ваш персональный менеджер свяжется с Вами в ближайшее время для подписания договора</string>
     <string name="it_fits">Мне это подходит</string>
     <string name="it_does_not_fit">Мне это не подходит</string>
     <string name="reserve">Забронировать</string>
@@ -20,4 +21,6 @@
     <string name="question_password">Забыли пароль?</string>
     <string name="entrance">Вход</string>
     <string name="invitation">Далее</string>
+    <string name="alarm">Внимание</string>
+    <string name="ok">Хорошо</string>
 </resources>

@@ -3,14 +3,27 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="30dp">
+    android:background="@drawable/bg">
 
-    <TextView
-        android:id="@+id/txtThanks"
+    <ImageView
+        android:id="@+id/ivLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/thanks"
+        android:src="@drawable/logo_wg"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"/>
+
+    <TextView
+        android:id="@+id/txtAlarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/alarm"
         android:textAllCaps="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/ivLogo"
+        android:layout_marginTop="60dp"
+        android:textColor="@color/white"
+        android:textAppearance="@android:style/TextAppearance.Large"
         android:layout_centerInParent="true"/>
 
     <TextView
@@ -18,40 +31,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/location_service"
-        android:layout_below="@id/txtThanks"
-        android:layout_centerInParent="true"/>
+        android:layout_below="@id/txtAlarm"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:textColor="@color/white"
+        android:gravity="center"/>
+
 
     <Button
         android:id="@+id/btnOk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txtLocationService"
-        android:layout_centerInParent="true"
-        android:text="@string/it_fits"/>
+        android:text="@string/it_fits"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:paddingLeft="35dp"
+        android:paddingRight="35dp"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/white"
+        android:background="@color/main"/>
 
     <Button
         android:id="@+id/btnCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btnOk"
-        android:layout_centerInParent="true"
-        android:text="@string/it_does_not_fit"/>
-
-    <TextView
-        android:id="@+id/txtAbout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/about"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true" />
-
-    <TextView
-        android:id="@+id/txtLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/login"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true" />
+        android:text="@string/it_does_not_fit"
+        android:layout_above="@+id/btnOk"
+        android:layout_alignLeft="@+id/btnOk"
+        android:layout_alignRight="@+id/btnOk"
+        android:textColor="@color/white"
+        android:background="@color/negative"
+        android:layout_marginBottom="20dp"/>
 
 
 </RelativeLayout>

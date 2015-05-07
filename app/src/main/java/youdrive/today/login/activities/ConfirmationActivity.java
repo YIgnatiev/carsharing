@@ -21,21 +21,12 @@ public class ConfirmationActivity extends BaseActivity implements ConfirmationAc
 
     @OnClick(R.id.btnOk)
     public void ok(View view) {
-        mInteractor.invite(getIntent().getStringExtra(REQUEST), this);
+//        mInteractor.invite(getIntent().getStringExtra(REQUEST), this);
+        startActivity(new Intent(this, ThanksActivity.class));
     }
 
     @OnClick(R.id.btnCancel)
     public void cancel(View view) {
-        // TODO submit data to server...
-    }
-
-    @OnClick(R.id.txtAbout)
-    public void about(View view) {
-        // TODO submit data to server...
-    }
-
-    @OnClick(R.id.txtLogin)
-    public void login(View view) {
         // TODO submit data to server...
     }
 

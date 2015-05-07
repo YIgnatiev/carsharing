@@ -45,11 +45,12 @@ public class RegistrationActivity extends BaseActivity implements RegistrationAc
 
     @OnClick(R.id.btnInvite)
     public void invite(View view) {
-        mInteractor.getRequest(
-                    etLogin.getText().toString(),
-                    etPhone.getText().toString(),
-                    mRegions.get(spRegion.getSelectedItemPosition()).getId(),
-                    this);
+//        mInteractor.getRequest(
+//                    etLogin.getText().toString(),
+//                    etPhone.getText().toString(),
+//                    mRegions.get(spRegion.getSelectedItemPosition()).getId(),
+//                    this);
+        startActivity(new Intent(this, ConfirmationActivity.class));
     }
 
     @OnClick(R.id.txtLogin)

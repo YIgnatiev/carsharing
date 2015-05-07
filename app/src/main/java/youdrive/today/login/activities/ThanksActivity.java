@@ -1,5 +1,6 @@
 package youdrive.today.login.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -13,14 +14,9 @@ import youdrive.today.R;
  */
 public class ThanksActivity extends BaseActivity {
 
-    @OnClick(R.id.txtAbout)
-    public void about(View view) {
-        // TODO submit data to server...
-    }
-
-    @OnClick(R.id.txtLogin)
-    public void login(View view) {
-        // TODO submit data to server...
+    @OnClick(R.id.btnOk)
+    public void auth(View view) {
+        startActivity(new Intent(this, LoginActivity.class));
     }
 
     @Override
