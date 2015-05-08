@@ -6,14 +6,21 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -38,7 +45,8 @@ import youdrive.today.profile.ProfileActionListener;
 import youdrive.today.profile.ProfileAdapter;
 import youdrive.today.profile.ProfileInteractorImpl;
 
-public class MapsActivity extends BaseActivity implements MapsActionListener, ProfileActionListener, CarActionListener {
+public class MapsActivity extends BaseActivity implements MapsActionListener, ProfileActionListener, CarActionListener,
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private GoogleMap mMap;
 
@@ -61,6 +69,10 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private Car mCar;
     private Command mCommand;
     private MapsInteractorImpl mMapsInteractor;
+    private GoogleApiClient mGoogleApiClient;
+    private Location mLastLocation;
+    private MarkerOptions mMarker;
+    private LocationRequest mLocationRequest;
 
     @OnItemClick(R.id.lvProfile)
     void onItemSelected(int position) {
@@ -89,6 +101,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         setActionBarIcon(R.drawable.ic_ab_drawer);
         setUpMapIfNeeded();
+        createLocationRequest();
 
         lvProfile.addHeaderView(getLayoutInflater().inflate(R.layout.header_profile, null));
         lvProfile.setAdapter(new ProfileAdapter(this, R.layout.item_profile, getMenu()));
@@ -102,6 +115,47 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         mProgressDialog = new ProgressDialog(MapsActivity.this);
         mProgressDialog.setMessage("Please wait");
+
+        buildGoogleApiClient();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.disconnect();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mGoogleApiClient.isConnected()) {
+            stopLocationUpdates();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setUpMapIfNeeded();
+        if (mGoogleApiClient.isConnected()){
+            startLocationUpdates();
+        }
+    }
+
+    protected synchronized void buildGoogleApiClient() {
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
     }
 
     private List<Menu> getMenu() {
@@ -129,33 +183,44 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        setUpMapIfNeeded();
-    }
-
     private void setUpMapIfNeeded() {
         if (mMap == null) {
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
-            if (mMap != null) {
-                setUpMap();
-            }
         }
     }
 
-    void getCurrentLocation() {
-        mMap.setMyLocationEnabled(true);
-        mMap.setOnMarkerClickListener(onMarkerClickListener);
-        mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
-            @Override
-            public void onMyLocationChange(Location location) {
-                mLat = location.getLatitude();
-                mLon = location.getLongitude();
-                mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).title("It's Me!"));
-            }
-        });
+    protected void createLocationRequest() {
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(10000);
+        mLocationRequest.setFastestInterval(5000);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+    }
+
+    protected void startLocationUpdates() {
+        Timber.d("Start Location Update");
+        LocationServices.FusedLocationApi.requestLocationUpdates(
+                mGoogleApiClient, mLocationRequest, this);
+    }
+
+    protected void stopLocationUpdates() {
+        Timber.d("Stop Location Update");
+        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+    }
+
+    void getCurrentLocation(Location location) {
+
+        if (mMarker == null){
+            mMarker = new MarkerOptions()
+                    .position(new LatLng(location.getLatitude(), location.getLongitude()))
+                    .title("It's Me!")
+                    .flat(true)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.user_location));
+            mMap.addMarker(mMarker);
+        } else {
+            Timber.d("Refresh Marker");
+            mMarker.position(new LatLng(location.getLatitude(), location.getLongitude()));
+        }
     }
 
     private void showCarsDialog(final Car car){
@@ -240,7 +305,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             }
 
 
-
 //            Animation anim = AnimationUtils.loadAnimation(MapsActivity.this, R.anim.bottom_up);
 //            mContainer = findViewById(R.id.container);
 //            mContainer.setAnimation(anim);
@@ -248,21 +312,19 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
             return false;
         }
-    };
+};
 
     HashMap<Marker, Car> mMarkerCar = new HashMap<>();
 
     private void addMarker(Car car) {
+
         mMarkerCar.put(mMap.addMarker(
                         new MarkerOptions()
+                                .flat(true)
                                 .position(new LatLng(car.getLat(), car.getLon()))
-                                .title(car.getModel())),
+                                .title(car.getModel())
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.car_location))),
                 car);
-    }
-
-    private void setUpMap() {
-//        mMap.setInfoWindowAdapter(new CInfoWindowAdapter());
-        getCurrentLocation();
     }
 
     @Override
@@ -428,6 +490,34 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     public void onInvalidRequest() {
         Timber.d("InvalidRequest");
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        startLocationUpdates();
+        if (mLastLocation != null) {
+            getCurrentLocation(mLastLocation);
+        } else {
+            Toast.makeText(this, "Не удалось определить месторасположение", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult result) {
+        Timber.e("Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        Timber.d("Location LAT: " + location.getLatitude() + " LON: " + location.getLongitude());
+        getCurrentLocation(location);
+
     }
 
 //    private class CInfoWindowAdapter implements GoogleMap.InfoWindowAdapter{
