@@ -215,6 +215,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         if (mMap == null) {
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
+            mMap.setOnMarkerClickListener(onMarkerClickListener);
         }
     }
 
@@ -241,7 +242,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         if (mMarker == null){
             mMarker = new MarkerOptions()
                     .position(new LatLng(location.getLatitude(), location.getLongitude()))
-                    .title("It's Me!")
+                    .title("Это Вы!")
                     .flat(true)
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.user_location));
             mMap.addMarker(mMarker);
@@ -321,17 +322,18 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         @Override
         public boolean onMarkerClick(final Marker marker) {
 
-            if (mMarkerCar.size() > 1){
-                showCarsDialog(mMarkerCar.get(marker));
-            } else {
-                if (Status.PARKING.equals(mCar.getStatus())
-                        || Status.BOOKING.equals(mCar.getStatus())){
-                    showOpenDialog(mMarkerCar.get(marker));
-                } else if (Status.USAGE.equals(mCar.getStatus())){
-                    showCloseDialog(mMarkerCar.get(marker));
+            if (mMarkerCar.containsKey(marker)){
+                if (mMarkerCar.size() > 1){
+                    showCarsDialog(mMarkerCar.get(marker));
+                } else {
+                    if (Status.PARKING.equals(mCar.getStatus())
+                            || Status.BOOKING.equals(mCar.getStatus())){
+                        showOpenDialog(mMarkerCar.get(marker));
+                    } else if (Status.USAGE.equals(mCar.getStatus())){
+                        showCloseDialog(mMarkerCar.get(marker));
+                    }
                 }
             }
-
 
 //            Animation anim = AnimationUtils.loadAnimation(MapsActivity.this, R.anim.bottom_up);
 //            mContainer = findViewById(R.id.container);
