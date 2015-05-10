@@ -1,14 +1,16 @@
 package youdrive.today.maps;
 
 import android.app.ProgressDialog;
+import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -18,19 +20,24 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 import butterknife.OnItemClick;
 import timber.log.Timber;
 import youdrive.today.BaseActivity;
@@ -73,6 +80,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private Location mLastLocation;
     private MarkerOptions mMarker;
     private LocationRequest mLocationRequest;
+    private float mZoomLevel;
 
     @OnItemClick(R.id.lvProfile)
     void onItemSelected(int position) {
@@ -93,6 +101,24 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         }
     }
 
+    @OnClick(R.id.btnZoomIn)
+    void onZoomIn(View v){
+        if (mMap != null){
+            if (mZoomLevel < mMap.getMaxZoomLevel()){
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(++mZoomLevel));
+            }
+        }
+    }
+
+    @OnClick(R.id.btnZoomOut)
+    void onZoomOut(View v){
+        if (mMap != null){
+            if (mZoomLevel > mMap.getMinZoomLevel()){
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(--mZoomLevel));
+            }
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +128,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         setActionBarIcon(R.drawable.ic_ab_drawer);
         setUpMapIfNeeded();
         createLocationRequest();
+
+        mZoomLevel = mMap.getMinZoomLevel();
 
         lvProfile.addHeaderView(getLayoutInflater().inflate(R.layout.header_profile, null));
         lvProfile.setAdapter(new ProfileAdapter(this, R.layout.item_profile, getMenu()));
@@ -208,7 +236,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
     }
 
-    void getCurrentLocation(Location location) {
+    void updateLocation(Location location) {
 
         if (mMarker == null){
             mMarker = new MarkerOptions()
@@ -372,6 +400,14 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     public void onCars(List<Car> cars) {
         mCars = cars;
+
+        //Сортировка по возрастанию поля walktime
+        Collections.sort(mCars);
+
+        //Сдвигаю камеру на ближайшую машину, если известна текущая позиция
+        onMoveCamera(mCars.get(0));
+
+        //Добавление маркеров на карту
         mHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -380,6 +416,29 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 }
             }
         });
+    }
+
+    private void onMoveCamera(final Car car) {
+        if (mMarker != null){
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(
+                            new LatLngBounds(
+                                    new LatLng(car.getLat(), car.getLon()),
+                                    mMarker.getPosition()),
+                            getPx(5)));
+                    mZoomLevel = mMap.getCameraPosition().zoom;
+                }
+            });
+        }
+    }
+
+    private int getPx(int dp){
+        return (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                dp,
+                getResources().getDisplayMetrics());
     }
 
     @Override
@@ -497,7 +556,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         startLocationUpdates();
         if (mLastLocation != null) {
-            getCurrentLocation(mLastLocation);
+            updateLocation(mLastLocation);
         } else {
             Toast.makeText(this, "Не удалось определить месторасположение", Toast.LENGTH_LONG).show();
         }
@@ -516,7 +575,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     public void onLocationChanged(Location location) {
         Timber.d("Location LAT: " + location.getLatitude() + " LON: " + location.getLongitude());
-        getCurrentLocation(location);
+        updateLocation(location);
 
     }
 

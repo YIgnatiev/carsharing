@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by psuhoterin on 21.04.15.
  */
-public class Car {
+public class Car implements Comparable<Car>{
 
     @SerializedName("car_id")
     String id;
@@ -63,19 +63,16 @@ public class Car {
         this.status = status;
     }
 
+
     @Override
     public String toString() {
         return "Car{" +
-                "car_id='" + id + '\'' +
-                ", model='" + model + '\'' +
-                ", number='" + number + '\'' +
-                ", color='" + color + '\'' +
-                ", lat=" + lat +
-                ", lon=" + lon +
-                ", walktime=" + walktime +
-                ", transmission='" + transmission + '\'' +
-                ", fuel=" + fuel +
-                ", status=" + status +
+                "walktime=" + walktime +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Car car) {
+        return walktime - car.getWalktime();
     }
 }
