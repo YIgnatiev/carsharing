@@ -18,6 +18,13 @@ public class Car implements Comparable<Car>{
     String transmission;
     int fuel;
     Status status;
+    int distance;
+    Tariff tariff;
+    String img;
+
+    public String getImg() {
+        return img;
+    }
 
     public String getId() {
         return id;
@@ -63,12 +70,12 @@ public class Car implements Comparable<Car>{
         this.status = status;
     }
 
+    public int getDistance() {
+        return distance;
+    }
 
-    @Override
-    public String toString() {
-        return "Car{" +
-                "walktime=" + walktime +
-                '}';
+    public Tariff getTariff() {
+        return tariff;
     }
 
     @Override

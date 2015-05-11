@@ -23,4 +23,6 @@
     <string name="invitation">Далее</string>
     <string name="alarm">Внимание</string>
     <string name="ok">Хорошо</string>
+    <string name="minutes">минуты</string>
+    <string name="km">км.</string>
 </resources>

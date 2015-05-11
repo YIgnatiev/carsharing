@@ -60,6 +60,11 @@ public class ApiClient {
         delete(url, callback);
     }
 
+    public void getStatusCars(double lat, double lon, Callback callback){
+        String url = HOST + "/status?lat=" + lat + "&lon=" + lon;
+        get(url, callback);
+    }
+
     public void getStatusCars(Callback callback){
         String url = HOST + "/status";
         get(url, callback);

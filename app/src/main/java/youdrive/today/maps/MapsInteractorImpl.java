@@ -37,8 +37,49 @@ public class MapsInteractorImpl implements MapsInteractor {
     }
 
     @Override
-    public void getStatusCars(final MapsActionListener listener) {
+    public void getStatusCar(final MapsActionListener listener) {
         mApiClient.getStatusCars(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                Timber.e("Exception " + Log.getStackTraceString(e));
+                listener.onError();
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                String json = response.body().string();
+                Timber.d("JSON " + json);
+                try {
+                    JSONObject object = new JSONObject(json);
+                    boolean success = object.getBoolean("success");
+                    if (success) {
+                        if (object.has("cars")) {
+                            Type listType = new TypeToken<List<Car>>() {
+                            }.getType();
+                            List<Car> cars = mGson.fromJson(object.getString("cars"), listType);
+                            listener.onCars(cars);
+                        } else if (object.has("car")) {
+                            Car car = mGson.fromJson(object.getString("car"), Car.class);
+                            if (object.has("status")) {
+                                car.setStatus(Status.fromString(object.getString("status")));
+                            }
+                            listener.onCar(car);
+                        }
+
+                    } else {
+                        handlingError(new Gson().fromJson(json, ApiError.class), listener);
+                    }
+                } catch (JSONException e) {
+                    Timber.e("Exception " + Log.getStackTraceString(e));
+                    listener.onError();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void getStatusCars(double lat, double lon, final MapsActionListener listener) {
+        mApiClient.getStatusCars(lat, lon, new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
                 Timber.e("Exception " + Log.getStackTraceString(e));

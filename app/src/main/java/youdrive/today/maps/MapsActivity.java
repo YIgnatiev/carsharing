@@ -1,7 +1,7 @@
 package youdrive.today.maps;
 
 import android.app.ProgressDialog;
-import android.content.res.Resources;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -24,7 +25,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -34,12 +34,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
 import timber.log.Timber;
+import youdrive.today.App;
 import youdrive.today.BaseActivity;
 import youdrive.today.Car;
 import youdrive.today.Command;
@@ -48,6 +50,7 @@ import youdrive.today.R;
 import youdrive.today.Status;
 import youdrive.today.car.CarActionListener;
 import youdrive.today.car.CarInteractorImpl;
+import youdrive.today.order.OrderCarActivity;
 import youdrive.today.profile.ProfileActionListener;
 import youdrive.today.profile.ProfileAdapter;
 import youdrive.today.profile.ProfileInteractorImpl;
@@ -66,6 +69,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @InjectView(R.id.lvProfile)
     ListView lvProfile;
+
     private List<Car> mCars;
 
     private double mLat = 0.0d;
@@ -77,7 +81,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private Command mCommand;
     private MapsInteractorImpl mMapsInteractor;
     private GoogleApiClient mGoogleApiClient;
-    private Location mLastLocation;
     private MarkerOptions mMarker;
     private LocationRequest mLocationRequest;
     private float mZoomLevel;
@@ -102,22 +105,27 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
     @OnClick(R.id.btnZoomIn)
-    void onZoomIn(View v){
-        if (mMap != null){
-            if (mZoomLevel < mMap.getMaxZoomLevel()){
+    void onZoomIn(View v) {
+        if (mMap != null) {
+            mZoomLevel = mMap.getCameraPosition().zoom;
+            if (mZoomLevel < mMap.getMaxZoomLevel()) {
                 mMap.animateCamera(CameraUpdateFactory.zoomTo(++mZoomLevel));
             }
         }
     }
 
     @OnClick(R.id.btnZoomOut)
-    void onZoomOut(View v){
-        if (mMap != null){
-            if (mZoomLevel > mMap.getMinZoomLevel()){
+    void onZoomOut(View v) {
+        if (mMap != null) {
+            mZoomLevel = mMap.getCameraPosition().zoom;
+            if (mZoomLevel > mMap.getMinZoomLevel()) {
                 mMap.animateCamera(CameraUpdateFactory.zoomTo(--mZoomLevel));
             }
         }
     }
+
+    @InjectView(R.id.txtInfo)
+    TextView txtInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,12 +145,11 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         mProfileInteractor = new ProfileInteractorImpl();
         mCarInteractor = new CarInteractorImpl();
-
         mMapsInteractor = new MapsInteractorImpl();
-        mMapsInteractor.getStatusCars(this);
+
 
         mProgressDialog = new ProgressDialog(MapsActivity.this);
-        mProgressDialog.setMessage("Please wait");
+        mProgressDialog.setMessage("Пожалуйста подождите...");
 
         buildGoogleApiClient();
     }
@@ -173,7 +180,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     protected void onResume() {
         super.onResume();
         setUpMapIfNeeded();
-        if (mGoogleApiClient.isConnected()){
+        if (mGoogleApiClient.isConnected()) {
             startLocationUpdates();
         }
     }
@@ -188,10 +195,10 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     private List<Menu> getMenu() {
         List<Menu> items = new ArrayList<>();
-        items.add(new Menu(R.drawable.ic_ab_drawer, "Тарифы"));
-        items.add(new Menu(R.drawable.ic_ab_drawer, "Помощь"));
-        items.add(new Menu(R.drawable.ic_ab_drawer, "Позвонить оператору"));
-        items.add(new Menu(R.drawable.ic_ab_drawer, "Выход"));
+        items.add(new Menu(R.drawable.icon_tariff, "Тарифы"));
+        items.add(new Menu(R.drawable.icon_help, "Помощь"));
+        items.add(new Menu(R.drawable.icon_call, "Позвонить оператору"));
+        items.add(new Menu(R.drawable.icon_exit, "Выход"));
         return items;
     }
 
@@ -227,19 +234,17 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
     protected void startLocationUpdates() {
-        Timber.d("Start Location Update");
         LocationServices.FusedLocationApi.requestLocationUpdates(
                 mGoogleApiClient, mLocationRequest, this);
     }
 
     protected void stopLocationUpdates() {
-        Timber.d("Stop Location Update");
         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
     }
 
     void updateLocation(Location location) {
 
-        if (mMarker == null){
+        if (mMarker == null) {
             mMarker = new MarkerOptions()
                     .position(new LatLng(location.getLatitude(), location.getLongitude()))
                     .title("Это Вы!")
@@ -247,15 +252,14 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.user_location));
             mMap.addMarker(mMarker);
         } else {
-            Timber.d("Refresh Marker");
             mMarker.position(new LatLng(location.getLatitude(), location.getLongitude()));
         }
     }
 
-    private void showCarsDialog(final Car car){
-        new MaterialDialog.Builder(MapsActivity.this)
+    private void showCarsDialog(final Car car) {
+        MaterialDialog dialog = new MaterialDialog.Builder(MapsActivity.this)
                 .title(car.getModel())
-                .customView(R.layout.custom_info_contents, true)
+                .customView(R.layout.dialog_info_contents, true)
                 .positiveText("Забронировать")
                 .negativeText("Отмена")
                 .callback(new MaterialDialog.ButtonCallback() {
@@ -274,14 +278,36 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                     @Override
                     public void onNegative(MaterialDialog dialog) {
                     }
-                })
-                .show();
+                }).show();
+
+        View view = dialog.getCustomView();
+        if (view != null) {
+            buildDialog(view, car);
+        }
     }
 
-    private void showOpenDialog(final Car car){
+    private void buildDialog(View view, Car car) {
+        DialogHolder holder = new DialogHolder(view);
+        holder.txtDistanse.setText(convertKilometers(car.getDistance()));
+        holder.txtTimeTo.setText(convertTime(car.getWalktime()));
+        holder.txtType.setText(car.getTransmission());
+        holder.txtTaxDrive.setText(String.valueOf(car.getTariff().getUsage()));
+        holder.txtTaxPark.setText(String.valueOf(car.getTariff().getParking()));
+    }
+
+    String convertKilometers(int meters) {
+        return meters * 0.001 + " " + getString(R.string.km);
+    }
+
+    String convertTime(int seconds) {
+        long minute = TimeUnit.SECONDS.toMinutes(seconds);
+        return minute + " " + getString(R.string.minutes);
+    }
+
+    private void showOpenDialog(final Car car) {
         new MaterialDialog.Builder(MapsActivity.this)
                 .title(car.getModel())
-                .customView(R.layout.custom_info_contents, true)
+                .customView(R.layout.dialog_info_contents, true)
                 .positiveText("Открыть")
                 .negativeText("Отменить")
                 .callback(new MaterialDialog.ButtonCallback() {
@@ -297,10 +323,10 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 .show();
     }
 
-    private void showCloseDialog(final Car car){
+    private void showCloseDialog(final Car car) {
         new MaterialDialog.Builder(MapsActivity.this)
                 .title(car.getModel())
-                .customView(R.layout.custom_info_contents, true)
+                .customView(R.layout.dialog_info_contents, true)
                 .positiveText("Закрыть")
                 .negativeText("Закончить")
                 .callback(new MaterialDialog.ButtonCallback() {
@@ -317,19 +343,19 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 .show();
     }
 
-//    private View mContainer;
+    //    private View mContainer;
     GoogleMap.OnMarkerClickListener onMarkerClickListener = new GoogleMap.OnMarkerClickListener() {
         @Override
         public boolean onMarkerClick(final Marker marker) {
 
-            if (mMarkerCar.containsKey(marker)){
-                if (mMarkerCar.size() > 1){
+            if (mMarkerCar.containsKey(marker)) {
+                if (mMarkerCar.size() > 1) {
                     showCarsDialog(mMarkerCar.get(marker));
                 } else {
                     if (Status.PARKING.equals(mCar.getStatus())
-                            || Status.BOOKING.equals(mCar.getStatus())){
+                            || Status.BOOKING.equals(mCar.getStatus())) {
                         showOpenDialog(mMarkerCar.get(marker));
-                    } else if (Status.USAGE.equals(mCar.getStatus())){
+                    } else if (Status.USAGE.equals(mCar.getStatus())) {
                         showCloseDialog(mMarkerCar.get(marker));
                     }
                 }
@@ -342,7 +368,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
             return false;
         }
-};
+    };
 
     HashMap<Marker, Car> mMarkerCar = new HashMap<>();
 
@@ -396,7 +422,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     public void onComplete() {
         Timber.d("onComplete");
-        mMapsInteractor.getStatusCars(this);
+        mMapsInteractor.getStatusCar(this);
     }
 
     @Override
@@ -414,14 +440,18 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             @Override
             public void run() {
                 for (Car c : mCars) {
+                    //Добавляю маркеры на карту
                     addMarker(c);
                 }
+
+                //Заполняю информационное поле
+                txtInfo.setText("До ближайшей машины " + convertTime(mCars.get(0).getWalktime()) + " пешком");
             }
         });
     }
 
     private void onMoveCamera(final Car car) {
-        if (mMarker != null){
+        if (mMarker != null) {
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -429,14 +459,13 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                             new LatLngBounds(
                                     new LatLng(car.getLat(), car.getLon()),
                                     mMarker.getPosition()),
-                            getPx(5)));
-                    mZoomLevel = mMap.getCameraPosition().zoom;
+                            getPx(20)));
                 }
             });
         }
     }
 
-    private int getPx(int dp){
+    private int getPx(int dp) {
         return (int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
                 dp,
@@ -466,6 +495,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
                 mCar.setStatus(Status.BOOKING);
                 addMarker(car);
+
+                App.getInstance().setCar(car);
+                startActivity(new Intent(MapsActivity.this, OrderCarActivity.class));
             }
         });
 
@@ -499,14 +531,12 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onToken(Command command, String token) {
-        Timber.d("onToken");
         mToken = token;
         mCommand = command;
     }
 
     @Override
     public void onPleaseWait() {
-        Timber.d("onPleaseWait");
         if (mToken != null
                 && mCommand != null) {
             mHandler.post(new Runnable() {
@@ -516,8 +546,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                     new CountDownTimer(5000, 1000) {
 
                         public void onTick(long millisUntilFinished) {
-                            Timber.d("ProgressDialog " + mProgressDialog);
-                            if (mProgressDialog != null){
+                            if (mProgressDialog != null) {
                                 mProgressDialog.setMessage("Seconds remaining: " + millisUntilFinished / 1000);
                             }
                         }
@@ -555,10 +584,11 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onConnected(Bundle bundle) {
-        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         startLocationUpdates();
         if (mLastLocation != null) {
             updateLocation(mLastLocation);
+            mMapsInteractor.getStatusCars(mLastLocation.getLatitude(), mLastLocation.getLongitude(), MapsActivity.this);
         } else {
             Toast.makeText(this, "Не удалось определить месторасположение", Toast.LENGTH_LONG).show();
         }
@@ -578,7 +608,28 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     public void onLocationChanged(Location location) {
         Timber.d("Location LAT: " + location.getLatitude() + " LON: " + location.getLongitude());
         updateLocation(location);
+    }
 
+    static class DialogHolder {
+
+        @InjectView(R.id.txtDistance)
+        TextView txtDistanse;
+
+        @InjectView(R.id.txtTimeTo)
+        TextView txtTimeTo;
+
+        @InjectView(R.id.txtType)
+        TextView txtType;
+
+        @InjectView(R.id.txtTaxDrive)
+        TextView txtTaxDrive;
+
+        @InjectView(R.id.txtTaxPark)
+        TextView txtTaxPark;
+
+        public DialogHolder(View view) {
+            ButterKnife.inject(this, view);
+        }
     }
 
 //    private class CInfoWindowAdapter implements GoogleMap.InfoWindowAdapter{
@@ -586,7 +637,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 //        private final View mView;
 //
 //        public CInfoWindowAdapter() {
-//            mView = getLayoutInflater().inflate(R.layout.custom_info_contents, null);
+//            mView = getLayoutInflater().inflate(R.layout._info_contents, null);
 //        }
 //
 //        @Override

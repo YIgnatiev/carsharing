@@ -27,7 +27,6 @@ dependencies {
     /*Code*/
     compile 'com.jakewharton:butterknife:6.1.0'
     /*Дизайн*/
-    compile 'com.github.navasmdc:MaterialDesign:1.+@aar'
     compile 'com.afollestad:material-dialogs:0.7.2.2'
     /*Network*/
     compile 'com.squareup.okhttp:okhttp:2.3.0'
@@ -36,4 +35,5 @@ dependencies {
     compile 'com.google.code.gson:gson:2.3.1'
     /*Log*/
     compile 'com.jakewharton.timber:timber:3.0.1'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }

@@ -1,9 +1,9 @@
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".HomeActivity"
     android:id="@+id/drawer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".HomeActivity">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -12,51 +12,73 @@
         <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar" />
-        
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/toolbar">
 
             <fragment xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/map"
-                tools:context=".MapsActivity"
-                android:name="com.google.android.gms.maps.SupportMapFragment" />
-            
+                tools:context=".MapsActivity" />
+
             <FrameLayout
                 android:id="@+id/container"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:background="@color/translucent_white"
                 android:layout_gravity="bottom"
-                android:visibility="invisible">
+                android:background="@color/translucent_white"
+                android:visibility="invisible" />
 
+            <LinearLayout
+                android:id="@+id/info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:background="@color/translucent_white"
+                android:orientation="horizontal"
+                android:visibility="visible">
 
-            </FrameLayout>
-            
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/icon_pin"
+                    android:layout_margin="15dp"/>
+
+                <TextView
+                    android:id="@+id/txtInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="5dp"/>
+
+            </LinearLayout>
+
         </FrameLayout>
 
         <ImageButton
             android:id="@+id/btnZoomOut"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/minus"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            android:layout_marginBottom="30dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="30dp"/>
+            android:background="@drawable/minus" />
 
         <ImageButton
             android:id="@+id/btnZoomIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/plus"
             android:layout_above="@id/btnZoomOut"
             android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="10dp"/>
+            android:background="@drawable/plus" />
 
 
     </RelativeLayout>
@@ -66,7 +88,7 @@
         android:layout_width="260dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@android:color/darker_gray"/>
+        android:background="@android:color/darker_gray" />
 
 </android.support.v4.widget.DrawerLayout>
 

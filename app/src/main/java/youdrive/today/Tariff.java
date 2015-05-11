@@ -6,4 +6,12 @@ package youdrive.today;
 public class Tariff {
     int usage;
     int parking;
+
+    public int getUsage() {
+        return usage;
+    }
+
+    public int getParking() {
+        return parking;
+    }
 }
