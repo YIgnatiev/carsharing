@@ -243,7 +243,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
     void updateLocation(Location location) {
-
+        mLat = location.getLatitude();
+        mLon = location.getLongitude();
         if (mMarker == null) {
             mMarker = new MarkerOptions()
                     .position(new LatLng(location.getLatitude(), location.getLongitude()))
@@ -497,7 +498,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 addMarker(car);
 
                 App.getInstance().setCar(car);
-                startActivity(new Intent(MapsActivity.this, OrderCarActivity.class));
+                startActivity(new Intent(MapsActivity.this, OrderCarActivity.class).putExtra("car", mCar));
             }
         });
 

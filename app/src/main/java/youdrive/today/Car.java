@@ -1,11 +1,14 @@
 package youdrive.today;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by psuhoterin on 21.04.15.
  */
-public class Car implements Comparable<Car>{
+public class Car implements Comparable<Car>, Parcelable {
 
     @SerializedName("car_id")
     String id;
@@ -82,4 +85,36 @@ public class Car implements Comparable<Car>{
     public int compareTo(Car car) {
         return walktime - car.getWalktime();
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(model);
+        dest.writeString(number);
+        dest.writeString(color);
+        dest.writeString(img);
+    }
+
+    protected Car(Parcel in) {
+        model = in.readString();
+        number = in.readString();
+        color = in.readString();
+        img = in.readString();
+    }
+
+    public static final Parcelable.Creator<Car> CREATOR = new Parcelable.Creator<Car>() {
+        @Override
+        public Car createFromParcel(Parcel in) {
+            return new Car(in);
+        }
+
+        @Override
+        public Car[] newArray(int size) {
+            return new Car[size];
+        }
+    };
 }

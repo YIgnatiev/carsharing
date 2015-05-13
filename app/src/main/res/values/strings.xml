@@ -25,4 +25,10 @@
     <string name="ok">Хорошо</string>
     <string name="minutes">минуты</string>
     <string name="km">км.</string>
+    <string name="success">Готово!</string>
+    <string name="info">Автомобиль успешно забронирован. \n Аренда начнется через 20 минут.</string>
+    <string name="car_number">Номер:</string>
+    <string name="car_color">Цвет:</string>
+    <string name="car_model">Автомобиль:</string>
+    <string name="show_on_map">Показать на карте</string>
 </resources>
