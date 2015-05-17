@@ -12,4 +12,9 @@
         <item name="android:background">@drawable/apptheme_spinner</item>
     </style>
 
+    <style name="Animation">
+        <item name="android:windowEnterAnimation">@anim/bottom_up</item>
+        <item name="android:windowExitAnimation">@anim/bottom_down</item>
+    </style>
+
 </resources>

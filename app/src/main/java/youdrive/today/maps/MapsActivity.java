@@ -310,32 +310,13 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
     private void showOpenDialog() {
-        showPopup();
+        showOpenPopup();
     }
 
-    private void showCloseDialog(final Car car) {
-//        new MaterialDialog.Builder(MapsActivity.this)
-//                .title(car.getModel())
-//                .customView(R.layout.dialog_info_contents, true)
-//                .positiveText("Закрыть")
-//                .negativeText("Закончить")
-//                .callback(new MaterialDialog.ButtonCallback() {
-//                    @Override
-//                    public void onPositive(MaterialDialog dialog) {
-//                        mCarInteractor.command(Command.CLOSE, MapsActivity.this);
-//                    }
-//
-//                    @Override
-//                    public void onNegative(MaterialDialog dialog) {
-//                        mCarInteractor.complete(Command.COMPLETE, MapsActivity.this);
-//                    }
-//                })
-//                .show();
-
-
+    private void showCloseDialog() {
+        showClosePopup();
     }
 
-    //    private View mContainer;
     GoogleMap.OnMarkerClickListener onMarkerClickListener = new GoogleMap.OnMarkerClickListener() {
         @Override
         public boolean onMarkerClick(final Marker marker) {
@@ -348,7 +329,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                             || Status.BOOKING.equals(mCar.getStatus())) {
                         showOpenDialog();
                     } else if (Status.USAGE.equals(mCar.getStatus())) {
-                        showCloseDialog(mMarkerCar.get(marker));
+                        showCloseDialog();
                     }
                 }
             }
@@ -624,7 +605,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         }
     }
 
-    private void showPopup() {
+    private void showOpenPopup() {
         LayoutInflater inflater = (LayoutInflater)
                 this.getSystemService(LAYOUT_INFLATER_SERVICE);
         final View view = inflater.inflate(R.layout.popup_open_car, null, false);
@@ -646,7 +627,48 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         pw.setOutsideTouchable(true);
         pw.setAnimationStyle(android.R.style.Animation_Dialog);
+//        pw.setAnimationStyle(R.style.Animation);
         pw.setBackgroundDrawable(new ColorDrawable());
+
+        view.post(new Runnable() {
+            public void run() {
+                pw.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+            }
+        });
+    }
+
+    private void showClosePopup() {
+        LayoutInflater inflater = (LayoutInflater)
+                this.getSystemService(LAYOUT_INFLATER_SERVICE);
+        final View view = inflater.inflate(R.layout.popup_close_car, null, false);
+
+        final PopupWindow pw = new PopupWindow(
+                view,
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                true);
+
+        view.findViewById(R.id.btnCloseCar).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCarInteractor.command(Command.CLOSE, MapsActivity.this);
+                pw.dismiss();
+            }
+        });
+
+        view.findViewById(R.id.btnCloseCar).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCarInteractor.command(Command.COMPLETE, MapsActivity.this);
+                pw.dismiss();
+            }
+        });
+
+        pw.setOutsideTouchable(true);
+        pw.setAnimationStyle(android.R.style.Animation_Dialog);
+//        pw.setAnimationStyle(R.style.Animation);
+        pw.setBackgroundDrawable(new ColorDrawable());
+
         view.post(new Runnable() {
             public void run() {
                 pw.showAtLocation(view, Gravity.BOTTOM, 0, 0);

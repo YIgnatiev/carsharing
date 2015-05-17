@@ -33,4 +33,10 @@
     <string name="show_on_map">Показать на карте</string>
     <string name="cancel_reserve">Отменить бронь</string>
     <string name="open_car">Открыть машину</string>
+    <string name="current_tariff">Текущий тариф:</string>
+    <string name="usage">Использование:</string>
+    <string name="parking">Парковка:</string>
+    <string name="total">Итого:</string>
+    <string name="close_car">Закрыть машину</string>
+    <string name="close_rent">Закончить аренду</string>
 </resources>
