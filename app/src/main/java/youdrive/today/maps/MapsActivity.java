@@ -486,6 +486,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             @Override
             public void run() {
                 addMarker(car);
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                        new LatLng(car.getLat(), car.getLon()),
+                        15f), 1500, null);
             }
         });
     }
@@ -582,7 +585,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onLocationChanged(Location location) {
-        Timber.d("Location LAT: " + location.getLatitude() + " LON: " + location.getLongitude());
         updateLocation(location);
     }
 
@@ -667,7 +669,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             }
         });
 
-        pw.setOutsideTouchable(true);
+//        pw.setOutsideTouchable(true);
         pw.setAnimationStyle(android.R.style.Animation_Dialog);
 //        pw.setAnimationStyle(R.style.Animation);
         pw.setBackgroundDrawable(new ColorDrawable());

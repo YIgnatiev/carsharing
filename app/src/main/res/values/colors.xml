@@ -8,4 +8,9 @@
     <color name="negative">#2F3C4D</color>
     <color name="black">#000000</color>
 
+    <color name="main_dark">#189c7a</color>
+    <color name="disable">#ffdedede</color>
+
+    <color name="error_dark">#ff65a1</color>
+
 </resources>
