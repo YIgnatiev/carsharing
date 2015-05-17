@@ -1,7 +1,6 @@
-package youdrive.today.order;
+package youdrive.today.other;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;

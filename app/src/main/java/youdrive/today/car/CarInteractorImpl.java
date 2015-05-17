@@ -16,6 +16,7 @@ import timber.log.Timber;
 import youdrive.today.ApiError;
 import youdrive.today.App;
 import youdrive.today.Car;
+import youdrive.today.Check;
 import youdrive.today.Command;
 import youdrive.today.Result;
 import youdrive.today.data.network.ApiClient;
@@ -154,7 +155,8 @@ public class CarInteractorImpl implements CarInteractor {
                             } else if (command.equals(Command.CLOSE)) {
                                 listener.onClose();
                             } else {
-                                listener.onComplete();
+                                Check check = mGson.fromJson(object.getString("check"), Check.class);
+                                listener.onComplete(check);
                             }
                         }
                     } else {

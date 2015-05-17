@@ -42,7 +42,8 @@
         <activity android:name=".login.activities.RegistrationActivity"/>
         <activity android:name=".login.activities.ConfirmationActivity"/>
         <activity android:name=".login.activities.ThanksActivity"/>
-        <activity android:name=".order.OrderCarActivity"/>
+        <activity android:name=".other.OrderCarActivity"/>
+        <activity android:name=".other.CompleteActivity"/>
 
     </application>
 

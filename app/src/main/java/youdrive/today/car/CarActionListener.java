@@ -1,6 +1,7 @@
 package youdrive.today.car;
 
 import youdrive.today.Car;
+import youdrive.today.Check;
 import youdrive.today.Command;
 
 /**
@@ -36,5 +37,5 @@ public interface CarActionListener {
 
     void onClose();
 
-    void onComplete();
+    void onComplete(Check check);
 }

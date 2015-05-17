@@ -48,13 +48,15 @@ import timber.log.Timber;
 import youdrive.today.App;
 import youdrive.today.BaseActivity;
 import youdrive.today.Car;
+import youdrive.today.Check;
 import youdrive.today.Command;
 import youdrive.today.Menu;
 import youdrive.today.R;
 import youdrive.today.Status;
 import youdrive.today.car.CarActionListener;
 import youdrive.today.car.CarInteractorImpl;
-import youdrive.today.order.OrderCarActivity;
+import youdrive.today.other.CompleteActivity;
+import youdrive.today.other.OrderCarActivity;
 import youdrive.today.profile.ProfileActionListener;
 import youdrive.today.profile.ProfileAdapter;
 import youdrive.today.profile.ProfileInteractorImpl;
@@ -151,7 +153,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         mCarInteractor = new CarInteractorImpl();
         mMapsInteractor = new MapsInteractorImpl();
 
-        mMap.setInfoWindowAdapter(new CInfoWindowAdapter());
         mProgressDialog = new ProgressDialog(MapsActivity.this);
         mProgressDialog.setMessage("Пожалуйста подождите...");
 
@@ -325,6 +326,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 if (mMarkerCar.size() > 1) {
                     showCarsDialog(mMarkerCar.get(marker));
                 } else {
+                    mMap.setInfoWindowAdapter(new CInfoWindowAdapter());
                     if (Status.PARKING.equals(mCar.getStatus())
                             || Status.BOOKING.equals(mCar.getStatus())) {
                         showOpenDialog();
@@ -393,8 +395,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
     @Override
-    public void onComplete() {
+    public void onComplete(Check check) {
         Timber.d("onComplete");
+        startActivity(new Intent(this, CompleteActivity.class).putExtra("check", check));
         mMapsInteractor.getStatusCar(this);
     }
 
@@ -656,10 +659,10 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             }
         });
 
-        view.findViewById(R.id.btnCloseCar).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.btnCloseRent).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCarInteractor.command(Command.COMPLETE, MapsActivity.this);
+                mCarInteractor.complete(Command.COMPLETE, MapsActivity.this);
                 pw.dismiss();
             }
         });

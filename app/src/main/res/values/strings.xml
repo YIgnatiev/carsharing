@@ -39,4 +39,7 @@
     <string name="total">Итого:</string>
     <string name="close_car">Закрыть машину</string>
     <string name="close_rent">Закончить аренду</string>
+    <string name="check">Счет</string>
+    <string name="buy">Благодарим за использование сервиса. Оплата будет списана с вашей карты в ближайшее время.</string>
+    <string name="close">Закрыть</string>
 </resources>
