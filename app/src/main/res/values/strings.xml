@@ -31,4 +31,6 @@
     <string name="car_color">Цвет:</string>
     <string name="car_model">Автомобиль:</string>
     <string name="show_on_map">Показать на карте</string>
+    <string name="cancel_reserve">Отменить бронь</string>
+    <string name="open_car">Открыть машину</string>
 </resources>

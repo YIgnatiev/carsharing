@@ -14,6 +14,7 @@
             layout="@layout/toolbar" />
 
         <FrameLayout
+            android:id="@+id/ltMap"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/toolbar">
@@ -24,14 +25,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:context=".MapsActivity" />
-
-            <FrameLayout
-                android:id="@+id/container"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_gravity="bottom"
-                android:background="@color/translucent_white"
-                android:visibility="invisible" />
 
             <LinearLayout
                 android:id="@+id/info"

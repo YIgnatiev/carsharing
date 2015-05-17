@@ -2,6 +2,7 @@ package youdrive.today.maps;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -9,9 +10,12 @@ import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -147,7 +151,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         mCarInteractor = new CarInteractorImpl();
         mMapsInteractor = new MapsInteractorImpl();
 
-
+        mMap.setInfoWindowAdapter(new CInfoWindowAdapter());
         mProgressDialog = new ProgressDialog(MapsActivity.this);
         mProgressDialog.setMessage("Пожалуйста подождите...");
 
@@ -305,43 +309,30 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         return minute + " " + getString(R.string.minutes);
     }
 
-    private void showOpenDialog(final Car car) {
-        new MaterialDialog.Builder(MapsActivity.this)
-                .title(car.getModel())
-                .customView(R.layout.dialog_info_contents, true)
-                .positiveText("Открыть")
-                .negativeText("Отменить")
-                .callback(new MaterialDialog.ButtonCallback() {
-                    @Override
-                    public void onPositive(MaterialDialog dialog) {
-                        mCarInteractor.command(Command.OPEN, MapsActivity.this);
-                    }
-
-                    @Override
-                    public void onNegative(MaterialDialog dialog) {
-                    }
-                })
-                .show();
+    private void showOpenDialog() {
+        showPopup();
     }
 
     private void showCloseDialog(final Car car) {
-        new MaterialDialog.Builder(MapsActivity.this)
-                .title(car.getModel())
-                .customView(R.layout.dialog_info_contents, true)
-                .positiveText("Закрыть")
-                .negativeText("Закончить")
-                .callback(new MaterialDialog.ButtonCallback() {
-                    @Override
-                    public void onPositive(MaterialDialog dialog) {
-                        mCarInteractor.command(Command.CLOSE, MapsActivity.this);
-                    }
+//        new MaterialDialog.Builder(MapsActivity.this)
+//                .title(car.getModel())
+//                .customView(R.layout.dialog_info_contents, true)
+//                .positiveText("Закрыть")
+//                .negativeText("Закончить")
+//                .callback(new MaterialDialog.ButtonCallback() {
+//                    @Override
+//                    public void onPositive(MaterialDialog dialog) {
+//                        mCarInteractor.command(Command.CLOSE, MapsActivity.this);
+//                    }
+//
+//                    @Override
+//                    public void onNegative(MaterialDialog dialog) {
+//                        mCarInteractor.complete(Command.COMPLETE, MapsActivity.this);
+//                    }
+//                })
+//                .show();
 
-                    @Override
-                    public void onNegative(MaterialDialog dialog) {
-                        mCarInteractor.complete(Command.COMPLETE, MapsActivity.this);
-                    }
-                })
-                .show();
+
     }
 
     //    private View mContainer;
@@ -355,7 +346,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 } else {
                     if (Status.PARKING.equals(mCar.getStatus())
                             || Status.BOOKING.equals(mCar.getStatus())) {
-                        showOpenDialog(mMarkerCar.get(marker));
+                        showOpenDialog();
                     } else if (Status.USAGE.equals(mCar.getStatus())) {
                         showCloseDialog(mMarkerCar.get(marker));
                     }
@@ -633,22 +624,59 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         }
     }
 
-//    private class CInfoWindowAdapter implements GoogleMap.InfoWindowAdapter{
-//
-//        private final View mView;
-//
-//        public CInfoWindowAdapter() {
-//            mView = getLayoutInflater().inflate(R.layout._info_contents, null);
-//        }
-//
-//        @Override
-//        public View getInfoWindow(Marker marker) {
-//            return mView;
-//        }
-//
-//        @Override
-//        public View getInfoContents(Marker marker) {
-//            return null;
-//        }
-//    }
+    private void showPopup() {
+        LayoutInflater inflater = (LayoutInflater)
+                this.getSystemService(LAYOUT_INFLATER_SERVICE);
+        final View view = inflater.inflate(R.layout.popup_open_car, null, false);
+
+        final PopupWindow pw = new PopupWindow(
+                view,
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                true);
+
+        view.findViewById(R.id.btnOpen).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCarInteractor.command(Command.OPEN, MapsActivity.this);
+                pw.dismiss();
+            }
+        });
+
+
+        pw.setOutsideTouchable(true);
+        pw.setAnimationStyle(android.R.style.Animation_Dialog);
+        pw.setBackgroundDrawable(new ColorDrawable());
+        view.post(new Runnable() {
+            public void run() {
+                pw.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+            }
+        });
+    }
+
+    private class CInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
+
+        @Override
+        public View getInfoWindow(Marker marker) {
+            return null;
+        }
+
+        @Override
+        public View getInfoContents(Marker marker) {
+            View view = getLayoutInflater().inflate(R.layout.marker_info, null);
+
+            TextView txtModel = (TextView) view.findViewById(R.id.txtModel);
+            txtModel.setText(mCar.getModel());
+
+            TextView txtNumber = (TextView) view.findViewById(R.id.txtNumber);
+            txtNumber.setText(mCar.getNumber());
+
+            TextView txtColor = (TextView) view.findViewById(R.id.txtColor);
+            txtColor.setText(mCar.getColor());
+
+            TextView txtStartUsage = (TextView) view.findViewById(R.id.txtStartUsage);
+            return view;
+        }
+    }
+
 }
