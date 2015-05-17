@@ -8,11 +8,15 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -20,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.dd.CircularProgressButton;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -44,6 +49,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
+import butterknife.Optional;
 import timber.log.Timber;
 import youdrive.today.App;
 import youdrive.today.BaseActivity;
@@ -76,10 +82,14 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @InjectView(R.id.lvProfile)
     ListView lvProfile;
 
+    @InjectView(R.id.ltContainer)
+    FrameLayout ltContainer;
+
     private List<Car> mCars;
 
     private double mLat = 0.0d;
     private double mLon = 0.0d;
+
     private String mToken;
     private ProgressDialog mProgressDialog;
     private CarInteractorImpl mCarInteractor;
@@ -90,6 +100,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private MarkerOptions mMarker;
     private LocationRequest mLocationRequest;
     private float mZoomLevel;
+    private CircularProgressButton btnOpen;
+    private CircularProgressButton btnCloseCar;
+    private CircularProgressButton btnCloseRent;
 
     @OnItemClick(R.id.lvProfile)
     void onItemSelected(int position) {
@@ -336,11 +349,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 }
             }
 
-//            Animation anim = AnimationUtils.loadAnimation(MapsActivity.this, R.anim.bottom_up);
-//            mContainer = findViewById(R.id.container);
-//            mContainer.setAnimation(anim);
-//            mContainer.setVisibility(View.VISIBLE);
-
             return false;
         }
     };
@@ -348,7 +356,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     HashMap<Marker, Car> mMarkerCar = new HashMap<>();
 
     private void addMarker(Car car) {
-
         mMarkerCar.put(mMap.addMarker(
                         new MarkerOptions()
                                 .flat(true)
@@ -397,6 +404,12 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     public void onComplete(Check check) {
         Timber.d("onComplete");
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                hideWindow();
+            }
+        });
         startActivity(new Intent(this, CompleteActivity.class).putExtra("check", check));
         mMapsInteractor.getStatusCar(this);
     }
@@ -405,22 +418,15 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     public void onCars(List<Car> cars) {
         mCars = cars;
 
-        //Сортировка по возрастанию поля walktime
         Collections.sort(mCars);
-
-        //Сдвигаю камеру на ближайшую машину, если известна текущая позиция
         onMoveCamera(mCars.get(0));
-
-        //Добавление маркеров на карту
         mHandler.post(new Runnable() {
             @Override
             public void run() {
                 for (Car c : mCars) {
-                    //Добавляю маркеры на карту
                     addMarker(c);
                 }
 
-                //Заполняю информационное поле
                 txtInfo.setText("До ближайшей машины " + convertTime(mCars.get(0).getWalktime()) + " пешком");
             }
         });
@@ -472,7 +478,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 mCar.setStatus(Status.BOOKING);
                 addMarker(car);
 
-                App.getInstance().setCar(car);
                 startActivity(new Intent(MapsActivity.this, OrderCarActivity.class).putExtra("car", mCar));
             }
         });
@@ -518,25 +523,12 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     public void onPleaseWait() {
         if (mToken != null
                 && mCommand != null) {
-            mHandler.post(new Runnable() {
+            mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    mProgressDialog.show();
-                    new CountDownTimer(5000, 1000) {
-
-                        public void onTick(long millisUntilFinished) {
-                            if (mProgressDialog != null) {
-                                mProgressDialog.setMessage("Seconds remaining: " + millisUntilFinished / 1000);
-                            }
-                        }
-
-                        public void onFinish() {
-                            mProgressDialog.hide();
-                            mCarInteractor.result(mCommand, mToken, MapsActivity.this);
-                        }
-                    }.start();
+                    mCarInteractor.result(mCommand, mToken, MapsActivity.this);
                 }
-            });
+            }, 5000);
         }
     }
 
@@ -548,7 +540,16 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     public void onOpen() {
         Timber.d("onOpen");
-        mCar.setStatus(Status.USAGE);
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                btnOpen.setProgress(100);
+                mCar.setStatus(Status.USAGE);
+                hideWindow();
+                showClosePopup();
+            }
+        });
+
     }
 
     @Override
@@ -565,7 +566,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     public void onConnected(Bundle bundle) {
         Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         startLocationUpdates();
-        if (mLastLocation != null) {
+        if (mLastLocation != null && mMarkerCar.isEmpty()) {
             updateLocation(mLastLocation);
             mMapsInteractor.getStatusCars(mLastLocation.getLatitude(), mLastLocation.getLongitude(), MapsActivity.this);
         } else {
@@ -610,34 +611,31 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         }
     }
 
+    private void addWindow(View view) {
+        Animation anim = AnimationUtils.loadAnimation(MapsActivity.this, R.anim.bottom_up);
+        ltContainer.setAnimation(anim);
+        ltContainer.addView(view);
+    }
+
+    private void hideWindow(){
+        ltContainer.removeAllViews();
+    }
+
     private void showOpenPopup() {
+
         LayoutInflater inflater = (LayoutInflater)
                 this.getSystemService(LAYOUT_INFLATER_SERVICE);
         final View view = inflater.inflate(R.layout.popup_open_car, null, false);
 
-        final PopupWindow pw = new PopupWindow(
-                view,
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                true);
+        addWindow(view);
 
-        view.findViewById(R.id.btnOpen).setOnClickListener(new View.OnClickListener() {
+        btnOpen = ButterKnife.findById(view, R.id.btnOpen);
+        btnOpen.setIndeterminateProgressMode(true);
+        btnOpen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btnOpen.setProgress(50);
                 mCarInteractor.command(Command.OPEN, MapsActivity.this);
-                pw.dismiss();
-            }
-        });
-
-
-        pw.setOutsideTouchable(true);
-        pw.setAnimationStyle(android.R.style.Animation_Dialog);
-//        pw.setAnimationStyle(R.style.Animation);
-        pw.setBackgroundDrawable(new ColorDrawable());
-
-        view.post(new Runnable() {
-            public void run() {
-                pw.showAtLocation(view, Gravity.BOTTOM, 0, 0);
             }
         });
     }
@@ -647,36 +645,25 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 this.getSystemService(LAYOUT_INFLATER_SERVICE);
         final View view = inflater.inflate(R.layout.popup_close_car, null, false);
 
-        final PopupWindow pw = new PopupWindow(
-                view,
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                true);
+        addWindow(view);
 
-        view.findViewById(R.id.btnCloseCar).setOnClickListener(new View.OnClickListener() {
+        btnCloseCar = ButterKnife.findById(view, R.id.btnCloseCar);
+        btnCloseCar.setIndeterminateProgressMode(true);
+        btnCloseCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btnCloseCar.setProgress(50);
                 mCarInteractor.command(Command.CLOSE, MapsActivity.this);
-                pw.dismiss();
             }
         });
 
-        view.findViewById(R.id.btnCloseRent).setOnClickListener(new View.OnClickListener() {
+        btnCloseRent = ButterKnife.findById(view, R.id.btnCloseRent);
+        btnCloseRent.setIndeterminateProgressMode(true);
+        btnCloseRent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btnCloseRent.setProgress(50);
                 mCarInteractor.complete(Command.COMPLETE, MapsActivity.this);
-                pw.dismiss();
-            }
-        });
-
-//        pw.setOutsideTouchable(true);
-        pw.setAnimationStyle(android.R.style.Animation_Dialog);
-//        pw.setAnimationStyle(R.style.Animation);
-        pw.setBackgroundDrawable(new ColorDrawable());
-
-        view.post(new Runnable() {
-            public void run() {
-                pw.showAtLocation(view, Gravity.BOTTOM, 0, 0);
             }
         });
     }

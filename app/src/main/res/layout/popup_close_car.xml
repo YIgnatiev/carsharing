@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -100,24 +101,46 @@
             android:layout_margin="5dp"
             android:orientation="horizontal">
 
-            <Button
+            <com.dd.CircularProgressButton
                 android:id="@+id/btnCloseCar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:text="@string/close_car"
-                android:background="@color/main"
-                android:textColor="@color/white"/>
+                android:layout_below="@+id/etPassword"
+                android:layout_alignRight="@+id/etPassword"
+                android:layout_alignLeft="@+id/etPassword"
+                android:layout_marginRight="5dp"
+                android:textColor="@color/white"
+                android:layout_marginTop="15dp"
+                app:cpb_selectorIdle="@drawable/idle_state_selector"
+                app:cpb_selectorComplete="@drawable/complete_state_selector"
+                app:cpb_selectorError="@drawable/error_state_selector"
+                app:cpb_cornerRadius="5dp"
+                app:cpb_colorIndicator="@color/main"
+                app:cpb_colorProgress="@color/cpb_white"
+                app:cpb_textError="@string/error"
+                app:cpb_textIdle="@string/close_car"
+                app:cpb_iconComplete="@drawable/ic_action_accept"/>
 
-            <Button
+            <com.dd.CircularProgressButton
                 android:id="@+id/btnCloseRent"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/close_rent"
-                android:background="@color/main"
-                android:textColor="@color/white"/>
+                android:layout_below="@+id/etPassword"
+                android:layout_alignRight="@+id/etPassword"
+                android:layout_alignLeft="@+id/etPassword"
+                android:textColor="@color/white"
+                android:layout_marginTop="15dp"
+                app:cpb_selectorIdle="@drawable/idle_state_selector"
+                app:cpb_selectorComplete="@drawable/complete_state_selector"
+                app:cpb_selectorError="@drawable/error_state_selector"
+                app:cpb_cornerRadius="5dp"
+                app:cpb_colorIndicator="@color/main"
+                app:cpb_colorProgress="@color/cpb_white"
+                app:cpb_textError="@string/error"
+                app:cpb_textIdle="@string/close_rent"
+                app:cpb_iconComplete="@drawable/ic_action_accept"/>
 
         </LinearLayout>
 

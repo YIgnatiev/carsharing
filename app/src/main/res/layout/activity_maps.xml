@@ -51,6 +51,15 @@
 
             </LinearLayout>
 
+            <FrameLayout
+                android:id="@+id/ltContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"/>
+
         </FrameLayout>
 
         <ImageButton

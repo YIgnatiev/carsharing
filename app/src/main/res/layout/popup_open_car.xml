@@ -1,35 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="bottom"
+    android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+    <com.dd.CircularProgressButton
+        android:id="@+id/btnCancel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:layout_weight="1"
+        android:textColor="@color/white"
+        app:cpb_colorIndicator="@color/main"
+        app:cpb_colorProgress="@color/cpb_white"
+        app:cpb_cornerRadius="5dp"
+        app:cpb_iconComplete="@drawable/ic_action_accept"
+        app:cpb_selectorComplete="@drawable/complete_state_selector"
+        app:cpb_selectorError="@drawable/error_state_selector"
+        app:cpb_selectorIdle="@drawable/idle_state_selector"
+        app:cpb_textError="@string/error"
+        app:cpb_textIdle="@string/cancel_reserve" />
 
-        <Button
-            android:id="@+id/btnCancel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/cancel_reserve"
-            android:layout_margin="5dp"
-            android:background="@color/main"
-            android:textColor="@color/white"/>
-
-        <Button
-            android:id="@+id/btnOpen"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/open_car"
-            android:layout_margin="5dp"
-            android:background="@color/main"
-            android:textColor="@color/white"/>
+    <com.dd.CircularProgressButton
+        android:id="@+id/btnOpen"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_weight="1"
+        android:textColor="@color/white"
+        app:cpb_colorIndicator="@color/main"
+        app:cpb_colorProgress="@color/cpb_white"
+        app:cpb_cornerRadius="5dp"
+        app:cpb_iconComplete="@drawable/ic_action_accept"
+        app:cpb_selectorComplete="@drawable/complete_state_selector"
+        app:cpb_selectorError="@drawable/error_state_selector"
+        app:cpb_selectorIdle="@drawable/idle_state_selector"
+        app:cpb_textError="@string/error"
+        app:cpb_textIdle="@string/open_car" />
 
 
-    </LinearLayout>
-
-</ScrollView>
+</LinearLayout>

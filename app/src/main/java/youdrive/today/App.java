@@ -17,7 +17,6 @@ public class App extends Application {
     private PreferenceHelper mPreference;
     private ApiClient mApiClient;
     private Gson mGson;
-    private Car car;
 
     public App() {
         sInstance = this;
@@ -52,11 +51,4 @@ public class App extends Application {
         return sInstance;
     }
 
-    public void setCar(Car car) {
-        this.car = car;
-    }
-
-    public Car getCar() {
-        return car;
-    }
 }
