@@ -38,4 +38,6 @@ public interface CarActionListener {
     void onClose();
 
     void onComplete(Check check);
+
+    void onBookingTimeLeft(int bookingTimeLeft);
 }

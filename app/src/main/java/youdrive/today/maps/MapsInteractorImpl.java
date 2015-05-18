@@ -22,6 +22,7 @@ import youdrive.today.Car;
 import youdrive.today.Result;
 import youdrive.today.Status;
 import youdrive.today.data.network.ApiClient;
+import youdrive.today.response.CarsResponse;
 
 /**
  * Created by psuhoterin on 22.04.15.
@@ -47,31 +48,19 @@ public class MapsInteractorImpl implements MapsInteractor {
 
             @Override
             public void onResponse(Response response) throws IOException {
+                Timber.d("URL " + response.request().urlString());
                 String json = response.body().string();
                 Timber.d("JSON " + json);
-                try {
-                    JSONObject object = new JSONObject(json);
-                    boolean success = object.getBoolean("success");
-                    if (success) {
-                        if (object.has("cars")) {
-                            Type listType = new TypeToken<List<Car>>() {
-                            }.getType();
-                            List<Car> cars = mGson.fromJson(object.getString("cars"), listType);
-                            listener.onCars(cars);
-                        } else if (object.has("car")) {
-                            Car car = mGson.fromJson(object.getString("car"), Car.class);
-                            if (object.has("status")) {
-                                car.setStatus(Status.fromString(object.getString("status")));
-                            }
-                            listener.onCar(car);
-                        }
-
-                    } else {
-                        handlingError(new Gson().fromJson(json, ApiError.class), listener);
+                CarsResponse resp = mGson.fromJson(json, CarsResponse.class);
+                if (resp.isSuccess()){
+                    if (resp.getCars() != null){
+                        listener.onCars(resp.getCars());
+                    } else if (resp.getCar() != null){
+                        listener.onCar(resp.getCar());
                     }
-                } catch (JSONException e) {
-                    Timber.e("Exception " + Log.getStackTraceString(e));
-                    listener.onError();
+                    listener.onStatus(Status.fromString(resp.getStatus()));
+                } else {
+                    handlingError(resp.getCode(), listener);
                 }
             }
         });
@@ -88,40 +77,36 @@ public class MapsInteractorImpl implements MapsInteractor {
 
             @Override
             public void onResponse(Response response) throws IOException {
+                Timber.d("URL " + response.request().urlString());
                 String json = response.body().string();
                 Timber.d("JSON " + json);
-                try {
-                    JSONObject object = new JSONObject(json);
-                    boolean success = object.getBoolean("success");
-                    if (success) {
-                        if (object.has("cars")) {
-                            Type listType = new TypeToken<List<Car>>() {
-                            }.getType();
-                            List<Car> cars = mGson.fromJson(object.getString("cars"), listType);
-                            listener.onCars(cars);
-                        } else if (object.has("car")) {
-                            Car car = mGson.fromJson(object.getString("car"), Car.class);
-                            if (object.has("status")) {
-                                car.setStatus(Status.fromString(object.getString("status")));
-                            }
-                            listener.onCar(car);
-                        }
-
-                    } else {
-                        handlingError(new Gson().fromJson(json, ApiError.class), listener);
+                CarsResponse resp = mGson.fromJson(json, CarsResponse.class);
+                if (resp.isSuccess()){
+                    if (resp.getCars() != null){
+                        listener.onCars(resp.getCars());
+                    } else if (resp.getCar() != null){
+                        listener.onCar(resp.getCar());
                     }
-                } catch (JSONException e) {
-                    Timber.e("Exception " + Log.getStackTraceString(e));
-                    listener.onError();
+
+                    if (resp.getCheck() != null){
+                        listener.onCheck(resp.getCheck());
+                    }
+
+                    if (resp.getStatus() != null){
+                        listener.onStatus(Status.fromString(resp.getStatus()));
+                    }
+
+                } else {
+                    handlingError(resp.getCode(), listener);
                 }
             }
         });
     }
 
-    private void handlingError(ApiError error, MapsActionListener listener) {
-        if (error.getCode() == ApiError.FORBIDDEN){
+    private void handlingError(int code, MapsActionListener listener) {
+        if (code == ApiError.FORBIDDEN){
             listener.onForbidden();
-        } else if (error.getCode() == ApiError.TARIFF_NOT_FOUND){
+        } else if (code == ApiError.TARIFF_NOT_FOUND){
             listener.onTariffNotFound();
         } else {
             listener.onError();

@@ -20,6 +20,7 @@ import youdrive.today.Check;
 import youdrive.today.Command;
 import youdrive.today.Result;
 import youdrive.today.data.network.ApiClient;
+import youdrive.today.response.OrderResponse;
 
 /**
  * Created by psuhoterin on 26.04.15.
@@ -47,18 +48,13 @@ public class CarInteractorImpl implements CarInteractor {
             public void onResponse(Response response) throws IOException {
                 String json = response.body().string();
                 Timber.d("JSON " + json);
-                try {
-                    JSONObject object = new JSONObject(json);
-                    boolean success = object.getBoolean("success");
-                    if (success) {
-                        Car car = mGson.fromJson(object.getString("car"), Car.class);
-                        listener.onOrder(car);
-                    } else {
-                        handlingError(new Gson().fromJson(json, ApiError.class), listener);
-                    }
-                } catch (JSONException e) {
-                    Timber.e("Exception " + Log.getStackTraceString(e));
-                    listener.onError();
+                OrderResponse resp = mGson.fromJson(json, OrderResponse.class);
+                if (resp.isSuccess()){
+                    listener.onOrder(resp.getCar());
+                    listener.onBookingTimeLeft(resp.getBookingTimeLeft());
+                } else {
+                    //TODO
+//                    handlingError(resp.getCode(), listener);
                 }
             }
         });

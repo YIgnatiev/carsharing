@@ -20,7 +20,6 @@ public class Car implements Comparable<Car>, Parcelable {
     int walktime;
     String transmission;
     int fuel;
-    Status status;
     int distance;
     Tariff tariff;
     String img;
@@ -63,14 +62,6 @@ public class Car implements Comparable<Car>, Parcelable {
 
     public int getFuel() {
         return fuel;
-    }
-
-    public Status getStatus(){
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
     }
 
     public int getDistance() {
@@ -117,4 +108,22 @@ public class Car implements Comparable<Car>, Parcelable {
             return new Car[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "id='" + id + '\'' +
+                ", model='" + model + '\'' +
+                ", number='" + number + '\'' +
+                ", color='" + color + '\'' +
+                ", lat=" + lat +
+                ", lon=" + lon +
+                ", walktime=" + walktime +
+                ", transmission='" + transmission + '\'' +
+                ", fuel=" + fuel +
+                ", distance=" + distance +
+                ", tariff=" + tariff +
+                ", img='" + img + '\'' +
+                '}';
+    }
 }
