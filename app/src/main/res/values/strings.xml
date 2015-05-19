@@ -3,7 +3,7 @@
     <string name="title_activity_maps">Map</string>
     <string name="restore_password">Восстановить пароль</string>
     <string name="about">О проекте</string>
-    <string name="registration">Регистрация</string>
+    <string name="registration">Запрос приглашения</string>
     <string name="login">Войти</string>
     <string name="receive_an_invitation">Запрос приглашения</string>
     <string name="thanks">Спасибо</string>
@@ -43,4 +43,6 @@
     <string name="buy">Благодарим за использование сервиса. Оплата будет списана с вашей карты в ближайшее время.</string>
     <string name="close">Закрыть</string>
     <string name="error">Ошибка</string>
+    <string name="empty">Пустое поле</string>
+    <string name="email_not_valid">email введен не корректно</string>
 </resources>

@@ -9,7 +9,7 @@ import youdrive.today.Region;
  */
 public interface RegistrationActionListener {
 
-    void onRequest();
+    void onInvite();
     void onRegions(List<Region> regions);
 
     void onError();

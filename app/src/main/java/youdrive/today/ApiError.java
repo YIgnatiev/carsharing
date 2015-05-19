@@ -5,8 +5,8 @@ package youdrive.today;
  */
 public class ApiError {
 
-    public static final int USER_NOT_FOUND = 10101;
-    public static final int FIELD_IS_EMPTY = 10102;
+    public static final int USER_NOT_FOUND = 113;
+    public static final int FIELD_IS_EMPTY = 114;
     public static final int SESSION_NOT_FOUND = 11101;
     public static final int INVALID_REQUEST = 11102;
     public static final int FORBIDDEN = 15101;
@@ -24,21 +24,13 @@ public class ApiError {
 
 
     int code;
-    String message;
+    String text;
 
     public int getCode() {
         return code;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    @Override
-    public String toString() {
-        return "Error{" +
-                "code=" + code +
-                ", message='" + message + '\'' +
-                '}';
+    public String getText() {
+        return text;
     }
 }

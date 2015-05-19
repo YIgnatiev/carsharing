@@ -29,13 +29,11 @@ public class LoginInteractorImpl implements LoginInteractor {
     private final ApiClient mApiClient;
 
     public LoginInteractorImpl() {
-        Timber.tag("Login");
         mApiClient = App.getInstance().getApiClient();
     }
 
     @Override
     public void login(String email, String password, final LoginActionListener listener) {
-        Timber.d("LoginInteractorImpl");
         try {
             mApiClient.login(email, password, new Callback() {
 
@@ -48,6 +46,7 @@ public class LoginInteractorImpl implements LoginInteractor {
                 @Override
                 public void onResponse(Response response) throws IOException {
                     String json = response.body().string();
+                    Timber.d("JSON " + json);
                     try {
                         boolean success = new JSONObject(json).getBoolean("success");
                         if (success) {
@@ -68,42 +67,11 @@ public class LoginInteractorImpl implements LoginInteractor {
         }
     }
 
-//    @Override
-//    public Subscription reLogin(final String email, final String password, final LoginActionListener listener) {
-//            return BaseObservable.ApiObservable(new RequestListener() {
-//                @Override
-//                public String onRequest() {
-//                    try {
-//                        return mReApiClietn.login(email, password);
-//                    } catch (IOException e) {
-//                        Timber.e(Log.getStackTraceString(e));
-//                        listener.onError();
-//                        return null;
-//                    }
-//                }
-//            }).subscribe(new Action1<String>() {
-//                @Override
-//                public void call(String s) {
-//                    try {
-//                        boolean success = new JSONObject(s).getBoolean("success");
-//                        if (success) {
-//                            listener.onSuccess(new Gson().fromJson(s, User.class));
-//                        } else {
-//                            handlingError(new Gson().fromJson(s, ApiError.class), listener);
-//                        }
-//                    } catch (JSONException e) {
-//                        Timber.e("Exception " + Log.getStackTraceString(e));
-//                        listener.onError();
-//                    }
-//                }
-//            });
-//    }
-
     private void handlingError(ApiError error, LoginActionListener listener) {
         if (error.getCode() == ApiError.FIELD_IS_EMPTY) {
-            listener.onErrorEmpty();
+            listener.onErrorFieldEmpty(error.getText());
         } else if (error.getCode() == ApiError.USER_NOT_FOUND) {
-            listener.onErrorNotFound();
+            listener.onErrorUserNotFound(error.getText());
         } else {
             listener.onError();
         }

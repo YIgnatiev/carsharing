@@ -34,8 +34,10 @@ public class RegistrationInteractorImpl implements RegistrationInteractor {
         mApiClient = App.getInstance().getApiClient();
     }
 
+
+
     @Override
-    public void getRequest(String name, String phone, String region, final RegistrationActionListener listener) {
+    public void getInvite(String name, String phone, String region, final RegistrationActionListener listener) {
         mApiClient.invite(name, phone, region, new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
@@ -50,7 +52,7 @@ public class RegistrationInteractorImpl implements RegistrationInteractor {
                     JSONObject object = new JSONObject(json);
                     boolean success = object.getBoolean("success");
                     if (success) {
-                        listener.onRequest();
+                        listener.onInvite();
                     } else {
                         listener.onError();
                     }

@@ -81,6 +81,10 @@ public class ApiClient {
         post(url, json, callback);
     }
 
+    public String getRequest(String email, String phone, String region){
+        return "{\"email\":\"" + email + "\", \"phone\":\"" + phone +"\", \"region_id\":\"" + region + "\", \"ready_to_use\": true}";
+    }
+
     public void order(String id, double lat, double lon, Callback callback){
         String url = HOST + "/order";
         String json = "{\"car_id\":\"" + id + "\", \"lat\":" + lat +", \"lon\":" + lon + "}";

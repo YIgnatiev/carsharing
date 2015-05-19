@@ -1,15 +1,13 @@
 package youdrive.today.login.activities;
 
-import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.EditText;
+import android.widget.Toast;
 
 import com.dd.CircularProgressButton;
+import com.rengwuxian.materialedittext.MaterialEditText;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -28,10 +26,10 @@ import youdrive.today.login.impl.LoginInteractorImpl;
 public class LoginActivity extends BaseActivity implements LoginActionListener {
 
     @InjectView(R.id.etLogin)
-    EditText etLogin;
+    MaterialEditText etLogin;
 
     @InjectView(R.id.etPassword)
-    EditText etPassword;
+    MaterialEditText etPassword;
 
     @InjectView(R.id.btnLogin)
     CircularProgressButton btnLogin;
@@ -42,11 +40,38 @@ public class LoginActivity extends BaseActivity implements LoginActionListener {
 
     @OnClick(R.id.btnLogin)
     public void submit(View view) {
-        btnLogin.setProgress(50);
-        mInteractor.login(
-                etLogin.getText().toString(),
-                etPassword.getText().toString(),
-                this);
+
+        if (isValidate()){
+            btnLogin.setProgress(50);
+            mInteractor.login(
+                    etLogin.getText().toString(),
+                    etPassword.getText().toString(),
+                    this);
+        }
+
+    }
+
+    private boolean isValidate(){
+        boolean isValidate = true;
+
+        if (isEmpty(etLogin)){
+            etLogin.setError(getString(R.string.empty));
+            isValidate = false;
+        } else if (!etLogin.getText().toString().contains("@")){
+            etLogin.setError(getString(R.string.email_not_valid));
+            isValidate = false;
+        }
+
+        if (isEmpty(etPassword)){
+            etPassword.setError(getString(R.string.empty));
+            isValidate = false;
+        }
+
+        return isValidate;
+    }
+
+    private boolean isEmpty(MaterialEditText et) {
+        return et.getText().toString().trim().length() == 0;
     }
 
     @OnClick(R.id.txtRestore)
@@ -102,22 +127,33 @@ public class LoginActivity extends BaseActivity implements LoginActionListener {
     }
 
     @Override
-    public void onErrorNotFound() {
+    public void onErrorUserNotFound(final String message) {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
-                btnLogin.setProgress(-1);
+                error(message);
             }
         });
     }
 
     @Override
-    public void onErrorEmpty() {
+    public void onErrorFieldEmpty(final String message) {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
-                btnLogin.setProgress(-1);
+                error(message);
             }
         });
+    }
+
+    private void error(String text){
+        Toast.makeText(LoginActivity.this, text, Toast.LENGTH_LONG).show();
+        btnLogin.setProgress(-1);
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                btnLogin.setProgress(0);
+            }
+        }, 2000);
     }
 }

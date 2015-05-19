@@ -25,29 +25,35 @@
         android:textColor="@color/white"
         android:textAppearance="@android:style/TextAppearance.Large"/>
 
-    <EditText
+    <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/etLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/txtEntrance"
         android:text="testmail@example.com"
-        android:textColor="@color/white"
-        android:textColorHint="@color/hint"
+        android:hint="E-mail"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"/>
+        android:layout_marginRight="40dp"
+        app:met_textColorHint="@color/hint"
+        app:met_baseColor="@color/white"
+        app:met_primaryColor="@color/main"
+        app:met_errorColor="@color/error"/>
 
-    <EditText
+    <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/etLogin"
         android:inputType="textPassword"
         android:text="test1234"
-        android:textColor="@color/white"
-        android:textColorHint="@color/hint"
+        android:hint="Пароль"
         android:layout_alignLeft="@+id/etLogin"
-        android:layout_alignRight="@+id/etLogin"/>
+        android:layout_alignRight="@+id/etLogin"
+        app:met_textColorHint="@color/hint"
+        app:met_baseColor="@color/white"
+        app:met_primaryColor="@color/main"
+        app:met_errorColor="@color/error"/>
 
     <com.dd.CircularProgressButton
         android:id="@+id/btnLogin"
@@ -94,7 +100,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/translucent_white">
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/txtAbout"
@@ -102,7 +108,8 @@
             android:layout_height="wrap_content"
             android:text="@string/about"
             android:layout_gravity="left"
-            android:padding="20dp"/>
+            android:padding="20dp"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/txtRegistration"
@@ -110,7 +117,8 @@
             android:layout_height="wrap_content"
             android:text="@string/registration"
             android:layout_gravity="right"
-            android:padding="20dp"/>
+            android:padding="20dp"
+            android:textColor="@color/black"/>
 
     </FrameLayout>
 

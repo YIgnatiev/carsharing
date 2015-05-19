@@ -29,6 +29,7 @@ dependencies {
     /*Дизайн*/
     compile 'com.afollestad:material-dialogs:0.7.2.2'
     compile 'com.github.dmytrodanylyk.circular-progress-button:library:1.1.3'
+    compile 'com.rengwuxian.materialedittext:library:2.1.3'
     /*Network*/
     compile 'com.squareup.okhttp:okhttp:2.3.0'
     compile 'io.reactivex:rxandroid:0.24.0'

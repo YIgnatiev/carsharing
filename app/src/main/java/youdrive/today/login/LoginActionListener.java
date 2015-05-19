@@ -10,7 +10,7 @@ public interface LoginActionListener {
     void onSuccess(User user);
     void onError();
 
-    void onErrorNotFound();
-    void onErrorEmpty();
+    void onErrorUserNotFound(String message);
+    void onErrorFieldEmpty(String message);
 
 }

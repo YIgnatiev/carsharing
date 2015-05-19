@@ -7,7 +7,7 @@ import youdrive.today.login.RegistrationActionListener;
  */
 public interface RegistrationInteractor {
 
-    void getRequest(String name, String phone, String region, RegistrationActionListener listener);
+    void getInvite(String name, String phone, String region, RegistrationActionListener listener);
     void getRegions(RegistrationActionListener listener);
 
 }
