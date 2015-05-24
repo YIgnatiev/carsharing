@@ -1,21 +1,25 @@
 package youdrive.today.data.network;
 
+import com.google.gson.Gson;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
-import java.net.URI;
 import java.net.URLEncoder;
 
 import timber.log.Timber;
 import youdrive.today.App;
 import youdrive.today.Command;
+import youdrive.today.response.BaseResponse;
+import youdrive.today.response.LoginResponse;
+import youdrive.today.response.RegionsResponse;
 
 /**
  * Created by psuhoterin on 21.04.15.
@@ -28,9 +32,11 @@ public class ApiClient {
             = MediaType.parse("application/json; charset=utf-8");
 
     private static String HOST = "http://54.191.34.18";
+    private final Gson mGson;
 
     public ApiClient() {
         mClient = new OkHttpClient();
+        mGson = new Gson();
         setCookie();
     }
 
@@ -49,10 +55,10 @@ public class ApiClient {
 //        mClient.setCookieHandler(new CookieManager(new NewPersistentCookieStore(), CookiePolicy.ACCEPT_ALL));
     }
 
-    public void login(String email, String password, Callback callback) throws UnsupportedEncodingException {
+    public LoginResponse login(String email, String password) throws IOException {
         String url = HOST + "/session";
         String json = "{\"email\":\"" + email + "\", \"password\":\"" + password + "\"}";
-        post(url, json, callback);
+        return mGson.fromJson(post(url, json), LoginResponse.class);
     }
 
     public void logout(Callback callback) {
@@ -70,15 +76,15 @@ public class ApiClient {
         get(url, callback);
     }
 
-    public void getRegions(Callback callback){
+    public RegionsResponse getRegions() throws IOException {
         String url = HOST + "/regions";
-        get(url, callback);
+        return mGson.fromJson(get(url), RegionsResponse.class);
     }
 
-    public void invite(String email, String phone, String region, Callback callback) {
+    public BaseResponse invite(String email, String phone, String region) throws IOException {
         String url = HOST + "/invite";
         String json = "{\"email\":\"" + email + "\", \"phone\":\"" + phone +"\", \"region_id\":\"" + region + "\", \"ready_to_use\": true}";
-        post(url, json, callback);
+        return mGson.fromJson(post(url, json), BaseResponse.class);
     }
 
     public String getRequest(String email, String phone, String region){
@@ -112,6 +118,26 @@ public class ApiClient {
                 .url(url)
                 .build();
         mClient.newCall(request).enqueue(callback);
+    }
+
+    private String get(String url) throws IOException {
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        Response response = mClient.newCall(request).execute();
+        return response.body().string();
+    }
+
+    private String post(String url, String json) throws IOException {
+        Timber.d("URL " + url + " BODY " + json);
+        RequestBody body = RequestBody.create(JSON, json);
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+        Response response = mClient.newCall(request).execute();
+        return response.body().string();
     }
 
     private void post(String url, String json, Callback callback){

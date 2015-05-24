@@ -12,8 +12,8 @@ public class ApiError {
     public static final int FORBIDDEN = 15101;
     public static final int TARIFF_NOT_FOUND = 20101;
     public static final int UNKNOWN_ERROR = 13101;
-    public static final int USER_ALREADY_EXISTS = 14102;
-    public static final int REGION_NOT_FOUND = 14101;
+    public static final int USER_ALREADY_EXISTS = 110;
+    public static final int REGION_NOT_FOUND = 109;
     public static final int CAR_NOT_FOUND = 19101;
     public static final int NOT_INFO = 19102;
     public static final int NOT_ORDER = 19103;
@@ -25,6 +25,11 @@ public class ApiError {
 
     int code;
     String text;
+
+    public ApiError(int code, String text) {
+        this.code = code;
+        this.text = text;
+    }
 
     public int getCode() {
         return code;

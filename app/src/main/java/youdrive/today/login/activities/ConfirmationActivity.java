@@ -8,9 +8,6 @@ import butterknife.OnClick;
 import youdrive.today.BaseActivity;
 import youdrive.today.R;
 
-/**
- * Created by psuhoterin on 16.04.15.
- */
 public class ConfirmationActivity extends BaseActivity{
 
     @OnClick(R.id.btnOk)

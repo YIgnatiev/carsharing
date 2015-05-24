@@ -45,4 +45,6 @@
     <string name="error">Ошибка</string>
     <string name="empty">Пустое поле</string>
     <string name="email_not_valid">email введен не корректно</string>
+    <string name="internal_error">Внутренняя ошибка</string>
+    <string name="inform">Мы сообщим Вам, когда начнем работать в Вашем регионе.</string>
 </resources>

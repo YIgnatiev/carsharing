@@ -14,7 +14,7 @@ public interface RegistrationActionListener {
 
     void onError();
     void onUnknownError();
-    void onRegionNotFound();
-    void onUserAlreadyExist();
+    void onRegionNotFound(String text);
+    void onUserAlreadyExist(String text);
 
 }

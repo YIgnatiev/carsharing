@@ -12,5 +12,6 @@
     <color name="disable">#ffdedede</color>
 
     <color name="error_dark">#ff65a1</color>
+    <color name="negative_dark">#1c232d</color>
 
 </resources>

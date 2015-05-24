@@ -2,22 +2,22 @@ package youdrive.today.login.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.dd.CircularProgressButton;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.LogRecord;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.InjectViews;
 import butterknife.OnClick;
 import timber.log.Timber;
+import youdrive.today.AppUtils;
 import youdrive.today.BaseActivity;
 import youdrive.today.MaskedWatcher;
 import youdrive.today.R;
@@ -25,15 +25,12 @@ import youdrive.today.Region;
 import youdrive.today.login.RegistrationActionListener;
 import youdrive.today.login.impl.RegistrationInteractorImpl;
 
-/**
- * Created by psuhoterin on 15.04.15.
- */
 public class RegistrationActivity extends BaseActivity implements RegistrationActionListener {
 
     private static final int DEFAULT_POSITION = 0;
     private static final int RC_CONFIRM = 1;
-
-    Handler mHandler = new Handler();
+    private static final int RC_INFORM = 2;
+    private static final int RC_THANKS = 3;
 
     @InjectView(R.id.etLogin)
     MaterialEditText etLogin;
@@ -44,24 +41,31 @@ public class RegistrationActivity extends BaseActivity implements RegistrationAc
     @InjectView(R.id.spRegion)
     Spinner spRegion;
 
+    @InjectViews({R.id.etLogin, R.id.etPhone, R.id.spRegion, R.id.txtLogin, R.id.txtAbout})
+    List<View> vInputs;
+
+    @InjectView(R.id.btnInvite)
+    CircularProgressButton btnInvite;
+
     private RegistrationInteractorImpl mInteractor;
     private List<Region> mRegions;
 
     @OnClick(R.id.btnInvite)
-    public void invite(View view) {
-        if (isValidate()) {
-            startActivityForResult(new Intent(RegistrationActivity.this, ConfirmationActivity.class), RC_CONFIRM);
+    public void invite() {
+        if (btnInvite.getProgress()==0
+                && isValidate()) {
+            startActivityForResult(new Intent(this, ConfirmationActivity.class), RC_CONFIRM);
         }
     }
 
     @OnClick(R.id.txtLogin)
     public void login(View view) {
-        // TODO submit data to server...
+        finish();
     }
 
     @OnClick(R.id.txtAbout)
     public void about(View view) {
-        // TODO submit data to server...
+        AppUtils.about(this);
     }
 
     private boolean isValidate() {
@@ -98,34 +102,36 @@ public class RegistrationActivity extends BaseActivity implements RegistrationAc
         ButterKnife.inject(this);
 
         mInteractor = new RegistrationInteractorImpl();
+
+        spRegion.setEnabled(false);
         mInteractor.getRegions(this);
+
+        btnInvite.setIndeterminateProgressMode(true);
 
         new MaskedWatcher(etPhone, "# (###) ### ## ##");
     }
 
     @Override
     public void onInvite() {
-        startActivity(new Intent(this, ThanksActivity.class));
+        AppUtils.success(btnInvite);
+        if (spRegion.getSelectedItemPosition() < 1) {
+            startActivityForResult(new Intent(this, ThanksActivity.class), RC_THANKS);
+        } else {
+            startActivityForResult(new Intent(this, InformActivity.class), RC_INFORM);
+        }
     }
 
     @Override
     public void onRegions(List<Region> regions) {
-        Timber.d("Regions " + regions.toString());
+        spRegion.setEnabled(true);
         mRegions = regions;
 
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(RegistrationActivity.this,
+                R.layout.item_spinner, getRegions(mRegions));
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(RegistrationActivity.this,
-                        R.layout.item_spinner, getRegions(mRegions));
-                adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
-
-                spRegion.setAdapter(adapter);
-                spRegion.setSelection(DEFAULT_POSITION);
-            }
-        });
-
+        spRegion.setAdapter(adapter);
+        spRegion.setSelection(DEFAULT_POSITION);
     }
 
     private List<String> getRegions(List<Region> regions) {
@@ -140,13 +146,20 @@ public class RegistrationActivity extends BaseActivity implements RegistrationAc
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_CONFIRM
-                && resultCode == RESULT_OK){
+                && resultCode == RESULT_OK) {
 
+            ButterKnife.apply(vInputs, AppUtils.ENABLED, false);
+
+            btnInvite.setProgress(50);
             mInteractor.getInvite(
                     etLogin.getText().toString(),
                     etPhone.getText().toString(),
                     mRegions.get(spRegion.getSelectedItemPosition()).getId(),
                     this);
+
+        } else if (requestCode == RC_INFORM
+                || requestCode == RC_THANKS) {
+            finish();
         }
     }
 
@@ -161,12 +174,26 @@ public class RegistrationActivity extends BaseActivity implements RegistrationAc
     }
 
     @Override
-    public void onRegionNotFound() {
+    public void onRegionNotFound(String text) {
+        error(text);
         Timber.d("onRegionNotFound");
     }
 
     @Override
-    public void onUserAlreadyExist() {
+    public void onUserAlreadyExist(String text) {
+        error(text);
         Timber.d("onUserAlreadyExist");
+    }
+
+    @Override
+    protected void onDestroy() {
+        mInteractor.getSubscription().unsubscribe();
+        super.onDestroy();
+    }
+
+    private void error(String text){
+        ButterKnife.apply(vInputs, AppUtils.ENABLED, true);
+        AppUtils.error(text,
+                btnInvite);
     }
 }

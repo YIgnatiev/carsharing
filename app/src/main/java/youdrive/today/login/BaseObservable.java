@@ -7,21 +7,20 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import youdrive.today.response.BaseResponse;
 
-/**
- * Created by psuhoterin on 26.04.15.
- */
 public class BaseObservable {
 
-
-    public static Observable<String> ApiObservable(final RequestListener listener) {
+    public static Observable<BaseResponse> ApiCall(final RequestListener listener) {
         return Observable
-                .create(new Observable.OnSubscribe<String>() {
+                .create(new Observable.OnSubscribe<BaseResponse>() {
                     @Override
-                    public void call(Subscriber<? super String> subscriber) {
-                        String request = listener.onRequest();
+                    public void call(Subscriber<? super BaseResponse> subscriber) {
+                        BaseResponse request = listener.onRequest();
                         if (request != null) {
                             subscriber.onNext(request);
+                        } else {
+                            subscriber.onError(new IOException("Request is null"));
                         }
 
                         subscriber.onCompleted();

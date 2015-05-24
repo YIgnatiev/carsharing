@@ -1,70 +1,57 @@
 package youdrive.today.login.impl;
 
-import android.util.Log;
-
-import com.google.gson.Gson;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
-import timber.log.Timber;
+import rx.Subscription;
+import rx.functions.Action1;
+import rx.subscriptions.Subscriptions;
 import youdrive.today.ApiError;
 import youdrive.today.App;
 import youdrive.today.User;
 import youdrive.today.data.network.ApiClient;
+import youdrive.today.login.BaseObservable;
 import youdrive.today.login.LoginActionListener;
+import youdrive.today.login.RequestListener;
 import youdrive.today.login.interactors.LoginInteractor;
+import youdrive.today.response.BaseResponse;
+import youdrive.today.response.LoginResponse;
 
-/**
- * Created by psuhoterin on 15.04.15.
- */
 public class LoginInteractorImpl implements LoginInteractor {
 
     private final ApiClient mApiClient;
+    private Subscription subscription = Subscriptions.empty();
 
     public LoginInteractorImpl() {
         mApiClient = App.getInstance().getApiClient();
     }
 
     @Override
-    public void login(String email, String password, final LoginActionListener listener) {
-        try {
-            mApiClient.login(email, password, new Callback() {
-
-                @Override
-                public void onFailure(Request request, IOException e) {
-                    Timber.e("Exception " + Log.getStackTraceString(e));
-                    listener.onError();
+    public void login(final String email, final String password, final LoginActionListener listener) {
+        subscription = BaseObservable.ApiCall(new RequestListener() {
+            @Override
+            public BaseResponse onRequest() {
+                try {
+                    return mApiClient.login(email, password);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+        }).doOnNext(new Action1<BaseResponse>() {
+            @Override
+            public void call(BaseResponse baseResponse) {
+                LoginResponse response = (LoginResponse) baseResponse;
+                if (response.isSuccess()) {
+                    listener.onSuccess(new User(response.getSessionId(),
+                            response.getName(),
+                            response.getAvatar()));
+                } else {
+                    handlingError(new ApiError(response.getCode(),
+                            response.getText()), listener);
                 }
 
-                @Override
-                public void onResponse(Response response) throws IOException {
-                    String json = response.body().string();
-                    Timber.d("JSON " + json);
-                    try {
-                        boolean success = new JSONObject(json).getBoolean("success");
-                        if (success) {
-                            listener.onSuccess(new Gson().fromJson(json, User.class));
-                        } else {
-                            handlingError(new Gson().fromJson(json, ApiError.class), listener);
-                        }
-                    } catch (JSONException e) {
-                        Timber.e("Exception " + Log.getStackTraceString(e));
-                        listener.onError();
-                    }
-
-                }
-            });
-        } catch (UnsupportedEncodingException e) {
-            Timber.e("Exception " + Log.getStackTraceString(e));
-            listener.onError();
-        }
+            }
+        }).subscribe();
     }
 
     private void handlingError(ApiError error, LoginActionListener listener) {
@@ -75,5 +62,9 @@ public class LoginInteractorImpl implements LoginInteractor {
         } else {
             listener.onError();
         }
+    }
+
+    public Subscription getSubscription() {
+        return subscription;
     }
 }

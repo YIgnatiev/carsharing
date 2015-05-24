@@ -9,10 +9,14 @@ import android.widget.Toast;
 import com.dd.CircularProgressButton;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
+import java.util.List;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.InjectViews;
 import butterknife.OnClick;
 import timber.log.Timber;
+import youdrive.today.AppUtils;
 import youdrive.today.BaseActivity;
 import youdrive.today.User;
 import youdrive.today.maps.MapsActivity;
@@ -20,9 +24,6 @@ import youdrive.today.R;
 import youdrive.today.login.LoginActionListener;
 import youdrive.today.login.impl.LoginInteractorImpl;
 
-/**
- * Created by psuhoterin on 15.04.15.
- */
 public class LoginActivity extends BaseActivity implements LoginActionListener {
 
     @InjectView(R.id.etLogin)
@@ -31,38 +32,41 @@ public class LoginActivity extends BaseActivity implements LoginActionListener {
     @InjectView(R.id.etPassword)
     MaterialEditText etPassword;
 
+    @InjectViews({R.id.etLogin, R.id.etPassword, R.id.txtRestore, R.id.txtAbout, R.id.txtRegistration})
+    List<View> vInputs;
+
     @InjectView(R.id.btnLogin)
     CircularProgressButton btnLogin;
-
-    Handler mHandler = new Handler();
 
     private LoginInteractorImpl mInteractor;
 
     @OnClick(R.id.btnLogin)
-    public void submit(View view) {
+    public void login() {
+        if (btnLogin.getProgress() == 0
+                && isValidate()) {
 
-        if (isValidate()){
+            ButterKnife.apply(vInputs, AppUtils.ENABLED, false);
+
             btnLogin.setProgress(50);
             mInteractor.login(
                     etLogin.getText().toString(),
                     etPassword.getText().toString(),
                     this);
         }
-
     }
 
-    private boolean isValidate(){
+    private boolean isValidate() {
         boolean isValidate = true;
 
-        if (isEmpty(etLogin)){
+        if (isEmpty(etLogin)) {
             etLogin.setError(getString(R.string.empty));
             isValidate = false;
-        } else if (!etLogin.getText().toString().contains("@")){
+        } else if (!etLogin.getText().toString().contains("@")) {
             etLogin.setError(getString(R.string.email_not_valid));
             isValidate = false;
         }
 
-        if (isEmpty(etPassword)){
+        if (isEmpty(etPassword)) {
             etPassword.setError(getString(R.string.empty));
             isValidate = false;
         }
@@ -81,7 +85,7 @@ public class LoginActivity extends BaseActivity implements LoginActionListener {
 
     @OnClick(R.id.txtAbout)
     public void about(View view) {
-        // TODO submit data to server...
+        AppUtils.about(this);
     }
 
     @OnClick(R.id.txtRegistration)
@@ -105,55 +109,34 @@ public class LoginActivity extends BaseActivity implements LoginActionListener {
 
     @Override
     public void onSuccess(User user) {
-        Timber.d("User " + user.toString());
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                btnLogin.setProgress(100);
-            }
-        });
-
+        AppUtils.success(btnLogin);
         startActivity(new Intent(this, MapsActivity.class));
+        finish();
     }
 
     @Override
     public void onError() {
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                btnLogin.setProgress(-1);
-            }
-        });
+        error(getString(R.string.internal_error));
     }
 
     @Override
     public void onErrorUserNotFound(final String message) {
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                error(message);
-            }
-        });
+        error(message);
     }
 
     @Override
     public void onErrorFieldEmpty(final String message) {
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                error(message);
-            }
-        });
+        error(message);
     }
 
-    private void error(String text){
-        Toast.makeText(LoginActivity.this, text, Toast.LENGTH_LONG).show();
-        btnLogin.setProgress(-1);
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                btnLogin.setProgress(0);
-            }
-        }, 2000);
+    private void error(String text) {
+        ButterKnife.apply(vInputs, AppUtils.ENABLED, true);
+        AppUtils.error(text, btnLogin);
+    }
+
+    @Override
+    protected void onDestroy() {
+        mInteractor.getSubscription().unsubscribe();
+        super.onDestroy();
     }
 }

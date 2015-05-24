@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg">
@@ -15,10 +14,10 @@
         android:layout_marginTop="40dp"/>
 
     <TextView
-        android:id="@+id/txtAlarm"
+        android:id="@+id/txtThanks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/alarm"
+        android:text="@string/thanks"
         android:textAllCaps="true"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/ivLogo"
@@ -28,17 +27,17 @@
         android:layout_centerInParent="true"/>
 
     <TextView
-        android:id="@+id/txtLocationService"
+        android:id="@+id/txtMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/location_service"
-        android:layout_below="@id/txtAlarm"
+        android:text="@string/inform"
+        android:layout_below="@id/txtThanks"
+        android:layout_centerInParent="true"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:textColor="@color/white"
         android:gravity="center"/>
-
 
     <com.dd.CircularProgressButton
         android:id="@+id/btnOk"
@@ -46,34 +45,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:paddingLeft="35dp"
-        android:paddingRight="35dp"
+        android:paddingLeft="45dp"
+        android:paddingRight="45dp"
         android:layout_marginBottom="20dp"
-        app:cpb_selectorIdle="@drawable/idle_state_selector"
-        app:cpb_selectorComplete="@drawable/complete_state_selector"
-        app:cpb_selectorError="@drawable/error_state_selector"
-        app:cpb_cornerRadius="5dp"
-        app:cpb_colorIndicator="@color/main"
-        app:cpb_colorProgress="@color/cpb_white"
-        app:cpb_textIdle="@string/it_fits"/>
-
-    <com.dd.CircularProgressButton
-        android:id="@+id/btnCancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btnOk"
-        android:layout_alignLeft="@+id/btnOk"
-        android:layout_alignRight="@+id/btnOk"
         android:textColor="@color/white"
-        android:background="@color/negative"
-        android:layout_marginBottom="20dp"
-        app:cpb_selectorIdle="@drawable/negative_state_selector"
-        app:cpb_selectorComplete="@drawable/complete_state_selector"
-        app:cpb_selectorError="@drawable/error_state_selector"
+        app:cpb_selectorIdle="@drawable/idle_state_selector"
         app:cpb_cornerRadius="5dp"
         app:cpb_colorIndicator="@color/main"
         app:cpb_colorProgress="@color/cpb_white"
-        app:cpb_textIdle="@string/it_does_not_fit"/>
-
+        app:cpb_textIdle="@string/ok"/>
 
 </RelativeLayout>

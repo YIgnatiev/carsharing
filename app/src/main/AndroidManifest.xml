@@ -44,6 +44,7 @@
         <activity android:name=".login.activities.ThanksActivity"/>
         <activity android:name=".other.OrderCarActivity"/>
         <activity android:name=".other.CompleteActivity"/>
+        <activity android:name=".login.activities.InformActivity"/>
 
     </application>
 
