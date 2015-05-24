@@ -19,11 +19,11 @@ public interface CarActionListener {
 
     void onPleaseWait();
 
-    void onErrorOpen();
+    void onCommandError();
 
     void onOpen();
 
-    void onOrder(Car car);
+    void onBook(Car car);
 
     void onError();
 

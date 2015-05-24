@@ -1,24 +1,20 @@
 package youdrive.today.profile;
 
-import android.util.Log;
-
-import com.google.gson.Gson;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
 
-import timber.log.Timber;
+import rx.Subscription;
+import rx.functions.Action1;
+import rx.subscriptions.Subscriptions;
 import youdrive.today.ApiError;
+import youdrive.today.BaseObservable;
 import youdrive.today.data.network.ApiClient;
+import youdrive.today.login.RequestListener;
+import youdrive.today.response.BaseResponse;
 
 public class ProfileInteractorImpl implements ProfileInteractor {
 
     private final ApiClient mApiClient;
+    private Subscription subscription = Subscriptions.empty();
 
     public ProfileInteractorImpl() {
         mApiClient = new ApiClient();
@@ -26,30 +22,27 @@ public class ProfileInteractorImpl implements ProfileInteractor {
 
     @Override
     public void logout(final ProfileActionListener listener) {
-         mApiClient.logout(new Callback() {
-             @Override
-             public void onFailure(Request request, IOException e) {
-                 Timber.e("Exception " + Log.getStackTraceString(e));
-                 listener.onError();
-             }
-
-             @Override
-             public void onResponse(Response response) throws IOException {
-                 String json = response.body().string();
-                 Timber.d("JSON " + json);
-                 try {
-                     boolean success = new JSONObject(json).getBoolean("success");
-                     if (success){
-                         listener.onLogout();
-                     } else {
-                         handlingError(new Gson().fromJson(json, ApiError.class), listener);
-                     }
-                 } catch (JSONException e) {
-                     Timber.e("Exception " + Log.getStackTraceString(e));
-                     listener.onError();
-                 }
-             }
-         });
+        subscription = BaseObservable.ApiCall(new RequestListener() {
+            @Override
+            public BaseResponse onRequest() {
+                try {
+                    return mApiClient.logout();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+        }).doOnNext(new Action1<BaseResponse>() {
+            @Override
+            public void call(BaseResponse baseResponse) {
+                if (baseResponse.isSuccess()) {
+                    listener.onLogout();
+                } else {
+                    handlingError(new ApiError(baseResponse.getCode(), baseResponse.getText()),
+                            listener);
+                }
+            }
+        }).subscribe();
     }
 
     private void handlingError(ApiError error, ProfileActionListener listener) {
@@ -60,5 +53,9 @@ public class ProfileInteractorImpl implements ProfileInteractor {
         } else {
             listener.onError();
         }
+    }
+
+    public Subscription getSubscription() {
+        return subscription;
     }
 }

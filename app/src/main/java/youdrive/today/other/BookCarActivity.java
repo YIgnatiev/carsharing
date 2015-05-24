@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -14,10 +14,7 @@ import youdrive.today.BaseActivity;
 import youdrive.today.Car;
 import youdrive.today.R;
 
-/**
- * Created by psuhoterin on 12.05.15.
- */
-public class OrderCarActivity extends BaseActivity {
+public class BookCarActivity extends BaseActivity {
 
     @InjectView(R.id.txtModel)
     TextView txtModel;
@@ -51,7 +48,11 @@ public class OrderCarActivity extends BaseActivity {
             txtModel.setText(mCar.getModel());
             txtColor.setText(mCar.getColor());
             txtNumber.setText(mCar.getNumber());
-            Picasso.with(this).load(mCar.getImg()).into(imgCar);
+            Glide.with(this)
+                    .load(mCar.getImg())
+                    .fitCenter()
+                    .crossFade()
+                    .into(imgCar);
         }
     }
 }

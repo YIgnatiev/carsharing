@@ -1,6 +1,5 @@
 package youdrive.today.maps;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
@@ -8,7 +7,6 @@ import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
@@ -55,7 +53,7 @@ import youdrive.today.Status;
 import youdrive.today.car.CarActionListener;
 import youdrive.today.car.CarInteractorImpl;
 import youdrive.today.other.CompleteActivity;
-import youdrive.today.other.OrderCarActivity;
+import youdrive.today.other.BookCarActivity;
 import youdrive.today.profile.ProfileActionListener;
 import youdrive.today.profile.ProfileAdapter;
 import youdrive.today.profile.ProfileInteractorImpl;
@@ -63,11 +61,12 @@ import youdrive.today.profile.ProfileInteractorImpl;
 public class MapsActivity extends BaseActivity implements MapsActionListener, ProfileActionListener, CarActionListener,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
+    private static final int RC_BOOK = 0;
     private GoogleMap mMap;
 
     private ProfileInteractorImpl mProfileInteractor;
 
-    Handler mHandler = new Handler();
+//    Handler mHandler = new Handler();
 
     @InjectView(R.id.drawer)
     DrawerLayout mDrawer;
@@ -77,6 +76,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @InjectView(R.id.ltContainer)
     FrameLayout ltContainer;
+
+    @InjectView(R.id.ltInfo)
+    FrameLayout ltInfo;
 
     private String mToken;
     private CarInteractorImpl mCarInteractor;
@@ -95,6 +97,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     private CircularProgressButton btnBook;
     private Location mLastLocation;
+    private int mBookingTimeLeft;
+    private Status mStatus;
 
     @OnItemClick(R.id.lvProfile)
     void onItemSelected(int position) {
@@ -134,9 +138,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             }
         }
     }
-
-    @InjectView(R.id.txtInfo)
-    TextView txtInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -294,7 +295,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 if (car.getId() != null
                         && mLastLocation.getLatitude() > 0.0d
                         && mLastLocation.getLongitude() > 0.0d) {
-                    mCarInteractor.order(car.getId(), mLastLocation.getLatitude(), mLastLocation.getLongitude(), MapsActivity.this);
+                    mCarInteractor.booking(car.getId(), mLastLocation.getLatitude(), mLastLocation.getLongitude(), MapsActivity.this);
                 } else {
                     Toast.makeText(MapsActivity.this, "Не удалось установить месторасположение", Toast.LENGTH_LONG).show();
                 }
@@ -310,15 +311,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         long minute = TimeUnit.SECONDS.toMinutes(seconds);
         return minute + " " + getString(R.string.minutes);
     }
-
-    private void showOpenDialog() {
-        showOpenPopup();
-    }
-
-    private void showCloseDialog() {
-        showClosePopup();
-    }
-
 
     GoogleMap.OnMarkerClickListener onMarkerClickListener = new GoogleMap.OnMarkerClickListener() {
         @Override
@@ -386,13 +378,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onComplete(Check check) {
-        Timber.tag("Action").d("onComplete");
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                hideWindow();
-            }
-        });
+        Timber.tag("Action").d("onComplete " + check.toString());
+
+        hideBottomWindow();
         startActivity(new Intent(this, CompleteActivity.class).putExtra("check", check));
         mMapsInteractor.getStatusCar(this);
     }
@@ -400,23 +388,24 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     public void onBookingTimeLeft(int bookingTimeLeft) {
         Timber.tag("Action").d("onBookingTimeLeft " + bookingTimeLeft);
-        //TODO
+        mBookingTimeLeft = bookingTimeLeft;
     }
 
     @Override
     public void onCars(List<Car> cars) {
+        Timber.tag("onCars").d("onCars " + cars.toString());
         Collections.sort(cars);
         onMoveCamera(cars.get(0));
         for (Car c : cars) {
             addMarker(c);
         }
 
-        txtInfo.setText("До ближайшей машины " + convertTime(cars.get(0).getWalktime()) + " пешком");
+        showDistancePopup(cars.get(0).getWalktime());
     }
 
     private void onMoveCamera(final Car car) {
         if (mMarker != null) {
-            mHandler.post(new Runnable() {
+            new Handler().post(new Runnable() {
                 @Override
                 public void run() {
                     mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(
@@ -447,29 +436,24 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
     @Override
-    public void onOrder(final Car car) {
-        Timber.tag("Action").d("onOrder");
+    public void onBook(Car car) {
+        Timber.tag("Action").d("onBook " + car.toString());
+
         mCar = car;
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                mMarkerCar.clear();
-                mMap.clear();
 
-                //TODO Обработка статуса в Interactor-e
+        mMarkerCar.clear();
+        mMap.clear();
 
-                onStatus(Status.BOOKING);
-                addMarker(car);
+        onStatus(Status.BOOKING);
 
-                startActivity(new Intent(MapsActivity.this, OrderCarActivity.class).putExtra("car", mCar));
-            }
-        });
-
+        addMarker(car);
+        startActivityForResult(new Intent(MapsActivity.this, BookCarActivity.class).putExtra("car", mCar), RC_BOOK);
     }
 
     @Override
     public void onCar(Car car) {
         Timber.tag("Action").d("OnCar " + car.toString());
+
         mCar = car;
         addMarker(car);
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
@@ -478,26 +462,25 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
     @Override
-    public void onStatus(final Status status) {
+    public void onStatus(Status status) {
         Timber.tag("Action").d("onStatus " + status.toString());
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                if (Status.PARKING.equals(status)
-                        || Status.BOOKING.equals(status)) {
-                    showOpenDialog();
-                } else if (Status.USAGE.equals(status)) {
-                    showCloseDialog();
-                }
-            }
-        });
+        mStatus = status;
+        if (Status.BOOKING.equals(status)) {
+            showStartRentPopup(mBookingTimeLeft);
+        }
+        if (Status.PARKING.equals(status)
+                || Status.BOOKING.equals(status)) {
+            showOpenPopup();
+        } else if (Status.USAGE.equals(status)) {
+            showClosePopup();
+        }
     }
 
     @Override
     public void onCheck(Check check) {
         Timber.tag("Action").d("Check " + check.toString());
+        onBookingTimeLeft(check.getBookingTimeLeft());
         mCheck = check;
-
     }
 
     @Override
@@ -525,33 +508,27 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     public void onPleaseWait() {
         if (mToken != null
                 && mCommand != null) {
-            mHandler.postDelayed(new Runnable() {
+            new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     mCarInteractor.result(mCommand, mToken, MapsActivity.this);
                 }
-            }, 5000);
+            }, 3000);
         }
     }
 
     @Override
-    public void onErrorOpen() {
-        Timber.d("onErrorOpen");
+    public void onCommandError() {
     }
 
     @Override
     public void onOpen() {
         Timber.d("onOpen");
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                btnOpen.setProgress(100);
-                onStatus(Status.USAGE);
-                hideWindow();
-                showClosePopup();
-            }
-        });
-
+        btnOpen.setProgress(100);
+        onStatus(Status.USAGE);
+        hideTopWindow();
+        hideBottomWindow();
+        showClosePopup();
     }
 
     @Override
@@ -593,24 +570,47 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         updateLocation(location);
     }
 
-    private void addWindow(View view) {
+    private void addBottomWindow(View view) {
         Animation anim = AnimationUtils.loadAnimation(MapsActivity.this, R.anim.bottom_up);
 
         ltContainer.setAnimation(anim);
         ltContainer.addView(view);
     }
 
-    private void hideWindow() {
+    private void hideBottomWindow() {
         ltContainer.removeAllViews();
     }
 
+    private void addTopWindow(View view) {
+        Animation anim = AnimationUtils.loadAnimation(MapsActivity.this, R.anim.top_down);
+
+        ltInfo.setAnimation(anim);
+        ltInfo.addView(view);
+    }
+
+    private void hideTopWindow() {
+        ltInfo.removeAllViews();
+    }
+
+    private void showDistancePopup(int walktime) {
+        View view = getLayoutInflater().inflate(R.layout.popup_distance, null, false);
+        addTopWindow(view);
+
+        TextView txtDistance = ButterKnife.findById(view, R.id.txtDistance);
+        txtDistance.setText("До ближайшей машины " + convertTime(walktime) + " пешком");
+    }
+
+    private void showStartRentPopup(int bookingTimeLeft) {
+        View view = getLayoutInflater().inflate(R.layout.popup_start_rent, null, false);
+        addTopWindow(view);
+
+        TextView txtStartRent = ButterKnife.findById(view, R.id.txtStartRent);
+        txtStartRent.setText("До начала аренды осталось " + convertTime(bookingTimeLeft));
+    }
+
     private void showOpenPopup() {
-
-        LayoutInflater inflater = (LayoutInflater)
-                this.getSystemService(LAYOUT_INFLATER_SERVICE);
-        final View view = inflater.inflate(R.layout.popup_open_car, null, false);
-
-        addWindow(view);
+        View view = getLayoutInflater().inflate(R.layout.popup_open_car, null, false);
+        addBottomWindow(view);
 
         btnOpen = ButterKnife.findById(view, R.id.btnOpen);
         btnOpen.setIndeterminateProgressMode(true);
@@ -634,11 +634,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
     private void showClosePopup() {
-        LayoutInflater inflater = (LayoutInflater)
-                this.getSystemService(LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.popup_close_car, null, false);
-
-        addWindow(view);
+        View view = getLayoutInflater().inflate(R.layout.popup_close_car, null, false);
+        addBottomWindow(view);
 
         btnCloseCar = ButterKnife.findById(view, R.id.btnCloseCar);
         btnCloseCar.setIndeterminateProgressMode(true);
@@ -696,6 +693,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             txtColor.setText(mCar.getColor());
 
             TextView txtStartUsage = (TextView) view.findViewById(R.id.txtStartUsage);
+            txtStartUsage.setText("До начала аренды " + convertTime(mBookingTimeLeft) + " минуты");
             return view;
         }
     }
@@ -704,5 +702,13 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     protected void onDestroy() {
         mMapsInteractor.getSubscription().unsubscribe();
         super.onDestroy();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_BOOK) {
+            onMoveCamera(mCar);
+        }
     }
 }

@@ -19,6 +19,7 @@ import youdrive.today.App;
 import youdrive.today.Command;
 import youdrive.today.response.BaseResponse;
 import youdrive.today.response.CarResponse;
+import youdrive.today.response.CommandResponse;
 import youdrive.today.response.LoginResponse;
 import youdrive.today.response.RegionsResponse;
 
@@ -53,9 +54,9 @@ public class ApiClient {
         return mGson.fromJson(post(url, json), LoginResponse.class);
     }
 
-    public void logout(Callback callback) {
+    public BaseResponse logout() throws IOException {
         String url = HOST + "/session";
-        delete(url, callback);
+        return mGson.fromJson(delete(url), BaseResponse.class);
     }
 
     public CarResponse getStatusCars(double lat, double lon) throws IOException {
@@ -79,37 +80,26 @@ public class ApiClient {
         return mGson.fromJson(post(url, json), BaseResponse.class);
     }
 
-    public String getRequest(String email, String phone, String region){
-        return "{\"email\":\"" + email + "\", \"phone\":\"" + phone +"\", \"region_id\":\"" + region + "\", \"ready_to_use\": true}";
-    }
-
-    public void order(String id, double lat, double lon, Callback callback){
+    public CarResponse booking(String id, double lat, double lon) throws IOException {
         String url = HOST + "/order";
         String json = "{\"car_id\":\"" + id + "\", \"lat\":" + lat +", \"lon\":" + lon + "}";
-        post(url, json, callback);
+        return mGson.fromJson(post(url, json), CarResponse.class);
     }
 
-    public void command(Command command, Callback callback) {
+    public CommandResponse command(Command command) throws IOException {
         String url = HOST + "/action";
         String json = "{\"command\": \"" + command + "\"}";
-        post(url, json, callback);
+        return mGson.fromJson(post(url, json), CommandResponse.class);
     }
 
-    public void complete(Callback callback){
+    public CommandResponse complete() throws IOException {
         String url = HOST + "/order";
-        delete(url, callback);
+        return mGson.fromJson(delete(url), CommandResponse.class);
     }
 
-    public void result(String token, Callback callback) {
+    public CommandResponse result(String token) throws IOException {
         String url = HOST + "/action/" + token;
-        get(url, callback);
-    }
-
-    private void get(String url, Callback callback){
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
-        mClient.newCall(request).enqueue(callback);
+        return mGson.fromJson(get(url), CommandResponse.class);
     }
 
     private String get(String url) throws IOException {
@@ -118,7 +108,9 @@ public class ApiClient {
                 .build();
 
         Response response = mClient.newCall(request).execute();
-        return response.body().string();
+        String result = response.body().string();
+        Timber.d("JSON " + result);
+        return result;
     }
 
     private String post(String url, String json) throws IOException {
@@ -129,28 +121,20 @@ public class ApiClient {
                 .post(body)
                 .build();
         Response response = mClient.newCall(request).execute();
-        return response.body().string();
+        String result = response.body().string();
+        Timber.d("JSON " + result);
+        return result;
     }
 
-    private void post(String url, String json, Callback callback){
-        Timber.d("URL " + url + " BODY " + json);
-        RequestBody body = RequestBody.create(JSON, json);
-        Request request = new Request.Builder()
-                .url(url)
-                .post(body)
-                .build();
-        mClient.newCall(request).enqueue(callback);
-    }
-
-    private void delete(String url, Callback callback){
+    private String delete(String url) throws IOException {
         Request request = new Request.Builder()
                 .url(url)
                 .delete()
                 .build();
-        mClient.newCall(request).enqueue(callback);
-    }
 
-    private String getEncode(String params) throws UnsupportedEncodingException {
-        return URLEncoder.encode(params, "utf-8");
+        Response response = mClient.newCall(request).execute();
+        String result = response.body().string();
+        Timber.d("JSON " + result);
+        return result;
     }
 }

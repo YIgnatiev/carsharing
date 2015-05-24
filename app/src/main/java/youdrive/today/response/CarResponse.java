@@ -1,5 +1,7 @@
 package youdrive.today.response;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 
 import youdrive.today.Car;
@@ -7,6 +9,9 @@ import youdrive.today.Check;
 import youdrive.today.Status;
 
 public class CarResponse extends BaseResponse {
+
+    @SerializedName("booking_time_left")
+    private int bookingTimeLeft;
 
     private String status;
     private ArrayList<Car> cars;
@@ -27,5 +32,9 @@ public class CarResponse extends BaseResponse {
 
     public Check getCheck() {
         return check;
+    }
+
+    public int getBookingTimeLeft() {
+        return bookingTimeLeft;
     }
 }

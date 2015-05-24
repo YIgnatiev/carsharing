@@ -1,165 +1,150 @@
 package youdrive.today.car;
 
-import android.util.Log;
-
-import com.google.gson.Gson;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
 
-import timber.log.Timber;
+import rx.Subscription;
+import rx.functions.Action1;
+import rx.subscriptions.Subscriptions;
 import youdrive.today.ApiError;
 import youdrive.today.App;
-import youdrive.today.Check;
+import youdrive.today.BaseObservable;
 import youdrive.today.Command;
 import youdrive.today.Result;
 import youdrive.today.data.network.ApiClient;
-import youdrive.today.response.OrderResponse;
+import youdrive.today.login.RequestListener;
+import youdrive.today.response.BaseResponse;
+import youdrive.today.response.CarResponse;
+import youdrive.today.response.CommandResponse;
 
 public class CarInteractorImpl implements CarInteractor {
 
     private final ApiClient mApiClient;
-    private final Gson mGson;
+    private Subscription subscription = Subscriptions.empty();
 
     public CarInteractorImpl() {
         mApiClient = App.getInstance().getApiClient();
-        mGson = App.getInstance().getGson();
     }
 
     @Override
-    public void order(String id, double lat, double lon, final CarActionListener listener) {
-        mApiClient.order(id, lat, lon, new Callback() {
+    public void booking(final String id, final double lat, final double lon, final CarActionListener listener) {
+        subscription = BaseObservable.ApiCall(new RequestListener() {
             @Override
-            public void onFailure(Request request, IOException e) {
-                Timber.e("Exception " + Log.getStackTraceString(e));
-                listener.onError();
-            }
-
-            @Override
-            public void onResponse(Response response) throws IOException {
-                String json = response.body().string();
-                Timber.d("JSON " + json);
-                OrderResponse resp = mGson.fromJson(json, OrderResponse.class);
-                if (resp.isSuccess()){
-                    listener.onOrder(resp.getCar());
-                    listener.onBookingTimeLeft(resp.getBookingTimeLeft());
-                } else {
-                    //TODO
-//                    handlingError(resp.getCode(), listener);
+            public BaseResponse onRequest() {
+                try {
+                    return mApiClient.booking(id, lat, lon);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return null;
                 }
             }
-        });
+        }).doOnNext(new Action1<BaseResponse>() {
+            @Override
+            public void call(BaseResponse baseResponse) {
+                CarResponse response = (CarResponse) baseResponse;
+                if (response.isSuccess()) {
+                    if (response.getCar() != null) {
+                        listener.onBook(response.getCar());
+                    }
+                    listener.onBookingTimeLeft(response.getBookingTimeLeft());
+                } else {
+                    handlingError(new ApiError(response.getCode(), response.getText()), listener);
+                }
+            }
+        }).subscribe();
     }
 
     @Override
     public void command(final Command command, final CarActionListener listener) {
-        mApiClient.command(command, new Callback() {
+        subscription = BaseObservable.ApiCall(new RequestListener() {
             @Override
-            public void onFailure(Request request, IOException e) {
-                Timber.e("Exception " + Log.getStackTraceString(e));
-                listener.onError();
-            }
-
-            @Override
-            public void onResponse(Response response) throws IOException {
-                String json = response.body().string();
-                Timber.d("JSON " + json);
+            public BaseResponse onRequest() {
                 try {
-                    JSONObject object = new JSONObject(json);
-                    boolean success = object.getBoolean("success");
-                    if (success) {
-                        String token = object.getString("result_token");
-                        listener.onToken(command, token);
-                        result(command, token, listener);
-                    } else {
-                        handlingError(new Gson().fromJson(json, ApiError.class), listener);
-                    }
-                } catch (JSONException e) {
-                    Timber.e("Exception " + Log.getStackTraceString(e));
-                    listener.onError();
+                    return mApiClient.command(command);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return null;
                 }
             }
-        });
+        }).doOnNext(new Action1<BaseResponse>() {
+            @Override
+            public void call(BaseResponse baseResponse) {
+                CommandResponse response = (CommandResponse) baseResponse;
+                if (response.isSuccess()){
+                    listener.onToken(command, response.getResultToken());
+                    result(command, response.getResultToken(), listener);
+                } else {
+                    handlingError(new ApiError(response.getCode(), response.getText()),
+                            listener);
+                }
+            }
+        }).subscribe();
     }
 
     @Override
     public void complete(final Command command, final CarActionListener listener) {
-        mApiClient.complete(new Callback() {
+        subscription = BaseObservable.ApiCall(new RequestListener() {
             @Override
-            public void onFailure(Request request, IOException e) {
-                Timber.e("Exception " + Log.getStackTraceString(e));
-                listener.onError();
-            }
-
-            @Override
-            public void onResponse(Response response) throws IOException {
-                String json = response.body().string();
-                Timber.d("JSON " + json);
+            public BaseResponse onRequest() {
                 try {
-                    JSONObject object = new JSONObject(json);
-                    boolean success = object.getBoolean("success");
-                    if (success) {
-                        String token = object.getString("result_token");
-                        listener.onToken(command, token);
-                        result(command, token, listener);
-                    } else {
-                        handlingError(new Gson().fromJson(json, ApiError.class), listener);
-                    }
-                } catch (JSONException e) {
-                    Timber.e("Exception " + Log.getStackTraceString(e));
-                    listener.onError();
+                    return mApiClient.complete();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return null;
                 }
             }
-        });
+        }).doOnNext(new Action1<BaseResponse>() {
+            @Override
+            public void call(BaseResponse baseResponse) {
+                CommandResponse response = (CommandResponse) baseResponse;
+                if (response.isSuccess()){
+                    listener.onToken(command, response.getResultToken());
+                    result(command, response.getResultToken(), listener);
+                } else {
+                    handlingError(new ApiError(response.getCode(), response.getText()),
+                            listener);
+                }
+            }
+        }).subscribe();
     }
 
     @Override
-    public void result(final Command command, String token, final CarActionListener listener) {
-        mApiClient.result(token, new Callback() {
+    public void result(final Command command, final String token, final CarActionListener listener) {
+        subscription = BaseObservable.ApiCall(new RequestListener() {
             @Override
-            public void onFailure(Request request, IOException e) {
-                Timber.e("Exception " + Log.getStackTraceString(e));
-                listener.onError();
-            }
-
-            @Override
-            public void onResponse(Response response) throws IOException {
-                String json = response.body().string();
-                Timber.d("JSON " + json);
+            public BaseResponse onRequest() {
                 try {
-                    JSONObject object = new JSONObject(json);
-                    boolean success = object.getBoolean("success");
-                    if (success) {
-                        String result = object.getString("status");
-                        if (Result.fromString(result).equals(Result.NEW)
-                                || Result.fromString(result).equals(Result.PROCESSING)) {
-                            listener.onPleaseWait();
-                        } else if (Result.fromString(result).equals(Result.ERROR)) {
-                            listener.onErrorOpen();
-                        } else {
-                            if (command.equals(Command.OPEN)) {
-                                listener.onOpen();
-                            } else if (command.equals(Command.CLOSE)) {
-                                listener.onClose();
-                            } else {
-                                Check check = mGson.fromJson(object.getString("check"), Check.class);
-                                listener.onComplete(check);
-                            }
-                        }
-                    } else {
-                        handlingError(new Gson().fromJson(json, ApiError.class), listener);
-                    }
-                } catch (JSONException e) {
-                    Timber.e("Exception " + Log.getStackTraceString(e));
-                    listener.onError();
+                    return mApiClient.result(token);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return null;
                 }
             }
-        });
+        }).doOnNext(new Action1<BaseResponse>() {
+            @Override
+            public void call(BaseResponse baseResponse) {
+                CommandResponse response = (CommandResponse) baseResponse;
+                if (response.isSuccess()) {
+                    Result result = Result.fromString(response.getStatus());
+                    if (result.equals(Result.NEW)
+                            || result.equals(Result.PROCESSING)) {
+                        listener.onPleaseWait();
+                    } else if (result.equals(Result.ERROR)) {
+                        listener.onCommandError();
+                    } else {
+                        if (command.equals(Command.OPEN)) {
+                            listener.onOpen();
+                        } else if (command.equals(Command.CLOSE)) {
+                            listener.onClose();
+                        } else {
+                            listener.onComplete(response.getCheck());
+                        }
+                    }
+                } else {
+                    handlingError(new ApiError(response.getCode(), response.getText()),
+                            listener);
+                }
+            }
+        }).subscribe();
     }
 
     private void handlingError(ApiError error, CarActionListener listener) {
@@ -182,4 +167,7 @@ public class CarInteractorImpl implements CarInteractor {
         }
     }
 
+    public Subscription getSubscription() {
+        return subscription;
+    }
 }
