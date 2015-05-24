@@ -1,115 +1,136 @@
 package youdrive.today.maps;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.List;
 
-import timber.log.Timber;
+import rx.Subscription;
+import rx.functions.Action1;
+import rx.subscriptions.Subscriptions;
 import youdrive.today.ApiError;
 import youdrive.today.App;
-import youdrive.today.Car;
-import youdrive.today.Result;
+import youdrive.today.BaseObservable;
 import youdrive.today.Status;
 import youdrive.today.data.network.ApiClient;
-import youdrive.today.response.CarsResponse;
+import youdrive.today.login.RequestListener;
+import youdrive.today.response.BaseResponse;
+import youdrive.today.response.CarResponse;
 
-/**
- * Created by psuhoterin on 22.04.15.
- */
 public class MapsInteractorImpl implements MapsInteractor {
 
     private final ApiClient mApiClient;
-    private final Gson mGson;
+    private Subscription subscription = Subscriptions.empty();
 
     public MapsInteractorImpl() {
         mApiClient = App.getInstance().getApiClient();
-        mGson = App.getInstance().getGson();
     }
 
     @Override
     public void getStatusCar(final MapsActionListener listener) {
-        mApiClient.getStatusCars(new Callback() {
+        subscription = BaseObservable.ApiCall(new RequestListener() {
             @Override
-            public void onFailure(Request request, IOException e) {
-                Timber.e("Exception " + Log.getStackTraceString(e));
-                listener.onError();
-            }
-
-            @Override
-            public void onResponse(Response response) throws IOException {
-                Timber.d("URL " + response.request().urlString());
-                String json = response.body().string();
-                Timber.d("JSON " + json);
-                CarsResponse resp = mGson.fromJson(json, CarsResponse.class);
-                if (resp.isSuccess()){
-                    if (resp.getCars() != null){
-                        listener.onCars(resp.getCars());
-                    } else if (resp.getCar() != null){
-                        listener.onCar(resp.getCar());
-                    }
-                    listener.onStatus(Status.fromString(resp.getStatus()));
-                } else {
-                    handlingError(resp.getCode(), listener);
+            public BaseResponse onRequest() {
+                try {
+                    return mApiClient.getStatusCars();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return null;
                 }
             }
-        });
+        }).doOnNext(new Action1<BaseResponse>() {
+            @Override
+            public void call(BaseResponse baseResponse) {
+                CarResponse response = (CarResponse) baseResponse;
+                if (response.isSuccess()) {
+                    if (response.getCars() != null) {
+                        listener.onCars(response.getCars());
+                    } else if (response.getCar() != null) {
+                        listener.onCar(response.getCar());
+                    }
+                    listener.onStatus(Status.fromString(response.getStatus()));
+                } else {
+                    handlingError(new ApiError(response.getCode(),
+                            response.getText()), listener);
+                }
+            }
+        }).subscribe();
     }
 
     @Override
-    public void getStatusCars(double lat, double lon, final MapsActionListener listener) {
-        mApiClient.getStatusCars(lat, lon, new Callback() {
+    public void getStatusCars(final double lat, final double lon, final MapsActionListener listener) {
+        subscription = BaseObservable.ApiCall(new RequestListener() {
             @Override
-            public void onFailure(Request request, IOException e) {
-                Timber.e("Exception " + Log.getStackTraceString(e));
-                listener.onError();
-            }
-
-            @Override
-            public void onResponse(Response response) throws IOException {
-                Timber.d("URL " + response.request().urlString());
-                String json = response.body().string();
-                Timber.d("JSON " + json);
-                CarsResponse resp = mGson.fromJson(json, CarsResponse.class);
-                if (resp.isSuccess()){
-                    if (resp.getCars() != null){
-                        listener.onCars(resp.getCars());
-                    } else if (resp.getCar() != null){
-                        listener.onCar(resp.getCar());
-                    }
-
-                    if (resp.getCheck() != null){
-                        listener.onCheck(resp.getCheck());
-                    }
-
-                    if (resp.getStatus() != null){
-                        listener.onStatus(Status.fromString(resp.getStatus()));
-                    }
-
-                } else {
-                    handlingError(resp.getCode(), listener);
+            public BaseResponse onRequest() {
+                try {
+                    return mApiClient.getStatusCars(lat, lon);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return null;
                 }
             }
-        });
+        }).doOnNext(new Action1<BaseResponse>() {
+            @Override
+            public void call(BaseResponse baseResponse) {
+                CarResponse response = (CarResponse) baseResponse;
+                if (response.isSuccess()) {
+                    if (response.getCars() != null) {
+                        listener.onCars(response.getCars());
+                    } else if (response.getCar() != null) {
+                        listener.onCar(response.getCar());
+                    }
+                    listener.onStatus(Status.fromString(response.getStatus()));
+                } else {
+                    handlingError(new ApiError(response.getCode(),
+                            response.getText()), listener);
+                }
+            }
+        }).subscribe();
+//        mApiClient.getStatusCars(lat, lon, new Callback() {
+//            @Override
+//            public void onFailure(Request request, IOException e) {
+//                Timber.e("Exception " + Log.getStackTraceString(e));
+//                listener.onError();
+//            }
+//
+//            @Override
+//            public void onResponse(Response response) throws IOException {
+//                Timber.d("URL " + response.request().urlString());
+//                String json = response.body().string();
+//                Timber.d("JSON " + json);
+//                CarResponse resp = mGson.fromJson(json, CarResponse.class);
+//                if (resp.isSuccess()){
+//                    if (resp.getCars() != null){
+//                        listener.onCars(resp.getCars());
+//                    } else if (resp.getCar() != null){
+//                        listener.onCar(resp.getCar());
+//                    }
+//
+//                    if (resp.getCheck() != null){
+//                        listener.onCheck(resp.getCheck());
+//                    }
+//
+//                    if (resp.getStatus() != null) {
+//                        listener.onStatus(Status.fromString(resp.getStatus()));
+//                    }
+//
+//                } else {
+//                    handlingError(resp.getCode(), listener);
+//                }
+//            }
+//        });
     }
 
-    private void handlingError(int code, MapsActionListener listener) {
-        if (code == ApiError.FORBIDDEN){
+    private void handlingError(ApiError error, MapsActionListener listener) {
+        if (error.getCode() == ApiError.FORBIDDEN){
             listener.onForbidden();
-        } else if (code == ApiError.TARIFF_NOT_FOUND){
+        } else if (error.getCode() == ApiError.TARIFF_NOT_FOUND){
             listener.onTariffNotFound();
         } else {
             listener.onError();
         }
+    }
+
+    public Subscription getSubscription() {
+        return subscription;
     }
 }

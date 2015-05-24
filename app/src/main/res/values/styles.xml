@@ -5,6 +5,11 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
+        <!--Dialog style-->
+        <item name="md_dark_theme">false</item>
+        <item name="md_background_color">@color/white</item>
+
+        <!--Spinner style-->
         <item name="android:dropDownSpinnerStyle">@style/SpinnerAppTheme</item>
     </style>
 

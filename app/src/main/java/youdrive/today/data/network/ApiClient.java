@@ -18,6 +18,7 @@ import timber.log.Timber;
 import youdrive.today.App;
 import youdrive.today.Command;
 import youdrive.today.response.BaseResponse;
+import youdrive.today.response.CarResponse;
 import youdrive.today.response.LoginResponse;
 import youdrive.today.response.RegionsResponse;
 
@@ -41,18 +42,9 @@ public class ApiClient {
     }
 
     private void setCookie(){
-//        mClient.interceptors().add(new AddCookiesInterceptor());
-//        mClient.interceptors().add(new ReceivedCookiesInterceptor());
-
-//        CookieManager cookieManager = new CookieManager();
-//        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
-//        mClient.setCookieHandler(cookieManager);
-
         mClient.setCookieHandler(new CookieManager(
                 new PersistentCookieStore(App.getInstance()),
                 CookiePolicy.ACCEPT_ALL));
-
-//        mClient.setCookieHandler(new CookieManager(new NewPersistentCookieStore(), CookiePolicy.ACCEPT_ALL));
     }
 
     public LoginResponse login(String email, String password) throws IOException {
@@ -66,14 +58,14 @@ public class ApiClient {
         delete(url, callback);
     }
 
-    public void getStatusCars(double lat, double lon, Callback callback){
+    public CarResponse getStatusCars(double lat, double lon) throws IOException {
         String url = HOST + "/status?lat=" + lat + "&lon=" + lon;
-        get(url, callback);
+        return mGson.fromJson(get(url), CarResponse.class);
     }
 
-    public void getStatusCars(Callback callback){
+    public CarResponse getStatusCars() throws IOException {
         String url = HOST + "/status";
-        get(url, callback);
+        return mGson.fromJson(get(url), CarResponse.class);
     }
 
     public RegionsResponse getRegions() throws IOException {

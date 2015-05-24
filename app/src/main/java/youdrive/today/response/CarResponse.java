@@ -6,26 +6,12 @@ import youdrive.today.Car;
 import youdrive.today.Check;
 import youdrive.today.Status;
 
-/**
- * Created by psuhoterin on 18.05.15.
- */
-public class CarsResponse {
+public class CarResponse extends BaseResponse {
 
     private String status;
     private ArrayList<Car> cars;
     private Car car;
-    private boolean success;
-    private int code;
-    private String message;
     private Check check;
-
-    public int getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
 
     public String getStatus() {
         return status;
@@ -33,10 +19,6 @@ public class CarsResponse {
 
     public ArrayList<Car> getCars() {
         return cars;
-    }
-
-    public boolean isSuccess() {
-        return success;
     }
 
     public Car getCar() {

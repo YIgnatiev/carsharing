@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    android:background="@color/translucent_white">
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/txtModel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:textAppearance="@android:style/TextAppearance.Large"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,6 +31,7 @@
             android:layout_height="wrap_content"
             android:text="@string/distance"
             android:layout_marginTop="5dp"
+            android:textColor="@color/black"
             android:layout_marginRight="10dp"
             android:gravity="right"/>
 
@@ -27,6 +40,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:layout_marginTop="5dp"/>
 
 
@@ -45,6 +59,7 @@
             android:layout_height="wrap_content"
             android:text="@string/time_to"
             android:layout_marginTop="5dp"
+            android:textColor="@color/black"
             android:layout_marginRight="10dp"
             android:gravity="right"/>
 
@@ -53,6 +68,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:layout_marginTop="5dp"/>
 
 
@@ -71,6 +87,7 @@
             android:layout_height="wrap_content"
             android:text="@string/type"
             android:layout_marginTop="5dp"
+            android:textColor="@color/black"
             android:layout_marginRight="10dp"
             android:gravity="right"/>
 
@@ -79,6 +96,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:layout_marginTop="5dp"/>
 
 
@@ -98,6 +116,7 @@
             android:layout_height="wrap_content"
             android:text="@string/full"
             android:layout_marginTop="5dp"
+            android:textColor="@color/black"
             android:layout_marginRight="10dp"
             android:gravity="right"/>
 
@@ -106,6 +125,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:layout_marginTop="5dp"/>
 
 
@@ -125,6 +145,7 @@
             android:layout_height="wrap_content"
             android:text="@string/tax_drive"
             android:layout_marginTop="5dp"
+            android:textColor="@color/black"
             android:layout_marginRight="10dp"
             android:gravity="right"/>
 
@@ -133,6 +154,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:layout_marginTop="5dp"/>
 
 
@@ -152,6 +174,7 @@
             android:layout_height="wrap_content"
             android:text="@string/tax_park"
             android:layout_marginTop="5dp"
+            android:textColor="@color/black"
             android:layout_marginRight="10dp"
             android:gravity="right"/>
 
@@ -160,10 +183,32 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="15dp"/>
 
-
     </LinearLayout>
+
+    <com.dd.CircularProgressButton
+        android:id="@+id/btnBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etPassword"
+        android:layout_alignRight="@+id/etPassword"
+        android:layout_alignLeft="@+id/etPassword"
+        android:textAppearance="@android:style/TextAppearance.Medium"
+        android:textColor="@color/white"
+        app:cpb_selectorIdle="@drawable/idle_state_selector"
+        app:cpb_selectorComplete="@drawable/complete_state_selector"
+        app:cpb_selectorError="@drawable/error_state_selector"
+        app:cpb_cornerRadius="5dp"
+        app:cpb_colorIndicator="@color/main"
+        app:cpb_colorProgress="@color/cpb_white"
+        app:cpb_textError="@string/error"
+        app:cpb_textIdle="@string/book"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        app:cpb_iconComplete="@drawable/ic_action_accept"
+        android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>

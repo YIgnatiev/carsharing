@@ -15,16 +15,12 @@ import java.io.IOException;
 import timber.log.Timber;
 import youdrive.today.ApiError;
 import youdrive.today.App;
-import youdrive.today.Car;
 import youdrive.today.Check;
 import youdrive.today.Command;
 import youdrive.today.Result;
 import youdrive.today.data.network.ApiClient;
 import youdrive.today.response.OrderResponse;
 
-/**
- * Created by psuhoterin on 26.04.15.
- */
 public class CarInteractorImpl implements CarInteractor {
 
     private final ApiClient mApiClient;
