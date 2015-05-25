@@ -34,7 +34,7 @@ public class LoginInteractorImpl implements LoginInteractor {
                     return mApiClient.login(email, password);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    return null;
+                    return new LoginResponse();
                 }
             }
         }).doOnNext(new Action1<BaseResponse>() {

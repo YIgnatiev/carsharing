@@ -36,7 +36,7 @@ public class RegistrationInteractorImpl implements RegistrationInteractor {
                     return mApiClient.invite(email, phone, region);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    return null;
+                    return new BaseResponse();
                 }
             }
         }).doOnNext(new Action1<BaseResponse>() {
@@ -61,7 +61,7 @@ public class RegistrationInteractorImpl implements RegistrationInteractor {
                     return mApiClient.getRegions();
                 } catch (IOException e) {
                     e.printStackTrace();
-                    return null;
+                    return new RegionsResponse();
                 }
             }
         }).doOnNext(new Action1<BaseResponse>() {

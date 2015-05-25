@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.dd.CircularProgressButton;
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -148,14 +149,17 @@ public class RegistrationActivity extends BaseActivity implements RegistrationAc
         if (requestCode == RC_CONFIRM
                 && resultCode == RESULT_OK) {
 
-            ButterKnife.apply(vInputs, AppUtils.ENABLED, false);
-
-            btnInvite.setProgress(50);
-            mInteractor.getInvite(
-                    etLogin.getText().toString(),
-                    etPhone.getText().toString(),
-                    mRegions.get(spRegion.getSelectedItemPosition()).getId(),
-                    this);
+            if (mRegions != null){
+                ButterKnife.apply(vInputs, AppUtils.ENABLED, false);
+                btnInvite.setProgress(50);
+                mInteractor.getInvite(
+                        etLogin.getText().toString(),
+                        etPhone.getText().toString(),
+                        mRegions.get(spRegion.getSelectedItemPosition()).getId(),
+                        this);
+            } else {
+                Toast.makeText(this, R.string.region_not_selected, Toast.LENGTH_LONG).show();
+            }
 
         } else if (requestCode == RC_INFORM
                 || requestCode == RC_THANKS) {
