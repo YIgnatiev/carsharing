@@ -50,7 +50,7 @@ public class BookCarActivity extends BaseActivity {
             txtNumber.setText(mCar.getNumber());
             Glide.with(this)
                     .load(mCar.getImg())
-                    .fitCenter()
+                    .centerCrop()
                     .crossFade()
                     .into(imgCar);
         }
