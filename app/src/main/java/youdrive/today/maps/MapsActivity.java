@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,13 +37,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
 import timber.log.Timber;
+import youdrive.today.AppUtils;
 import youdrive.today.BaseActivity;
 import youdrive.today.Car;
 import youdrive.today.Check;
@@ -62,11 +63,11 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private static final int RC_BOOK = 0;
+    private static final int RC_CHECK = 0;
+
     private GoogleMap mMap;
 
     private ProfileInteractorImpl mProfileInteractor;
-
-//    Handler mHandler = new Handler();
 
     @InjectView(R.id.drawer)
     DrawerLayout mDrawer;
@@ -89,16 +90,21 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private MarkerOptions mMarker;
     private LocationRequest mLocationRequest;
     private float mZoomLevel;
-    private CircularProgressButton btnOpen;
-    private CircularProgressButton btnCloseCar;
-    private CircularProgressButton btnCloseRent;
-    private CircularProgressButton btnCancel;
     private Check mCheck;
 
-    private CircularProgressButton btnBook;
     private Location mLastLocation;
     private int mBookingTimeLeft;
+    private MaterialDialog mDialog;
     private Status mStatus;
+
+    private CircularProgressButton btnBook;
+    private CircularProgressButton btnOpen;
+    private CircularProgressButton btnCancel;
+    private CircularProgressButton btnCloseOrOpen;
+    private CircularProgressButton btnCloseRent;
+    private boolean isShowClosePopup = false;
+
+    private View mView;
 
     @OnItemClick(R.id.lvProfile)
     void onItemSelected(int position) {
@@ -139,11 +145,11 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         }
     }
 
+    //TODO Последовательность вызовов в onCreate
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.inject(this);
-        Timber.tag("Maps");
 
         setActionBarIcon(R.drawable.ic_ab_drawer);
         setUpMapIfNeeded();
@@ -201,10 +207,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 .build();
     }
 
+    //TODO перенести в ресурсы
     private List<Menu> getMenu() {
         List<Menu> items = new ArrayList<>();
-        items.add(new Menu(R.drawable.icon_tariff, "Тарифы"));
-        items.add(new Menu(R.drawable.icon_help, "Помощь"));
         items.add(new Menu(R.drawable.icon_call, "Позвонить оператору"));
         items.add(new Menu(R.drawable.icon_exit, "Выход"));
         return items;
@@ -230,7 +235,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         if (mMap == null) {
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
-            mMap.setOnMarkerClickListener(onMarkerClickListener);
+            if (mMap != null) {
+                mMap.setOnMarkerClickListener(onMarkerClickListener);
+            }
         }
     }
 
@@ -264,12 +271,12 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
     private void showCarsDialog(final Car car) {
-        MaterialDialog dialog = new MaterialDialog.Builder(MapsActivity.this)
+        mDialog = new MaterialDialog.Builder(MapsActivity.this)
                 .customView(R.layout.dialog_info_contents, true)
                 .widgetColorRes(R.color.white)
                 .show();
 
-        View view = dialog.getCustomView();
+        View view = mDialog.getCustomView();
         if (view != null) {
             buildDialog(view, car);
         }
@@ -279,19 +286,24 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         ((TextView) ButterKnife.findById(view, R.id.txtModel))
                 .setText(car.getModel());
         ((TextView) ButterKnife.findById(view, R.id.txtDistance))
-                .setText(convertKilometers(car.getDistance()));
+                .setText(AppUtils.toKm(car.getDistance()) + getString(R.string.km));
         ((TextView) ButterKnife.findById(view, R.id.txtTimeTo))
-                .setText(convertTime(car.getWalktime()));
+                .setText(AppUtils.toTime(car.getWalktime()) + getString(R.string.minutes));
         ((TextView) ButterKnife.findById(view, R.id.txtType))
                 .setText(car.getTransmission());
         ((TextView) ButterKnife.findById(view, R.id.txtTaxDrive))
                 .setText(String.valueOf(car.getTariff().getUsage()));
         ((TextView) ButterKnife.findById(view, R.id.txtTaxPark))
                 .setText(String.valueOf(car.getTariff().getParking()));
-        btnBook = ButterKnife.findById(view, R.id.btnBook);
+
+        btnBook = buildButton(view, R.id.btnBook);
         btnBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                mDialog.getBuilder().autoDismiss(false);
+                btnBook.setProgress(50);
+
                 if (car.getId() != null
                         && mLastLocation.getLatitude() > 0.0d
                         && mLastLocation.getLongitude() > 0.0d) {
@@ -303,15 +315,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         });
     }
 
-    String convertKilometers(int meters) {
-        return meters * 0.001 + " " + getString(R.string.km);
-    }
-
-    String convertTime(int seconds) {
-        long minute = TimeUnit.SECONDS.toMinutes(seconds);
-        return minute + " " + getString(R.string.minutes);
-    }
-
     GoogleMap.OnMarkerClickListener onMarkerClickListener = new GoogleMap.OnMarkerClickListener() {
         @Override
         public boolean onMarkerClick(final Marker marker) {
@@ -320,7 +323,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 if (mMarkerCar.size() > 1) {
                     showCarsDialog(mMarkerCar.get(marker));
                 } else {
-                    mMap.setInfoWindowAdapter(new CInfoWindowAdapter());
+                    mMap.setInfoWindowAdapter(new CustomWindowAdapter());
                 }
             }
 
@@ -374,14 +377,17 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     public void onClose() {
         Timber.tag("Action").d("onClose");
         onStatus(Status.PARKING);
+        if (btnCloseOrOpen != null) {
+            btnCloseRent.setEnabled(true);
+            AppUtils.success(btnCloseOrOpen, getString(R.string.open_car));
+        }
     }
 
     @Override
     public void onComplete(Check check) {
         Timber.tag("Action").d("onComplete " + check.toString());
-
         hideBottomWindow();
-        startActivity(new Intent(this, CompleteActivity.class).putExtra("check", check));
+        startActivityForResult(new Intent(this, CompleteActivity.class).putExtra("check", check), RC_CHECK);
         mMapsInteractor.getStatusCar(this);
     }
 
@@ -389,13 +395,14 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     public void onBookingTimeLeft(int bookingTimeLeft) {
         Timber.tag("Action").d("onBookingTimeLeft " + bookingTimeLeft);
         mBookingTimeLeft = bookingTimeLeft;
+        showStartRentPopup(bookingTimeLeft);
     }
 
     @Override
     public void onCars(List<Car> cars) {
-        Timber.tag("onCars").d("onCars " + cars.toString());
+        Timber.tag("Action").d("onCars " + cars.toString());
         Collections.sort(cars);
-        onMoveCamera(cars.get(0));
+        onMoveCameraWithMe(cars.get(0));
         for (Car c : cars) {
             addMarker(c);
         }
@@ -403,7 +410,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         showDistancePopup(cars.get(0).getWalktime());
     }
 
-    private void onMoveCamera(final Car car) {
+    private void onMoveCameraWithMe(final Car car) {
         if (mMarker != null) {
             new Handler().post(new Runnable() {
                 @Override
@@ -416,6 +423,12 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 }
             });
         }
+    }
+
+    private void onMoveCamera(final Car car) {
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                new LatLng(car.getLat(), car.getLon()),
+                15f), 1500, null);
     }
 
     private int getPx(int dp) {
@@ -438,9 +451,12 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     public void onBook(Car car) {
         Timber.tag("Action").d("onBook " + car.toString());
+        if (mDialog.isShowing()) {
+            btnBook.setProgress(100);
+            mDialog.dismiss();
+        }
 
         mCar = car;
-
         mMarkerCar.clear();
         mMap.clear();
 
@@ -456,22 +472,25 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         mCar = car;
         addMarker(car);
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                new LatLng(car.getLat(), car.getLon()),
-                15f), 1500, null);
+        onMoveCamera(car);
     }
 
     @Override
     public void onStatus(Status status) {
         Timber.tag("Action").d("onStatus " + status.toString());
+
         mStatus = status;
+
         if (Status.BOOKING.equals(status)) {
             showStartRentPopup(mBookingTimeLeft);
+        } else if (Status.PARKING.equals(status)
+                || Status.USAGE.equals(status)) {
+            hideTopWindow();
         }
-        if (Status.PARKING.equals(status)
-                || Status.BOOKING.equals(status)) {
+
+        if (Status.BOOKING.equals(status)) {
             showOpenPopup();
-        } else if (Status.USAGE.equals(status)) {
+        } else if (!Status.NORMAL.equals(status) && !isShowClosePopup) {
             showClosePopup();
         }
     }
@@ -481,25 +500,36 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         Timber.tag("Action").d("Check " + check.toString());
         onBookingTimeLeft(check.getBookingTimeLeft());
         mCheck = check;
+        updateCheck(mView);
     }
 
     @Override
-    public void onCarNotFound() {
-        Timber.d("onCarNotFound");
+    public void onCarNotFound(String text) {
+        Timber.tag("Error").e("onCarNotFound");
+        if (btnBook != null){
+            AppUtils.error(text, btnBook);
+        }
     }
 
     @Override
-    public void onNotInfo() {
-        Timber.d("onNotInfo");
+    public void onNotInfo(String text) {
+        Timber.tag("Error").e("onNotInfo");
+        if (btnBook != null){
+            AppUtils.error(text, btnBook);
+        }
     }
 
     @Override
-    public void onNotOrder() {
-        Timber.d("onNotOrder");
+    public void onNotOrder(String text) {
+        Timber.tag("Error").e("onNotOrder");
+        if (btnBook != null){
+            AppUtils.error(text, btnBook);
+        }
     }
 
     @Override
     public void onToken(Command command, String token) {
+        Timber.tag("onToken").d("Token " + token);
         mToken = token;
         mCommand = command;
     }
@@ -524,11 +554,16 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     public void onOpen() {
         Timber.d("onOpen");
-        btnOpen.setProgress(100);
+        if (btnOpen != null) {
+            AppUtils.success(btnOpen);
+        }
+
+        if (btnCloseOrOpen != null) {
+            btnCloseRent.setEnabled(true);
+            AppUtils.success(btnCloseOrOpen, getString(R.string.close_car));
+        }
+
         onStatus(Status.USAGE);
-        hideTopWindow();
-        hideBottomWindow();
-        showClosePopup();
     }
 
     @Override
@@ -593,86 +628,118 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
     private void showDistancePopup(int walktime) {
+        hideTopWindow();
+
         View view = getLayoutInflater().inflate(R.layout.popup_distance, null, false);
         addTopWindow(view);
 
         TextView txtDistance = ButterKnife.findById(view, R.id.txtDistance);
-        txtDistance.setText("До ближайшей машины " + convertTime(walktime) + " пешком");
+        txtDistance.setText("До ближайшей машины " + AppUtils.toTime(walktime) + getString(R.string.minutes) + " пешком");
     }
 
     private void showStartRentPopup(int bookingTimeLeft) {
+        hideTopWindow();
+
         View view = getLayoutInflater().inflate(R.layout.popup_start_rent, null, false);
         addTopWindow(view);
 
         TextView txtStartRent = ButterKnife.findById(view, R.id.txtStartRent);
-        txtStartRent.setText("До начала аренды осталось " + convertTime(bookingTimeLeft));
+        txtStartRent.setText("До начала аренды осталось " + AppUtils.toTime(bookingTimeLeft) + getString(R.string.minutes));
     }
 
     private void showOpenPopup() {
+        hideBottomWindow();
+
         View view = getLayoutInflater().inflate(R.layout.popup_open_car, null, false);
         addBottomWindow(view);
 
-        btnOpen = ButterKnife.findById(view, R.id.btnOpen);
-        btnOpen.setIndeterminateProgressMode(true);
+        btnOpen = buildButton(view, R.id.btnOpen);
+        btnCancel = buildButton(view, R.id.btnCancel);
+
         btnOpen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 btnOpen.setProgress(50);
+                btnCancel.setEnabled(false);
+
                 mCarInteractor.command(Command.OPEN, MapsActivity.this);
             }
         });
 
-        btnCancel = ButterKnife.findById(view, R.id.btnCancel);
-        btnCancel.setIndeterminateProgressMode(true);
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 btnCancel.setProgress(50);
-//                mCarInteractor.complete(Command.COMPLETE, MapsActivity.this);
+                mCarInteractor.complete(Command.COMPLETE, MapsActivity.this);
+                btnOpen.setEnabled(false);
             }
         });
     }
 
-    private void showClosePopup() {
-        View view = getLayoutInflater().inflate(R.layout.popup_close_car, null, false);
-        addBottomWindow(view);
+    private CircularProgressButton buildButton(View view, int id) {
+        CircularProgressButton btn = ButterKnife.findById(view, id);
+        btn.setIndeterminateProgressMode(true);
+        return btn;
+    }
 
-        btnCloseCar = ButterKnife.findById(view, R.id.btnCloseCar);
-        btnCloseCar.setIndeterminateProgressMode(true);
-        btnCloseCar.setOnClickListener(new View.OnClickListener() {
+    private void showClosePopup() {
+        hideBottomWindow();
+
+        isShowClosePopup = true;
+
+        mView = getLayoutInflater().inflate(R.layout.popup_close_car, null, false);
+        addBottomWindow(mView);
+
+        btnCloseOrOpen = buildButton(mView, R.id.btnCloseOrOpen);
+        btnCloseRent = buildButton(mView, R.id.btnCloseRent);
+
+        if (Status.PARKING.equals(mStatus)) {
+            btnCloseOrOpen.setText(getString(R.string.open_car));
+        } else {
+            btnCloseOrOpen.setText(getString(R.string.close_car));
+        }
+
+        btnCloseOrOpen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btnCloseCar.setProgress(50);
-                mCarInteractor.command(Command.CLOSE, MapsActivity.this);
+                btnCloseRent.setEnabled(false);
+                btnCloseOrOpen.setProgress(50);
+                if (Status.PARKING.equals(mStatus)) {
+                    mCarInteractor.command(Command.OPEN, MapsActivity.this);
+                } else {
+                    mCarInteractor.command(Command.CLOSE, MapsActivity.this);
+                }
             }
         });
 
-        btnCloseRent = ButterKnife.findById(view, R.id.btnCloseRent);
-        btnCloseRent.setIndeterminateProgressMode(true);
         btnCloseRent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btnCloseOrOpen.setEnabled(false);
                 btnCloseRent.setProgress(50);
                 mCarInteractor.complete(Command.COMPLETE, MapsActivity.this);
             }
         });
 
         if (mCheck != null) {
-            TextView txtTariff = ButterKnife.findById(view, R.id.txtTariff);
-            txtTariff.setText(String.valueOf(mCar.getTariff().getUsage()));
-
-            TextView txtTotalUsage = ButterKnife.findById(view, R.id.txtTotalUsage);
-            txtTotalUsage.setText(String.valueOf(mCheck.getUsageTotal()));
-
-            TextView txtParking = ButterKnife.findById(view, R.id.txtParking);
-            txtParking.setText(String.valueOf(mCheck.getParkingCost()));
-
-            TextView txtTotal = ButterKnife.findById(view, R.id.txtTotal);
-            txtTotal.setText(String.valueOf(mCheck.getTotal()));
+            updateCheck(mView);
         }
     }
 
-    private class CInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
+    private void updateCheck(View view) {
+        if (view != null) {
+            ((TextView) ButterKnife.findById(view, R.id.txtTariff))
+                    .setText(String.valueOf(mCar.getTariff().getUsage()));
+            ((TextView) ButterKnife.findById(view, R.id.txtTotalUsage))
+                    .setText(String.valueOf(mCheck.getUsageTotal()));
+            ((TextView) ButterKnife.findById(view, R.id.txtParking))
+                    .setText(String.valueOf(mCheck.getParkingCost()));
+            ((TextView) ButterKnife.findById(view, R.id.txtTotal))
+                    .setText(String.valueOf(mCheck.getTotal()));
+        }
+    }
+
+    private class CustomWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
         @Override
         public View getInfoWindow(Marker marker) {
@@ -683,17 +750,22 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         public View getInfoContents(Marker marker) {
             View view = getLayoutInflater().inflate(R.layout.marker_info, null);
 
-            TextView txtModel = (TextView) view.findViewById(R.id.txtModel);
-            txtModel.setText(mCar.getModel());
+            ((TextView) ButterKnife.findById(view, R.id.txtModel))
+                    .setText(mCar.getModel());
+            ((TextView) ButterKnife.findById(view, R.id.txtNumber))
+                    .setText(mCar.getNumber());
+            ((TextView) ButterKnife.findById(view, R.id.txtColor))
+                    .setText(mCar.getColor());
 
-            TextView txtNumber = (TextView) view.findViewById(R.id.txtNumber);
-            txtNumber.setText(mCar.getNumber());
+            if (Status.BOOKING.equals(mStatus)) {
 
-            TextView txtColor = (TextView) view.findViewById(R.id.txtColor);
-            txtColor.setText(mCar.getColor());
+                LinearLayout ltRentInfo = ButterKnife.findById(view, R.id.ltRentInfo);
+                ltRentInfo.setVisibility(View.VISIBLE);
 
-            TextView txtStartUsage = (TextView) view.findViewById(R.id.txtStartUsage);
-            txtStartUsage.setText("До начала аренды " + convertTime(mBookingTimeLeft) + " минуты");
+                ((TextView) ButterKnife.findById(view, R.id.txtStartUsage))
+                        .setText("До начала аренды " + AppUtils.toTime(mBookingTimeLeft) + getString(R.string.minutes) + " минуты");
+            }
+
             return view;
         }
     }
@@ -701,6 +773,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     protected void onDestroy() {
         mMapsInteractor.getSubscription().unsubscribe();
+        mProfileInteractor.getSubscription().unsubscribe();
+        mCarInteractor.getSubscription().unsubscribe();
         super.onDestroy();
     }
 
@@ -709,6 +783,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_BOOK) {
             onMoveCamera(mCar);
+        } else if (requestCode == RC_CHECK) {
+            //TODO Что-то нужно сделать
         }
     }
 }

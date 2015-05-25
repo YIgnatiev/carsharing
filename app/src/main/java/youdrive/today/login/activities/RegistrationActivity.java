@@ -113,7 +113,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationAc
 
     @Override
     public void onInvite() {
-        AppUtils.success(btnInvite);
+        AppUtils.success(btnInvite, getString(R.string.open_car));
         if (spRegion.getSelectedItemPosition() < 1) {
             startActivityForResult(new Intent(this, ThanksActivity.class), RC_THANKS);
         } else {

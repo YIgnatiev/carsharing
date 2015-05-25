@@ -9,7 +9,7 @@
     <color name="black">#000000</color>
 
     <color name="main_dark">#189c7a</color>
-    <color name="disable">#ffdedede</color>
+    <color name="disable">#7f7f7f</color>
 
     <color name="error_dark">#ff65a1</color>
     <color name="negative_dark">#1c232d</color>

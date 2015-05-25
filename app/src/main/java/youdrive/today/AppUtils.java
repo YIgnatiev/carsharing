@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import com.dd.CircularProgressButton;
 
+import java.util.concurrent.TimeUnit;
+
 import butterknife.ButterKnife;
 
 /**
@@ -26,32 +28,20 @@ public class AppUtils {
             public void run() {
                 button.setProgress(0);
             }
-        }, 2000);
+        }, 1500);
     }
 
-    public static void error(Context context, Handler handler, String text, final CircularProgressButton button) {
-        Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+    public static void success(final CircularProgressButton button, final String string) {
+        button.setProgress(100);
 
-        button.setProgress(-1);
-
-        handler.postDelayed(new Runnable() {
+        new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 button.setProgress(0);
+                button.setIdleText(string);
             }
-        }, 2000);
+        }, 1500);
     }
-
-    public static void success(CircularProgressButton button) {
-        button.setProgress(100);
-    }
-
-    public static ButterKnife.Action<View> DISABLE = new ButterKnife.Action<View>() {
-        @Override
-        public void apply(View view, int index) {
-            view.setEnabled(false);
-        }
-    };
 
     public static ButterKnife.Setter<View, Boolean> ENABLED = new ButterKnife.Setter<View, Boolean>() {
         @Override
@@ -65,5 +55,17 @@ public class AppUtils {
                 Uri.parse("http://youdrive.today/")));
     }
 
+    public static String toKm(int meters) {
+        return meters * 0.001 + " ";
+    }
+
+    public static String toTime(int seconds) {
+        long minute = TimeUnit.SECONDS.toMinutes(seconds);
+        return minute + " ";
+    }
+
+    public static void success(CircularProgressButton button) {
+        button.setProgress(100);
+    }
 }
 

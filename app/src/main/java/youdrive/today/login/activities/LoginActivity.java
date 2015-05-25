@@ -2,9 +2,7 @@ package youdrive.today.login.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
-import android.widget.Toast;
 
 import com.dd.CircularProgressButton;
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -15,7 +13,6 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.InjectViews;
 import butterknife.OnClick;
-import timber.log.Timber;
 import youdrive.today.AppUtils;
 import youdrive.today.BaseActivity;
 import youdrive.today.User;
@@ -109,7 +106,7 @@ public class LoginActivity extends BaseActivity implements LoginActionListener {
 
     @Override
     public void onSuccess(User user) {
-        AppUtils.success(btnLogin);
+        AppUtils.success(btnLogin, getString(R.string.open_car));
         startActivity(new Intent(this, MapsActivity.class));
         finish();
     }

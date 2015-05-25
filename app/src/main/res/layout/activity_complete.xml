@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
@@ -53,13 +54,15 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="@string/usage" />
+                    android:text="@string/usage"
+                    android:textColor="@color/black"/>
 
                 <TextView
                     android:id="@+id/txtTotalUsage"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:textColor="@color/black"/>
 
             </LinearLayout>
 
@@ -75,13 +78,15 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="@string/parking" />
+                    android:text="@string/parking"
+                    android:textColor="@color/black"/>
 
                 <TextView
                     android:id="@+id/txtParking"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:textColor="@color/black"/>
 
             </LinearLayout>
 
@@ -97,13 +102,15 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="@string/total" />
+                    android:text="@string/total"
+                    android:textColor="@color/black"/>
 
                 <TextView
                     android:id="@+id/txtTotal"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:textColor="@color/black"/>
 
             </LinearLayout>
 
@@ -115,16 +122,17 @@
                 android:text="@string/buy"
                 android:textColor="@color/black" />
 
-            <Button
+            <com.dd.CircularProgressButton
                 android:id="@+id/btnClose"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/close"
-                android:background="@color/main"
-                android:textColor="@color/white"
                 android:paddingLeft="40dp"
                 android:paddingRight="40dp"
-                android:layout_gravity="center_horizontal"/>
+                android:textColor="@color/white"
+                android:layout_gravity="center_horizontal"
+                app:cpb_selectorIdle="@drawable/idle_state_selector"
+                app:cpb_cornerRadius="5dp"
+                app:cpb_textIdle="@string/close"/>
 
         </LinearLayout>
 

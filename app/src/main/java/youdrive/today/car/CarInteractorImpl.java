@@ -149,11 +149,11 @@ public class CarInteractorImpl implements CarInteractor {
 
     private void handlingError(ApiError error, CarActionListener listener) {
         if (error.getCode() == ApiError.CAR_NOT_FOUND){
-            listener.onCarNotFound();
+            listener.onCarNotFound(error.getText());
         } else if (error.getCode() == ApiError.NOT_INFO){
-            listener.onNotInfo();
+            listener.onNotInfo(error.getText());
         } else if(error.getCode() == ApiError.NOT_ORDER){
-            listener.onNotOrder();
+            listener.onNotOrder(error.getText());
         } else if(error.getCode() == ApiError.ACCESS_DENIED){
             listener.onAccessDenied();
         } else if(error.getCode() == ApiError.COMMAND_NOT_SUPPORTED){

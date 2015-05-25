@@ -9,11 +9,11 @@ import youdrive.today.Command;
  */
 public interface CarActionListener {
 
-    void onCarNotFound();
+    void onCarNotFound(String text);
 
-    void onNotInfo();
+    void onNotInfo(String text);
 
-    void onNotOrder();
+    void onNotOrder(String text);
 
     void onToken(Command command, String token);
 
