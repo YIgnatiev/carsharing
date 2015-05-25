@@ -34,7 +34,7 @@ public class CarInteractorImpl implements CarInteractor {
                     return mApiClient.booking(id, lat, lon);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    return null;
+                    return new CarResponse();
                 }
             }
         }).doOnNext(new Action1<BaseResponse>() {
@@ -62,7 +62,7 @@ public class CarInteractorImpl implements CarInteractor {
                     return mApiClient.command(command);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    return null;
+                    return new CommandResponse();
                 }
             }
         }).doOnNext(new Action1<BaseResponse>() {
@@ -89,7 +89,7 @@ public class CarInteractorImpl implements CarInteractor {
                     return mApiClient.complete();
                 } catch (IOException e) {
                     e.printStackTrace();
-                    return null;
+                    return new CommandResponse();
                 }
             }
         }).doOnNext(new Action1<BaseResponse>() {
@@ -116,7 +116,7 @@ public class CarInteractorImpl implements CarInteractor {
                     return mApiClient.result(token);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    return null;
+                    return new CommandResponse();
                 }
             }
         }).doOnNext(new Action1<BaseResponse>() {
@@ -155,14 +155,12 @@ public class CarInteractorImpl implements CarInteractor {
         } else if(error.getCode() == ApiError.NOT_ORDER){
             listener.onNotOrder(error.getText());
         } else if(error.getCode() == ApiError.ACCESS_DENIED){
-            listener.onAccessDenied();
+            listener.onAccessDenied(error.getText());
         } else if(error.getCode() == ApiError.COMMAND_NOT_SUPPORTED){
-            listener.onCommandNotSupported();
-        } else if(error.getCode() == ApiError.TOKEN_NOT_FOUND){
-            listener.onTokenNotFound();
-        }  else if(error.getCode() == ApiError.INTERNAL_ERROR){
-            listener.onInternalError();
-        }{
+            listener.onCommandNotSupported(error.getText());
+        } else if(error.getCode() == ApiError.SESSION_NOT_FOUND){
+            listener.onSessionNotFound(error.getText());
+        } else {
             listener.onError();
         }
     }

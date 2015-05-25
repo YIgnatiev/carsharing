@@ -27,17 +27,15 @@ public interface CarActionListener {
 
     void onError();
 
-    void onAccessDenied();
+    void onAccessDenied(String text);
 
-    void onCommandNotSupported();
-
-    void onTokenNotFound();
-
-    void onInternalError();
+    void onCommandNotSupported(String text);
 
     void onClose();
 
     void onComplete(Check check);
 
     void onBookingTimeLeft(int bookingTimeLeft);
+
+    void onSessionNotFound(String text);
 }

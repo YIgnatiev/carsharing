@@ -43,6 +43,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
 import timber.log.Timber;
+import youdrive.today.App;
 import youdrive.today.AppUtils;
 import youdrive.today.BaseActivity;
 import youdrive.today.Car;
@@ -145,20 +146,20 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         }
     }
 
-    //TODO Последовательность вызовов в onCreate
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.inject(this);
-
         setActionBarIcon(R.drawable.ic_ab_drawer);
         setUpMapIfNeeded();
+
         createLocationRequest();
 
         mZoomLevel = mMap.getMinZoomLevel();
 
         lvProfile.addHeaderView(getLayoutInflater().inflate(R.layout.header_profile, null));
         lvProfile.setAdapter(new ProfileAdapter(this, R.layout.item_profile, getMenu()));
+        
         mDrawer.setDrawerShadow(R.drawable.drawer_shadow, Gravity.START);
 
         mProfileInteractor = new ProfileInteractorImpl();
@@ -207,11 +208,10 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 .build();
     }
 
-    //TODO перенести в ресурсы
     private List<Menu> getMenu() {
         List<Menu> items = new ArrayList<>();
-        items.add(new Menu(R.drawable.icon_call, "Позвонить оператору"));
-        items.add(new Menu(R.drawable.icon_exit, "Выход"));
+        items.add(new Menu(R.drawable.icon_call, getString(R.string.call)));
+        items.add(new Menu(R.drawable.icon_exit, getString(R.string.exit)));
         return items;
     }
 
@@ -350,27 +350,49 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onError() {
-        Timber.d("ERROR");
+        Timber.tag("Error").d("Internal Error");
+        String text = getString(R.string.internal_error);
+        if (btnCancel != null
+                && btnCancel.getProgress() == 50){
+            AppUtils.error(text, btnCancel);
+        } else if (btnCloseRent != null
+                && btnCloseRent.getProgress() == 50){
+            AppUtils.error(text, btnCloseRent);
+        } else if (btnOpen != null
+                && btnOpen.getProgress() == 50){
+            AppUtils.error(text, btnOpen);
+        } else if (btnCloseOrOpen != null
+                && btnCloseOrOpen.getProgress() == 50){
+            AppUtils.error(text, btnCloseOrOpen);
+        }
     }
 
     @Override
-    public void onAccessDenied() {
-        Timber.d("onAccessDenied");
+    public void onAccessDenied(String text) {
+        Timber.tag("Error").e("onAccessDenied");
+        errorCommand(text);
+    }
+
+    private void errorCommand(String text){
+        if (btnCancel != null
+                && btnCancel.getProgress() == 50){
+            AppUtils.error(text, btnCancel);
+        } else if (btnCloseRent != null
+                && btnCloseRent.getProgress() == 50){
+            AppUtils.error(text, btnCloseRent);
+        } else if (btnOpen != null
+                && btnOpen.getProgress() == 50){
+            AppUtils.error(text, btnOpen);
+        } else if (btnCloseOrOpen != null
+                && btnCloseOrOpen.getProgress() == 50){
+            AppUtils.error(text, btnCloseOrOpen);
+        }
     }
 
     @Override
-    public void onCommandNotSupported() {
-        Timber.d("onCommandNotSupported");
-    }
-
-    @Override
-    public void onTokenNotFound() {
-        Timber.d("onTokenNotFound");
-    }
-
-    @Override
-    public void onInternalError() {
-        Timber.d("onInternalError");
+    public void onCommandNotSupported(String text) {
+        Timber.tag("Error").e("onCommandNotSupported");
+        errorCommand(text);
     }
 
     @Override
@@ -396,6 +418,12 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         Timber.tag("Action").d("onBookingTimeLeft " + bookingTimeLeft);
         mBookingTimeLeft = bookingTimeLeft;
         showStartRentPopup(bookingTimeLeft);
+    }
+
+    @Override
+    public void onSessionNotFound(String text) {
+        Timber.tag("Error").e("onSessionNotFound");
+        errorCommand(text);
     }
 
     @Override
@@ -441,16 +469,19 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     public void onForbidden() {
         Timber.d("onForbidden");
+        //TODO Что делать при этой ошибке CarInteractorImpl
     }
 
     @Override
     public void onTariffNotFound() {
         Timber.d("onTariffNotFound");
+        //TODO Что делать при этой ошибке CarInteractorImpl
     }
 
     @Override
     public void onBook(Car car) {
         Timber.tag("Action").d("onBook " + car.toString());
+
         if (mDialog.isShowing()) {
             btnBook.setProgress(100);
             mDialog.dismiss();
@@ -549,6 +580,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onCommandError() {
+        //TODO Что делать при этой ошибке CarInteractorImpl
     }
 
     @Override
@@ -569,11 +601,13 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     public void onSessionNotFound() {
         Timber.d("SessionNotFound");
+        //TODO Что делать при этой ошибке
     }
 
     @Override
     public void onInvalidRequest() {
         Timber.d("InvalidRequest");
+        //TODO Что делать при этой ошибке
     }
 
     @Override
@@ -598,6 +632,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     public void onConnectionFailed(ConnectionResult result) {
         Timber.e("Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
+        //TODO Что делать при этой ошибке
     }
 
     @Override

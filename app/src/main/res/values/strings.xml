@@ -49,4 +49,6 @@
     <string name="inform">Мы сообщим Вам, когда начнем работать в Вашем регионе.</string>
     <string name="book">Забронировать</string>
     <string name="region_not_selected">Регион не выбран</string>
+    <string name="call">Позвонить оператору</string>
+    <string name="exit">Выход</string>
 </resources>
