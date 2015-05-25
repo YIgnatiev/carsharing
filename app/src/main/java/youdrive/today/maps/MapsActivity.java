@@ -159,7 +159,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         lvProfile.addHeaderView(getLayoutInflater().inflate(R.layout.header_profile, null));
         lvProfile.setAdapter(new ProfileAdapter(this, R.layout.item_profile, getMenu()));
-        
+
         mDrawer.setDrawerShadow(R.drawable.drawer_shadow, Gravity.START);
 
         mProfileInteractor = new ProfileInteractorImpl();
@@ -364,6 +364,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         } else if (btnCloseOrOpen != null
                 && btnCloseOrOpen.getProgress() == 50){
             AppUtils.error(text, btnCloseOrOpen);
+        } else if (btnBook != null
+                && btnBook.getProgress() == 50){
+            AppUtils.error(text, btnBook);
         }
     }
 
