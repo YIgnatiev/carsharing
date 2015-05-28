@@ -6,88 +6,112 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white">
-
-    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:text="@string/current_tariff"
-            android:textColor="@color/black"/>
-
-        <TextView
-            android:id="@+id/txtTariff"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="@color/black"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:text="@string/usage"
-            android:textColor="@color/black"/>
-
-        <TextView
-            android:id="@+id/txtTotalUsage"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="@color/black"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:text="@string/parking"
-            android:textColor="@color/black"/>
-
-        <TextView
-            android:id="@id/txtParking"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="@color/black"/>
-
-    </LinearLayout>
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="@string/current_tariff"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/txtTariff"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="@string/price_per_min"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/txtPerMin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="@string/usage"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/txtTotalUsage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="@string/parking"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@id/txtParking"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp">
 
             <TextView
                 android:layout_width="0dp"
@@ -96,62 +120,62 @@
                 android:layout_weight="1"
                 android:gravity="right"
                 android:text="@string/total"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/txtTotal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="5dp">
 
             <com.dd.CircularProgressButton
                 android:id="@+id/btnCloseOrOpen"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_below="@+id/etPassword"
-                android:layout_alignRight="@+id/etPassword"
                 android:layout_alignLeft="@+id/etPassword"
+                android:layout_alignRight="@+id/etPassword"
+                android:layout_below="@+id/etPassword"
                 android:layout_marginRight="5dp"
-                android:textColor="@color/white"
                 android:layout_marginTop="15dp"
-                app:cpb_selectorIdle="@drawable/idle_state_selector"
-                app:cpb_selectorComplete="@drawable/complete_state_selector"
-                app:cpb_selectorError="@drawable/error_state_selector"
-                app:cpb_cornerRadius="5dp"
+                android:layout_weight="1"
+                android:textColor="@color/white"
                 app:cpb_colorIndicator="@color/main"
                 app:cpb_colorProgress="@color/cpb_white"
-                app:cpb_textError="@string/error"
-                app:cpb_iconComplete="@drawable/ic_action_accept"/>
+                app:cpb_cornerRadius="5dp"
+                app:cpb_iconComplete="@drawable/ic_action_accept"
+                app:cpb_selectorComplete="@drawable/complete_state_selector"
+                app:cpb_selectorError="@drawable/error_state_selector"
+                app:cpb_selectorIdle="@drawable/idle_state_selector"
+                app:cpb_textError="@string/error" />
 
             <com.dd.CircularProgressButton
                 android:id="@+id/btnCloseRent"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_below="@+id/etPassword"
-                android:layout_alignRight="@+id/etPassword"
                 android:layout_alignLeft="@+id/etPassword"
-                android:textColor="@color/white"
+                android:layout_alignRight="@+id/etPassword"
+                android:layout_below="@+id/etPassword"
                 android:layout_marginTop="15dp"
-                app:cpb_selectorIdle="@drawable/idle_state_selector"
-                app:cpb_selectorComplete="@drawable/complete_state_selector"
-                app:cpb_selectorError="@drawable/error_state_selector"
-                app:cpb_cornerRadius="5dp"
+                android:layout_weight="1"
+                android:textColor="@color/white"
                 app:cpb_colorIndicator="@color/main"
                 app:cpb_colorProgress="@color/cpb_white"
+                app:cpb_cornerRadius="5dp"
+                app:cpb_iconComplete="@drawable/ic_action_accept"
+                app:cpb_selectorComplete="@drawable/complete_state_selector"
+                app:cpb_selectorError="@drawable/error_state_selector"
+                app:cpb_selectorIdle="@drawable/idle_state_selector"
                 app:cpb_textError="@string/error"
-                app:cpb_textIdle="@string/close_rent"
-                app:cpb_iconComplete="@drawable/ic_action_accept"/>
+                app:cpb_textIdle="@string/close_rent" />
 
         </LinearLayout>
 

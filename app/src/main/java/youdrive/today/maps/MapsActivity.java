@@ -33,7 +33,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -44,6 +46,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
 import timber.log.Timber;
+import youdrive.today.App;
 import youdrive.today.AppUtils;
 import youdrive.today.BaseActivity;
 import youdrive.today.Car;
@@ -109,6 +112,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private boolean isShowClosePopup = false;
 
     private View mView;
+    private User mUser;
 
     @OnItemClick(R.id.lvProfile)
     void onItemSelected(int position) {
@@ -169,13 +173,17 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         mZoomLevel = mMap.getMinZoomLevel();
 
-        User user = getIntent().getParcelableExtra("user");
+        if (App.getInstance().getPreference() != null){
+            if (App.getInstance().getPreference().getUser() != null){
+                mUser = new Gson().fromJson(App.getInstance().getPreference().getUser(), User.class);
+            }
+        }
 
         View header = getLayoutInflater().inflate(R.layout.header_profile, null);
         TextView txtName = ButterKnife.findById(header, R.id.txtName);
 
-        if (user != null){
-            txtName.setText(user.getName());
+        if (mUser != null){
+            txtName.setText(mUser.getName());
         }
 
         lvProfile.addHeaderView(header);
@@ -791,15 +799,31 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     private void updateCheck(View view) {
         if (view != null) {
-            ((TextView) ButterKnife.findById(view, R.id.txtTariff))
-                    .setText(String.valueOf(mCar.getTariff().getUsage()));
+            TextView txtTariff = ButterKnife.findById(view, R.id.txtTariff);
+            TextView txtPerMin = ButterKnife.findById(view, R.id.txtPerMin);
+
+            if (Status.PARKING.equals(mStatus)){
+                txtTariff.setText("Парковка");
+                txtPerMin.setText(convertRub(mCar.getTariff().getParking()));
+            } else if (Status.USAGE.equals(mStatus)){
+                txtTariff.setText("Использование");
+                txtPerMin.setText(convertRub(mCar.getTariff().getUsage()));
+            }
+
             ((TextView) ButterKnife.findById(view, R.id.txtTotalUsage))
-                    .setText(String.valueOf(mCheck.getUsageTotal()));
+                    .setText(convertRub(mCheck.getUsageWeekendCost()
+                            + mCheck.getUsageWorkdayCost()));
             ((TextView) ButterKnife.findById(view, R.id.txtParking))
-                    .setText(String.valueOf(mCheck.getParkingCost()));
+                    .setText(convertRub(mCheck.getParkingCost()));
             ((TextView) ButterKnife.findById(view, R.id.txtTotal))
-                    .setText(String.valueOf(mCheck.getTotal()));
+                    .setText(convertRub(mCheck.getParkingCost()
+                            + mCheck.getUsageWorkdayCost()
+                            + mCheck.getUsageWeekendCost()));
         }
+    }
+
+    private String convertRub(long kopeck){
+        return String.format("%.2f", (float) kopeck / 100) + " руб.";
     }
 
     private class CustomWindowAdapter implements GoogleMap.InfoWindowAdapter {

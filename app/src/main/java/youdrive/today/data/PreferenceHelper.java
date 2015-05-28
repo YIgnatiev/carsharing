@@ -32,7 +32,7 @@ public class PreferenceHelper {
     }
 
     public void putUser(String user){
-        getEditor().putString(USER_FILE, user);
+        getEditor().putString(USER_FILE, user).apply();
     }
 
     public String getUser(){

@@ -5,9 +5,6 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by psuhoterin on 17.05.15.
- */
 public class Check implements Parcelable {
 
     @SerializedName("booking_time_left")
@@ -17,23 +14,19 @@ public class Check implements Parcelable {
     private int usageWorkdayTime;
 
     @SerializedName("usage_workday_cost")
-    private int usageWorkdayCost;
+    private long usageWorkdayCost;
 
     @SerializedName("usage_weekend_time")
     private int usageWeekendTime;
 
     @SerializedName("usage_weekend_cost")
-    private int usageWeekendCost;
+    private long usageWeekendCost;
 
     @SerializedName("parking_time")
     private int parkingTime;
 
     @SerializedName("parking_cost")
-    private int parkingCost;
-
-    private int usageTotal = usageWorkdayCost + usageWeekendCost;
-
-    private int total = usageTotal + parkingCost;
+    private long parkingCost;
 
     public int getBookingTimeLeft() {
         return bookingTimeLeft;
@@ -43,7 +36,7 @@ public class Check implements Parcelable {
         return usageWorkdayTime;
     }
 
-    public int getUsageWorkdayCost() {
+    public long getUsageWorkdayCost() {
         return usageWorkdayCost;
     }
 
@@ -51,7 +44,7 @@ public class Check implements Parcelable {
         return usageWeekendTime;
     }
 
-    public int getUsageWeekendCost() {
+    public long getUsageWeekendCost() {
         return usageWeekendCost;
     }
 
@@ -59,22 +52,18 @@ public class Check implements Parcelable {
         return parkingTime;
     }
 
-    public int getParkingCost() {
+    public long getParkingCost() {
         return parkingCost;
     }
 
-    public int getUsageTotal() {
-        return usageTotal;
-    }
-
-    public int getTotal() {
-        return total;
-    }
-
     protected Check(Parcel in) {
-        parkingCost = in.readInt();
-        usageTotal = in.readInt();
-        total = in.readInt();
+        bookingTimeLeft = in.readInt();
+        usageWorkdayTime = in.readInt();
+        usageWorkdayCost = in.readLong();
+        usageWeekendTime = in.readInt();
+        usageWeekendCost = in.readLong();
+        parkingTime = in.readInt();
+        parkingCost = in.readLong();
     }
 
     @Override
@@ -84,11 +73,16 @@ public class Check implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(parkingCost);
-        dest.writeInt(usageTotal);
-        dest.writeInt(total);
+        dest.writeInt(bookingTimeLeft);
+        dest.writeInt(usageWorkdayTime);
+        dest.writeLong(usageWorkdayCost);
+        dest.writeInt(usageWeekendTime);
+        dest.writeLong(usageWeekendCost);
+        dest.writeInt(parkingTime);
+        dest.writeLong(parkingCost);
     }
 
+    @SuppressWarnings("unused")
     public static final Parcelable.Creator<Check> CREATOR = new Parcelable.Creator<Check>() {
         @Override
         public Check createFromParcel(Parcel in) {

@@ -41,9 +41,12 @@ public class CompleteActivity extends BaseActivity {
 
         Check check = getIntent().getParcelableExtra("check");
         if (check != null){
-            txtTotalUsage.setText(String.valueOf(check.getUsageTotal()));
+            txtTotalUsage.setText(String.valueOf(check.getUsageWeekendCost()
+                    + check.getUsageWorkdayCost()));
             txtParking.setText(String.valueOf(check.getParkingCost()));
-            txtTotal.setText(String.valueOf(check.getTotal()));
+            txtTotal.setText(String.valueOf(check.getParkingCost()
+                    + check.getUsageWorkdayCost()
+                    + check.getUsageWeekendCost()));
         }
 
     }

@@ -107,10 +107,20 @@ public class LoginActivity extends BaseActivity implements LoginActionListener {
         mInteractor = new LoginInteractorImpl();
         btnLogin.setIndeterminateProgressMode(true);
 
+        if (App.getInstance().getPreference() != null){
+            if (App.getInstance().getPreference().getSession() != null){
+                startActivity(new Intent(this, MapsActivity.class));
+            }
+        }
     }
 
     @Override
     public void onSuccess(User user) {
+        Timber.tag("Login").d("User " + user.toString());
+        if (App.getInstance().getPreference() != null){
+            App.getInstance().getPreference().putUser(new Gson().toJson(user));
+        }
+
         AppUtils.success(btnLogin, getString(R.string.open_car));
         startActivity(new Intent(this, MapsActivity.class));
         finish();
