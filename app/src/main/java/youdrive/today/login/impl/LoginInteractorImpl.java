@@ -42,7 +42,8 @@ public class LoginInteractorImpl implements LoginInteractor {
             public void call(BaseResponse baseResponse) {
                 LoginResponse response = (LoginResponse) baseResponse;
                 if (response.isSuccess()) {
-                    listener.onSuccess(new User(response.getSessionId(),
+                    listener.onSuccess(new User(
+                            response.getSessionId(),
                             response.getName(),
                             response.getAvatar()));
                 } else {

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.dd.CircularProgressButton;
+import com.google.gson.Gson;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.util.List;
@@ -13,9 +14,12 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.InjectViews;
 import butterknife.OnClick;
+import timber.log.Timber;
+import youdrive.today.App;
 import youdrive.today.AppUtils;
 import youdrive.today.BaseActivity;
 import youdrive.today.User;
+import youdrive.today.data.PreferenceHelper;
 import youdrive.today.maps.MapsActivity;
 import youdrive.today.R;
 import youdrive.today.login.LoginActionListener;
@@ -102,6 +106,7 @@ public class LoginActivity extends BaseActivity implements LoginActionListener {
 
         mInteractor = new LoginInteractorImpl();
         btnLogin.setIndeterminateProgressMode(true);
+
     }
 
     @Override

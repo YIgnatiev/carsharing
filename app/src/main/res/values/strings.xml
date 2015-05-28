@@ -51,4 +51,7 @@
     <string name="region_not_selected">Регион не выбран</string>
     <string name="call">Позвонить оператору</string>
     <string name="exit">Выход</string>
+    <string name="tariff">Тарифы</string>
+    <string name="help">Помощь</string>
+    <string name="preference_file_key">user.xml</string>
 </resources>

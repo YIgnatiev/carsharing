@@ -33,7 +33,7 @@ public class ApiClient {
     private static final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
 
-    private static String HOST = "http://54.191.34.18";
+    private static String HOST = "http://youdrive.today";
     private final Gson mGson;
 
     public ApiClient() {
@@ -43,9 +43,8 @@ public class ApiClient {
     }
 
     private void setCookie(){
-        mClient.setCookieHandler(new CookieManager(
-                new PersistentCookieStore(App.getInstance()),
-                CookiePolicy.ACCEPT_ALL));
+        mClient.interceptors().add(new AddCookiesInterceptor());
+        mClient.interceptors().add(new ReceivedCookiesInterceptor());
     }
 
     public LoginResponse login(String email, String password) throws IOException {

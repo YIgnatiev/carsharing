@@ -23,7 +23,7 @@ public class ReceivedCookiesInterceptor implements Interceptor {
                 cookies.add(header);
             }
 
-            App.getInstance().getPreference().putStringSet(cookies);
+            App.getInstance().getPreference().putSession(cookies);
         }
 
         return originalResponse;

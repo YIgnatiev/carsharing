@@ -2,6 +2,7 @@ package youdrive.today.maps;
 
 import android.content.Intent;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
@@ -43,7 +44,6 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
 import timber.log.Timber;
-import youdrive.today.App;
 import youdrive.today.AppUtils;
 import youdrive.today.BaseActivity;
 import youdrive.today.Car;
@@ -52,8 +52,11 @@ import youdrive.today.Command;
 import youdrive.today.Menu;
 import youdrive.today.R;
 import youdrive.today.Status;
+import youdrive.today.User;
 import youdrive.today.car.CarActionListener;
 import youdrive.today.car.CarInteractorImpl;
+import youdrive.today.data.PreferenceHelper;
+import youdrive.today.login.activities.LoginActivity;
 import youdrive.today.other.CompleteActivity;
 import youdrive.today.other.BookCarActivity;
 import youdrive.today.profile.ProfileActionListener;
@@ -111,19 +114,28 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     void onItemSelected(int position) {
         switch (position) {
             case 1:
-                Timber.d("TARIFF");
+                openUrl("http://youdrive.today/tariffs-regulations.html");
                 break;
             case 2:
-                Timber.d("HELP");
+                openUrl("http://youdrive.copiny.com/");
                 break;
             case 3:
-                Timber.d("CALL");
+                call();
                 break;
             case 4:
-                Timber.d("LOGOUT");
-                mProfileInteractor.logout(MapsActivity.this);
+                mProfileInteractor.logout(this);
                 break;
         }
+    }
+
+    private void call(){
+        startActivity(new Intent(Intent.ACTION_CALL,
+                Uri.parse("tel:+74993223875")));
+    }
+
+    private void openUrl(String url){
+        startActivity(new Intent(Intent.ACTION_VIEW,
+                Uri.parse(url)));
     }
 
     @OnClick(R.id.btnZoomIn)
@@ -157,7 +169,16 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         mZoomLevel = mMap.getMinZoomLevel();
 
-        lvProfile.addHeaderView(getLayoutInflater().inflate(R.layout.header_profile, null));
+        User user = getIntent().getParcelableExtra("user");
+
+        View header = getLayoutInflater().inflate(R.layout.header_profile, null);
+        TextView txtName = ButterKnife.findById(header, R.id.txtName);
+
+        if (user != null){
+            txtName.setText(user.getName());
+        }
+
+        lvProfile.addHeaderView(header);
         lvProfile.setAdapter(new ProfileAdapter(this, R.layout.item_profile, getMenu()));
 
         mDrawer.setDrawerShadow(R.drawable.drawer_shadow, Gravity.START);
@@ -210,6 +231,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     private List<Menu> getMenu() {
         List<Menu> items = new ArrayList<>();
+        items.add(new Menu(R.drawable.icon_tariff, getString(R.string.tariff)));
+        items.add(new Menu(R.drawable.icon_help, getString(R.string.help)));
         items.add(new Menu(R.drawable.icon_call, getString(R.string.call)));
         items.add(new Menu(R.drawable.icon_exit, getString(R.string.exit)));
         return items;
@@ -345,7 +368,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onLogout() {
-        Timber.d("LOGOUT");
+        Timber.tag("Action").d("Logout");
+        startActivity(new Intent(this, LoginActivity.class));
+        new PreferenceHelper(this).clear();
     }
 
     @Override
