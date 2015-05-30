@@ -146,19 +146,33 @@ public class RegistrationActivity extends BaseActivity implements RegistrationAc
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RC_CONFIRM
-                && resultCode == RESULT_OK) {
-
-            if (mRegions != null){
-                ButterKnife.apply(vInputs, AppUtils.ENABLED, false);
-                btnInvite.setProgress(50);
-                mInteractor.getInvite(
-                        etLogin.getText().toString(),
-                        etPhone.getText().toString(),
-                        mRegions.get(spRegion.getSelectedItemPosition()).getId(),
-                        this);
+        if (requestCode == RC_CONFIRM){
+            if (resultCode == RESULT_OK){
+                if (mRegions != null){
+                    ButterKnife.apply(vInputs, AppUtils.ENABLED, false);
+                    btnInvite.setProgress(50);
+                    mInteractor.getInvite(
+                            etLogin.getText().toString(),
+                            etPhone.getText().toString(),
+                            mRegions.get(spRegion.getSelectedItemPosition()).getId(),
+                            true,
+                            this);
+                } else {
+                    Toast.makeText(this, R.string.region_not_selected, Toast.LENGTH_LONG).show();
+                }
             } else {
-                Toast.makeText(this, R.string.region_not_selected, Toast.LENGTH_LONG).show();
+                if (mRegions != null){
+                    ButterKnife.apply(vInputs, AppUtils.ENABLED, false);
+                    btnInvite.setProgress(50);
+                    mInteractor.getInvite(
+                            etLogin.getText().toString(),
+                            etPhone.getText().toString(),
+                            mRegions.get(spRegion.getSelectedItemPosition()).getId(),
+                            false,
+                            this);
+                } else {
+                    Toast.makeText(this, R.string.region_not_selected, Toast.LENGTH_LONG).show();
+                }
             }
 
         } else if (requestCode == RC_INFORM

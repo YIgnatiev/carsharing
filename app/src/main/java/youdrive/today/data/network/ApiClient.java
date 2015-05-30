@@ -75,9 +75,9 @@ public class ApiClient {
         return mGson.fromJson(get(url), RegionsResponse.class);
     }
 
-    public BaseResponse invite(String email, String phone, String region) throws IOException {
+    public BaseResponse invite(String email, String phone, String region, boolean readyToUse) throws IOException {
         String url = HOST + "/invite";
-        String json = "{\"email\":\"" + email + "\", \"phone\":\"" + phone +"\", \"region_id\":\"" + region + "\", \"ready_to_use\": true}";
+        String json = "{\"email\":\"" + email + "\", \"phone\":\"" + phone +"\", \"region_id\":\"" + region + "\", \"ready_to_use\": " + readyToUse + "}";
         return mGson.fromJson(post(url, json), BaseResponse.class);
     }
 
