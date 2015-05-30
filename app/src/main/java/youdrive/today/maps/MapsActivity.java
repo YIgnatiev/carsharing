@@ -35,7 +35,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -111,10 +110,13 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private CircularProgressButton btnCancel;
     private CircularProgressButton btnCloseOrOpen;
     private CircularProgressButton btnCloseRent;
-    private boolean isShowClosePopup = false;
 
     private View mView;
     private User mUser;
+
+    private boolean isShowOpenPopup = false;
+    private boolean isShowClosePopup = false;
+    private boolean isInfoPopup = false;
 
     @OnItemClick(R.id.lvProfile)
     void onItemSelected(int position) {
@@ -413,10 +415,10 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     public void onAccessDenied(String text) {
         Timber.tag("Error").e("onAccessDenied");
-        errorCommand(text);
+        unlock(text);
     }
 
-    private void errorCommand(String text) {
+    private void unlock(String text) {
         if (btnCancel != null
                 && btnCancel.getProgress() == 50) {
             AppUtils.error(text, btnCancel);
@@ -439,7 +441,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     public void onCommandNotSupported(String text) {
         Timber.tag("Error").e("onCommandNotSupported");
-        errorCommand(text);
+        unlock(text);
     }
 
     @Override
@@ -464,13 +466,13 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     public void onBookingTimeLeft(int bookingTimeLeft) {
         Timber.tag("Action").d("onBookingTimeLeft " + bookingTimeLeft);
         mBookingTimeLeft = bookingTimeLeft;
-        showStartRentPopup(bookingTimeLeft);
+        showInfoPopup(bookingTimeLeft);
     }
 
     @Override
     public void onSessionNotFound(String text) {
         Timber.tag("Error").e("onSessionNotFound");
-        errorCommand(text);
+        unlock(text);
     }
 
     @Override
@@ -563,16 +565,23 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         mStatus = status;
 
         if (Status.BOOKING.equals(status)) {
-            showStartRentPopup(mBookingTimeLeft);
+            if (!isInfoPopup){
+                showInfoPopup(mBookingTimeLeft);
+            }
         } else if (Status.PARKING.equals(status)
                 || Status.USAGE.equals(status)) {
             hideTopWindow();
         }
 
         if (Status.BOOKING.equals(status)) {
-            showOpenPopup();
-        } else if (!Status.NORMAL.equals(status) && !isShowClosePopup) {
-            showClosePopup();
+            if (!isShowOpenPopup){
+                showOpenPopup();
+            }
+        } else if (Status.PARKING.equals(status)
+                || Status.USAGE.equals(status)) {
+            if (!isShowClosePopup){
+                showClosePopup();
+            }
         }
     }
 
@@ -630,7 +639,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onCommandError() {
-        //TODO Что делать при этой ошибке CarInteractorImpl
+        unlock(getString(R.string.command_error));
     }
 
     @Override
@@ -722,8 +731,10 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         txtDistance.setText("До ближайшей машины " + AppUtils.toTime(walktime) + getString(R.string.minutes) + " пешком");
     }
 
-    private void showStartRentPopup(int bookingTimeLeft) {
+    private void showInfoPopup(int bookingTimeLeft) {
         hideTopWindow();
+
+        isInfoPopup = true;
 
         View view = getLayoutInflater().inflate(R.layout.popup_start_rent, null, false);
         addTopWindow(view);
@@ -734,6 +745,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     private void showOpenPopup() {
         hideBottomWindow();
+
+        isShowOpenPopup = true;
 
         View view = getLayoutInflater().inflate(R.layout.popup_open_car, null, false);
         addBottomWindow(view);
@@ -780,8 +793,10 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         if (Status.PARKING.equals(mStatus)) {
             btnCloseOrOpen.setText(getString(R.string.open_car));
+            btnCloseOrOpen.setIdleText(getString(R.string.open_car));
         } else {
             btnCloseOrOpen.setText(getString(R.string.close_car));
+            btnCloseOrOpen.setIdleText(getString(R.string.open_car));
         }
 
         btnCloseOrOpen.setOnClickListener(new View.OnClickListener() {

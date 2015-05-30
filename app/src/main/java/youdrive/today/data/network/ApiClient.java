@@ -33,7 +33,9 @@ public class ApiClient {
     private static final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
 
-    private static String HOST = "http://youdrive.today";
+//    private static String HOST = "http://youdrive.today";
+    private static  String HOST = "http://54.191.34.18";
+
     private final Gson mGson;
 
     public ApiClient() {
@@ -102,18 +104,19 @@ public class ApiClient {
     }
 
     private String get(String url) throws IOException {
+        Timber.tag("ApiClient").d("URL " + url);
         Request request = new Request.Builder()
                 .url(url)
                 .build();
 
         Response response = mClient.newCall(request).execute();
         String result = response.body().string();
-        Timber.d("JSON " + result);
+        Timber.tag("ApiClient").d("JSON " + result);
         return result;
     }
 
     private String post(String url, String json) throws IOException {
-        Timber.d("URL " + url + " BODY " + json);
+        Timber.tag("ApiClient").d("URL " + url + " BODY " + json);
         RequestBody body = RequestBody.create(JSON, json);
         Request request = new Request.Builder()
                 .url(url)
@@ -121,11 +124,12 @@ public class ApiClient {
                 .build();
         Response response = mClient.newCall(request).execute();
         String result = response.body().string();
-        Timber.d("JSON " + result);
+        Timber.tag("ApiClient").d("JSON " + result);
         return result;
     }
 
     private String delete(String url) throws IOException {
+        Timber.tag("ApiClient").d("URL " + url);
         Request request = new Request.Builder()
                 .url(url)
                 .delete()
@@ -133,7 +137,7 @@ public class ApiClient {
 
         Response response = mClient.newCall(request).execute();
         String result = response.body().string();
-        Timber.d("JSON " + result);
+        Timber.tag("ApiClient").d("JSON " + result);
         return result;
     }
 }

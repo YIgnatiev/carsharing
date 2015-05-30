@@ -40,6 +40,7 @@ public class MapsInteractorImpl implements MapsInteractor {
             public void call(BaseResponse baseResponse) {
                 CarResponse response = (CarResponse) baseResponse;
                 if (response.isSuccess()) {
+                    getStatusCarsInterval(listener);
                     if (response.getCars() != null) {
                         listener.onCars(response.getCars());
                     } else if (response.getCar() != null) {
@@ -60,19 +61,18 @@ public class MapsInteractorImpl implements MapsInteractor {
         }).subscribe();
     }
 
-    @Override
-    public void getStatusCars(final double lat, final double lon, final MapsActionListener listener) {
-        subscription = BaseObservable.ApiCall(new RequestListener() {
+    private void getStatusCarsInterval(final MapsActionListener listener) {
+        subscription = BaseObservable.ApiIntervalCall(new RequestListener() {
             @Override
             public BaseResponse onRequest() {
                 try {
-                    return mApiClient.getStatusCars(lat, lon);
+                    return mApiClient.getStatusCars();
                 } catch (IOException e) {
                     e.printStackTrace();
                     return null;
                 }
             }
-        }).doOnNext(new Action1<BaseResponse>() {
+        }, 20).doOnNext(new Action1<BaseResponse>() {
             @Override
             public void call(BaseResponse baseResponse) {
                 CarResponse response = (CarResponse) baseResponse;
@@ -97,10 +97,88 @@ public class MapsInteractorImpl implements MapsInteractor {
         }).subscribe();
     }
 
+    private void getStatusCarsInterval(final double lat, final double lon, final MapsActionListener listener) {
+        subscription = BaseObservable.ApiIntervalCall(new RequestListener() {
+            @Override
+            public BaseResponse onRequest() {
+                try {
+                    return mApiClient.getStatusCars(lat, lon);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+        }, 20).doOnNext(new Action1<BaseResponse>() {
+            @Override
+            public void call(BaseResponse baseResponse) {
+                if (baseResponse != null) {
+                    CarResponse response = (CarResponse) baseResponse;
+                    if (response.isSuccess()) {
+                        if (response.getCars() != null) {
+                            listener.onCars(response.getCars());
+                        } else if (response.getCar() != null) {
+                            listener.onCar(response.getCar());
+                        }
+
+                        if (response.getCheck() != null) {
+                            listener.onCheck(response.getCheck());
+                        }
+
+                        listener.onStatus(Status.fromString(response.getStatus()));
+
+                    } else {
+                        handlingError(new ApiError(response.getCode(),
+                                response.getText()), listener);
+                    }
+                }
+            }
+        }).subscribe();
+    }
+
+    @Override
+    public void getStatusCars(final double lat, final double lon, final MapsActionListener listener) {
+        subscription = BaseObservable.ApiCall(new RequestListener() {
+            @Override
+            public BaseResponse onRequest() {
+                try {
+                    return mApiClient.getStatusCars(lat, lon);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+        }).doOnNext(new Action1<BaseResponse>() {
+            @Override
+            public void call(BaseResponse baseResponse) {
+                if (baseResponse != null) {
+                    CarResponse response = (CarResponse) baseResponse;
+                    if (response.isSuccess()) {
+                        getStatusCarsInterval(lat, lon, listener);
+                        if (response.getCars() != null) {
+                            listener.onCars(response.getCars());
+                        } else if (response.getCar() != null) {
+                            listener.onCar(response.getCar());
+                        }
+
+                        if (response.getCheck() != null) {
+                            listener.onCheck(response.getCheck());
+                        }
+
+                        listener.onStatus(Status.fromString(response.getStatus()));
+
+                    } else {
+                        handlingError(new ApiError(response.getCode(),
+                                response.getText()), listener);
+                    }
+                }
+            }
+        }).subscribe();
+    }
+
     private void handlingError(ApiError error, MapsActionListener listener) {
-        if (error.getCode() == ApiError.FORBIDDEN){
+        if (error.getCode() == ApiError.FORBIDDEN) {
             listener.onForbidden();
-        } else if (error.getCode() == ApiError.TARIFF_NOT_FOUND){
+        } else if (error.getCode() == ApiError.TARIFF_NOT_FOUND) {
             listener.onTariffNotFound();
         } else {
             listener.onError();
