@@ -80,7 +80,7 @@ public class LoginActivity extends BaseActivity implements LoginActionListener {
 
     @OnClick(R.id.txtRestore)
     public void restore(View view) {
-        // TODO submit data to server...
+        // TODO Нет кейса восстановления пароля
     }
 
     @OnClick(R.id.txtAbout)
