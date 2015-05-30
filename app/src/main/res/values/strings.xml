@@ -27,9 +27,9 @@
     <string name="km">км.</string>
     <string name="success">Готово!</string>
     <string name="info">Автомобиль успешно забронирован. \n Аренда начнется через 20 минут.</string>
-    <string name="car_number">Номер:</string>
-    <string name="car_color">Цвет:</string>
-    <string name="car_model">Автомобиль:</string>
+    <string name="car_number">Номер: %1$s</string>
+    <string name="car_color">Цвет: %1$s</string>
+    <string name="car_model">Автомобиль: %1$s</string>
     <string name="show_on_map">Показать на карте</string>
     <string name="cancel_reserve">Отменить бронь</string>
     <string name="open_car">Открыть машину</string>

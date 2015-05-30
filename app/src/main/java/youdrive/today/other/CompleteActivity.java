@@ -41,13 +41,16 @@ public class CompleteActivity extends BaseActivity {
 
         Check check = getIntent().getParcelableExtra("check");
         if (check != null){
-            txtTotalUsage.setText(String.valueOf(check.getUsageWeekendCost()
+            txtTotalUsage.setText(convertRub(check.getUsageWeekendCost()
                     + check.getUsageWorkdayCost()));
-            txtParking.setText(String.valueOf(check.getParkingCost()));
-            txtTotal.setText(String.valueOf(check.getParkingCost()
+            txtParking.setText(convertRub(check.getParkingCost()));
+            txtTotal.setText(convertRub(check.getParkingCost()
                     + check.getUsageWorkdayCost()
                     + check.getUsageWeekendCost()));
         }
+    }
 
+    private String convertRub(long kopeck) {
+        return String.format("%.2f", (float) kopeck / 100) + " руб.";
     }
 }

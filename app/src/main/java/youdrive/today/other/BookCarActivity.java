@@ -45,9 +45,9 @@ public class BookCarActivity extends BaseActivity {
 
         Car mCar = getIntent().getParcelableExtra("car");
         if (mCar != null){
-            txtModel.setText(mCar.getModel());
-            txtColor.setText(mCar.getColor());
-            txtNumber.setText(mCar.getNumber());
+            txtModel.setText(getString(R.string.car_model, mCar.getModel()));
+            txtColor.setText(getString(R.string.car_color, mCar.getColor()));
+            txtNumber.setText(getString(R.string.car_number, mCar.getNumber()));
             Glide.with(this)
                     .load(mCar.getImg())
                     .centerCrop()

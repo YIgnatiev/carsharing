@@ -113,7 +113,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private View mView;
     private User mUser;
 
-    private boolean isShowOpenPopup = false;
+    private boolean isShowCommandPopup = false;
     private boolean isShowClosePopup = false;
     private boolean isInfoPopup = false;
 
@@ -576,8 +576,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         }
 
         if (Status.BOOKING.equals(status)) {
-            if (!isShowOpenPopup) {
-                showOpenPopup();
+            if (!isShowCommandPopup) {
+                showCommandPopup();
             }
         } else if (Status.PARKING.equals(status)
                 || Status.USAGE.equals(status)) {
@@ -712,6 +712,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
     private void hideBottomWindow() {
+        isShowCommandPopup = false;
         ltContainer.removeAllViews();
     }
 
@@ -723,6 +724,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
     private void hideTopWindow() {
+        isInfoPopup = false;
         ltInfo.removeAllViews();
     }
 
@@ -748,10 +750,10 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         txtStartRent.setText("До начала аренды осталось " + AppUtils.toTime(bookingTimeLeft) + getString(R.string.minutes));
     }
 
-    private void showOpenPopup() {
+    private void showCommandPopup() {
         hideBottomWindow();
 
-        isShowOpenPopup = true;
+        isShowCommandPopup = true;
 
         View view = getLayoutInflater().inflate(R.layout.popup_open_car, null, false);
         addBottomWindow(view);
