@@ -39,6 +39,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -356,10 +357,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         public boolean onMarkerClick(final Marker marker) {
 
             if (mMarkerCar.containsKey(marker)) {
-                if (mMarkerCar.size() > 1) {
+                if (Status.NORMAL.equals(mStatus)) {
                     showCarsDialog(mMarkerCar.get(marker));
-                } else {
-                    mMap.setInfoWindowAdapter(new CustomWindowAdapter());
                 }
             }
 
@@ -467,6 +466,12 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         Timber.tag("Action").d("onBookingTimeLeft " + bookingTimeLeft);
         mBookingTimeLeft = bookingTimeLeft;
         showInfoPopup(bookingTimeLeft);
+
+        for (Map.Entry<Marker, Car> entry : mMarkerCar.entrySet()) {
+            if (entry.getValue().equals(mCar)) {
+                entry.getKey().showInfoWindow();
+            }
+        }
     }
 
     @Override
@@ -565,7 +570,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         mStatus = status;
 
         if (Status.BOOKING.equals(status)) {
-            if (!isInfoPopup){
+            if (!isInfoPopup) {
                 showInfoPopup(mBookingTimeLeft);
             }
         } else if (Status.PARKING.equals(status)
@@ -574,14 +579,18 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         }
 
         if (Status.BOOKING.equals(status)) {
-            if (!isShowOpenPopup){
+            if (!isShowOpenPopup) {
                 showOpenPopup();
             }
         } else if (Status.PARKING.equals(status)
                 || Status.USAGE.equals(status)) {
-            if (!isShowClosePopup){
+            if (!isShowClosePopup) {
                 showClosePopup();
             }
+        }
+
+        if (Status.BOOKING.equals(mStatus)) {
+            mMap.setInfoWindowAdapter(new CustomWindowAdapter());
         }
     }
 

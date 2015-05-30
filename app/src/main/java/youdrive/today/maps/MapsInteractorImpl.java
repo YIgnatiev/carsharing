@@ -41,6 +41,9 @@ public class MapsInteractorImpl implements MapsInteractor {
                 CarResponse response = (CarResponse) baseResponse;
                 if (response.isSuccess()) {
                     getStatusCarsInterval(listener);
+
+                    listener.onStatus(Status.fromString(response.getStatus()));
+
                     if (response.getCars() != null) {
                         listener.onCars(response.getCars());
                     } else if (response.getCar() != null) {
@@ -50,8 +53,6 @@ public class MapsInteractorImpl implements MapsInteractor {
                     if (response.getCheck() != null) {
                         listener.onCheck(response.getCheck());
                     }
-
-                    listener.onStatus(Status.fromString(response.getStatus()));
 
                 } else {
                     handlingError(new ApiError(response.getCode(),
@@ -77,6 +78,9 @@ public class MapsInteractorImpl implements MapsInteractor {
             public void call(BaseResponse baseResponse) {
                 CarResponse response = (CarResponse) baseResponse;
                 if (response.isSuccess()) {
+
+                    listener.onStatus(Status.fromString(response.getStatus()));
+
                     if (response.getCars() != null) {
                         listener.onCars(response.getCars());
                     } else if (response.getCar() != null) {
@@ -86,8 +90,6 @@ public class MapsInteractorImpl implements MapsInteractor {
                     if (response.getCheck() != null) {
                         listener.onCheck(response.getCheck());
                     }
-
-                    listener.onStatus(Status.fromString(response.getStatus()));
 
                 } else {
                     handlingError(new ApiError(response.getCode(),
@@ -114,6 +116,9 @@ public class MapsInteractorImpl implements MapsInteractor {
                 if (baseResponse != null) {
                     CarResponse response = (CarResponse) baseResponse;
                     if (response.isSuccess()) {
+
+                        listener.onStatus(Status.fromString(response.getStatus()));
+
                         if (response.getCars() != null) {
                             listener.onCars(response.getCars());
                         } else if (response.getCar() != null) {
@@ -123,8 +128,6 @@ public class MapsInteractorImpl implements MapsInteractor {
                         if (response.getCheck() != null) {
                             listener.onCheck(response.getCheck());
                         }
-
-                        listener.onStatus(Status.fromString(response.getStatus()));
 
                     } else {
                         handlingError(new ApiError(response.getCode(),
@@ -153,6 +156,9 @@ public class MapsInteractorImpl implements MapsInteractor {
                 if (baseResponse != null) {
                     CarResponse response = (CarResponse) baseResponse;
                     if (response.isSuccess()) {
+
+                        listener.onStatus(Status.fromString(response.getStatus()));
+
                         getStatusCarsInterval(lat, lon, listener);
                         if (response.getCars() != null) {
                             listener.onCars(response.getCars());
@@ -163,8 +169,6 @@ public class MapsInteractorImpl implements MapsInteractor {
                         if (response.getCheck() != null) {
                             listener.onCheck(response.getCheck());
                         }
-
-                        listener.onStatus(Status.fromString(response.getStatus()));
 
                     } else {
                         handlingError(new ApiError(response.getCode(),
