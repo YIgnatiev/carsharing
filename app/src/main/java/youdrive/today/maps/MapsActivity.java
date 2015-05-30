@@ -72,8 +72,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private static final int RC_BOOK = 0;
     private static final int RC_CHECK = 1;
 
-    private final static int INTERVAL = 1000 * 20;
-
     private GoogleMap mMap;
 
     private ProfileInteractorImpl mProfileInteractor;
@@ -525,8 +523,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onForbidden() {
-        Timber.d("onForbidden");
-        //TODO Что делать при этой ошибке CarInteractorImpl
+        mProfileInteractor.logout(this);
     }
 
     @Override
@@ -668,8 +665,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onSessionNotFound() {
-        Timber.d("SessionNotFound");
-        //TODO Что делать при этой ошибке
+        mProfileInteractor.logout(this);
     }
 
     @Override

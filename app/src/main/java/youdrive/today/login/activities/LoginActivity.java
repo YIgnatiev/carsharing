@@ -19,7 +19,6 @@ import youdrive.today.App;
 import youdrive.today.AppUtils;
 import youdrive.today.BaseActivity;
 import youdrive.today.User;
-import youdrive.today.data.PreferenceHelper;
 import youdrive.today.maps.MapsActivity;
 import youdrive.today.R;
 import youdrive.today.login.LoginActionListener;
@@ -108,8 +107,12 @@ public class LoginActivity extends BaseActivity implements LoginActionListener {
         btnLogin.setIndeterminateProgressMode(true);
 
         if (App.getInstance().getPreference() != null){
-            if (App.getInstance().getPreference().getSession() != null){
+            if (App.getInstance().getPreference().isInvite()){
+                App.getInstance().getPreference().putInvite(false);
+                startActivity(new Intent(this, RegistrationActivity.class));
+            } else if (App.getInstance().getPreference().getSession() != null){
                 startActivity(new Intent(this, MapsActivity.class));
+                finish();
             }
         }
     }

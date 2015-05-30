@@ -12,6 +12,8 @@ public class PreferenceHelper {
 
     protected static final String USER_FILE = "youdrive.today.data.USER_FILE";
     protected static final String SESSION_ID = "youdrive.today.data.SESSION_ID";
+    protected static final String INVITE = "youdrive.today.data.INVITE";
+
     private final SharedPreferences mHelper;
 
     public PreferenceHelper(Context context) {
@@ -37,6 +39,14 @@ public class PreferenceHelper {
 
     public String getUser(){
         return mHelper.getString(USER_FILE, null);
+    }
+
+    public void putInvite(boolean b){
+        getEditor().putBoolean(INVITE, b).apply();
+    }
+
+    public boolean isInvite(){
+        return mHelper.getBoolean(INVITE, true);
     }
 
     public void clear(){
