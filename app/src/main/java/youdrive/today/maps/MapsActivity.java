@@ -70,7 +70,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private static final int RC_BOOK = 0;
-    private static final int RC_CHECK = 0;
+    private static final int RC_CHECK = 1;
+
+    private final static int INTERVAL = 1000 * 20;
 
     private GoogleMap mMap;
 
@@ -132,12 +134,12 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         }
     }
 
-    private void call(){
+    private void call() {
         startActivity(new Intent(Intent.ACTION_CALL,
                 Uri.parse("tel:+74993223875")));
     }
 
-    private void openUrl(String url){
+    private void openUrl(String url) {
         startActivity(new Intent(Intent.ACTION_VIEW,
                 Uri.parse(url)));
     }
@@ -173,8 +175,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         mZoomLevel = mMap.getMinZoomLevel();
 
-        if (App.getInstance().getPreference() != null){
-            if (App.getInstance().getPreference().getUser() != null){
+        if (App.getInstance().getPreference() != null) {
+            if (App.getInstance().getPreference().getUser() != null) {
                 mUser = new Gson().fromJson(App.getInstance().getPreference().getUser(), User.class);
             }
         }
@@ -182,7 +184,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         View header = getLayoutInflater().inflate(R.layout.header_profile, null);
         TextView txtName = ButterKnife.findById(header, R.id.txtName);
 
-        if (mUser != null){
+        if (mUser != null) {
             txtName.setText(mUser.getName());
         }
 
@@ -207,6 +209,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     protected void onStop() {
         super.onStop();
+
         if (mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
         }
@@ -386,19 +389,23 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         Timber.tag("Error").d("Internal Error");
         String text = getString(R.string.internal_error);
         if (btnCancel != null
-                && btnCancel.getProgress() == 50){
+                && btnCancel.getProgress() == 50) {
             AppUtils.error(text, btnCancel);
+            btnOpen.setEnabled(true);
         } else if (btnCloseRent != null
-                && btnCloseRent.getProgress() == 50){
+                && btnCloseRent.getProgress() == 50) {
             AppUtils.error(text, btnCloseRent);
+            btnCloseOrOpen.setEnabled(true);
         } else if (btnOpen != null
-                && btnOpen.getProgress() == 50){
+                && btnOpen.getProgress() == 50) {
             AppUtils.error(text, btnOpen);
+            btnCancel.setEnabled(true);
         } else if (btnCloseOrOpen != null
-                && btnCloseOrOpen.getProgress() == 50){
+                && btnCloseOrOpen.getProgress() == 50) {
             AppUtils.error(text, btnCloseOrOpen);
+            btnCloseRent.setEnabled(true);
         } else if (btnBook != null
-                && btnBook.getProgress() == 50){
+                && btnBook.getProgress() == 50) {
             AppUtils.error(text, btnBook);
         }
     }
@@ -409,19 +416,23 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         errorCommand(text);
     }
 
-    private void errorCommand(String text){
+    private void errorCommand(String text) {
         if (btnCancel != null
-                && btnCancel.getProgress() == 50){
+                && btnCancel.getProgress() == 50) {
             AppUtils.error(text, btnCancel);
+            btnOpen.setEnabled(true);
         } else if (btnCloseRent != null
-                && btnCloseRent.getProgress() == 50){
+                && btnCloseRent.getProgress() == 50) {
             AppUtils.error(text, btnCloseRent);
+            btnCloseOrOpen.setEnabled(true);
         } else if (btnOpen != null
-                && btnOpen.getProgress() == 50){
+                && btnOpen.getProgress() == 50) {
             AppUtils.error(text, btnOpen);
+            btnCancel.setEnabled(true);
         } else if (btnCloseOrOpen != null
-                && btnCloseOrOpen.getProgress() == 50){
+                && btnCloseOrOpen.getProgress() == 50) {
             AppUtils.error(text, btnCloseOrOpen);
+            btnCloseRent.setEnabled(true);
         }
     }
 
@@ -465,6 +476,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     public void onCars(List<Car> cars) {
         Timber.tag("Action").d("onCars " + cars.toString());
+
+        mMap.clear();
+
         Collections.sort(cars);
         onMoveCameraWithMe(cars.get(0));
         for (Car c : cars) {
@@ -573,7 +587,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     public void onCarNotFound(String text) {
         Timber.tag("Error").e("onCarNotFound");
-        if (btnBook != null){
+        if (btnBook != null) {
             AppUtils.error(text, btnBook);
         }
     }
@@ -581,7 +595,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     public void onNotInfo(String text) {
         Timber.tag("Error").e("onNotInfo");
-        if (btnBook != null){
+        if (btnBook != null) {
             AppUtils.error(text, btnBook);
         }
     }
@@ -589,7 +603,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     public void onNotOrder(String text) {
         Timber.tag("Error").e("onNotOrder");
-        if (btnBook != null){
+        if (btnBook != null) {
             AppUtils.error(text, btnBook);
         }
     }
@@ -802,10 +816,10 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             TextView txtTariff = ButterKnife.findById(view, R.id.txtTariff);
             TextView txtPerMin = ButterKnife.findById(view, R.id.txtPerMin);
 
-            if (Status.PARKING.equals(mStatus)){
+            if (Status.PARKING.equals(mStatus)) {
                 txtTariff.setText("Парковка");
                 txtPerMin.setText(convertRub(mCar.getTariff().getParking()));
-            } else if (Status.USAGE.equals(mStatus)){
+            } else if (Status.USAGE.equals(mStatus)) {
                 txtTariff.setText("Использование");
                 txtPerMin.setText(convertRub(mCar.getTariff().getUsage()));
             }
@@ -822,7 +836,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         }
     }
 
-    private String convertRub(long kopeck){
+    private String convertRub(long kopeck) {
         return String.format("%.2f", (float) kopeck / 100) + " руб.";
     }
 
