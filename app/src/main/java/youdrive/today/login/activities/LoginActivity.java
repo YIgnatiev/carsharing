@@ -105,16 +105,6 @@ public class LoginActivity extends BaseActivity implements LoginActionListener {
 
         mInteractor = new LoginInteractorImpl();
         btnLogin.setIndeterminateProgressMode(true);
-
-        if (App.getInstance().getPreference() != null){
-            if (App.getInstance().getPreference().isInvite()){
-                App.getInstance().getPreference().putInvite(false);
-                startActivity(new Intent(this, RegistrationActivity.class));
-            } else if (App.getInstance().getPreference().getSession() != null){
-                startActivity(new Intent(this, MapsActivity.class));
-                finish();
-            }
-        }
     }
 
     @Override

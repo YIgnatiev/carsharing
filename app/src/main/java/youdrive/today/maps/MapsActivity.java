@@ -463,7 +463,11 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     public void onBookingTimeLeft(int bookingTimeLeft) {
         Timber.tag("Action").d("onBookingTimeLeft " + bookingTimeLeft);
         mBookingTimeLeft = bookingTimeLeft;
-        showInfoPopup(bookingTimeLeft);
+
+        if (Status.BOOKING.equals(mStatus)
+                && !isInfoPopup){
+            showInfoPopup(bookingTimeLeft);
+        }
 
         for (Map.Entry<Marker, Car> entry : mMarkerCar.entrySet()) {
             if (entry.getValue().equals(mCar)) {
