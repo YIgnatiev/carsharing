@@ -15,6 +15,7 @@ public class MaskedWatcher implements TextWatcher {
     private final String mMask;
     private boolean mIsUpdating, mAcceptOnlyNumbers;
     private char mCharRepresentation;
+    private String mPhone = "";
     //endregion
 
     //region Constructors
@@ -83,7 +84,9 @@ public class MaskedWatcher implements TextWatcher {
         }
     }
 
-    @Override public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {}
+    @Override public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+
+    }
 
     @Override public void afterTextChanged(Editable editable) {}
     //endregion
@@ -99,4 +102,11 @@ public class MaskedWatcher implements TextWatcher {
         return TextUtils.isEmpty(charSequence) || TextUtils.isDigitsOnly(charSequence);
     }
     //endregion
+
+    public String getPhone(){
+        return mEditText.getText().toString()
+                .replace(" ", "")
+                .replace("(", "")
+                .replace(")", "");
+    }
 }

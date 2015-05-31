@@ -51,6 +51,8 @@ public class RegistrationActivity extends BaseActivity implements RegistrationAc
     private RegistrationInteractorImpl mInteractor;
     private List<Region> mRegions;
 
+    private MaskedWatcher mWatcher;
+
     @OnClick(R.id.btnInvite)
     public void invite() {
         if (btnInvite.getProgress()==0
@@ -83,6 +85,12 @@ public class RegistrationActivity extends BaseActivity implements RegistrationAc
         if (isEmpty(etPhone)) {
             etPhone.setError(getString(R.string.empty));
             isValidate = false;
+        } else if (etPhone.length() < 11){
+            etPhone.setError(getString(R.string.phone_not_valid));
+            isValidate = false;
+        } else if (!mWatcher.getPhone().startsWith("7")){
+            etPhone.setError(getString(R.string.phone_format));
+            isValidate = false;
         }
 
         return isValidate;
@@ -109,7 +117,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationAc
 
         btnInvite.setIndeterminateProgressMode(true);
 
-        new MaskedWatcher(etPhone, "# (###) ### ## ##");
+        mWatcher = new MaskedWatcher(etPhone, "# (###) ### ## ##");
     }
 
     @Override
@@ -153,7 +161,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationAc
                     btnInvite.setProgress(50);
                     mInteractor.getInvite(
                             etLogin.getText().toString(),
-                            etPhone.getText().toString(),
+                            Long.valueOf(mWatcher.getPhone()),
                             mRegions.get(spRegion.getSelectedItemPosition()).getId(),
                             true,
                             this);
@@ -166,7 +174,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationAc
                     btnInvite.setProgress(50);
                     mInteractor.getInvite(
                             etLogin.getText().toString(),
-                            etPhone.getText().toString(),
+                            Long.valueOf(mWatcher.getPhone()),
                             mRegions.get(spRegion.getSelectedItemPosition()).getId(),
                             false,
                             this);
@@ -183,6 +191,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationAc
 
     @Override
     public void onError() {
+        error(getString(R.string.internal_error));
         Timber.d("onError");
     }
 

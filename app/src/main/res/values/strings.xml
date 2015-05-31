@@ -44,7 +44,7 @@
     <string name="close">Закрыть</string>
     <string name="error">Ошибка</string>
     <string name="empty">Пустое поле</string>
-    <string name="email_not_valid">email введен не корректно</string>
+    <string name="email_not_valid">Email введен не корректно</string>
     <string name="internal_error">Внутренняя ошибка</string>
     <string name="inform">Мы сообщим Вам, когда начнем работать в Вашем регионе.</string>
     <string name="book">Забронировать</string>
@@ -56,4 +56,6 @@
     <string name="preference_file_key">user.xml</string>
     <string name="price_per_min">Цена минуты:</string>
     <string name="command_error">Ошибка выполнения команды</string>
+    <string name="phone_not_valid">Телефон введен не корректно</string>
+    <string name="phone_format">Формат телефона не 7 (###) ### ## ##</string>
 </resources>

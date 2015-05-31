@@ -30,7 +30,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/txtInvitation"
-        android:text="3@ex.com"
         android:hint="E-mail"
         app:met_textColorHint="@color/hint"
         app:met_baseColor="@color/white"
@@ -38,7 +37,8 @@
         app:met_errorColor="@color/error"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp" />
+        android:layout_marginRight="40dp"
+        android:inputType="textEmailAddress"/>
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/etPhone"
@@ -46,14 +46,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/etLogin"
         android:inputType="phone"
-        android:text="770070070"
         android:hint="Телефон"
         app:met_textColorHint="@color/hint"
         app:met_baseColor="@color/white"
         app:met_primaryColor="@color/main"
         app:met_errorColor="@color/error"
         android:layout_alignLeft="@+id/etLogin"
-        android:layout_alignRight="@+id/etLogin"/>
+        android:layout_alignRight="@+id/etLogin"
+        app:met_floatingLabel="highlight"
+        app:met_floatingLabelText="Телефон в формате 7 (###) ### ## ##"/>
 
     <Spinner
         android:id="@+id/spRegion"

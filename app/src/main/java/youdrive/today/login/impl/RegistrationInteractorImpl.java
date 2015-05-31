@@ -28,7 +28,7 @@ public class RegistrationInteractorImpl implements RegistrationInteractor {
     }
 
     @Override
-    public void getInvite(final String email, final String phone, final String region, final boolean readyToUse, final RegistrationActionListener listener) {
+    public void getInvite(final String email, final Long phone, final String region, final boolean readyToUse, final RegistrationActionListener listener) {
         subscription = BaseObservable.ApiCall(new RequestListener() {
             @Override
             public BaseResponse onRequest() {
