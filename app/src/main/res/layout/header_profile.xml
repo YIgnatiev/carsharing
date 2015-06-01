@@ -24,15 +24,16 @@
             android:layout_height="wrap_content"
             android:text="Профиль"
             android:textColor="@color/black"
-            android:textAppearance="@android:style/TextAppearance.Large"/>
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:layout_marginBottom="10dp"/>
 
-        <TextView
-            android:id="@+id/txtLocation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/main"
-            android:text="Царицыно, Москва"/>
+        <!--<TextView-->
+            <!--android:id="@+id/txtLocation"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:textColor="@color/main"-->
+            <!--android:text="Царицыно, Москва"/>-->
 
     </LinearLayout>
 
