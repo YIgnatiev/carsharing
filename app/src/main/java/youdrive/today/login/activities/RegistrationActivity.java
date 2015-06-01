@@ -57,7 +57,15 @@ public class RegistrationActivity extends BaseActivity implements RegistrationAc
     public void invite() {
         if (btnInvite.getProgress()==0
                 && isValidate()) {
-            startActivityForResult(new Intent(this, ConfirmationActivity.class), RC_CONFIRM);
+
+                ButterKnife.apply(vInputs, AppUtils.ENABLED, false);
+                btnInvite.setProgress(50);
+                mInteractor.getInvite(
+                        etLogin.getText().toString(),
+                        Long.valueOf(mWatcher.getPhone()),
+                        mRegions.get(spRegion.getSelectedItemPosition()).getId(),
+                        true,
+                        this);
         }
     }
 
@@ -90,6 +98,11 @@ public class RegistrationActivity extends BaseActivity implements RegistrationAc
             isValidate = false;
         } else if (!mWatcher.getPhone().startsWith("7")){
             etPhone.setError(getString(R.string.phone_format));
+            isValidate = false;
+        }
+
+        if (mRegions == null){
+            Toast.makeText(this, R.string.region_not_selected, Toast.LENGTH_LONG).show();
             isValidate = false;
         }
 
@@ -156,31 +169,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationAc
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_CONFIRM){
             if (resultCode == RESULT_OK){
-                if (mRegions != null){
-                    ButterKnife.apply(vInputs, AppUtils.ENABLED, false);
-                    btnInvite.setProgress(50);
-                    mInteractor.getInvite(
-                            etLogin.getText().toString(),
-                            Long.valueOf(mWatcher.getPhone()),
-                            mRegions.get(spRegion.getSelectedItemPosition()).getId(),
-                            true,
-                            this);
-                } else {
-                    Toast.makeText(this, R.string.region_not_selected, Toast.LENGTH_LONG).show();
-                }
-            } else {
-                if (mRegions != null){
-                    ButterKnife.apply(vInputs, AppUtils.ENABLED, false);
-                    btnInvite.setProgress(50);
-                    mInteractor.getInvite(
-                            etLogin.getText().toString(),
-                            Long.valueOf(mWatcher.getPhone()),
-                            mRegions.get(spRegion.getSelectedItemPosition()).getId(),
-                            false,
-                            this);
-                } else {
-                    Toast.makeText(this, R.string.region_not_selected, Toast.LENGTH_LONG).show();
-                }
+
             }
 
         } else if (requestCode == RC_INFORM

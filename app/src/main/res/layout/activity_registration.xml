@@ -26,43 +26,42 @@
         android:textAppearance="@android:style/TextAppearance.Large"/>
 
     <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/etLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txtInvitation"
-        android:hint="E-mail"
-        app:met_textColorHint="@color/hint"
-        app:met_baseColor="@color/white"
-        app:met_primaryColor="@color/main"
-        app:met_errorColor="@color/error"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:inputType="textEmailAddress"/>
-
-    <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/etPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/etLogin"
+        android:layout_below="@id/txtInvitation"
         android:inputType="phone"
         android:hint="Телефон"
         app:met_textColorHint="@color/hint"
         app:met_baseColor="@color/white"
         app:met_primaryColor="@color/main"
         app:met_errorColor="@color/error"
-        android:layout_alignLeft="@+id/etLogin"
-        android:layout_alignRight="@+id/etLogin"
         app:met_floatingLabel="highlight"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         app:met_floatingLabelText="Телефон в формате 7 (###) ### ## ##"/>
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/etLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etPhone"
+        android:hint="E-mail"
+        app:met_textColorHint="@color/hint"
+        app:met_baseColor="@color/white"
+        app:met_primaryColor="@color/main"
+        app:met_errorColor="@color/error"
+        android:inputType="textEmailAddress"
+        android:layout_alignLeft="@+id/etPhone"
+        android:layout_alignRight="@+id/etPhone"/>
 
     <Spinner
         android:id="@+id/spRegion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/etPhone"
-        android:layout_alignLeft="@+id/etLogin"
-        android:layout_alignRight="@+id/etLogin"
+        android:layout_below="@id/etLogin"
+        android:layout_alignLeft="@+id/etPhone"
+        android:layout_alignRight="@+id/etPhone"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         />
