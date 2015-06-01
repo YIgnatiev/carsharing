@@ -464,10 +464,10 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         Timber.tag("Action").d("onBookingTimeLeft " + bookingTimeLeft);
         mBookingTimeLeft = bookingTimeLeft;
 
-        if (Status.BOOKING.equals(mStatus)
-                && !isInfoPopup){
-            showInfoPopup(bookingTimeLeft);
-        }
+//        if (Status.BOOKING.equals(mStatus)
+//                && !isInfoPopup){
+//            showInfoPopup(bookingTimeLeft);
+//        }
 
         for (Map.Entry<Marker, Car> entry : mMarkerCar.entrySet()) {
             if (entry.getValue().equals(mCar)) {
@@ -572,7 +572,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         if (Status.BOOKING.equals(status)) {
             if (!isInfoPopup) {
-                showInfoPopup(mBookingTimeLeft);
+                showDistancePopup(mCar.getWalktime());
             }
         } else if (Status.PARKING.equals(status)
                 || Status.USAGE.equals(status)) {
@@ -735,11 +735,13 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private void showDistancePopup(int walktime) {
         hideTopWindow();
 
+        isInfoPopup = true;
+
         View view = getLayoutInflater().inflate(R.layout.popup_distance, null, false);
         addTopWindow(view);
 
         TextView txtDistance = ButterKnife.findById(view, R.id.txtDistance);
-        txtDistance.setText("До ближайшей машины " + AppUtils.toTime(walktime) + getString(R.string.minutes) + " пешком");
+        txtDistance.setText(getString(R.string.distance_to_car, AppUtils.toTime(walktime)));
     }
 
     private void showInfoPopup(int bookingTimeLeft) {
@@ -751,7 +753,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         addTopWindow(view);
 
         TextView txtStartRent = ButterKnife.findById(view, R.id.txtStartRent);
-        txtStartRent.setText("До начала аренды осталось " + AppUtils.toTime(bookingTimeLeft) + getString(R.string.minutes));
+        txtStartRent.setText(getString(R.string.time_start_rent, AppUtils.toTime(bookingTimeLeft)));
     }
 
     private void showCommandPopup() {
