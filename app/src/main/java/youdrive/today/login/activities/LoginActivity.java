@@ -91,6 +91,7 @@ public class LoginActivity extends BaseActivity implements LoginActionListener {
     @OnClick(R.id.txtRegistration)
     public void registration(View view) {
         startActivity(new Intent(this, RegistrationActivity.class));
+        finish();
     }
 
     @Override

@@ -71,6 +71,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationAc
 
     @OnClick(R.id.txtLogin)
     public void login(View view) {
+        startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
 

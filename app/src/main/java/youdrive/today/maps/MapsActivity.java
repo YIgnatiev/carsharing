@@ -502,11 +502,19 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             new Handler().post(new Runnable() {
                 @Override
                 public void run() {
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(
-                            new LatLngBounds(
-                                    new LatLng(car.getLat(), car.getLon()),
-                                    mMarker.getPosition()),
-                            getPx(20)));
+                    if (car.getLat() > mMarker.getPosition().latitude){
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(
+                                new LatLngBounds(
+                                        mMarker.getPosition(),
+                                        new LatLng(car.getLat(), car.getLon())),
+                                getPx(20)));
+                    } else {
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(
+                                new LatLngBounds(
+                                        new LatLng(car.getLat(), car.getLon()),
+                                        mMarker.getPosition()),
+                                getPx(20)));
+                    }
                 }
             });
         }

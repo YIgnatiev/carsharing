@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CarSharing</string>
+    <string name="app_name">YouDrive</string>
     <string name="title_activity_maps">Map</string>
     <string name="restore_password">Восстановить пароль</string>
     <string name="about">О проекте</string>
