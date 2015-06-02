@@ -23,7 +23,7 @@
     <string name="invitation">Далее</string>
     <string name="alarm">Внимание</string>
     <string name="ok">Хорошо</string>
-    <string name="minutes">минуты</string>
+    <string name="minutes">мин.</string>
     <string name="km">км.</string>
     <string name="success">Готово!</string>
     <string name="info">Автомобиль успешно забронирован. \n Аренда начнется через 20 минут.</string>

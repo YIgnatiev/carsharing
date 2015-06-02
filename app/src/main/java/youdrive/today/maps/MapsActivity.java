@@ -327,9 +327,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         ((TextView) ButterKnife.findById(view, R.id.txtType))
                 .setText(car.getTransmission());
         ((TextView) ButterKnife.findById(view, R.id.txtTaxDrive))
-                .setText(String.valueOf(car.getTariff().getUsage()));
+                .setText(convertRubPerMin(car.getTariff().getUsage()));
         ((TextView) ButterKnife.findById(view, R.id.txtTaxPark))
-                .setText(String.valueOf(car.getTariff().getParking()));
+                .setText(convertRubPerMin(car.getTariff().getParking()));
 
         btnBook = buildButton(view, R.id.btnBook);
         btnBook.setOnClickListener(new View.OnClickListener() {
@@ -866,6 +866,10 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     private String convertRub(long kopeck) {
         return String.format("%.2f", (float) kopeck / 100) + " руб.";
+    }
+
+    private String convertRubPerMin(long kopeck) {
+        return String.format("%.2f", (float) kopeck / 100) + " руб./мин.";
     }
 
     private class CustomWindowAdapter implements GoogleMap.InfoWindowAdapter {
