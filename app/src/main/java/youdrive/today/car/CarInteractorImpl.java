@@ -125,20 +125,25 @@ public class CarInteractorImpl implements CarInteractor {
                 CommandResponse response = (CommandResponse) baseResponse;
                 if (response.isSuccess()) {
                     Result result = Result.fromString(response.getStatus());
-                    if (result.equals(Result.NEW)
-                            || result.equals(Result.PROCESSING)) {
-                        listener.onPleaseWait();
-                    } else if (result.equals(Result.ERROR)) {
-                        listener.onCommandError();
-                    } else {
-                        if (command.equals(Command.OPEN)) {
-                            listener.onOpen();
-                        } else if (command.equals(Command.CLOSE)) {
-                            listener.onClose();
+                    if (result != null) {
+                        if (result.equals(Result.NEW)
+                                || result.equals(Result.PROCESSING)) {
+                            listener.onPleaseWait();
+                        } else if (result.equals(Result.ERROR)) {
+                            listener.onCommandError();
                         } else {
-                            listener.onComplete(response.getCheck());
+                            if (command.equals(Command.OPEN)) {
+                                listener.onOpen();
+                            } else if (command.equals(Command.CLOSE)) {
+                                listener.onClose();
+                            } else {
+                                listener.onComplete(response.getCheck());
+                            }
                         }
+                    } else {
+                        listener.onError();
                     }
+
                 } else {
                     handlingError(new ApiError(response.getCode(), response.getText()),
                             listener);

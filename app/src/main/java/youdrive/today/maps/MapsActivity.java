@@ -94,7 +94,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private Command mCommand;
     private MapsInteractorImpl mMapsInteractor;
     private GoogleApiClient mGoogleApiClient;
-    private MarkerOptions mMarker;
+    private Marker mMarker;
     private LocationRequest mLocationRequest;
     private float mZoomLevel;
     private Check mCheck;
@@ -296,14 +296,14 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     void updateLocation(Location location) {
         if (mMarker == null) {
-            mMarker = new MarkerOptions()
+            MarkerOptions options = new MarkerOptions()
                     .position(new LatLng(location.getLatitude(), location.getLongitude()))
                     .title("Это Вы!")
                     .flat(true)
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.user_location));
-            mMap.addMarker(mMarker);
+            mMarker = mMap.addMarker(options);
         } else {
-            mMarker.position(new LatLng(location.getLatitude(), location.getLongitude()));
+            mMarker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
         }
     }
 
@@ -362,6 +362,10 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     GoogleMap.OnMarkerClickListener onMarkerClickListener = new GoogleMap.OnMarkerClickListener() {
         @Override
         public boolean onMarkerClick(final Marker marker) {
+
+//            if (mMarker != null && mMarker.equals(marker)){
+//                mMap.setInfoWindowAdapter(null);
+//            }
 
             if (mMarkerCar.containsKey(marker)) {
                 if (Status.NORMAL.equals(mStatus)) {
@@ -493,11 +497,20 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         unlock(text);
     }
 
+    private void clear(){
+        for (Map.Entry<Marker, Car> entry : mMarkerCar.entrySet()) {
+            if (entry.getValue().equals(mCar)) {
+                entry.getKey().remove();
+            }
+        }
+        mMarkerCar.clear();
+    }
+
     @Override
     public void onCars(List<Car> cars) {
         Timber.tag("Action").d("onCars " + cars.toString());
 
-        mMap.clear();
+        clear();
 
         Collections.sort(cars);
         if (!isMoveCameraWithMe){
@@ -571,8 +584,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         }
 
         mCar = car;
-        mMarkerCar.clear();
-        mMap.clear();
+
+        clear();
 
         onStatus(Status.BOOKING);
 
@@ -597,6 +610,13 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         Timber.tag("Action").d("onStatus " + status.toString());
 
         mStatus = status;
+        if (mMarker != null){
+            if (Status.USAGE.equals(mStatus)){
+                mMarker.setVisible(false);
+            } else {
+                mMarker.setVisible(true);
+            }
+        }
 
         if (Status.BOOKING.equals(status)) {
             if (!isInfoPopup) {
