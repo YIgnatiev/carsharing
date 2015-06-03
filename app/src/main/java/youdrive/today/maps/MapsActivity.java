@@ -557,6 +557,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     public void onBook(Car car) {
         Timber.tag("Action").d("onBook " + car.toString());
 
+        isInfoPopup = false;
+
         if (mDialog.isShowing()) {
             btnBook.setProgress(100);
             mDialog.dismiss();
