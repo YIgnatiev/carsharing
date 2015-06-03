@@ -116,6 +116,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private boolean isShowCommandPopup = false;
     private boolean isShowClosePopup = false;
     private boolean isInfoPopup = false;
+    private boolean isMoveCamera = false;
+    private boolean isMoveCameraWithMe = false;
 
     @OnItemClick(R.id.lvProfile)
     void onItemSelected(int position) {
@@ -498,7 +500,11 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         mMap.clear();
 
         Collections.sort(cars);
-        onMoveCameraWithMe(cars.get(0));
+        if (!isMoveCameraWithMe){
+            isMoveCameraWithMe = true;
+            onMoveCameraWithMe(cars.get(0));
+        }
+
         for (Car c : cars) {
             addMarker(c);
         }
@@ -580,7 +586,10 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         mCar = car;
         addMarker(car);
-        onMoveCamera(car);
+        if (!isMoveCamera){
+            isMoveCamera = true;
+            onMoveCamera(car);
+        }
     }
 
     @Override
