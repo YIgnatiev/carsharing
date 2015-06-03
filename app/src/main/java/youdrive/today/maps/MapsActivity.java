@@ -326,6 +326,13 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 .setText(AppUtils.toTime(car.getWalktime()) + getString(R.string.minutes));
         ((TextView) ButterKnife.findById(view, R.id.txtType))
                 .setText(car.getTransmission());
+        TextView txtFuel = ButterKnife.findById(view, R.id.txtFuel);
+        if (car.getFuel() != null){
+            txtFuel.setText(String.valueOf(car.getFuel()));
+        } else {
+            txtFuel.setText("Неизвестно");
+        }
+
         ((TextView) ButterKnife.findById(view, R.id.txtTaxDrive))
                 .setText(convertRubPerMin(car.getTariff().getUsage()));
         ((TextView) ButterKnife.findById(view, R.id.txtTaxPark))
@@ -449,6 +456,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             btnCloseRent.setEnabled(true);
             AppUtils.success(btnCloseOrOpen, getString(R.string.open_car));
         }
+
+        mMapsInteractor.updateCar(this);
     }
 
     @Override
@@ -598,7 +607,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             }
         }
 
-        if (Status.BOOKING.equals(mStatus)) {
+        if (Status.BOOKING.equals(mStatus)
+                || Status.USAGE.equals(mStatus)
+                || Status.PARKING.equals(mStatus)) {
             mMap.setInfoWindowAdapter(new CustomWindowAdapter());
         }
     }
@@ -672,7 +683,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             AppUtils.success(btnCloseOrOpen, getString(R.string.close_car));
         }
 
-        onStatus(Status.USAGE);
+        mMapsInteractor.updateCar(this);/*onStatus(Status.USAGE);*/
     }
 
     @Override
@@ -725,6 +736,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     private void hideBottomWindow() {
         isShowCommandPopup = false;
+        isShowClosePopup = false;
         ltContainer.removeAllViews();
     }
 

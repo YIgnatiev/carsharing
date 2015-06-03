@@ -19,7 +19,7 @@ public class Car implements Comparable<Car>, Parcelable {
     float lon;
     int walktime;
     String transmission;
-    int fuel;
+    Integer fuel;
     int distance;
     Tariff tariff;
     String img;
@@ -60,7 +60,7 @@ public class Car implements Comparable<Car>, Parcelable {
         return transmission;
     }
 
-    public int getFuel() {
+    public Integer getFuel() {
         return fuel;
     }
 
