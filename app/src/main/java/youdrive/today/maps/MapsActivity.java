@@ -272,9 +272,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         if (mMap == null) {
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
-//            if (mMap != null) {
-//                mMap.setOnMarkerClickListener(onMarkerClickListener);
-//            }
         }
     }
 
@@ -296,18 +293,17 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     void updateLocation(Location location) {
         if (mMarker == null) {
-            MarkerOptions options = new MarkerOptions()
-                    .position(new LatLng(location.getLatitude(), location.getLongitude()))
-                    .title("Это Вы!")
-                    .flat(true)
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.user_location));
-            mMarker = mMap.addMarker(options);
+            buildUserLocation(location);
         } else {
             mMarker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
         }
     }
 
     private void showCarsDialog(final Car car) {
+        if (car == null){
+            return;
+        }
+
         mDialog = new MaterialDialog.Builder(MapsActivity.this)
                 .customView(R.layout.dialog_info_contents, true)
                 .widgetColorRes(R.color.white)
@@ -320,7 +316,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
     private void buildDialog(View view, final Car car) {
-        if (car.getModel() != null){
+        if (car.getModel() != null) {
             ((TextView) ButterKnife.findById(view, R.id.txtModel))
                     .setText(car.getModel());
         }
@@ -332,7 +328,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         ((TextView) ButterKnife.findById(view, R.id.txtType))
                 .setText(car.getTransmission());
         TextView txtFuel = ButterKnife.findById(view, R.id.txtFuel);
-        if (car.getFuel() != null){
+        if (car.getFuel() != null) {
             txtFuel.setText(String.valueOf(car.getFuel()));
         } else {
             txtFuel.setText("Неизвестно");
@@ -361,24 +357,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             }
         });
     }
-
-//    GoogleMap.OnMarkerClickListener onMarkerClickListener = new GoogleMap.OnMarkerClickListener() {
-//        @Override
-//        public boolean onMarkerClick(final Marker marker) {
-//
-////            if (mMarker != null && mMarker.equals(marker)){
-////                mMap.setInfoWindowAdapter(null);
-////            }
-//
-//            if (mMarkerCar.containsKey(marker)) {
-//                if (Status.NORMAL.equals(mStatus)) {
-//                    showCarsDialog(mMarkerCar.get(marker));
-//                }
-//            }
-//
-//            return false;
-//        }
-//    };
 
     HashMap<Marker, Car> mMarkerCar = new HashMap<>();
 
@@ -500,23 +478,19 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         unlock(text);
     }
 
-    private void clear(){
-        for (Map.Entry<Marker, Car> entry : mMarkerCar.entrySet()) {
-            if (entry.getValue().equals(mCar)) {
-                entry.getKey().remove();
-            }
-        }
+    private void clear() {
+        mMarkerCar.clear();
         mMap.clear();
+        mMarker.remove();
     }
 
     @Override
     public void onCars(List<Car> cars) {
-        Timber.tag("Action").d("onCars " + cars.toString());
 
         clear();
 
         Collections.sort(cars);
-        if (!isMoveCameraWithMe){
+        if (!isMoveCameraWithMe) {
             isMoveCameraWithMe = true;
             onMoveCameraWithMe(cars.get(0));
         }
@@ -533,7 +507,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             new Handler().post(new Runnable() {
                 @Override
                 public void run() {
-                    if (car.getLat() > mMarker.getPosition().latitude){
+                    if (car.getLat() > mMarker.getPosition().latitude) {
                         mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(
                                 new LatLngBounds(
                                         mMarker.getPosition(),
@@ -599,8 +573,11 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     public void onCar(Car car) {
         mCar = car;
+
+        clear();
+
         addMarker(car);
-        if (!isMoveCamera){
+        if (!isMoveCamera) {
             isMoveCamera = true;
             onMoveCamera(car);
         }
@@ -609,12 +586,10 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     public void onStatus(Status status) {
         mStatus = status;
-        if (mMarker != null){
-            if (Status.USAGE.equals(mStatus)){
-                mMarker.setVisible(false);
-            } else {
-                mMarker.setVisible(true);
-            }
+
+        if (!Status.USAGE.equals(mStatus)) {
+            mMarker.setVisible(false);
+            buildUserLocation(mLastLocation);
         }
 
         if (Status.BOOKING.equals(status)) {
@@ -651,6 +626,15 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 }
             });
         }
+    }
+
+    private void buildUserLocation(Location location) {
+        MarkerOptions options = new MarkerOptions()
+                .position(new LatLng(location.getLatitude(), location.getLongitude()))
+                .title("Это Вы!")
+                .flat(true)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.user_location));
+        mMarker = mMap.addMarker(options);
     }
 
     @Override
@@ -793,7 +777,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         addTopWindow(view);
 
         TextView txtDistance = ButterKnife.findById(view, R.id.txtDistance);
-        if (Status.NORMAL.equals(mStatus)){
+        if (Status.NORMAL.equals(mStatus)) {
             txtDistance.setText(getString(R.string.distance_to_car, AppUtils.toTime(walktime)));
         } else {
             txtDistance.setText(getString(R.string.distance_to_book_car, AppUtils.toTime(walktime)));
@@ -938,6 +922,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         @Override
         public View getInfoContents(Marker marker) {
+            if (marker.equals(mMarker)){
+                return null;
+            }
             View view = getLayoutInflater().inflate(R.layout.marker_info, null);
 
             ((TextView) ButterKnife.findById(view, R.id.txtModel))
