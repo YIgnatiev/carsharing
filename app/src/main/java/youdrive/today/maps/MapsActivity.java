@@ -304,6 +304,10 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             return;
         }
 
+        if (!Status.NORMAL.equals(mStatus)){
+            return;
+        }
+
         mDialog = new MaterialDialog.Builder(MapsActivity.this)
                 .customView(R.layout.dialog_info_contents, true)
                 .widgetColorRes(R.color.white)
