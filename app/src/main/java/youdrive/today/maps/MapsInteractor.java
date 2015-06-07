@@ -7,6 +7,5 @@ public interface MapsInteractor {
 
     void getStatusCars(double lat, double lon, MapsActionListener listener);
     void getStatusCar(MapsActionListener listener);
-    void updateCar(MapsActionListener listener);
 
 }

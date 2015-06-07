@@ -23,9 +23,6 @@ public class MapsInteractorImpl implements MapsInteractor {
         mApiClient = App.getInstance().getApiClient();
     }
 
-
-
-
     @Override
     public void getStatusCar(final MapsActionListener listener) {
         subscription = BaseObservable.ApiCall(new RequestListener() {
@@ -43,7 +40,7 @@ public class MapsInteractorImpl implements MapsInteractor {
             public void call(BaseResponse baseResponse) {
                 CarResponse response = (CarResponse) baseResponse;
                 if (response.isSuccess()) {
-                    getStatusCarsInterval(listener);
+//                    getStatusCarsInterval(listener);
 
                     if (response.getCars() != null) {
                         listener.onCars(response.getCars());
@@ -60,120 +57,6 @@ public class MapsInteractorImpl implements MapsInteractor {
                 } else {
                     handlingError(new ApiError(response.getCode(),
                             response.getText()), listener);
-                }
-            }
-        }).subscribe();
-    }
-
-    @Override
-    public void updateCar(final MapsActionListener listener) {
-        subscription = BaseObservable.ApiCall(new RequestListener() {
-            @Override
-            public BaseResponse onRequest() {
-                try {
-                    return mApiClient.getStatusCars();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return null;
-                }
-            }
-        }).doOnNext(new Action1<BaseResponse>() {
-            @Override
-            public void call(BaseResponse baseResponse) {
-                CarResponse response = (CarResponse) baseResponse;
-                if (response.isSuccess()) {
-
-                    if (response.getCars() != null) {
-                        listener.onCars(response.getCars());
-                    } else if (response.getCar() != null) {
-                        listener.onCar(response.getCar());
-                    }
-
-                    listener.onStatus(Status.fromString(response.getStatus()));
-
-                    if (response.getCheck() != null) {
-                        listener.onCheck(response.getCheck());
-                    }
-
-                } else {
-                    handlingError(new ApiError(response.getCode(),
-                            response.getText()), listener);
-                }
-            }
-        }).subscribe();
-    }
-
-    private void getStatusCarsInterval(final MapsActionListener listener) {
-        subscription = BaseObservable.ApiIntervalCall(new RequestListener() {
-            @Override
-            public BaseResponse onRequest() {
-                try {
-                    return mApiClient.getStatusCars();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return null;
-                }
-            }
-        }, 20).doOnNext(new Action1<BaseResponse>() {
-            @Override
-            public void call(BaseResponse baseResponse) {
-                CarResponse response = (CarResponse) baseResponse;
-                if (response.isSuccess()) {
-
-                    if (response.getCars() != null) {
-                        listener.onCars(response.getCars());
-                    } else if (response.getCar() != null) {
-                        listener.onCar(response.getCar());
-                    }
-
-                    listener.onStatus(Status.fromString(response.getStatus()));
-
-                    if (response.getCheck() != null) {
-                        listener.onCheck(response.getCheck());
-                    }
-
-                } else {
-                    handlingError(new ApiError(response.getCode(),
-                            response.getText()), listener);
-                }
-            }
-        }).subscribe();
-    }
-
-    private void getStatusCarsInterval(final double lat, final double lon, final MapsActionListener listener) {
-        subscription = BaseObservable.ApiIntervalCall(new RequestListener() {
-            @Override
-            public BaseResponse onRequest() {
-                try {
-                    return mApiClient.getStatusCars(lat, lon);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return null;
-                }
-            }
-        }, 20).doOnNext(new Action1<BaseResponse>() {
-            @Override
-            public void call(BaseResponse baseResponse) {
-                if (baseResponse != null) {
-                    CarResponse response = (CarResponse) baseResponse;
-                    if (response.isSuccess()) {
-
-                        if (response.getCars() != null) {
-                            listener.onCars(response.getCars());
-                        } else if (response.getCar() != null) {
-                            listener.onCar(response.getCar());
-                        }
-
-                        listener.onStatus(Status.fromString(response.getStatus()));
-
-                        if (response.getCheck() != null) {
-                            listener.onCheck(response.getCheck());
-                        }
-
-                    } else {
-                        handlingError(new ApiError(response.getCode(),
-                                response.getText()), listener);
-                    }
                 }
             }
         }).subscribe();
@@ -198,7 +81,6 @@ public class MapsInteractorImpl implements MapsInteractor {
                     CarResponse response = (CarResponse) baseResponse;
                     if (response.isSuccess()) {
 
-                        getStatusCarsInterval(lat, lon, listener);
                         if (response.getCars() != null) {
                             listener.onCars(response.getCars());
                         } else if (response.getCar() != null) {

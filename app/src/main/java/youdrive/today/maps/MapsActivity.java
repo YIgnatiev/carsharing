@@ -40,6 +40,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -118,6 +120,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private boolean isInfoPopup = false;
     private boolean isMoveCamera = false;
     private boolean isMoveCameraWithMe = false;
+    private Timer mTimer;
 
     @OnItemClick(R.id.lvProfile)
     void onItemSelected(int position) {
@@ -216,6 +219,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         if (mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
         }
+
+        mTimer.cancel();
     }
 
     @Override
@@ -233,6 +238,20 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         if (mGoogleApiClient.isConnected()) {
             startLocationUpdates();
         }
+
+        mTimer = new Timer();
+        mTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (mStatus != null && mLastLocation != null) {
+                    if (Status.NORMAL.equals(mStatus) || Status.BOOKING.equals(mStatus)) {
+                        mMapsInteractor.getStatusCars(mLastLocation.getLatitude(), mLastLocation.getLongitude(), MapsActivity.this);
+                    } else {
+                        mMapsInteractor.getStatusCar(MapsActivity.this);
+                    }
+                }
+            }
+        }, 20 * 1000, 20 * 1000);
     }
 
     protected synchronized void buildGoogleApiClient() {
@@ -448,7 +467,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             AppUtils.success(btnCloseOrOpen, getString(R.string.open_car));
         }
 
-        mMapsInteractor.updateCar(this);
+        mMapsInteractor.getStatusCar(this);
     }
 
     @Override
@@ -704,7 +723,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             AppUtils.success(btnCloseOrOpen, getString(R.string.close_car));
         }
 
-        mMapsInteractor.updateCar(this);/*onStatus(Status.USAGE);*/
+        mMapsInteractor.getStatusCar(this);/*onStatus(Status.USAGE);*/
     }
 
     @Override
@@ -744,6 +763,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onLocationChanged(Location location) {
+        mLastLocation = location;
         updateLocation(location);
     }
 
@@ -965,7 +985,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         if (requestCode == RC_BOOK) {
             onMoveCamera(mCar);
         } else if (requestCode == RC_CHECK) {
-            //TODO Что-то нужно сделать
+            mMapsInteractor.getStatusCars(mLastLocation.getLatitude(), mLastLocation.getLongitude(), this);
         }
     }
 }
