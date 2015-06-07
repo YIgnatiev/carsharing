@@ -126,15 +126,18 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     void onItemSelected(int position) {
         switch (position) {
             case 1:
-                openUrl("http://youdrive.today/tariffs-regulations.html");
+                openUrl("https://youdrive.today/profile.html");
                 break;
             case 2:
-                openUrl("http://youdrive.copiny.com/");
+                openUrl("http://youdrive.today/tariffs-regulations.html");
                 break;
             case 3:
-                call();
+                openUrl("http://youdrive.copiny.com/");
                 break;
             case 4:
+                call();
+                break;
+            case 5:
                 mProfileInteractor.logout(this);
                 break;
         }
@@ -264,6 +267,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     private List<Menu> getMenu() {
         List<Menu> items = new ArrayList<>();
+        items.add(new Menu(R.drawable.icon_help, getString(R.string.profile)));
         items.add(new Menu(R.drawable.icon_tariff, getString(R.string.tariff)));
         items.add(new Menu(R.drawable.icon_help, getString(R.string.help)));
         items.add(new Menu(R.drawable.icon_call, getString(R.string.call)));

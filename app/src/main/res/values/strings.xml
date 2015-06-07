@@ -61,4 +61,5 @@
     <string name="time_start_rent">До начала аренды %1$s мин.</string>
     <string name="distance_to_car">До ближайшей машины %1$s мин. пешком</string>
     <string name="distance_to_book_car">До забронированной машины %1$s мин. пешком</string>
+    <string name="profile">Личный кабинет</string>
 </resources>
