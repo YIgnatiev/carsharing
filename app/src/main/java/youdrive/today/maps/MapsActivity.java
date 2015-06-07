@@ -272,9 +272,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         if (mMap == null) {
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
-            if (mMap != null) {
-                mMap.setOnMarkerClickListener(onMarkerClickListener);
-            }
+//            if (mMap != null) {
+//                mMap.setOnMarkerClickListener(onMarkerClickListener);
+//            }
         }
     }
 
@@ -320,8 +320,11 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
     private void buildDialog(View view, final Car car) {
-        ((TextView) ButterKnife.findById(view, R.id.txtModel))
-                .setText(car.getModel());
+        if (car.getModel() != null){
+            ((TextView) ButterKnife.findById(view, R.id.txtModel))
+                    .setText(car.getModel());
+        }
+
         ((TextView) ButterKnife.findById(view, R.id.txtDistance))
                 .setText(AppUtils.toKm(car.getDistance()) + getString(R.string.km));
         ((TextView) ButterKnife.findById(view, R.id.txtTimeTo))
@@ -359,23 +362,23 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         });
     }
 
-    GoogleMap.OnMarkerClickListener onMarkerClickListener = new GoogleMap.OnMarkerClickListener() {
-        @Override
-        public boolean onMarkerClick(final Marker marker) {
-
-//            if (mMarker != null && mMarker.equals(marker)){
-//                mMap.setInfoWindowAdapter(null);
+//    GoogleMap.OnMarkerClickListener onMarkerClickListener = new GoogleMap.OnMarkerClickListener() {
+//        @Override
+//        public boolean onMarkerClick(final Marker marker) {
+//
+////            if (mMarker != null && mMarker.equals(marker)){
+////                mMap.setInfoWindowAdapter(null);
+////            }
+//
+//            if (mMarkerCar.containsKey(marker)) {
+//                if (Status.NORMAL.equals(mStatus)) {
+//                    showCarsDialog(mMarkerCar.get(marker));
+//                }
 //            }
-
-            if (mMarkerCar.containsKey(marker)) {
-                if (Status.NORMAL.equals(mStatus)) {
-                    showCarsDialog(mMarkerCar.get(marker));
-                }
-            }
-
-            return false;
-        }
-    };
+//
+//            return false;
+//        }
+//    };
 
     HashMap<Marker, Car> mMarkerCar = new HashMap<>();
 
@@ -503,7 +506,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 entry.getKey().remove();
             }
         }
-        mMarkerCar.clear();
+        mMap.clear();
     }
 
     @Override
@@ -642,6 +645,14 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 || Status.USAGE.equals(mStatus)
                 || Status.PARKING.equals(mStatus)) {
             mMap.setInfoWindowAdapter(new CustomWindowAdapter());
+        } else {
+            mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick(Marker marker) {
+                    showCarsDialog(mMarkerCar.get(marker));
+                    return false;
+                }
+            });
         }
     }
 
