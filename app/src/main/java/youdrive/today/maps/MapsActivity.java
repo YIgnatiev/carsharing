@@ -598,8 +598,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onCar(Car car) {
-        Timber.tag("Action").d("OnCar " + car.toString());
-
         mCar = car;
         addMarker(car);
         if (!isMoveCamera){
@@ -610,8 +608,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onStatus(Status status) {
-        Timber.tag("Action").d("onStatus " + status.toString());
-
         mStatus = status;
         if (mMarker != null){
             if (Status.USAGE.equals(mStatus)){
@@ -646,6 +642,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 || Status.PARKING.equals(mStatus)) {
             mMap.setInfoWindowAdapter(new CustomWindowAdapter());
         } else {
+            mMap.setInfoWindowAdapter(null);
             mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                 @Override
                 public boolean onMarkerClick(Marker marker) {
@@ -658,7 +655,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onCheck(Check check) {
-        Timber.tag("Action").d("Check " + check.toString());
         onBookingTimeLeft(check.getBookingTimeLeft());
         mCheck = check;
         updateCheck(mView);
@@ -666,7 +662,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onCarNotFound(String text) {
-        Timber.tag("Error").e("onCarNotFound");
         if (btnBook != null) {
             AppUtils.error(text, btnBook);
         }
@@ -674,7 +669,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onNotInfo(String text) {
-        Timber.tag("Error").e("onNotInfo");
         if (btnBook != null) {
             AppUtils.error(text, btnBook);
         }
@@ -682,7 +676,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onNotOrder(String text) {
-        Timber.tag("Error").e("onNotOrder");
         if (btnBook != null) {
             AppUtils.error(text, btnBook);
         }
@@ -690,7 +683,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onToken(Command command, String token) {
-        Timber.tag("onToken").d("Token " + token);
         mToken = token;
         mCommand = command;
     }
@@ -715,7 +707,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onOpen() {
-        Timber.d("onOpen");
         if (btnOpen != null) {
             AppUtils.success(btnOpen);
         }
@@ -735,7 +726,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onInvalidRequest() {
-        Timber.d("InvalidRequest");
         //TODO Что делать при этой ошибке
     }
 
@@ -803,7 +793,12 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         addTopWindow(view);
 
         TextView txtDistance = ButterKnife.findById(view, R.id.txtDistance);
-        txtDistance.setText(getString(R.string.distance_to_car, AppUtils.toTime(walktime)));
+        if (Status.NORMAL.equals(mStatus)){
+            txtDistance.setText(getString(R.string.distance_to_car, AppUtils.toTime(walktime)));
+        } else {
+            txtDistance.setText(getString(R.string.distance_to_book_car, AppUtils.toTime(walktime)));
+        }
+
     }
 
     private void showInfoPopup(int bookingTimeLeft) {
@@ -958,7 +953,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 ltRentInfo.setVisibility(View.VISIBLE);
 
                 ((TextView) ButterKnife.findById(view, R.id.txtStartUsage))
-                        .setText("До начала аренды " + AppUtils.toTime(mBookingTimeLeft) + getString(R.string.minutes) + " минуты");
+                        .setText("До начала аренды " + AppUtils.toTime(mBookingTimeLeft) + getString(R.string.minutes));
             }
 
             return view;
