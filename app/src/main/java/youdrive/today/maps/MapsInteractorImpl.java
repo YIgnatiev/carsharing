@@ -107,6 +107,8 @@ public class MapsInteractorImpl implements MapsInteractor {
             listener.onForbidden();
         } else if (error.getCode() == ApiError.TARIFF_NOT_FOUND) {
             listener.onTariffNotFound();
+        } else if (error.getText() != null){
+            listener.onUnknownError(error.getText());
         } else {
             listener.onError();
         }

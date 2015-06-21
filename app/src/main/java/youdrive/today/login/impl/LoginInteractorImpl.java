@@ -60,6 +60,8 @@ public class LoginInteractorImpl implements LoginInteractor {
             listener.onErrorFieldEmpty(error.getText());
         } else if (error.getCode() == ApiError.USER_NOT_FOUND) {
             listener.onErrorUserNotFound(error.getText());
+        } else if (error.getText() != null){
+            listener.onUnknownError(error.getText());
         } else {
             listener.onError();
         }

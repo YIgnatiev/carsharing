@@ -672,6 +672,11 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
     @Override
+    public void onUnknownError(String text) {
+        unlock(text);
+    }
+
+    @Override
     public void onCarNotFound(String text) {
         if (btnBook != null) {
             AppUtils.error(text, btnBook);

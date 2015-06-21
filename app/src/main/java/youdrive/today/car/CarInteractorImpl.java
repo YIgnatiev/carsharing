@@ -165,6 +165,8 @@ public class CarInteractorImpl implements CarInteractor {
             listener.onCommandNotSupported(error.getText());
         } else if(error.getCode() == ApiError.SESSION_NOT_FOUND){
             listener.onSessionNotFound(error.getText());
+        } else if (error.getText() != null){
+            listener.onUnknownError(error.getText());
         } else {
             listener.onError();
         }

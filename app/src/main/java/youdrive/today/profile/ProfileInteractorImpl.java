@@ -50,6 +50,8 @@ public class ProfileInteractorImpl implements ProfileInteractor {
             listener.onSessionNotFound();
         } else if (error.getCode() == ApiError.INVALID_REQUEST){
             listener.onInvalidRequest();
+        } else if (error.getText() != null){
+            listener.onUnknownError(error.getText());
         } else {
             listener.onError();
         }

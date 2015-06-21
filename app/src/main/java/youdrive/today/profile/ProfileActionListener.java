@@ -7,4 +7,6 @@ public interface ProfileActionListener {
 
     void onSessionNotFound();
     void onInvalidRequest();
+
+    void onUnknownError(String text);
 }

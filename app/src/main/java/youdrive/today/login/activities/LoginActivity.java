@@ -135,6 +135,11 @@ public class LoginActivity extends BaseActivity implements LoginActionListener {
         error(message);
     }
 
+    @Override
+    public void onUnknownError(String text) {
+        error(text);
+    }
+
     private void error(String text) {
         ButterKnife.apply(vInputs, AppUtils.ENABLED, true);
         AppUtils.error(text, btnLogin);

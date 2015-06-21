@@ -12,4 +12,6 @@ public interface LoginActionListener {
 
     void onErrorUserNotFound(String message);
     void onErrorFieldEmpty(String message);
+
+    void onUnknownError(String text);
 }
