@@ -23,6 +23,12 @@ public class Car implements Comparable<Car>, Parcelable {
     int distance;
     Tariff tariff;
     String img;
+    String pointer_resource;
+
+
+    public String getPointer_resource() {
+        return pointer_resource;
+    }
 
     public String getImg() {
         return img;

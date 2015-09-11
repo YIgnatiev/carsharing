@@ -411,7 +411,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.car_location));
 
         Picasso.with(this)
-                .load(car.getImg())
+                .load(car.getPointer_resource()+"_android.png")
                 .resize(80, 100)
                 .into(new PicassoMarker(markerOptions));
 
