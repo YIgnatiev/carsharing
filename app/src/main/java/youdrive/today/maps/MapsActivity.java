@@ -264,7 +264,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     private void moveToMoscow() {
         LatLng moscow = new LatLng(55.749792, 37.632495);
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(moscow, 10);
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(moscow, 11);
         mMap.animateCamera(cameraUpdate);
     }
 
