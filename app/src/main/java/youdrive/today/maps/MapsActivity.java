@@ -25,6 +25,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -34,6 +35,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -62,11 +64,12 @@ import youdrive.today.car.CarActionListener;
 import youdrive.today.car.CarInteractorImpl;
 import youdrive.today.data.PreferenceHelper;
 import youdrive.today.login.activities.LoginActivity;
-import youdrive.today.other.CompleteActivity;
 import youdrive.today.other.BookCarActivity;
+import youdrive.today.other.CompleteActivity;
 import youdrive.today.profile.ProfileActionListener;
 import youdrive.today.profile.ProfileAdapter;
 import youdrive.today.profile.ProfileInteractorImpl;
+import youdrive.today.views.PicassoMarker;
 
 public class MapsActivity extends BaseActivity implements MapsActionListener, ProfileActionListener, CarActionListener,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
@@ -180,6 +183,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         setActionBarIcon(R.drawable.ic_ab_drawer);
         setUpMapIfNeeded();
 
+
         createLocationRequest();
 
         mZoomLevel = mMap.getMinZoomLevel();
@@ -257,6 +261,14 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         }, 20 * 1000, 20 * 1000);
     }
 
+
+    private void moveToMoscow() {
+        LatLng moscow = new LatLng(55.749792, 37.632495);
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(moscow, 10);
+        mMap.animateCamera(cameraUpdate);
+    }
+
+
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -319,15 +331,17 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             buildUserLocation(location);
         } else {
             mMarker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
+//            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),location.getLongitude()), 15);
+//            mMap.animateCamera(cameraUpdate);
         }
     }
 
     private void showCarsDialog(final Car car) {
-        if (car == null){
+        if (car == null) {
             return;
         }
 
-        if (!Status.NORMAL.equals(mStatus)){
+        if (!Status.NORMAL.equals(mStatus)) {
             return;
         }
 
@@ -387,14 +401,24 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     HashMap<Marker, Car> mMarkerCar = new HashMap<>();
 
-    private void addMarker(Car car) {
-        mMarkerCar.put(mMap.addMarker(
-                        new MarkerOptions()
-                                .flat(true)
-                                .position(new LatLng(car.getLat(), car.getLon()))
-                                .title(car.getModel())
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.car_location))),
-                car);
+    private void addMarker(final Car car) {
+
+
+        final MarkerOptions markerOptions = new MarkerOptions()
+                .flat(true)
+                .position(new LatLng(car.getLat(), car.getLon()))
+                .title(car.getModel())
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.car_location));
+
+        Picasso.with(this)
+                .load(car.getImg())
+                .resize(80, 100)
+                .into(new PicassoMarker(markerOptions));
+
+
+        mMarkerCar.put(mMap.addMarker(markerOptions), car);
+
+
     }
 
     @Override
@@ -656,12 +680,17 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
     private void buildUserLocation(Location location) {
+        LatLng myPosition = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions options = new MarkerOptions()
-                .position(new LatLng(location.getLatitude(), location.getLongitude()))
+                .position(myPosition)
                 .title("Это Вы!")
                 .flat(true)
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.user_location));
         mMarker = mMap.addMarker(options);
+
+//        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(myPosition, 15);
+//        mMap.animateCamera(cameraUpdate);
+
     }
 
     @Override
@@ -755,6 +784,10 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 mMapsInteractor.getStatusCars(mLastLocation.getLatitude(), mLastLocation.getLongitude(), MapsActivity.this);
             }
         } else {
+            mLastLocation = new Location("");
+            mLastLocation.setLatitude(55.749792);
+            mLastLocation.setLongitude(37.632495);// Create moscow coordinates;
+            moveToMoscow();
             Toast.makeText(this, "Не удалось определить месторасположение", Toast.LENGTH_LONG).show();
         }
     }
@@ -767,7 +800,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     public void onConnectionFailed(ConnectionResult result) {
         Timber.e("Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
-        //TODO Что делать при этой ошибке
+        moveToMoscow();
     }
 
     @Override
@@ -955,7 +988,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         @Override
         public View getInfoContents(Marker marker) {
-            if (marker.equals(mMarker)){
+            if (marker.equals(mMarker)) {
                 return null;
             }
             View view = getLayoutInflater().inflate(R.layout.marker_info, null);
