@@ -388,11 +388,12 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 mDialog.getBuilder().autoDismiss(false);
                 btnBook.setProgress(50);
 
-                if (car.getId() != null
-                        && mLastLocation.getLatitude() > 0.0d
-                        && mLastLocation.getLongitude() > 0.0d) {
+                if (car.getId() != null && mLastLocation.getLatitude() > 0.0d && mLastLocation.getLongitude() > 0.0d) {
+
                     mCarInteractor.booking(car.getId(), mLastLocation.getLatitude(), mLastLocation.getLongitude(), MapsActivity.this);
+
                 } else {
+
                     Toast.makeText(MapsActivity.this, "Не удалось установить месторасположение", Toast.LENGTH_LONG).show();
                 }
             }
@@ -461,20 +462,19 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
     private void unlock(String text) {
-        if (btnCancel != null
-                && btnCancel.getProgress() == 50) {
+        if (btnCancel != null && btnCancel.getProgress() == 50) {
             AppUtils.error(text, btnCancel);
             btnOpen.setEnabled(true);
-        } else if (btnCloseRent != null
-                && btnCloseRent.getProgress() == 50) {
+
+        } else if (btnCloseRent != null && btnCloseRent.getProgress() == 50) {
             AppUtils.error(text, btnCloseRent);
             btnCloseOrOpen.setEnabled(true);
-        } else if (btnOpen != null
-                && btnOpen.getProgress() == 50) {
+
+        } else if (btnOpen != null && btnOpen.getProgress() == 50) {
             AppUtils.error(text, btnOpen);
             btnCancel.setEnabled(true);
-        } else if (btnCloseOrOpen != null
-                && btnCloseOrOpen.getProgress() == 50) {
+
+        } else if (btnCloseOrOpen != null && btnCloseOrOpen.getProgress() == 50) {
             AppUtils.error(text, btnCloseOrOpen);
             btnCloseRent.setEnabled(true);
         }
@@ -563,13 +563,13 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                                 new LatLngBounds(
                                         mMarker.getPosition(),
                                         new LatLng(car.getLat(), car.getLon())),
-                                getPx(20)));
+                                        getPx(20)));
                     } else {
                         mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(
                                 new LatLngBounds(
                                         new LatLng(car.getLat(), car.getLon()),
                                         mMarker.getPosition()),
-                                getPx(20)));
+                                        getPx(20)));
                     }
                 }
             });
@@ -647,8 +647,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             if (!isInfoPopup) {
                 showDistancePopup(mCar.getWalktime());
             }
-        } else if (Status.PARKING.equals(status)
-                || Status.USAGE.equals(status)) {
+        } else if (Status.PARKING.equals(status) || Status.USAGE.equals(status)) {
             hideTopWindow();
         }
 
@@ -788,6 +787,10 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             mLastLocation.setLatitude(55.749792);
             mLastLocation.setLongitude(37.632495);// Create moscow coordinates;
             moveToMoscow();
+            updateLocation(mLastLocation);
+            if (mMarkerCar.isEmpty()) {
+                mMapsInteractor.getStatusCars(0, 0, MapsActivity.this);
+            }
             Toast.makeText(this, "Не удалось определить месторасположение", Toast.LENGTH_LONG).show();
         }
     }

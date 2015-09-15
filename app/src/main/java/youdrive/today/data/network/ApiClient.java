@@ -1,7 +1,6 @@
 package youdrive.today.data.network;
 
 import com.google.gson.Gson;
-import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -9,13 +8,8 @@ import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.CookieManager;
-import java.net.CookiePolicy;
-import java.net.URLEncoder;
 
 import timber.log.Timber;
-import youdrive.today.App;
 import youdrive.today.Command;
 import youdrive.today.response.BaseResponse;
 import youdrive.today.response.CarResponse;
@@ -61,7 +55,11 @@ public class ApiClient {
     }
 
     public CarResponse getStatusCars(double lat, double lon) throws IOException {
-        String url = HOST + "/status?lat=" + lat + "&lon=" + lon;
+        String url;
+        if(lat == 0 && lon == 0) url = HOST + "/status";
+        else url = HOST + "/status?lat=" + lat + "&lon=" + lon;
+
+
         return mGson.fromJson(get(url), CarResponse.class);
     }
 
