@@ -1,7 +1,12 @@
 package youdrive.today.maps;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -36,6 +41,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -69,7 +75,6 @@ import youdrive.today.other.CompleteActivity;
 import youdrive.today.profile.ProfileActionListener;
 import youdrive.today.profile.ProfileAdapter;
 import youdrive.today.profile.ProfileInteractorImpl;
-import youdrive.today.views.PicassoMarker;
 
 public class MapsActivity extends BaseActivity implements MapsActionListener, ProfileActionListener, CarActionListener,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
@@ -123,6 +128,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private boolean isInfoPopup = false;
     private boolean isMoveCamera = false;
     private boolean isMoveCameraWithMe = false;
+
+    private boolean isFake = false;
     private Timer mTimer;
 
     @OnItemClick(R.id.lvProfile)
@@ -211,6 +218,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         mMapsInteractor = new MapsInteractorImpl();
 
         buildGoogleApiClient();
+        checkInternet();
     }
 
     @Override
@@ -262,9 +270,16 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
 
-    private void moveToMoscow() {
-        LatLng moscow = new LatLng(55.749792, 37.632495);
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(moscow, 11);
+    private void checkInternet(){
+        if(!isNetworkConnected()){
+            Toast.makeText(this,"Нет подключения к интернету",Toast.LENGTH_LONG).show();
+            animateCamera(new LatLng(55.749792, 37.632495));
+        }
+    }
+
+    private void animateCamera(LatLng position) {
+
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(position, 11);
         mMap.animateCamera(cameraUpdate);
     }
 
@@ -405,19 +420,42 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private void addMarker(final Car car) {
 
 
-        final MarkerOptions markerOptions = new MarkerOptions()
-                .flat(true)
-                .position(new LatLng(car.getLat(), car.getLon()))
-                .title(car.getModel())
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.car_location));
 
         Picasso.with(this)
                 .load(car.getPointer_resource()+"_android.png")
                 .resize(80, 100)
-                .into(new PicassoMarker(markerOptions));
+                .into(new Target() {
+                    @Override
+                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                        MarkerOptions markerOptions = new MarkerOptions()
+                                .flat(true)
+                                .position(new LatLng(car.getLat(), car.getLon()))
+                                .title(car.getModel())
+                                .icon(BitmapDescriptorFactory.fromBitmap(bitmap));
+                        mMarkerCar.put(mMap.addMarker(markerOptions), car);
 
 
-        mMarkerCar.put(mMap.addMarker(markerOptions), car);
+                    }
+
+                    @Override
+                    public void onBitmapFailed(Drawable errorDrawable) {
+                        MarkerOptions markerOptions = new MarkerOptions()
+                                .flat(true)
+                                .position(new LatLng(car.getLat(), car.getLon()))
+                                .title(car.getModel())
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.car_location));
+                        mMarkerCar.put(mMap.addMarker(markerOptions), car);
+                    }
+
+                    @Override
+                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                    }
+                });
+
+               // .into(new PicassoMarker(markerOptions));
+
+
 
 
     }
@@ -431,6 +469,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onError() {
+
         Timber.tag("Error").d("Internal Error");
         String text = getString(R.string.internal_error);
         if (btnCancel != null
@@ -554,26 +593,37 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
     private void onMoveCameraWithMe(final Car car) {
+
+
+
+
         if (mMarker != null) {
-            new Handler().post(new Runnable() {
-                @Override
-                public void run() {
-                    if (car.getLat() > mMarker.getPosition().latitude) {
-                        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(
-                                new LatLngBounds(
-                                        mMarker.getPosition(),
-                                        new LatLng(car.getLat(), car.getLon())),
-                                        getPx(20)));
-                    } else {
-                        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(
-                                new LatLngBounds(
-                                        new LatLng(car.getLat(), car.getLon()),
-                                        mMarker.getPosition()),
-                                        getPx(20)));
-                    }
-                }
-            });
+            if(isFake) animateCamera(mMarker.getPosition());
+            else onMoveCameraWithMe(mMarker.getPosition(),car);
         }
+    }
+
+
+
+    private void onMoveCameraWithMe(final LatLng position , final Car car){
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                if (car.getLat() > position.latitude) {
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(
+                            new LatLngBounds(
+                                    position,
+                                    new LatLng(car.getLat(), car.getLon())),
+                            getPx(20)));
+                } else {
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(
+                            new LatLngBounds(
+                                    new LatLng(car.getLat(), car.getLon()),
+                                    position),
+                            getPx(20)));
+                }
+            }
+        });
     }
 
     private void onMoveCamera(final Car car) {
@@ -686,7 +736,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 .flat(true)
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.user_location));
         mMarker = mMap.addMarker(options);
-
+        if(isFake)mMarker.setVisible(false);
 //        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(myPosition, 15);
 //        mMap.animateCamera(cameraUpdate);
 
@@ -786,8 +836,10 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             mLastLocation = new Location("");
             mLastLocation.setLatitude(55.749792);
             mLastLocation.setLongitude(37.632495);// Create moscow coordinates;
-            moveToMoscow();
+            animateCamera(new LatLng(55.749792, 37.632495));
+            isFake= true;
             updateLocation(mLastLocation);
+
             if (mMarkerCar.isEmpty()) {
                 mMapsInteractor.getStatusCars(0, 0, MapsActivity.this);
             }
@@ -803,7 +855,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     public void onConnectionFailed(ConnectionResult result) {
         Timber.e("Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
-        moveToMoscow();
+        animateCamera(new LatLng(55.749792, 37.632495));
     }
 
     @Override
@@ -1015,6 +1067,18 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             return view;
         }
     }
+
+
+
+
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager connMgr =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeInfo = connMgr.getActiveNetworkInfo();
+        return  (activeInfo != null && activeInfo.isConnected()) ;
+    }
+
 
     @Override
     protected void onDestroy() {
