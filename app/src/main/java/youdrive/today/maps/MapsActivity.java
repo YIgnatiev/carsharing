@@ -3,6 +3,7 @@ package youdrive.today.maps;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.net.ConnectivityManager;
@@ -11,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -24,6 +26,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.Request;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.SizeReadyCallback;
+import com.bumptech.glide.request.target.Target;
 import com.dd.CircularProgressButton;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -39,9 +49,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.gson.Gson;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
+
+
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -75,15 +87,16 @@ import youdrive.today.other.CompleteActivity;
 import youdrive.today.profile.ProfileActionListener;
 import youdrive.today.profile.ProfileAdapter;
 import youdrive.today.profile.ProfileInteractorImpl;
+import youdrive.today.response.Coord;
 
 public class MapsActivity extends BaseActivity implements MapsActionListener, ProfileActionListener, CarActionListener,
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener ,PolygonListener{
 
     private static final int RC_BOOK = 0;
     private static final int RC_CHECK = 1;
 
     private GoogleMap mMap;
-
+    private PolylineOptions mPolyline;
     private ProfileInteractorImpl mProfileInteractor;
 
     @InjectView(R.id.drawer)
@@ -97,6 +110,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @InjectView(R.id.ltInfo)
     FrameLayout ltInfo;
+
 
     private String mToken;
     private CarInteractorImpl mCarInteractor;
@@ -186,6 +200,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         ButterKnife.inject(this);
         setActionBarIcon(R.drawable.ic_ab_drawer);
         setUpMapIfNeeded();
@@ -270,9 +285,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
 
-    private void checkInternet(){
-        if(!isNetworkConnected()){
-            Toast.makeText(this,"Нет подключения к интернету",Toast.LENGTH_LONG).show();
+    private void checkInternet() {
+        if (!isNetworkConnected()) {
+            Toast.makeText(this, "Нет подключения к интернету", Toast.LENGTH_LONG).show();
             animateCamera(new LatLng(55.749792, 37.632495));
         }
     }
@@ -420,25 +435,24 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private void addMarker(final Car car) {
 
 
-
-        Picasso.with(this)
-                .load(car.getPointer_resource()+"_android.png")
-                .resize(80, 100)
-                .into(new Target() {
+        Glide.with(getApplicationContext())
+                .load(car.getPointer_resource() + "_android.png")
+                .asBitmap()
+                .sizeMultiplier(0.5f)
+                .into(new SimpleTarget<Bitmap>(100, 100) {
                     @Override
-                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                    public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
                         MarkerOptions markerOptions = new MarkerOptions()
                                 .flat(true)
                                 .position(new LatLng(car.getLat(), car.getLon()))
                                 .title(car.getModel())
-                                .icon(BitmapDescriptorFactory.fromBitmap(bitmap));
+                                .icon(BitmapDescriptorFactory.fromBitmap(resource));
                         mMarkerCar.put(mMap.addMarker(markerOptions), car);
-
 
                     }
 
                     @Override
-                    public void onBitmapFailed(Drawable errorDrawable) {
+                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
                         MarkerOptions markerOptions = new MarkerOptions()
                                 .flat(true)
                                 .position(new LatLng(car.getLat(), car.getLon()))
@@ -446,16 +460,32 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.car_location));
                         mMarkerCar.put(mMap.addMarker(markerOptions), car);
                     }
-
-                    @Override
-                    public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-                    }
                 });
 
-               // .into(new PicassoMarker(markerOptions));
 
-
+//        Picasso.with(this)
+//                .load(car.getPointer_resource()+"_android.png")
+//                .resize(80, 100)
+//                .into(new Target() {
+//                    @Override
+//                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+//
+//
+//
+//                    }
+//
+//                    @Override
+//                    public void onBitmapFailed(Drawable errorDrawable) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+//
+//                    }
+//                });
+//
+//               // .into(new PicassoMarker(markerOptions));
 
 
     }
@@ -579,6 +609,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         clear();
 
+        if(mPolyline != null)mMap.addPolyline(mPolyline);
+        else mMapsInteractor.getInfo(this);
         Collections.sort(cars);
         if (!isMoveCameraWithMe) {
             isMoveCameraWithMe = true;
@@ -595,17 +627,14 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private void onMoveCameraWithMe(final Car car) {
 
 
-
-
         if (mMarker != null) {
-            if(isFake) animateCamera(mMarker.getPosition());
-            else onMoveCameraWithMe(mMarker.getPosition(),car);
+            if (isFake) animateCamera(mMarker.getPosition());
+            else onMoveCameraWithMe(mMarker.getPosition(), car);
         }
     }
 
 
-
-    private void onMoveCameraWithMe(final LatLng position , final Car car){
+    private void onMoveCameraWithMe(final LatLng position, final Car car) {
         new Handler().post(new Runnable() {
             @Override
             public void run() {
@@ -664,7 +693,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         mCar = car;
 
         clear();
-
+        if(mPolyline != null)mMap.addPolyline(mPolyline);
+        else mMapsInteractor.getInfo(this);
         onStatus(Status.BOOKING);
 
         addMarker(car);
@@ -676,7 +706,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         mCar = car;
 
         clear();
-
+        if(mPolyline != null)mMap.addPolyline(mPolyline);
+        else mMapsInteractor.getInfo(this);
         addMarker(car);
         if (!isMoveCamera) {
             isMoveCamera = true;
@@ -736,9 +767,26 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 .flat(true)
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.user_location));
         mMarker = mMap.addMarker(options);
-        if(isFake)mMarker.setVisible(false);
+        if (isFake) mMarker.setVisible(false);
 //        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(myPosition, 15);
 //        mMap.animateCamera(cameraUpdate);
+
+    }
+
+
+
+    private void drawLine(List<Coord> coordList) {
+
+            mPolyline = new PolylineOptions()
+                    .width(6)
+                    .color(getResources().getColor(R.color.polygonColor))
+                    .geodesic(true);
+
+            for(Coord coord :coordList)
+                mPolyline.add(coord.toLatLng());
+            mPolyline.add(coordList.get(0).toLatLng());
+             mMap.addPolyline(mPolyline);
+
 
     }
 
@@ -832,17 +880,22 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             if (mMarkerCar.isEmpty()) {
                 mMapsInteractor.getStatusCars(mLastLocation.getLatitude(), mLastLocation.getLongitude(), MapsActivity.this);
             }
+
+            if(mPolyline == null) mMapsInteractor.getInfo(this);
+
         } else {
             mLastLocation = new Location("");
             mLastLocation.setLatitude(55.749792);
             mLastLocation.setLongitude(37.632495);// Create moscow coordinates;
             animateCamera(new LatLng(55.749792, 37.632495));
-            isFake= true;
+            isFake = true;
             updateLocation(mLastLocation);
 
             if (mMarkerCar.isEmpty()) {
                 mMapsInteractor.getStatusCars(0, 0, MapsActivity.this);
             }
+            if(mPolyline == null) mMapsInteractor.getInfo(this);
+
             Toast.makeText(this, "Не удалось определить месторасположение", Toast.LENGTH_LONG).show();
         }
     }
@@ -1034,7 +1087,18 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         return String.format("%.2f", (float) kopeck / 100) + " руб./мин.";
     }
 
-    private class CustomWindowAdapter implements GoogleMap.InfoWindowAdapter {
+    @Override
+    public void onPolygonSuccess(List<Coord> coordList) {
+        drawLine(coordList);
+    }
+
+    @Override
+    public void onPolygonFailed() {
+        if(mPolyline == null) mMapsInteractor.getInfo(this); //try again
+
+    }
+
+private class CustomWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
         @Override
         public View getInfoWindow(Marker marker) {
@@ -1069,14 +1133,11 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
 
-
-
-
     private boolean isNetworkConnected() {
         ConnectivityManager connMgr =
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeInfo = connMgr.getActiveNetworkInfo();
-        return  (activeInfo != null && activeInfo.isConnected()) ;
+        return (activeInfo != null && activeInfo.isConnected());
     }
 
 

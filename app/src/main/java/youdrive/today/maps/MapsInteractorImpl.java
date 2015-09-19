@@ -13,6 +13,7 @@ import youdrive.today.data.network.ApiClient;
 import youdrive.today.login.RequestListener;
 import youdrive.today.response.BaseResponse;
 import youdrive.today.response.CarResponse;
+import youdrive.today.response.PolygonResponse;
 
 public class MapsInteractorImpl implements MapsInteractor {
 
@@ -22,6 +23,9 @@ public class MapsInteractorImpl implements MapsInteractor {
     public MapsInteractorImpl() {
         mApiClient = App.getInstance().getApiClient();
     }
+
+
+
 
     @Override
     public void getStatusCar(final MapsActionListener listener) {
@@ -57,6 +61,33 @@ public class MapsInteractorImpl implements MapsInteractor {
                 } else {
                     handlingError(new ApiError(response.getCode(),
                             response.getText()), listener);
+                }
+            }
+        }).subscribe();
+    }
+
+    @Override
+    public void getInfo(final PolygonListener listener) {
+        subscription = BaseObservable.ApiCall(new RequestListener() {
+            @Override
+            public BaseResponse onRequest() {
+                try {
+                    return mApiClient.getPolygon();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+        }).doOnNext(new Action1<BaseResponse>() {
+            @Override
+            public void call(BaseResponse baseResponse) {
+                PolygonResponse response = (PolygonResponse) baseResponse;
+                if (response.isSuccess()) {
+//                    getStatusCarsInterval(listener);
+                    listener.onPolygonSuccess(response.getArea());
+
+                } else {
+                   listener.onPolygonFailed();
                 }
             }
         }).subscribe();

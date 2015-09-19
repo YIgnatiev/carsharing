@@ -15,6 +15,7 @@ import youdrive.today.response.BaseResponse;
 import youdrive.today.response.CarResponse;
 import youdrive.today.response.CommandResponse;
 import youdrive.today.response.LoginResponse;
+import youdrive.today.response.PolygonResponse;
 import youdrive.today.response.RegionsResponse;
 
 /**
@@ -66,6 +67,15 @@ public class ApiClient {
     public CarResponse getStatusCars() throws IOException {
         String url = HOST + "/status";
         return mGson.fromJson(get(url), CarResponse.class);
+    }
+
+
+    public PolygonResponse getPolygon()throws IOException {
+        String url = HOST + "/info";
+
+        String response = get(url);
+        response.length();
+        return mGson.fromJson(response,PolygonResponse.class);
     }
 
     public RegionsResponse getRegions() throws IOException {
