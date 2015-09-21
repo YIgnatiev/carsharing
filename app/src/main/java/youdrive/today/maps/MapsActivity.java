@@ -3,7 +3,6 @@ package youdrive.today.maps;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.net.ConnectivityManager;
@@ -12,7 +11,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -27,13 +25,8 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.Request;
-import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.SizeReadyCallback;
-import com.bumptech.glide.request.target.Target;
 import com.dd.CircularProgressButton;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -49,7 +42,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.gson.Gson;
 
@@ -96,7 +89,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private static final int RC_CHECK = 1;
 
     private GoogleMap mMap;
-    private PolylineOptions mPolyline;
+    private PolygonOptions mPolygon;
     private ProfileInteractorImpl mProfileInteractor;
 
     @InjectView(R.id.drawer)
@@ -609,7 +602,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         clear();
 
-        if(mPolyline != null)mMap.addPolyline(mPolyline);
+        if(mPolygon != null)mMap.addPolygon(mPolygon);
         else mMapsInteractor.getInfo(this);
         Collections.sort(cars);
         if (!isMoveCameraWithMe) {
@@ -693,7 +686,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         mCar = car;
 
         clear();
-        if(mPolyline != null)mMap.addPolyline(mPolyline);
+        if(mPolygon != null)mMap.addPolygon(mPolygon);
         else mMapsInteractor.getInfo(this);
         onStatus(Status.BOOKING);
 
@@ -706,7 +699,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         mCar = car;
 
         clear();
-        if(mPolyline != null)mMap.addPolyline(mPolyline);
+        if(mPolygon != null)mMap.addPolygon(mPolygon);
         else mMapsInteractor.getInfo(this);
         addMarker(car);
         if (!isMoveCamera) {
@@ -777,15 +770,15 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     private void drawLine(List<Coord> coordList) {
 
-            mPolyline = new PolylineOptions()
-                    .width(6)
-                    .color(getResources().getColor(R.color.polygonColor))
+            mPolygon = new PolygonOptions()
+                    .fillColor(getResources().getColor(R.color.polygonColor))
+                    .strokeColor(getResources().getColor(android.R.color.transparent))
                     .geodesic(true);
 
             for(Coord coord :coordList)
-                mPolyline.add(coord.toLatLng());
-            mPolyline.add(coordList.get(0).toLatLng());
-             mMap.addPolyline(mPolyline);
+                mPolygon.add(coord.toLatLng());
+            mPolygon.add(coordList.get(0).toLatLng());
+             mMap.addPolygon(mPolygon);
 
 
     }
@@ -881,7 +874,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 mMapsInteractor.getStatusCars(mLastLocation.getLatitude(), mLastLocation.getLongitude(), MapsActivity.this);
             }
 
-            if(mPolyline == null) mMapsInteractor.getInfo(this);
+            if(mPolygon == null) mMapsInteractor.getInfo(this);
 
         } else {
             mLastLocation = new Location("");
@@ -894,7 +887,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             if (mMarkerCar.isEmpty()) {
                 mMapsInteractor.getStatusCars(0, 0, MapsActivity.this);
             }
-            if(mPolyline == null) mMapsInteractor.getInfo(this);
+            if(mPolygon == null) mMapsInteractor.getInfo(this);
 
             Toast.makeText(this, "Не удалось определить месторасположение", Toast.LENGTH_LONG).show();
         }
@@ -1094,7 +1087,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onPolygonFailed() {
-        if(mPolyline == null) mMapsInteractor.getInfo(this); //try again
+        if(mPolygon == null) mMapsInteractor.getInfo(this); //try again
 
     }
 
