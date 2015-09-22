@@ -1,7 +1,12 @@
 package youdrive.today.maps;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,12 +24,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.dd.CircularProgressButton;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -33,7 +42,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolygonOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.gson.Gson;
+
+
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -62,20 +75,21 @@ import youdrive.today.car.CarActionListener;
 import youdrive.today.car.CarInteractorImpl;
 import youdrive.today.data.PreferenceHelper;
 import youdrive.today.login.activities.LoginActivity;
-import youdrive.today.other.CompleteActivity;
 import youdrive.today.other.BookCarActivity;
+import youdrive.today.other.CompleteActivity;
 import youdrive.today.profile.ProfileActionListener;
 import youdrive.today.profile.ProfileAdapter;
 import youdrive.today.profile.ProfileInteractorImpl;
+import youdrive.today.response.Coord;
 
 public class MapsActivity extends BaseActivity implements MapsActionListener, ProfileActionListener, CarActionListener,
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener ,PolygonListener{
 
     private static final int RC_BOOK = 0;
     private static final int RC_CHECK = 1;
 
     private GoogleMap mMap;
-
+    private PolygonOptions mPolygon;
     private ProfileInteractorImpl mProfileInteractor;
 
     @InjectView(R.id.drawer)
@@ -89,6 +103,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @InjectView(R.id.ltInfo)
     FrameLayout ltInfo;
+
 
     private String mToken;
     private CarInteractorImpl mCarInteractor;
@@ -120,6 +135,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private boolean isInfoPopup = false;
     private boolean isMoveCamera = false;
     private boolean isMoveCameraWithMe = false;
+
+    private boolean isFake = false;
     private Timer mTimer;
 
     @OnItemClick(R.id.lvProfile)
@@ -176,9 +193,11 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         ButterKnife.inject(this);
         setActionBarIcon(R.drawable.ic_ab_drawer);
         setUpMapIfNeeded();
+
 
         createLocationRequest();
 
@@ -207,6 +226,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         mMapsInteractor = new MapsInteractorImpl();
 
         buildGoogleApiClient();
+        checkInternet();
     }
 
     @Override
@@ -256,6 +276,21 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             }
         }, 20 * 1000, 20 * 1000);
     }
+
+
+    private void checkInternet() {
+        if (!isNetworkConnected()) {
+            Toast.makeText(this, "Нет подключения к интернету", Toast.LENGTH_LONG).show();
+            animateCamera(new LatLng(55.749792, 37.632495));
+        }
+    }
+
+    private void animateCamera(LatLng position) {
+
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(position, 11);
+        mMap.animateCamera(cameraUpdate);
+    }
+
 
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -319,15 +354,17 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             buildUserLocation(location);
         } else {
             mMarker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
+//            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),location.getLongitude()), 15);
+//            mMap.animateCamera(cameraUpdate);
         }
     }
 
     private void showCarsDialog(final Car car) {
-        if (car == null){
+        if (car == null) {
             return;
         }
 
-        if (!Status.NORMAL.equals(mStatus)){
+        if (!Status.NORMAL.equals(mStatus)) {
             return;
         }
 
@@ -374,11 +411,12 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 mDialog.getBuilder().autoDismiss(false);
                 btnBook.setProgress(50);
 
-                if (car.getId() != null
-                        && mLastLocation.getLatitude() > 0.0d
-                        && mLastLocation.getLongitude() > 0.0d) {
+                if (car.getId() != null && mLastLocation.getLatitude() > 0.0d && mLastLocation.getLongitude() > 0.0d) {
+
                     mCarInteractor.booking(car.getId(), mLastLocation.getLatitude(), mLastLocation.getLongitude(), MapsActivity.this);
+
                 } else {
+
                     Toast.makeText(MapsActivity.this, "Не удалось установить месторасположение", Toast.LENGTH_LONG).show();
                 }
             }
@@ -387,14 +425,62 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     HashMap<Marker, Car> mMarkerCar = new HashMap<>();
 
-    private void addMarker(Car car) {
-        mMarkerCar.put(mMap.addMarker(
-                        new MarkerOptions()
+    private void addMarker(final Car car) {
+
+
+        Glide.with(getApplicationContext())
+                .load(car.getPointer_resource() + "_android.png")
+                .asBitmap()
+                .sizeMultiplier(0.5f)
+                .into(new SimpleTarget<Bitmap>(100, 100) {
+                    @Override
+                    public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
+                        MarkerOptions markerOptions = new MarkerOptions()
                                 .flat(true)
                                 .position(new LatLng(car.getLat(), car.getLon()))
                                 .title(car.getModel())
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.car_location))),
-                car);
+                                .icon(BitmapDescriptorFactory.fromBitmap(resource));
+                        mMarkerCar.put(mMap.addMarker(markerOptions), car);
+
+                    }
+
+                    @Override
+                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                        MarkerOptions markerOptions = new MarkerOptions()
+                                .flat(true)
+                                .position(new LatLng(car.getLat(), car.getLon()))
+                                .title(car.getModel())
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.car_location));
+                        mMarkerCar.put(mMap.addMarker(markerOptions), car);
+                    }
+                });
+
+
+//        Picasso.with(this)
+//                .load(car.getPointer_resource()+"_android.png")
+//                .resize(80, 100)
+//                .into(new Target() {
+//                    @Override
+//                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+//
+//
+//
+//                    }
+//
+//                    @Override
+//                    public void onBitmapFailed(Drawable errorDrawable) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+//
+//                    }
+//                });
+//
+//               // .into(new PicassoMarker(markerOptions));
+
+
     }
 
     @Override
@@ -406,6 +492,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onError() {
+
         Timber.tag("Error").d("Internal Error");
         String text = getString(R.string.internal_error);
         if (btnCancel != null
@@ -437,20 +524,19 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
     private void unlock(String text) {
-        if (btnCancel != null
-                && btnCancel.getProgress() == 50) {
+        if (btnCancel != null && btnCancel.getProgress() == 50) {
             AppUtils.error(text, btnCancel);
             btnOpen.setEnabled(true);
-        } else if (btnCloseRent != null
-                && btnCloseRent.getProgress() == 50) {
+
+        } else if (btnCloseRent != null && btnCloseRent.getProgress() == 50) {
             AppUtils.error(text, btnCloseRent);
             btnCloseOrOpen.setEnabled(true);
-        } else if (btnOpen != null
-                && btnOpen.getProgress() == 50) {
+
+        } else if (btnOpen != null && btnOpen.getProgress() == 50) {
             AppUtils.error(text, btnOpen);
             btnCancel.setEnabled(true);
-        } else if (btnCloseOrOpen != null
-                && btnCloseOrOpen.getProgress() == 50) {
+
+        } else if (btnCloseOrOpen != null && btnCloseOrOpen.getProgress() == 50) {
             AppUtils.error(text, btnCloseOrOpen);
             btnCloseRent.setEnabled(true);
         }
@@ -516,6 +602,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         clear();
 
+        if(mPolygon != null)mMap.addPolygon(mPolygon);
+        else mMapsInteractor.getInfo(this);
         Collections.sort(cars);
         if (!isMoveCameraWithMe) {
             isMoveCameraWithMe = true;
@@ -530,26 +618,34 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
     private void onMoveCameraWithMe(final Car car) {
+
+
         if (mMarker != null) {
-            new Handler().post(new Runnable() {
-                @Override
-                public void run() {
-                    if (car.getLat() > mMarker.getPosition().latitude) {
-                        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(
-                                new LatLngBounds(
-                                        mMarker.getPosition(),
-                                        new LatLng(car.getLat(), car.getLon())),
-                                getPx(20)));
-                    } else {
-                        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(
-                                new LatLngBounds(
-                                        new LatLng(car.getLat(), car.getLon()),
-                                        mMarker.getPosition()),
-                                getPx(20)));
-                    }
-                }
-            });
+            if (isFake) animateCamera(mMarker.getPosition());
+            else onMoveCameraWithMe(mMarker.getPosition(), car);
         }
+    }
+
+
+    private void onMoveCameraWithMe(final LatLng position, final Car car) {
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                if (car.getLat() > position.latitude) {
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(
+                            new LatLngBounds(
+                                    position,
+                                    new LatLng(car.getLat(), car.getLon())),
+                            getPx(20)));
+                } else {
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(
+                            new LatLngBounds(
+                                    new LatLng(car.getLat(), car.getLon()),
+                                    position),
+                            getPx(20)));
+                }
+            }
+        });
     }
 
     private void onMoveCamera(final Car car) {
@@ -590,7 +686,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         mCar = car;
 
         clear();
-
+        if(mPolygon != null)mMap.addPolygon(mPolygon);
+        else mMapsInteractor.getInfo(this);
         onStatus(Status.BOOKING);
 
         addMarker(car);
@@ -602,7 +699,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         mCar = car;
 
         clear();
-
+        if(mPolygon != null)mMap.addPolygon(mPolygon);
+        else mMapsInteractor.getInfo(this);
         addMarker(car);
         if (!isMoveCamera) {
             isMoveCamera = true;
@@ -623,8 +721,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             if (!isInfoPopup) {
                 showDistancePopup(mCar.getWalktime());
             }
-        } else if (Status.PARKING.equals(status)
-                || Status.USAGE.equals(status)) {
+        } else if (Status.PARKING.equals(status) || Status.USAGE.equals(status)) {
             hideTopWindow();
         }
 
@@ -656,12 +753,34 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
     private void buildUserLocation(Location location) {
+        LatLng myPosition = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions options = new MarkerOptions()
-                .position(new LatLng(location.getLatitude(), location.getLongitude()))
+                .position(myPosition)
                 .title("Это Вы!")
                 .flat(true)
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.user_location));
         mMarker = mMap.addMarker(options);
+        if (isFake) mMarker.setVisible(false);
+//        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(myPosition, 15);
+//        mMap.animateCamera(cameraUpdate);
+
+    }
+
+
+
+    private void drawLine(List<Coord> coordList) {
+
+            mPolygon = new PolygonOptions()
+                    .fillColor(getResources().getColor(R.color.polygonColor))
+                    .strokeColor(getResources().getColor(android.R.color.transparent))
+                    .geodesic(true);
+
+            for(Coord coord :coordList)
+                mPolygon.add(coord.toLatLng());
+            mPolygon.add(coordList.get(0).toLatLng());
+             mMap.addPolygon(mPolygon);
+
+
     }
 
     @Override
@@ -669,6 +788,11 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         onBookingTimeLeft(check.getBookingTimeLeft());
         mCheck = check;
         updateCheck(mView);
+    }
+
+    @Override
+    public void onUnknownError(String text) {
+        unlock(text);
     }
 
     @Override
@@ -749,7 +873,22 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             if (mMarkerCar.isEmpty()) {
                 mMapsInteractor.getStatusCars(mLastLocation.getLatitude(), mLastLocation.getLongitude(), MapsActivity.this);
             }
+
+            if(mPolygon == null) mMapsInteractor.getInfo(this);
+
         } else {
+            mLastLocation = new Location("");
+            mLastLocation.setLatitude(55.749792);
+            mLastLocation.setLongitude(37.632495);// Create moscow coordinates;
+            animateCamera(new LatLng(55.749792, 37.632495));
+            isFake = true;
+            updateLocation(mLastLocation);
+
+            if (mMarkerCar.isEmpty()) {
+                mMapsInteractor.getStatusCars(0, 0, MapsActivity.this);
+            }
+            if(mPolygon == null) mMapsInteractor.getInfo(this);
+
             Toast.makeText(this, "Не удалось определить месторасположение", Toast.LENGTH_LONG).show();
         }
     }
@@ -762,7 +901,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     public void onConnectionFailed(ConnectionResult result) {
         Timber.e("Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
-        //TODO Что делать при этой ошибке
+        animateCamera(new LatLng(55.749792, 37.632495));
     }
 
     @Override
@@ -941,7 +1080,18 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         return String.format("%.2f", (float) kopeck / 100) + " руб./мин.";
     }
 
-    private class CustomWindowAdapter implements GoogleMap.InfoWindowAdapter {
+    @Override
+    public void onPolygonSuccess(List<Coord> coordList) {
+        drawLine(coordList);
+    }
+
+    @Override
+    public void onPolygonFailed() {
+        if(mPolygon == null) mMapsInteractor.getInfo(this); //try again
+
+    }
+
+private class CustomWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
         @Override
         public View getInfoWindow(Marker marker) {
@@ -950,7 +1100,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         @Override
         public View getInfoContents(Marker marker) {
-            if (marker.equals(mMarker)){
+            if (marker.equals(mMarker)) {
                 return null;
             }
             View view = getLayoutInflater().inflate(R.layout.marker_info, null);
@@ -974,6 +1124,15 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             return view;
         }
     }
+
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager connMgr =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeInfo = connMgr.getActiveNetworkInfo();
+        return (activeInfo != null && activeInfo.isConnected());
+    }
+
 
     @Override
     protected void onDestroy() {

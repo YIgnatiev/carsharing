@@ -24,4 +24,6 @@ public interface MapsActionListener {
     void onStatus(Status status);
 
     void onCheck(Check check);
+
+    void onUnknownError(String text);
 }

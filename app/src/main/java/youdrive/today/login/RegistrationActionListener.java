@@ -13,7 +13,7 @@ public interface RegistrationActionListener {
     void onRegions(List<Region> regions);
 
     void onError();
-    void onUnknownError();
+    void onUnknownError(String text);
     void onRegionNotFound(String text);
     void onUserAlreadyExist(String text);
 

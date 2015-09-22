@@ -83,6 +83,8 @@ public class RegistrationInteractorImpl implements RegistrationInteractor {
             listener.onUserAlreadyExist(error.getText());
         } else if (error.getCode() == ApiError.REGION_NOT_FOUND){
             listener.onRegionNotFound(error.getText());
+        } else if (error.getText() != null){
+            listener.onUnknownError(error.getText());
         } else {
             listener.onError();
         }

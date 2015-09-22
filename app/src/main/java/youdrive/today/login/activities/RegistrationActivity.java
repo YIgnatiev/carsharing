@@ -186,7 +186,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationAc
     }
 
     @Override
-    public void onUnknownError() {
+    public void onUnknownError(String text) {
         Timber.d("onUnknownError");
     }
 

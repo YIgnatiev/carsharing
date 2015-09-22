@@ -55,6 +55,12 @@ public class AppUtils {
                 Uri.parse("http://youdrive.today/")));
     }
 
+
+    public static void restore(Context context){
+        context.startActivity(new Intent(Intent.ACTION_VIEW,
+                Uri.parse("http://youdrive.today/password_reset")));
+    }
+
     public static String toKm(int meters) {
         return meters * 0.001 + " ";
     }

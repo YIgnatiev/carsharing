@@ -13,5 +13,5 @@
 
     <color name="error_dark">#ff65a1</color>
     <color name="negative_dark">#1c232d</color>
-
+    <color name="polygonColor">#2800deac</color>
 </resources>

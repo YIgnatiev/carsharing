@@ -38,4 +38,6 @@ public interface CarActionListener {
     void onBookingTimeLeft(int bookingTimeLeft);
 
     void onSessionNotFound(String text);
+
+    void onUnknownError(String text);
 }
