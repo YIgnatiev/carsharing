@@ -3,14 +3,12 @@ package youdrive.today.login.impl;
 import java.io.IOException;
 
 import rx.Subscription;
-import rx.functions.Action1;
 import rx.subscriptions.Subscriptions;
 import youdrive.today.ApiError;
 import youdrive.today.App;
-import youdrive.today.data.network.ApiClient;
 import youdrive.today.BaseObservable;
+import youdrive.today.data.network.ApiClient;
 import youdrive.today.login.RegistrationActionListener;
-import youdrive.today.login.RequestListener;
 import youdrive.today.login.interactors.RegistrationInteractor;
 import youdrive.today.response.BaseResponse;
 import youdrive.today.response.RegionsResponse;
@@ -29,51 +27,39 @@ public class RegistrationInteractorImpl implements RegistrationInteractor {
 
     @Override
     public void getInvite(final String email, final Long phone, final String region, final boolean readyToUse, final RegistrationActionListener listener) {
-        subscription = BaseObservable.ApiCall(new RequestListener() {
-            @Override
-            public BaseResponse onRequest() {
-                try {
-                    return mApiClient.invite(email, phone, region, readyToUse);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return new BaseResponse();
-                }
+        subscription = BaseObservable.ApiCall(() -> {
+            try {
+                return mApiClient.invite(email, phone, region, readyToUse);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return new BaseResponse();
             }
-        }).doOnNext(new Action1<BaseResponse>() {
-            @Override
-            public void call(BaseResponse baseResponse) {
-                if (baseResponse.isSuccess()){
-                    listener.onInvite();
-                } else {
-                    handlingError(new ApiError(baseResponse.getCode(),
-                            baseResponse.getText()), listener);
-                }
+        }).doOnNext(baseResponse -> {
+            if (baseResponse.isSuccess()){
+                listener.onInvite();
+            } else {
+                handlingError(new ApiError(baseResponse.getCode(),
+                        baseResponse.getText()), listener);
             }
         }).subscribe();
     }
 
     @Override
     public void getRegions(final RegistrationActionListener listener) {
-        subscription = BaseObservable.ApiCall(new RequestListener() {
-            @Override
-            public BaseResponse onRequest() {
-                try {
-                    return mApiClient.getRegions();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return new RegionsResponse();
-                }
+        subscription = BaseObservable.ApiCall(() -> {
+            try {
+                return mApiClient.getRegions();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return new RegionsResponse();
             }
-        }).doOnNext(new Action1<BaseResponse>() {
-            @Override
-            public void call(BaseResponse baseResponse) {
-                RegionsResponse response = (RegionsResponse) baseResponse;
-                if (response.isSuccess()){
-                    listener.onRegions(response.getRegions());
-                } else {
-                    handlingError(new ApiError(response.getCode(),
-                            response.getText()), listener);
-                }
+        }).doOnNext(baseResponse -> {
+            RegionsResponse response = (RegionsResponse) baseResponse;
+            if (response.isSuccess()){
+                listener.onRegions(response.getRegions());
+            } else {
+                handlingError(new ApiError(response.getCode(),
+                        response.getText()), listener);
             }
         }).subscribe();
     }

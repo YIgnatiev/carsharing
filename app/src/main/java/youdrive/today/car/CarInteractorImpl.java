@@ -3,7 +3,6 @@ package youdrive.today.car;
 import java.io.IOException;
 
 import rx.Subscription;
-import rx.functions.Action1;
 import rx.subscriptions.Subscriptions;
 import youdrive.today.ApiError;
 import youdrive.today.App;
@@ -11,8 +10,6 @@ import youdrive.today.BaseObservable;
 import youdrive.today.Command;
 import youdrive.today.Result;
 import youdrive.today.data.network.ApiClient;
-import youdrive.today.login.RequestListener;
-import youdrive.today.response.BaseResponse;
 import youdrive.today.response.CarResponse;
 import youdrive.today.response.CommandResponse;
 
@@ -27,127 +24,104 @@ public class CarInteractorImpl implements CarInteractor {
 
     @Override
     public void booking(final String id, final double lat, final double lon, final CarActionListener listener) {
-        subscription = BaseObservable.ApiCall(new RequestListener() {
-            @Override
-            public BaseResponse onRequest() {
-                try {
-                    return mApiClient.booking(id, lat, lon);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return new CarResponse();
-                }
-            }
-        }).doOnNext(new Action1<BaseResponse>() {
-            @Override
-            public void call(BaseResponse baseResponse) {
-                CarResponse response = (CarResponse) baseResponse;
-                if (response.isSuccess()) {
-                    if (response.getCar() != null) {
-                        listener.onBook(response.getCar());
+        subscription = BaseObservable.ApiCall(
+                () -> {
+                    try {
+                        return mApiClient.booking(id, lat, lon);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        return new CarResponse();
                     }
-                    listener.onBookingTimeLeft(response.getBookingTimeLeft());
-                } else {
-                    handlingError(new ApiError(response.getCode(), response.getText()), listener);
-                }
-            }
-        }).subscribe();
+                }).doOnNext(baseResponse -> {
+                    CarResponse response = (CarResponse) baseResponse;
+                    if (response.isSuccess()) {
+                        if (response.getCar() != null) {
+                            listener.onBook(response.getCar());
+                        }
+                        listener.onBookingTimeLeft(response.getBookingTimeLeft());
+                    } else {
+                        handlingError(new ApiError(response.getCode(), response.getText()), listener);
+                    }
+                }).subscribe();
     }
 
     @Override
     public void command(final Command command, final CarActionListener listener) {
-        subscription = BaseObservable.ApiCall(new RequestListener() {
-            @Override
-            public BaseResponse onRequest() {
-                try {
-                    return mApiClient.command(command);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return new CommandResponse();
-                }
+        subscription = BaseObservable.ApiCall(() -> {
+            try {
+                return mApiClient.command(command);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return new CommandResponse();
             }
-        }).doOnNext(new Action1<BaseResponse>() {
-            @Override
-            public void call(BaseResponse baseResponse) {
-                CommandResponse response = (CommandResponse) baseResponse;
-                if (response.isSuccess()){
-                    listener.onToken(command, response.getResultToken());
-                    result(command, response.getResultToken(), listener);
-                } else {
-                    handlingError(new ApiError(response.getCode(), response.getText()),
-                            listener);
-                }
+        }).doOnNext(baseResponse -> {
+            CommandResponse response = (CommandResponse) baseResponse;
+            if (response.isSuccess()){
+                listener.onToken(command, response.getResultToken());
+                result(command, response.getResultToken(), listener);
+            } else {
+                handlingError(new ApiError(response.getCode(), response.getText()),
+                        listener);
             }
         }).subscribe();
     }
 
     @Override
     public void complete(final Command command, final CarActionListener listener) {
-        subscription = BaseObservable.ApiCall(new RequestListener() {
-            @Override
-            public BaseResponse onRequest() {
-                try {
-                    return mApiClient.complete();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return new CommandResponse();
-                }
+        subscription = BaseObservable.ApiCall(() -> {
+            try {
+                return mApiClient.complete();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return new CommandResponse();
             }
-        }).doOnNext(new Action1<BaseResponse>() {
-            @Override
-            public void call(BaseResponse baseResponse) {
-                CommandResponse response = (CommandResponse) baseResponse;
-                if (response.isSuccess()){
-                    listener.onToken(command, response.getResultToken());
-                    result(command, response.getResultToken(), listener);
-                } else {
-                    handlingError(new ApiError(response.getCode(), response.getText()),
-                            listener);
-                }
+        }).doOnNext(baseResponse -> {
+            CommandResponse response = (CommandResponse) baseResponse;
+            if (response.isSuccess()){
+                listener.onToken(command, response.getResultToken());
+                result(command, response.getResultToken(), listener);
+            } else {
+                handlingError(new ApiError(response.getCode(), response.getText()),
+                        listener);
             }
         }).subscribe();
     }
 
     @Override
     public void result(final Command command, final String token, final CarActionListener listener) {
-        subscription = BaseObservable.ApiCall(new RequestListener() {
-            @Override
-            public BaseResponse onRequest() {
-                try {
-                    return mApiClient.result(token);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return new CommandResponse();
-                }
+        subscription = BaseObservable.ApiCall(() -> {
+            try {
+                return mApiClient.result(token);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return new CommandResponse();
             }
-        }).doOnNext(new Action1<BaseResponse>() {
-            @Override
-            public void call(BaseResponse baseResponse) {
-                CommandResponse response = (CommandResponse) baseResponse;
-                if (response.isSuccess()) {
-                    Result result = Result.fromString(response.getStatus());
-                    if (result != null) {
-                        if (result.equals(Result.NEW)
-                                || result.equals(Result.PROCESSING)) {
-                            listener.onPleaseWait();
-                        } else if (result.equals(Result.ERROR)) {
-                            listener.onCommandError();
-                        } else {
-                            if (command.equals(Command.OPEN)) {
-                                listener.onOpen();
-                            } else if (command.equals(Command.CLOSE)) {
-                                listener.onClose();
-                            } else {
-                                listener.onComplete(response.getCheck());
-                            }
-                        }
+        }).doOnNext(baseResponse -> {
+            CommandResponse response = (CommandResponse) baseResponse;
+            if (response.isSuccess()) {
+                Result result = Result.fromString(response.getStatus());
+                if (result != null) {
+                    if (result.equals(Result.NEW)
+                            || result.equals(Result.PROCESSING)) {
+                        listener.onPleaseWait();
+                    } else if (result.equals(Result.ERROR)) {
+                        listener.onCommandError();
                     } else {
-                        listener.onError();
+                        if (command.equals(Command.OPEN)) {
+                            listener.onOpen();
+                        } else if (command.equals(Command.CLOSE)) {
+                            listener.onClose();
+                        } else {
+                            listener.onComplete(response.getCheck());
+                        }
                     }
-
                 } else {
-                    handlingError(new ApiError(response.getCode(), response.getText()),
-                            listener);
+                    listener.onError();
                 }
+
+            } else {
+                handlingError(new ApiError(response.getCode(), response.getText()),
+                        listener);
             }
         }).subscribe();
     }

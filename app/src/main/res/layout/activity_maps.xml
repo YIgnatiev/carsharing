@@ -46,22 +46,23 @@
 
         <ImageButton
             android:id="@+id/btnZoomIn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
-            android:background="@drawable/plus"
+            android:background="@drawable/button_plus"
             android:layout_centerVertical="true"/>
 
         <ImageButton
             android:id="@+id/btnZoomOut"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_below="@id/btnZoomIn"
             android:layout_alignParentRight="true"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
-            android:background="@drawable/minus"/>
+            android:background="@drawable/button_minus"/>
 
 
     </RelativeLayout>
