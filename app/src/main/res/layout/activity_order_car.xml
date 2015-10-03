@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="listener"
+            type="youdrive.today.activities.BookCarActivity"/>
+    </data>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
@@ -6,9 +15,12 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <include
+    <android.support.v7.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main"/>
 
     <ImageView
         android:id="@+id/imgCar"
@@ -68,6 +80,7 @@
 
     <com.dd.CircularProgressButton
         android:id="@+id/btnShowOnMap"
+        android:onClick='@{listener.onShow}'
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="30dp"
@@ -84,3 +97,5 @@
         app:cpb_textIdle="@string/show_on_map" />
 
 </LinearLayout>
+
+</layout>

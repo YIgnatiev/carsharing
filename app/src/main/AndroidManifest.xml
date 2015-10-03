@@ -31,7 +31,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".other.SplashActivity"
+            android:name=".activities.SplashActivity"
             android:label="@string/title_activity_maps" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,14 +40,14 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".login.activities.LoginActivity"/>
-        <activity android:name=".maps.MapsActivity"/>
-        <activity android:name=".login.activities.RegistrationActivity"/>
-        <activity android:name=".login.activities.ConfirmationActivity"/>
-        <activity android:name=".login.activities.ThanksActivity"/>
-        <activity android:name=".other.BookCarActivity"/>
-        <activity android:name=".other.CompleteActivity"/>
-        <activity android:name=".login.activities.InformActivity"/>
+        <activity android:name=".activities.LoginActivity"/>
+        <activity android:name=".activities.MapsActivity"/>
+        <activity android:name=".activities.RegistrationActivity"/>
+        <activity android:name=".activities.ConfirmationActivity"/>
+        <activity android:name=".activities.ThanksActivity"/>
+        <activity android:name=".activities.BookCarActivity"/>
+        <activity android:name=".activities.CompleteActivity"/>
+        <activity android:name=".activities.InformActivity"/>
 
     </application>
 

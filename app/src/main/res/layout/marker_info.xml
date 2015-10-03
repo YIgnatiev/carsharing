@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data class="MarkerInfo">
+        <variable
+            name="car"
+            type="youdrive.today.models.Car"/>
+        </data>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,6 +12,7 @@
 
     <TextView
         android:id="@+id/txtModel"
+        android:text='@{car.model}'
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAllCaps="true"
@@ -30,6 +37,7 @@
 
         <TextView
             android:id="@+id/txtNumber"
+            android:text='@{car.number}'
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="5"
@@ -54,6 +62,7 @@
 
         <TextView
             android:id="@+id/txtColor"
+            android:text='@{car.color}'
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="5"
@@ -90,3 +99,4 @@
 
 
 </LinearLayout>
+    </layout>

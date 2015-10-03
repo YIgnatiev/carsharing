@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="listener"
+            type="youdrive.today.activities.ConfirmationActivity"/>
+    </data>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
@@ -42,6 +49,7 @@
 
     <com.dd.CircularProgressButton
         android:id="@+id/btnOk"
+        android:onClick="@{listener.onOk}"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -59,6 +67,7 @@
 
     <com.dd.CircularProgressButton
         android:id="@+id/btnCancel"
+        android:onClick="@{listener.onCancel}"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/btnOk"
@@ -77,3 +86,4 @@
 
 
 </RelativeLayout>
+</layout>

@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="listener"
+            type="youdrive.today.activities.LoginActivity"/>
+    </data>
+
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg">
@@ -56,6 +65,7 @@
 
     <com.dd.CircularProgressButton
         android:id="@+id/btnLogin"
+        android:onClick="@{listener.onLogin}"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/etPassword"
@@ -86,6 +96,7 @@
         android:textColor="@color/white"/>
 
     <TextView
+        android:onClick="@{listener.onRestore}"
         android:id="@+id/txtRestore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -103,6 +114,7 @@
 
         <TextView
             android:id="@+id/txtAbout"
+            android:onClick="@{listener.onAbout}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/about"
@@ -112,6 +124,7 @@
 
         <TextView
             android:id="@+id/txtRegistration"
+            android:onClick="@{listener.onRegistration}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/registration"
@@ -125,3 +138,5 @@
 
 
 </RelativeLayout>
+
+</layout>

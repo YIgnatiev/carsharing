@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="listener"
+            type="youdrive.today.activities.CompleteActivity"/>
+    </data>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -6,9 +14,12 @@
     android:background="@drawable/bg"
     android:orientation="vertical">
 
-    <include
+    <android.support.v7.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main"/>
 
     <ImageView
         android:id="@+id/ivLogo"
@@ -124,6 +135,7 @@
 
             <com.dd.CircularProgressButton
                 android:id="@+id/btnClose"
+                android:onClick='@{listener.onClose}'
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="40dp"
@@ -141,3 +153,5 @@
 
 
 </LinearLayout>
+
+</layout>

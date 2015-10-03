@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
-
+apply plugin: 'com.android.databinding'
 android {
     compileSdkVersion 22
     buildToolsVersion "21.1.2"
@@ -74,7 +74,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.1.1'
     compile 'com.google.android.gms:play-services:7.3.0'
     /*Code*/
-    compile 'com.jakewharton:butterknife:6.1.0'
     /*Дизайн*/
     compile 'com.afollestad:material-dialogs:0.7.4.2'
     compile 'com.github.dmytrodanylyk.circular-progress-button:library:1.1.3'

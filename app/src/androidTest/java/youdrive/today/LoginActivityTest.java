@@ -4,7 +4,7 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import org.junit.Test;
 
-import youdrive.today.login.activities.LoginActivity;
+import youdrive.today.activities.LoginActivity;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;

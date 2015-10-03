@@ -3,8 +3,8 @@ package youdrive.today;
 import android.app.Application;
 
 import timber.log.Timber;
-import youdrive.today.data.PreferenceHelper;
-import youdrive.today.data.network.ApiClient;
+import youdrive.today.helpers.PreferenceHelper;
+import youdrive.today.newtwork.ApiClient;
 
 /**
  * Created by psuhoterin on 21.04.15.

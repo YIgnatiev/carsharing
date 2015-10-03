@@ -4,9 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-import youdrive.today.Car;
-import youdrive.today.Check;
-import youdrive.today.Status;
+import youdrive.today.models.Car;
+import youdrive.today.models.Check;
 
 public class CarResponse extends BaseResponse {
 

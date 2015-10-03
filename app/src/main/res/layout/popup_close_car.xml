@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data class="DialogCloseCar">
+
+        <variable
+            name="listener"
+            type="youdrive.today.activities.MapsActivity"/>
+    </data>
+
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -99,7 +107,7 @@
                 android:textColor="@color/black" />
 
             <TextView
-                android:id="@id/txtParking"
+                android:id="@+id/txtParking"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -139,6 +147,7 @@
 
             <com.dd.CircularProgressButton
                 android:id="@+id/btnCloseOrOpen"
+                android:onClick='@{listener.onCloseOrOpen}'
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/etPassword"
@@ -158,6 +167,7 @@
                 app:cpb_textError="@string/error" />
 
             <com.dd.CircularProgressButton
+                android:onClick='@{listener.onCloseRent}'
                 android:id="@+id/btnCloseRent"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -182,3 +192,5 @@
     </LinearLayout>
 
 </ScrollView>
+
+</layout>

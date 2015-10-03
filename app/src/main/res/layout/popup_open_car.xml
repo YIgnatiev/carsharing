@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    <data
+        class="OpenCarDialog">
+        <variable
+            name="listener"
+            type="youdrive.today.activities.MapsActivity"/>
+
+    </data>
+
+
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="bottom"
@@ -9,6 +20,7 @@
 
     <com.dd.CircularProgressButton
         android:id="@+id/btnCancel"
+        android:onClick='@{listener.onButtonCancel}'
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="5dp"
@@ -26,6 +38,8 @@
 
     <com.dd.CircularProgressButton
         android:id="@+id/btnOpen"
+        android:onClick='@{listener.onButtonOpen}'
+
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
@@ -43,3 +57,4 @@
 
 
 </LinearLayout>
+    </layout>

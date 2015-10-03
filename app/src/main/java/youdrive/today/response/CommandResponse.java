@@ -2,7 +2,7 @@ package youdrive.today.response;
 
 import com.google.gson.annotations.SerializedName;
 
-import youdrive.today.Check;
+import youdrive.today.models.Check;
 
 /**
  * Created by psuhoterin on 24.05.15.

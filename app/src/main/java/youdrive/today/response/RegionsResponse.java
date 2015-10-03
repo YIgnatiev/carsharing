@@ -2,7 +2,7 @@ package youdrive.today.response;
 
 import java.util.List;
 
-import youdrive.today.Region;
+import youdrive.today.models.Region;
 
 /**
  * Created by psuhoterin on 24.05.15.
