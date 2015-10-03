@@ -75,7 +75,7 @@ import youdrive.today.listeners.PolygonListener;
 import youdrive.today.listeners.ProfileActionListener;
 import youdrive.today.adapters.ProfileAdapter;
 import youdrive.today.interceptors.ProfileInteractorImpl;
-import youdrive.today.response.Coord;
+import youdrive.today.models.Coord;
 
 public class MapsActivity extends BaseActivity implements MapsActionListener, ProfileActionListener, CarActionListener,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, PolygonListener {

@@ -1,20 +1,27 @@
 package youdrive.today.interceptors;
 
-import java.io.IOException;
+import com.google.gson.Gson;
 
+import java.util.concurrent.TimeUnit;
+
+import retrofit.RetrofitError;
+import retrofit.mime.TypedByteArray;
+import rx.Observer;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import rx.subscriptions.Subscriptions;
-import youdrive.today.models.ApiError;
 import youdrive.today.App;
-import youdrive.today.BaseObservable;
+import youdrive.today.listeners.LoginActionListener;
+import youdrive.today.models.ApiError;
 import youdrive.today.models.User;
 import youdrive.today.newtwork.ApiClient;
-import youdrive.today.listeners.LoginActionListener;
 import youdrive.today.response.LoginResponse;
 
-public class LoginInteractorImpl implements LoginInteractor {
+public class LoginInteractorImpl implements LoginInteractor , Observer<LoginResponse>{
 
     private final ApiClient mApiClient;
+    private LoginActionListener mListener;
     private Subscription subscription = Subscriptions.empty();
 
     public LoginInteractorImpl() {
@@ -23,41 +30,76 @@ public class LoginInteractorImpl implements LoginInteractor {
 
     @Override
     public void login(final String email, final String password, final LoginActionListener listener) {
-        subscription = BaseObservable.ApiCall(() -> {
-            try {
-                return mApiClient.login(email, password);
-            } catch (IOException e) {
-                e.printStackTrace();
-                return new LoginResponse();
-            }
-        }).doOnNext(baseResponse -> {
-            LoginResponse response = (LoginResponse) baseResponse;
-            if (response.isSuccess()) {
-                listener.onSuccess(new User(
-                        response.getSessionId(),
-                        response.getName(),
-                        response.getAvatar()));
-            } else {
-                handlingError(new ApiError(response.getCode(),
-                        response.getText()), listener);
-            }
-
-        }).subscribe();
+        mListener = listener;
+        subscription = mApiClient
+                .login(email, password)
+                .retry(3)
+                .timeout(3, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this);
     }
 
-    private void handlingError(ApiError error, LoginActionListener listener) {
-        if (error.getCode() == ApiError.FIELD_IS_EMPTY) {
-            listener.onErrorFieldEmpty(error.getText());
-        } else if (error.getCode() == ApiError.USER_NOT_FOUND) {
-            listener.onErrorUserNotFound(error.getText());
-        } else if (error.getText() != null){
-            listener.onUnknownError(error.getText());
-        } else {
-            listener.onError();
-        }
-    }
+
 
     public Subscription getSubscription() {
         return subscription;
     }
+
+    @Override
+    public void onCompleted() {
+        subscription.unsubscribe();
+    }
+
+    @Override
+    public void onError(Throwable e) {
+        try {
+            RetrofitError error = (RetrofitError) e;
+            TypedByteArray byteArray = (TypedByteArray) error.getResponse().getBody();
+            String message = new String(byteArray.getBytes());
+            LoginResponse response = new Gson().fromJson(message, LoginResponse.class);
+            handlingError(new ApiError(response.getCode(),
+                    response.getText()), mListener);
+        }catch (Exception ex){
+            mListener.onError();
+        }
+    }
+
+    @Override
+    public void onNext(LoginResponse response) {
+
+        if (response.isSuccess()) {
+            mListener.onSuccess(new User(
+                    response.getSessionId(),
+                    response.getName(),
+                    response.getAvatar()));
+        } else {
+            handlingError(new ApiError(response.getCode(),
+                    response.getText()), mListener);
+        }
+    }
+
+
+    private void handlingError(ApiError error, LoginActionListener listener) {
+
+        switch (error.getCode()) {
+            case ApiError.FIELD_IS_EMPTY:
+                listener.onErrorFieldEmpty(error.getText());
+                break;
+            case ApiError.USER_NOT_FOUND:
+                listener.onErrorUserNotFound(error.getText());
+                break;
+            default:
+
+                if (error.getText() != null) {
+                    listener.onUnknownError(error.getText());
+                } else {
+                    listener.onError();
+                }
+        }
+
+    }
+
+
+
 }

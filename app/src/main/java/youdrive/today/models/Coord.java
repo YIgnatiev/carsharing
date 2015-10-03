@@ -1,4 +1,4 @@
-package youdrive.today.response;
+package youdrive.today.models;
 
 import com.google.android.gms.maps.model.LatLng;
 

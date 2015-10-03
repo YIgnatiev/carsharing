@@ -2,7 +2,7 @@ package youdrive.today.listeners;
 
 import java.util.List;
 
-import youdrive.today.response.Coord;
+import youdrive.today.models.Coord;
 
 /**
  * Created by Oleh Makhobey

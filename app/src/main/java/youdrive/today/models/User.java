@@ -12,6 +12,7 @@ public class User implements Parcelable {
     private String name;
     private String avatar;
 
+
     public User(String sessionId, String name, String avatar) {
         this.sessionId = sessionId;
         this.name = name;

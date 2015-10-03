@@ -9,8 +9,12 @@ import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 
+import retrofit.RestAdapter;
+import retrofit.client.OkClient;
+import rx.Observable;
 import timber.log.Timber;
 import youdrive.today.models.Command;
+import youdrive.today.models.LoginUser;
 import youdrive.today.response.BaseResponse;
 import youdrive.today.response.CarResponse;
 import youdrive.today.response.CommandResponse;
@@ -25,18 +29,26 @@ public class ApiClient {
 
     private final OkHttpClient mClient;
 
-    private static final MediaType JSON
-            = MediaType.parse("application/json; charset=utf-8");
+    private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
 //    private static String HOST = "http://youdrive.today";
     private static  String HOST = "http://54.191.34.18";
 
     private final Gson mGson;
+    private CarsharingService mService;
 
     public ApiClient() {
         mClient = new OkHttpClient();
-        mGson = new Gson();
         setCookie();
+
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(HOST)
+                .setClient(new OkClient(mClient))
+                .setLogLevel(RestAdapter.LogLevel.FULL)
+                .build();
+
+        mService = adapter.create(CarsharingService.class);
+        mGson = new Gson();
     }
 
     private void setCookie(){
@@ -44,10 +56,10 @@ public class ApiClient {
         mClient.interceptors().add(new ReceivedCookiesInterceptor());
     }
 
-    public LoginResponse login(String email, String password) throws IOException {
-        String url = HOST + "/session";
-        String json = "{\"email\":\"" + email + "\", \"password\":\"" + password + "\"}";
-        return mGson.fromJson(post(url, json), LoginResponse.class);
+
+
+    public Observable<LoginResponse> login(String email, String password){
+        return mService.login(new LoginUser(email, password));
     }
 
     public BaseResponse logout() throws IOException {
@@ -148,4 +160,7 @@ public class ApiClient {
         Timber.tag("ApiClient").d("JSON " + result);
         return result;
     }
+
+
+
 }

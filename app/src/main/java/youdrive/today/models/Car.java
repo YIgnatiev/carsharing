@@ -25,6 +25,11 @@ public class Car implements Comparable<Car>, Parcelable {
     String img;
     String pointer_resource;
 
+    public Car(String id,float lat, float lon){
+        this.id = id;
+        this.lat = lat;
+        this.lon = lon;
+    }
 
     public String getPointer_resource() {
         return pointer_resource;
