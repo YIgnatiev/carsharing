@@ -6,6 +6,8 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
+
+
         <!--Dialog style-->
         <item name="md_dark_theme">false</item>
         <item name="md_background_color">@color/white</item>
@@ -22,6 +24,10 @@
     <style name="Animation">
         <item name="android:windowEnterAnimation">@anim/bottom_up</item>
         <item name="android:windowExitAnimation">@anim/bottom_down</item>
+    </style>
+    <style name="AppTheme.Splash" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+
     </style>
 
 </resources>

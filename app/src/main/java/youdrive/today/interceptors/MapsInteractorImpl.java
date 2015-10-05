@@ -1,11 +1,12 @@
 package youdrive.today.interceptors;
 
-import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import rx.Subscription;
-import rx.subscriptions.Subscriptions;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
 import youdrive.today.App;
-import youdrive.today.BaseObservable;
 import youdrive.today.listeners.MapsActionListener;
 import youdrive.today.listeners.PolygonListener;
 import youdrive.today.models.ApiError;
@@ -17,101 +18,104 @@ import youdrive.today.response.PolygonResponse;
 public class MapsInteractorImpl implements MapsInteractor {
 
     private final ApiClient mApiClient;
-    private Subscription subscription = Subscriptions.empty();
-
+    CompositeSubscription subscriptions = new CompositeSubscription();
     public MapsInteractorImpl() {
         mApiClient = App.getInstance().getApiClient();
     }
 
-
-
-
     @Override
     public void getStatusCar(final MapsActionListener listener) {
-        subscription = BaseObservable.ApiCall(() -> {
-            try {
-                return mApiClient.getStatusCars();
-            } catch (IOException e) {
-                e.printStackTrace();
-                return null;
-            }
-        }).doOnNext(baseResponse -> {
-            CarResponse response = (CarResponse) baseResponse;
-            if (response.isSuccess()) {
-//                    getStatusCarsInterval(listener);
 
-                if (response.getCars() != null) {
-                    listener.onCars(response.getCars());
-                } else if (response.getCar() != null) {
-                    listener.onCar(response.getCar());
-                }
 
-                listener.onStatus(Status.fromString(response.getStatus()));
+        Subscription subscription = mApiClient
+                .getStatusCars()
+                .retry(3)
+                .timeout(3, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> onStatusCarSuccess(response, listener),
+                        error -> handleNetworkError(error, listener));
+        subscriptions.add(subscription);
 
-                if (response.getCheck() != null) {
-                    listener.onCheck(response.getCheck());
-                }
 
-            } else {
-                handlingError(new ApiError(response.getCode(),
-                        response.getText()), listener);
-            }
-        }).subscribe();
+    }
+
+    private void onStatusCarSuccess(CarResponse response, MapsActionListener listener) {
+
+        if (response.isSuccess()) {
+
+            if (response.getCars() != null) listener.onCars(response.getCars());
+            else if (response.getCar() != null) listener.onCar(response.getCar());
+
+            listener.onStatus(Status.fromString(response.getStatus()));
+
+            if (response.getCheck() != null) listener.onCheck(response.getCheck());
+
+        } else {
+            handlingError(new ApiError(response.getCode(),
+                    response.getText()), listener);
+        }
     }
 
     @Override
     public void getInfo(final PolygonListener listener) {
-        subscription = BaseObservable.ApiCall(() -> {
-            try {
-                return mApiClient.getPolygon();
-            } catch (IOException e) {
-                e.printStackTrace();
-                return null;
-            }
-        }).doOnNext(baseResponse -> {
-            PolygonResponse response = (PolygonResponse) baseResponse;
-            if (response.isSuccess()) {
-//                    getStatusCarsInterval(listener);
-                listener.onPolygonSuccess(response.getArea());
+        Subscription subscription = mApiClient
+                .getPolygon()
+                .retry(3)
+                .timeout(3, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> onGetInfoSuccess(response, listener),
+                        error -> handleNetworkError(error, listener));
+        subscriptions.add(subscription);
 
-            } else {
-               listener.onPolygonFailed();
-            }
-        }).subscribe();
+    }
+
+    private void onGetInfoSuccess(PolygonResponse response, PolygonListener listener) {
+        if (response.isSuccess()) {
+            listener.onPolygonSuccess(response.getArea());
+
+        } else {
+            listener.onPolygonFailed();
+        }
     }
 
     @Override
     public void getStatusCars(final double lat, final double lon, final MapsActionListener listener) {
-        subscription = BaseObservable.ApiCall(() -> {
-            try {
-                return mApiClient.getStatusCars(lat, lon);
-            } catch (IOException e) {
-                e.printStackTrace();
-                return null;
-            }
-        }).doOnNext(baseResponse -> {
-            if (baseResponse != null) {
-                CarResponse response = (CarResponse) baseResponse;
-                if (response.isSuccess()) {
+       Subscription subscription = mApiClient
+                .getStatusCars(lat, lon)
+                .retry(3)
+                .timeout(3, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> onCarResponseSuccess(response,listener),
+                        error -> handleNetworkError(error,listener));
+            subscriptions.add(subscription);
 
-                    if (response.getCars() != null) {
-                        listener.onCars(response.getCars());
-                    } else if (response.getCar() != null) {
-                        listener.onCar(response.getCar());
-                    }
+}
 
-                    listener.onStatus(Status.fromString(response.getStatus()));
+    private void onCarResponseSuccess(CarResponse response, MapsActionListener listener) {
+        if (response.isSuccess()) {
 
-                    if (response.getCheck() != null) {
-                        listener.onCheck(response.getCheck());
-                    }
+            if (response.getCars() != null) listener.onCars(response.getCars());
+            else if (response.getCar() != null) listener.onCar(response.getCar());
 
-                } else {
-                    handlingError(new ApiError(response.getCode(),
-                            response.getText()), listener);
-                }
-            }
-        }).subscribe();
+            listener.onStatus(Status.fromString(response.getStatus()));
+
+            if (response.getCheck() != null) listener.onCheck(response.getCheck());
+
+        } else {
+            handlingError(new ApiError(response.getCode(), response.getText()), listener);
+        }
+
+    }
+
+    private void handleNetworkError(Throwable error, PolygonListener listener) {
+        listener.onPolygonFailed();
+    }
+
+    private void handleNetworkError(Throwable error, MapsActionListener listener) {
+        listener.onError();
     }
 
     private void handlingError(ApiError error, MapsActionListener listener) {
@@ -119,7 +123,7 @@ public class MapsInteractorImpl implements MapsInteractor {
             listener.onForbidden();
         } else if (error.getCode() == ApiError.TARIFF_NOT_FOUND) {
             listener.onTariffNotFound();
-        } else if (error.getText() != null){
+        } else if (error.getText() != null) {
             listener.onUnknownError(error.getText());
         } else {
             listener.onError();
@@ -127,6 +131,6 @@ public class MapsInteractorImpl implements MapsInteractor {
     }
 
     public Subscription getSubscription() {
-        return subscription;
+        return subscriptions;
     }
 }

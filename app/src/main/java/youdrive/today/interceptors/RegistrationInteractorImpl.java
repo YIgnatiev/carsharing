@@ -8,7 +8,7 @@ import retrofit.RetrofitError;
 import retrofit.mime.TypedByteArray;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.subscriptions.Subscriptions;
+import rx.subscriptions.CompositeSubscription;
 import youdrive.today.App;
 import youdrive.today.listeners.RegistrationActionListener;
 import youdrive.today.models.ApiError;
@@ -23,8 +23,7 @@ public class RegistrationInteractorImpl implements RegistrationInteractor {
 
     private final ApiClient mApiClient;
     private RegistrationActionListener mListener;
-    private Subscription subscription = Subscriptions.empty();
-
+    private CompositeSubscription subscriptions = new CompositeSubscription();
     public RegistrationInteractorImpl() {
         mApiClient = App.getInstance().getApiClient();
     }
@@ -34,12 +33,14 @@ public class RegistrationInteractorImpl implements RegistrationInteractor {
 
 
         mListener = listener;
-        subscription = mApiClient
+        Subscription subscription = mApiClient
                 .invite(email,phone,region,readyToUse)
                 .retry(3)
                 .timeout(3, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onSuccessInvite,this::onFailureInvite);
+
+        subscriptions.add(subscription);
     }
 
     private void onSuccessInvite(BaseResponse response){
@@ -59,23 +60,18 @@ public class RegistrationInteractorImpl implements RegistrationInteractor {
         }
     }
 
-
-
-
-
     @Override
     public void getRegions(final RegistrationActionListener listener) {
         mListener = listener;
-        subscription = mApiClient
+        Subscription subscription = mApiClient
                 .getRegions()
                 .retry(3)
                 .timeout(3, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onRegionsRespnseSuccess,this::onRegionsFailure);
-
+        subscriptions.add(subscription);
 
     }
-
 
     public void onRegionsRespnseSuccess(RegionsResponse response) {
 
@@ -86,7 +82,6 @@ public class RegistrationInteractorImpl implements RegistrationInteractor {
                     response.getText()), mListener);
         }
     }
-
 
     public void onRegionsFailure(Throwable e) {
         try {
@@ -101,9 +96,6 @@ public class RegistrationInteractorImpl implements RegistrationInteractor {
         }
     }
 
-
-
-
     private void handlingError(ApiError error, RegistrationActionListener listener) {
         if (error.getCode() == ApiError.USER_ALREADY_EXISTS){
             listener.onUserAlreadyExist(error.getText());
@@ -117,7 +109,7 @@ public class RegistrationInteractorImpl implements RegistrationInteractor {
     }
 
     public Subscription getSubscription() {
-        return subscription;
+        return subscriptions;
     }
 
 

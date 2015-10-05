@@ -37,6 +37,10 @@ public class PreferenceHelper {
         getEditor().putString(USER_FILE, user).apply();
     }
 
+    public void logout(){
+        getEditor().clear().apply();
+    }
+
     public String getUser(){
         return mHelper.getString(USER_FILE, null);
     }

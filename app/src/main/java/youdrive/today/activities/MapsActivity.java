@@ -157,6 +157,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 call();
                 break;
             case 5:
+                App.getInstance().getPreference().clear();
                 mProfileInteractor.logout(this);
                 break;
         }
@@ -359,8 +360,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         if (view.getTag() != null && mLastLocation.getLatitude() > 0.0d && mLastLocation.getLongitude() > 0.0d) {
 
-            //mCarInteractor.booking((String)view.getTag(), mLastLocation.getLatitude(), mLastLocation.getLongitude(), MapsActivity.this);
-            showToast("Request");
+            mCarInteractor.booking((String)view.getTag(), mLastLocation.getLatitude(), mLastLocation.getLongitude(), MapsActivity.this);
+
         } else {
 
             showToast("Не удалось установить месторасположение");
