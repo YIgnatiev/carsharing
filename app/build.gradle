@@ -22,34 +22,26 @@ android {
 
 
     productFlavors {
-        number{
+        number{}
 
-            buildConfigField("String", "API_KEY", "\"dc3s9kLXYWRCFOVOeZyXSNiwYow2P9Y-\"")
 
-        }
     }
+
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-    }
 
 
-
-    productFlavors {
-
-
-
-        number{
-
-            buildConfigField("String", "API_KEY", "\"dc3s9kLXYWRCFOVOeZyXSNiwYow2P9Y-\"")
-
-        }
-
-
+       debug{}
 
     }
+
+
+
+
 
     compileOptions {
         sourceCompatibility 1.8
@@ -80,12 +72,11 @@ dependencies {
     compile 'com.rengwuxian.materialedittext:library:2.1.3'
     /*Network*/
     compile 'com.squareup.okhttp:okhttp:2.4.0'
-    //compile 'io.reactivex:rxandroid:1.0.1'
     compile 'io.reactivex:rxandroid:0.24.0'
     compile 'io.reactivex:rxjava:1.0.14'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
-    /*JSON*/
-    compile 'com.google.code.gson:gson:2.3.1'
+//    /*JSON*/
+//    compile 'com.google.code.gson:gson:2.3.1'
     /*Log*/
     compile 'com.jakewharton.timber:timber:3.1.0'
     /*Картинки*/

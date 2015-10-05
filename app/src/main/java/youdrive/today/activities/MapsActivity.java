@@ -249,10 +249,12 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             @Override
             public void run() {
                 if (mStatus != null && mLastLocation != null) {
+
+
                     if (Status.NORMAL.equals(mStatus) || Status.BOOKING.equals(mStatus)) {
-                        mMapsInteractor.getStatusCars(mLastLocation.getLatitude(), mLastLocation.getLongitude(), MapsActivity.this);
+                        if(isNetworkConnected())mMapsInteractor.getStatusCars(mLastLocation.getLatitude(), mLastLocation.getLongitude(), MapsActivity.this);
                     } else {
-                        mMapsInteractor.getStatusCar(MapsActivity.this);
+                       if(isNetworkConnected()) mMapsInteractor.getStatusCar(MapsActivity.this);
                     }
                 }
             }
@@ -416,23 +418,23 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         Timber.tag("Error").d("Internal Error");
         String text = getString(R.string.internal_error);
-        if (bOpenCar.btnCancel != null && bOpenCar.btnCancel.getProgress() == 50) {
+        if (bOpenCar!= null &&  bOpenCar.btnCancel != null && bOpenCar.btnCancel.getProgress() == 50) {
             AppUtils.error(text, bOpenCar.btnCancel);
             bOpenCar.btnOpen.setEnabled(true);
 
-        } else if (bCloseCar.btnCloseRent != null && bCloseCar.btnCloseRent.getProgress() == 50) {
+        } else if (bCloseCar!= null&& bCloseCar.btnCloseRent != null && bCloseCar.btnCloseRent.getProgress() == 50) {
             AppUtils.error(text, bCloseCar.btnCloseRent);
             bCloseCar.btnCloseOrOpen.setEnabled(true);
 
-        } else if (bOpenCar.btnOpen != null && bOpenCar.btnOpen.getProgress() == 50) {
+        } else if (bOpenCar != null &&   bOpenCar.btnOpen != null && bOpenCar.btnOpen.getProgress() == 50) {
             AppUtils.error(text, bOpenCar.btnOpen);
             bOpenCar.btnCancel.setEnabled(true);
 
-        } else if (bCloseCar.btnCloseOrOpen != null && bCloseCar.btnCloseOrOpen.getProgress() == 50) {
+        } else if (bCloseCar!= null &&  bCloseCar.btnCloseOrOpen != null && bCloseCar.btnCloseOrOpen.getProgress() == 50) {
             AppUtils.error(text, bCloseCar.btnCloseOrOpen);
             bCloseCar.btnCloseRent.setEnabled(true);
 
-        } else if (bInfo.btnBook != null && bInfo.btnBook.getProgress() == 50) {
+        } else if (bInfo != null && bInfo.btnBook != null && bInfo.btnBook.getProgress() == 50) {
             AppUtils.error(text, bInfo.btnBook);
         }
     }
