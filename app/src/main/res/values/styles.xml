@@ -2,6 +2,7 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat">
+        <item name="android:typeface">monospace</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 

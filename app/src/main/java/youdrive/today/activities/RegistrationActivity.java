@@ -5,22 +5,22 @@ import android.databinding.DataBindingUtil;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
-
-import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import rx.Observable;
+import rx.android.widget.OnTextChangeEvent;
+import rx.android.widget.WidgetObservable;
 import timber.log.Timber;
-import youdrive.today.helpers.AppUtils;
 import youdrive.today.BaseActivity;
-import youdrive.today.helpers.MaskedWatcher;
 import youdrive.today.R;
-import youdrive.today.models.Region;
 import youdrive.today.databinding.ActivityRegistrationBinding;
-import youdrive.today.listeners.RegistrationActionListener;
+import youdrive.today.helpers.AppUtils;
+import youdrive.today.helpers.MaskedWatcher;
 import youdrive.today.interceptors.RegistrationInteractorImpl;
+import youdrive.today.listeners.RegistrationActionListener;
+import youdrive.today.models.Region;
 
 public class RegistrationActivity extends BaseActivity implements RegistrationActionListener {
 
@@ -29,7 +29,9 @@ public class RegistrationActivity extends BaseActivity implements RegistrationAc
     private static final int RC_INFORM = 2;
     private static final int RC_THANKS = 3;
 
-
+    private RegistrationInteractorImpl mInteractor;
+    private List<Region> mRegions;
+    private MaskedWatcher mWatcher;
     private ActivityRegistrationBinding b;
 
     @Override
@@ -39,21 +41,28 @@ public class RegistrationActivity extends BaseActivity implements RegistrationAc
         mInteractor = new RegistrationInteractorImpl();
 
         b.spRegion.setEnabled(false);
-        mInteractor.getRegions(this);
 
-        b.btnInvite.setIndeterminateProgressMode(true);
-
+        getRegions();
+        b.btnInvite.setEnabled(false);
         mWatcher = new MaskedWatcher(b.etPhone, "# (###) ### ## ##");
+        checkFields();
     }
 
-    private RegistrationInteractorImpl mInteractor;
-    private List<Region> mRegions;
 
-    private MaskedWatcher mWatcher;
+    private void getRegions() {
+        if (isNetworkConnected()) {
+            mInteractor.getRegions(this);
+            b.btnInvite.setIndeterminateProgressMode(true);
+
+        } else {
+            error(getString(R.string.no_internet));
+        }
+    }
+
 
     //listeners
     public void onOnvite(View view) {
-        if (b.btnInvite.getProgress() == 0 && isValidate()) {
+        if (b.btnInvite.getProgress() == 0 && isNetworkEnabled() && isRegionChoosen()) {
 
             setEnabledFields(false);
             b.btnInvite.setProgress(50);
@@ -64,6 +73,23 @@ public class RegistrationActivity extends BaseActivity implements RegistrationAc
                     true,
                     this);
         }
+    }
+
+
+
+    private  boolean isRegionChoosen(){
+        boolean isRegionChoosen = mRegions != null;
+        if(!isRegionChoosen) showToast(getString(R.string.region_not_selected));
+        return isRegionChoosen;
+    }
+
+
+    private  boolean isNetworkEnabled(){
+        boolean isConnected = isNetworkConnected();
+        if(!isConnected){
+            error(getString(R.string.no_internet));
+        }
+        return isConnected;
     }
 
     public void onLogin(View view) {
@@ -85,51 +111,55 @@ public class RegistrationActivity extends BaseActivity implements RegistrationAc
     }
 
 
-    private boolean isValidate() {
-        boolean isLoginTyped = true;
-        boolean isEmailValid = true;
-        boolean isPhoneTyped = true;
-        boolean isPhoneTooShort = true;
-        boolean isSevenFirst = true;
-        boolean areRegionsSelected = true;
 
-        if (isEmpty(b.etLogin)) {
-            b.etLogin.setError(getString(R.string.empty));
-            isLoginTyped = false;
-        } else if (!validateEmail(b.etLogin.getText().toString())) {
-            b.etLogin.setError(getString(R.string.email_not_valid));
-            isEmailValid = false;
-        }
 
-        if (isEmpty(b.etPhone)) {
-            b.etPhone.setError(getString(R.string.empty));
-            isPhoneTyped = false;
-        } else if (b.etPhone.length() < 11) {
-            b.etPhone.setError(getString(R.string.phone_not_valid));
-            isPhoneTooShort = false;
-        } else if (!mWatcher.getPhone().startsWith("7")) {
-            b.etPhone.setError(getString(R.string.phone_format));
-            isSevenFirst = false;
-        }
 
-        if (mRegions == null) {
-            Toast.makeText(this, R.string.region_not_selected, Toast.LENGTH_LONG).show();
-            areRegionsSelected = false;
-        }
+    public void checkFields() {
 
-        return isLoginTyped && isEmailValid && isPhoneTyped && isPhoneTooShort &&isSevenFirst &&
-                areRegionsSelected ;
+
+        Observable<Boolean> email = WidgetObservable
+                .text(b.etLogin)
+                .distinctUntilChanged()
+                .map(OnTextChangeEvent::text)
+                .map(t -> validateEmail(t.toString()))
+                .doOnNext(bool -> {
+                    if (!bool) b.etLogin.setError(getString(R.string.email_not_valid));
+                });
+
+        Observable<Boolean> phone = WidgetObservable.text(b.etPhone)
+                .distinctUntilChanged()
+                .map(OnTextChangeEvent::text)
+                .map(CharSequence::toString)
+                .map(text -> {
+                    if (text.isEmpty()) {
+                        b.etPhone.setError(getString(R.string.empty));
+                        return false;
+                    } else if (text.length() < 11) {
+                        b.etPhone.setError(getString(R.string.phone_not_valid));
+                        return false;
+                    } else if (!mWatcher.getPhone().startsWith("7")) {
+                        b.etPhone.setError(getString(R.string.phone_format));
+                        return false;
+                    } else return true;
+
+                });
+
+
+
+
+        Observable.combineLatest(email, phone, (e, p) -> e && p)
+                .distinctUntilChanged()
+                .subscribe(b.btnInvite::setEnabled);
+
+
     }
-
 
 
     private boolean validateEmail(String email) {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
-    private boolean isEmpty(MaterialEditText et) {
-        return et.getText().toString().trim().length() == 0;
-    }
+
 
 
     @Override

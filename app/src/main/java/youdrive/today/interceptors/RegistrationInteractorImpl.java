@@ -1,14 +1,18 @@
 package youdrive.today.interceptors;
 
-import java.io.IOException;
+import com.google.gson.Gson;
 
+import java.util.concurrent.TimeUnit;
+
+import retrofit.RetrofitError;
+import retrofit.mime.TypedByteArray;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.subscriptions.Subscriptions;
-import youdrive.today.models.ApiError;
 import youdrive.today.App;
-import youdrive.today.BaseObservable;
-import youdrive.today.newtwork.ApiClient;
 import youdrive.today.listeners.RegistrationActionListener;
+import youdrive.today.models.ApiError;
+import youdrive.today.newtwork.ApiClient;
 import youdrive.today.response.BaseResponse;
 import youdrive.today.response.RegionsResponse;
 
@@ -18,6 +22,7 @@ import youdrive.today.response.RegionsResponse;
 public class RegistrationInteractorImpl implements RegistrationInteractor {
 
     private final ApiClient mApiClient;
+    private RegistrationActionListener mListener;
     private Subscription subscription = Subscriptions.empty();
 
     public RegistrationInteractorImpl() {
@@ -26,42 +31,78 @@ public class RegistrationInteractorImpl implements RegistrationInteractor {
 
     @Override
     public void getInvite(final String email, final Long phone, final String region, final boolean readyToUse, final RegistrationActionListener listener) {
-        subscription = BaseObservable.ApiCall(() -> {
-            try {
-                return mApiClient.invite(email, phone, region, readyToUse);
-            } catch (IOException e) {
-                e.printStackTrace();
-                return new BaseResponse();
-            }
-        }).doOnNext(baseResponse -> {
-            if (baseResponse.isSuccess()){
-                listener.onInvite();
-            } else {
-                handlingError(new ApiError(baseResponse.getCode(),
-                        baseResponse.getText()), listener);
-            }
-        }).subscribe();
+
+
+        mListener = listener;
+        subscription = mApiClient
+                .invite(email,phone,region,readyToUse)
+                .retry(3)
+                .timeout(3, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onSuccessInvite,this::onFailureInvite);
     }
+
+    private void onSuccessInvite(BaseResponse response){
+        mListener.onInvite();
+    }
+
+    private void onFailureInvite(Throwable throwable){
+        try {
+            RetrofitError error = (RetrofitError) throwable;
+            TypedByteArray byteArray = (TypedByteArray) error.getResponse().getBody();
+            String message = new String(byteArray.getBytes());
+            BaseResponse response = new Gson().fromJson(message, BaseResponse.class);
+            handlingError(new ApiError(response.getCode(),
+                    response.getText()), mListener);
+        }catch (Exception ex){
+            mListener.onError();
+        }
+    }
+
+
+
+
 
     @Override
     public void getRegions(final RegistrationActionListener listener) {
-        subscription = BaseObservable.ApiCall(() -> {
-            try {
-                return mApiClient.getRegions();
-            } catch (IOException e) {
-                e.printStackTrace();
-                return new RegionsResponse();
-            }
-        }).doOnNext(baseResponse -> {
-            RegionsResponse response = (RegionsResponse) baseResponse;
-            if (response.isSuccess()){
-                listener.onRegions(response.getRegions());
-            } else {
-                handlingError(new ApiError(response.getCode(),
-                        response.getText()), listener);
-            }
-        }).subscribe();
+        mListener = listener;
+        subscription = mApiClient
+                .getRegions()
+                .retry(3)
+                .timeout(3, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onRegionsRespnseSuccess,this::onRegionsFailure);
+
+
     }
+
+
+    public void onRegionsRespnseSuccess(RegionsResponse response) {
+
+        if (response.isSuccess()){
+            mListener.onRegions(response.getRegions());
+        } else {
+            handlingError(new ApiError(response.getCode(),
+                    response.getText()), mListener);
+        }
+    }
+
+
+    public void onRegionsFailure(Throwable e) {
+        try {
+            RetrofitError error = (RetrofitError) e;
+            TypedByteArray byteArray = (TypedByteArray) error.getResponse().getBody();
+            String message = new String(byteArray.getBytes());
+            RegionsResponse response = new Gson().fromJson(message, RegionsResponse.class);
+            handlingError(new ApiError(response.getCode(),
+                    response.getText()), mListener);
+        }catch (Exception ex){
+            mListener.onError();
+        }
+    }
+
+
+
 
     private void handlingError(ApiError error, RegistrationActionListener listener) {
         if (error.getCode() == ApiError.USER_ALREADY_EXISTS){
@@ -78,4 +119,11 @@ public class RegistrationInteractorImpl implements RegistrationInteractor {
     public Subscription getSubscription() {
         return subscription;
     }
+
+
+
+
+
+
+
 }

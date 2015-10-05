@@ -6,19 +6,22 @@ import android.util.Patterns;
 import android.view.View;
 
 import com.google.gson.Gson;
-import com.rengwuxian.materialedittext.MaterialEditText;
 
+import rx.Observable;
+import rx.android.widget.OnTextChangeEvent;
+import rx.android.widget.WidgetObservable;
 import timber.log.Timber;
 import youdrive.today.App;
-import youdrive.today.helpers.AppUtils;
 import youdrive.today.BaseActivity;
 import youdrive.today.R;
-import youdrive.today.models.User;
 import youdrive.today.databinding.ActivityLoginBinding;
-import youdrive.today.listeners.LoginActionListener;
+import youdrive.today.helpers.AppUtils;
 import youdrive.today.interceptors.LoginInteractorImpl;
+import youdrive.today.listeners.LoginActionListener;
+import youdrive.today.models.User;
 
 public class LoginActivity extends BaseActivity implements LoginActionListener {
+    private LoginInteractorImpl mInteractor;
 
     private ActivityLoginBinding b;
 
@@ -28,13 +31,14 @@ public class LoginActivity extends BaseActivity implements LoginActionListener {
         b.setListener(this);
         mInteractor = new LoginInteractorImpl();
         b.btnLogin.setIndeterminateProgressMode(true);
+        b.btnLogin.setEnabled(false);
+       checkFields();
     }
 
-    private LoginInteractorImpl mInteractor;
 
     //listener
     public void onLogin(View view) {
-        if (b.btnLogin.getProgress() == 0 && isValidate()) {
+        if (b.btnLogin.getProgress() == 0 && isConnected()) {
 
             setEnabled(false);
             b.btnLogin.setProgress(50);
@@ -63,30 +67,14 @@ public class LoginActivity extends BaseActivity implements LoginActionListener {
         b.txtRegistration.setEnabled(value);
     }
 
-    private boolean isValidate() {
-        boolean isPasswordTyped = true;
-        boolean isEmailTyped = true;
-        boolean isEmailValid = true;
-        if (isEmpty(b.etLogin)) {
-            b.etLogin.setError(getString(R.string.empty));
-            isEmailTyped = false;
-        } else if (!validateEmail(b.etLogin.getText().toString())) {
-
-            b.etLogin.setError(getString(R.string.email_not_valid));
-            isEmailValid = false;
+    private boolean isConnected() {
+        boolean isConnected = isNetworkConnected();
+        if (!isConnected) {
+            showToast(getString(R.string.no_internet));
         }
-
-        if (isEmpty(b.etPassword)) {
-            b.etPassword.setError(getString(R.string.empty));
-            isPasswordTyped = false;
-        }
-
-        return isPasswordTyped && isEmailTyped && isEmailValid;
+        return isConnected;
     }
 
-    private boolean isEmpty(MaterialEditText et) {
-        return et.getText().toString().isEmpty();
-    }
 
     private boolean validateEmail(String email) {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
@@ -104,6 +92,35 @@ public class LoginActivity extends BaseActivity implements LoginActionListener {
         startActivity(new Intent(this, MapsActivity.class));
         finish();
     }
+
+
+    public void checkFields() {
+
+
+        Observable<Boolean> email = WidgetObservable
+                .text(b.etLogin)
+                .distinctUntilChanged()
+                .map(OnTextChangeEvent::text)
+                .map(t -> validateEmail(t.toString()))
+                .doOnNext(bool -> {
+                    if (!bool) b.etLogin.setError(getString(R.string.email_not_valid));
+                });
+
+        Observable<Boolean> password = WidgetObservable.text(b.etPassword)
+                .distinctUntilChanged()
+                .map(OnTextChangeEvent::text)
+                .map(t -> t.length() != 0)
+                .doOnNext(bool -> {
+                    if (!bool) b.etPassword.setError(getString(R.string.empty));
+                });
+
+        Observable.combineLatest(email, password, (a, b) -> a && b)
+                .distinctUntilChanged()
+                .subscribe(b.btnLogin::setEnabled);
+
+
+    }
+
 
     @Override
     public void onError() {
@@ -135,4 +152,5 @@ public class LoginActivity extends BaseActivity implements LoginActionListener {
         mInteractor.getSubscription().unsubscribe();
         super.onDestroy();
     }
+
 }

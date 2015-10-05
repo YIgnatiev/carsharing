@@ -14,6 +14,7 @@ import retrofit.client.OkClient;
 import rx.Observable;
 import timber.log.Timber;
 import youdrive.today.models.Command;
+import youdrive.today.models.InviteUser;
 import youdrive.today.models.LoginUser;
 import youdrive.today.response.BaseResponse;
 import youdrive.today.response.CarResponse;
@@ -31,8 +32,8 @@ public class ApiClient {
 
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-//    private static String HOST = "http://youdrive.today";
-    private static  String HOST = "http://54.191.34.18";
+    private static String HOST = "https://youdrive.today";
+
 
     private final Gson mGson;
     private CarsharingService mService;
@@ -90,16 +91,28 @@ public class ApiClient {
         return mGson.fromJson(response,PolygonResponse.class);
     }
 
-    public RegionsResponse getRegions() throws IOException {
-        String url = HOST + "/regions";
-        return mGson.fromJson(get(url), RegionsResponse.class);
+
+
+
+//    public RegionsResponse getRegions() throws IOException {
+//        String url = HOST + "/regions";
+//        return mGson.fromJson(get(url), RegionsResponse.class);
+//    }
+
+    public Observable<RegionsResponse> getRegions() {
+       return mService.getRegions();
     }
 
-    public BaseResponse invite(String email, Long phone, String region, boolean readyToUse) throws IOException {
-        String url = HOST + "/invite";
-        String json = "{\"email\":\"" + email + "\", \"phone\":" + phone +", \"region_id\":\"" + region + "\", \"ready_to_use\": " + readyToUse + "}";
-        return mGson.fromJson(post(url, json), BaseResponse.class);
+//    public BaseResponse invite(String email, Long phone, String region, boolean readyToUse) throws IOException {
+//        String url = HOST + "/invite";
+//        String json = "{\"email\":\"" + email + "\", \"phone\":" + phone +", \"region_id\":\"" + region + "\", \"ready_to_use\": " + readyToUse + "}";
+//        return mGson.fromJson(post(url, json), BaseResponse.class);
+//    }
+ public Observable<BaseResponse> invite(String email, Long phone, String region, boolean readyToUse)  {
+        return mService.invite(new InviteUser(email,phone,region,readyToUse));
     }
+
+
 
     public CarResponse booking(String id, double lat, double lon) throws IOException {
         String url = HOST + "/order";

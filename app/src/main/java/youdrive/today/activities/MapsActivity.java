@@ -1,13 +1,10 @@
 package youdrive.today.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -50,18 +47,9 @@ import java.util.TimerTask;
 
 import timber.log.Timber;
 import youdrive.today.App;
-import youdrive.today.helpers.AppUtils;
 import youdrive.today.BaseActivity;
-import youdrive.today.models.Car;
-import youdrive.today.models.Check;
-import youdrive.today.models.Command;
-import youdrive.today.models.Menu;
 import youdrive.today.R;
-import youdrive.today.models.Status;
-import youdrive.today.models.User;
-import youdrive.today.listeners.CarActionListener;
-import youdrive.today.interceptors.CarInteractorImpl;
-import youdrive.today.helpers.PreferenceHelper;
+import youdrive.today.adapters.ProfileAdapter;
 import youdrive.today.databinding.ActivityMapsBinding;
 import youdrive.today.databinding.DialogCloseCar;
 import youdrive.today.databinding.DialogInfo;
@@ -69,13 +57,22 @@ import youdrive.today.databinding.HeaderProfileBinding;
 import youdrive.today.databinding.MarkerInfo;
 import youdrive.today.databinding.OpenCarDialog;
 import youdrive.today.databinding.PopupDistance;
-import youdrive.today.listeners.MapsActionListener;
+import youdrive.today.helpers.AppUtils;
+import youdrive.today.helpers.PreferenceHelper;
+import youdrive.today.interceptors.CarInteractorImpl;
 import youdrive.today.interceptors.MapsInteractorImpl;
+import youdrive.today.interceptors.ProfileInteractorImpl;
+import youdrive.today.listeners.CarActionListener;
+import youdrive.today.listeners.MapsActionListener;
 import youdrive.today.listeners.PolygonListener;
 import youdrive.today.listeners.ProfileActionListener;
-import youdrive.today.adapters.ProfileAdapter;
-import youdrive.today.interceptors.ProfileInteractorImpl;
+import youdrive.today.models.Car;
+import youdrive.today.models.Check;
+import youdrive.today.models.Command;
 import youdrive.today.models.Coord;
+import youdrive.today.models.Menu;
+import youdrive.today.models.Status;
+import youdrive.today.models.User;
 
 public class MapsActivity extends BaseActivity implements MapsActionListener, ProfileActionListener, CarActionListener,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, PolygonListener {
@@ -995,12 +992,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
 
-    private boolean isNetworkConnected() {
-        ConnectivityManager connMgr =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeInfo = connMgr.getActiveNetworkInfo();
-        return (activeInfo != null && activeInfo.isConnected());
-    }
+
 
 
     @Override

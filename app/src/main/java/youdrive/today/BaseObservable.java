@@ -25,7 +25,7 @@ public class BaseObservable {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public static Observable<BaseResponse> ApiIntervalCall(final RequestListener listener, int interval){
+    public static Observable<BaseResponse> ApiIntervalCall(final RequestListener listener, int interval) {
         return Observable
                 .interval(interval, TimeUnit.SECONDS)
                 .map(aLong -> listener.onRequest())
@@ -33,4 +33,15 @@ public class BaseObservable {
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
+
 }
+
+
+
+
+
+
+
+
+
