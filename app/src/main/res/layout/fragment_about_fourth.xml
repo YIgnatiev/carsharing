@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+
+        />
+
+    <TextView
+        style="@style/AppTheme.TextView"
+        android:text="Зарегистрироваться"
+        android:padding="10dp"
+        android:background="#8e918e"/>
+    <TextView
+        style="@style/AppTheme.TextView"
+        android:padding="5dp"
+        android:text="Есть аккаунт?"/>
+<TextView
+        style="@style/AppTheme.TextView"
+    android:padding="5dp"
+    android:background="#8e918e"
+        android:text="Войти"/>
+
+
+
+
+    <TextView
+        android:layout_marginTop="30dp"
+        style="@style/AppTheme.TextView"
+        android:text="Не нашли ответ на свой вопрос? \n Задайте его в " />
+
+
+    <TextView
+        style="@style/AppTheme.TextView"
+        android:padding="5dp"
+        android:background="#8e918e"
+        android:text="нашем сообществе"/>
+</LinearLayout>
+
+</layout>

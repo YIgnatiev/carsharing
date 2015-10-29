@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:id="@+id/svAgreement">
+        <TextView
+            style="@style/AppTheme.TextView"
+            android:text="flflflflflflflflflflflflflflflflflflflflflsflkjflkeflkejflekflfllflflflflflflflflflflflflflflflflflflflflflflflflsflkjflkeflkejflekflfllflflflflflflflflflflflflflflflflflflflflflflflflsflkjflkeflkejflekflfllflflflflflflflflflflflflflflflflflflflflflflflflsflkjflkeflkejflekflfllflflflflflflflflflflflflflflflflflflflflflflflflsflkjflkeflkejflekflfllflflflflflflflflflflflflflflflflflflflflflflflflsflkjflkeflkejflekflfllflflflflflflflflflflflflflflflflflflflflflflflflsflkjflkeflkejflekflfllflflflflflflflflflflflflflflflflflflflflflflflflsflkjflkeflkejflekflfllflflflflflflflflflflflflflflflflflflflflflflflflsflkjflkeflkejflekflfllflflflflflflflflflflflflflflflflflflflflflflflflsflkjflkeflkejflekflfllflflflflflflflflflflflflflflflflflflflflflflflflsflkjflkeflkejflekflfllflflflflflflflflflflflflflflflflflflflflflflflflsflkjflkeflkejflekflfllflflflflflflflflflflflflflflflflflflflflflflflflsflkjflkeflkejflekflfllflflflflflflflflflflflflflflflflflflflflflflflflsflkjflkeflkejflekflfllflflflflflflflflflflflflflflflflflflflflflflflflsflkjflkeflkejflekflfllflflflflflflflflflflflflflflflflflflflflflflflflsflkjflkeflkejflekflfllflflflflflflflflflflflflflflflflflflflflflflflflsflkjflkeflkejflekflfllflflflflflflflflflflflflflflflflflflflflflflflflsflkjflkeflkejflekflfllflflflflflflflflflflflflflflflflflflflflflflflflsflkjflkeflkejflekflfllflflflflflflflflflflflflflflflflflflflflflflflflsflkjflkeflkejflekflfllflflfl"/>
+    </ScrollView>
+
+
+
+    <TextView
+        style="@style/AppTheme.TextView"
+        android:layout_marginTop="20dp"
+        android:padding="5dp"
+        android:text="Укажите сумму аванса, удерживаемую при регистрации (уазана в оферте):"
+        />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/etPaswordAgain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Введите сумму в рублях"
+        app:met_textColorHint="@color/hint"
+        app:met_baseColor="@color/white"
+        app:met_primaryColor="@color/main"
+        app:met_errorColor="@color/error"
+        android:inputType="number"
+        />
+
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Я прочитал договор-оферу и согласен с условиями договора-оферты"
+            />
+
+</LinearLayout>
+
+</layout>

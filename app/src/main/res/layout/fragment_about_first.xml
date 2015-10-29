@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:gravity="center"
+    android:background="#fff"
+    android:orientation="vertical">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_splash"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/about_first"/>
+    <TextView
+       style="@style/AppTheme.TextView"
+        android:textSize="16sp"
+        android:padding="15dp"
+        android:text="каршеринг"/>
+    <TextView
+        style="@style/AppTheme.TextView"
+        android:text="Краткосрочная аренда автомобилей через Ваш смартфон"/>
+
+</LinearLayout>
+</layout>
