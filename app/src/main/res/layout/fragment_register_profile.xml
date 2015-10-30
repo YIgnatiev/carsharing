@@ -9,7 +9,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
+    <TextView
+        style="@style/AppTheme.TextView"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp"
+        android:id="@+id/tvTitle"
+        android:text="2/4: Профиль"
+        android:textSize="16sp" />
 
 
     <ImageView
@@ -17,8 +23,10 @@
         android:layout_height="40dp"
         android:id="@+id/ivEmailHint"
         android:layout_margin="10dp"
+        android:layout_below="@id/tvTitle"
         android:layout_alignParentRight="true"
-        android:src="@mipmap/ic_launcher"/>
+        android:alpha="0.7"
+        android:src="@drawable/ic_question_mark"/>
 
 
     <com.rengwuxian.materialedittext.MaterialEditText
@@ -41,7 +49,8 @@
     android:layout_below="@id/ivEmailHint"
         android:layout_margin="10dp"
         android:layout_alignParentRight="true"
-        android:src="@mipmap/ic_launcher"/>
+    android:alpha="0.7"
+    android:src="@drawable/ic_question_mark"/>
 
 
     <com.rengwuxian.materialedittext.MaterialEditText
@@ -64,7 +73,8 @@
         android:layout_below="@id/ivPhoneHint"
         android:layout_margin="10dp"
         android:layout_alignParentRight="true"
-        android:src="@mipmap/ic_launcher"/>
+    android:alpha="0.7"
+    android:src="@drawable/ic_question_mark"/>
 
 
     <com.rengwuxian.materialedittext.MaterialEditText
@@ -87,7 +97,8 @@
     android:layout_below="@id/ivPasswordHind"
         android:layout_margin="10dp"
         android:layout_alignParentRight="true"
-        android:src="@mipmap/ic_launcher"/>
+    android:alpha="0.7"
+    android:src="@drawable/ic_question_mark"/>
 
 
     <com.rengwuxian.materialedittext.MaterialEditText
@@ -110,7 +121,8 @@
     android:layout_below="@id/ivPasswordAgainHint"
         android:layout_margin="10dp"
         android:layout_alignParentRight="true"
-        android:src="@mipmap/ic_launcher"/>
+    android:alpha="0.7"
+    android:src="@drawable/ic_question_mark"/>
 
 
     <com.rengwuxian.materialedittext.MaterialEditText
@@ -133,7 +145,8 @@
     android:layout_below="@id/ivPromoHint"
         android:layout_margin="10dp"
         android:layout_alignParentRight="true"
-        android:src="@mipmap/ic_launcher"/>
+    android:alpha="0.7"
+    android:src="@drawable/ic_question_mark"/>
 
 
     <com.rengwuxian.materialedittext.MaterialEditText
@@ -157,7 +170,8 @@
     android:layout_below="@id/ivSurnameHint"
         android:layout_margin="10dp"
         android:layout_alignParentRight="true"
-        android:src="@mipmap/ic_launcher"/>
+    android:alpha="0.7"
+    android:src="@drawable/ic_question_mark"/>
 
 
     <com.rengwuxian.materialedittext.MaterialEditText
@@ -180,7 +194,8 @@
     android:layout_below="@id/ivNameHint"
     android:layout_margin="10dp"
         android:layout_alignParentRight="true"
-        android:src="@mipmap/ic_launcher"/>
+    android:alpha="0.7"
+    android:src="@drawable/ic_question_mark"/>
 
 
     <com.rengwuxian.materialedittext.MaterialEditText
@@ -196,6 +211,14 @@
         app:met_errorColor="@color/error"
         android:inputType="textEmailAddress"
         />
+
+
+    <TextView
+        style="@style/AppTheme.Forvard"/>
+
+    <TextView
+        style="@style/AppTheme.Back"/>
+
 
 </RelativeLayout>
 </layout>

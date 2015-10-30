@@ -56,6 +56,8 @@
 
 
 
+        <activity android:name=".activities.RegistrationNewActivity"/>
+
         <activity android:name=".activities.LoginActivity"/>
         <activity android:name=".activities.MapsActivity"/>
         <activity android:name=".activities.RegistrationActivity"/>

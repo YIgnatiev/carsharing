@@ -3,7 +3,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
     android:gravity="center|left"
     android:orientation="vertical"
     android:padding="20dp">
@@ -27,8 +26,7 @@
             android:padding="10dp"
 
             android:drawableLeft="@drawable/ic_phone"
-            android:text="@string/open_app"
-            android:textColor="#000" />
+            android:text="@string/open_app" />
 
 
 

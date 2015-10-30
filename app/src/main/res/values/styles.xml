@@ -39,11 +39,42 @@
     <style name="AppTheme.TextView" parent="AppTheme">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">14sp</item>
         <item name="android:gravity">center</item>
 
     </style>
+
+
+    <style name="AppTheme.Back" parent="AppTheme">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:drawableLeft">@drawable/ic_back</item>
+        <item name="android:text">@string/back</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:background">#50ffffff</item>
+        <item name="android:gravity">center</item>
+
+    </style>
+
+    <style name="AppTheme.Forvard" parent="AppTheme">
+
+
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:drawableRight">@drawable/ic_forvard</item>
+        <item name="android:text">@string/forvard</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:background">#50ffffff</item>
+        <item name="android:gravity">center</item>
+
+
+    </style>
+
+
+
+
 
 
 

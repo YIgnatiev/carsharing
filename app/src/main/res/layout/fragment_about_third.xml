@@ -4,7 +4,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
     android:gravity="center|left"
     android:orientation="vertical"
     android:padding="20dp">
@@ -36,8 +35,7 @@
         android:padding="10dp"
 
         android:drawableLeft="@drawable/ic_ruble"
-        android:text="Бесплатная парковка на  местах Московского паркинга"
-        android:textColor="#000" />
+        android:text="Бесплатная парковка на  местах Московского паркинга" />
 
 
 
@@ -57,7 +55,7 @@
         android:drawablePadding="10dp"
         android:gravity="center|left"
         android:padding="10dp"
-        android:drawableLeft="@mipmap/ic_launcher"
+        android:drawableLeft="@drawable/ic_hotel"
 
         android:text="Бесплатный ночной тариф"/>
 
@@ -67,7 +65,7 @@
         android:drawablePadding="10dp"
         android:gravity="center|left"
         android:padding="10dp"
-        android:drawableLeft="@mipmap/ic_launcher"
+        android:drawableLeft="@drawable/ic_road_sign"
 
         android:text="Вы можете совершать дальние поездки" />
 

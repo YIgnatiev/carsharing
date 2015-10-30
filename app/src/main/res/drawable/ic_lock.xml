@@ -3,7 +3,7 @@
         android:height="40dp"
         android:viewportWidth="100"
         android:viewportHeight="100">
-    <path android:fillColor="#000"
+    <path android:fillColor="#ffffff"
         android:pathData="M20,50 h50
         s 10 0 10 10
         v 30
@@ -12,7 +12,7 @@
         s -10 0 -10 -10
         v -30
         s 0 -10 10 -10"/>
-    <path android:strokeColor="#000"
+    <path android:strokeColor="#ffffff"
         android:strokeWidth="7"
         android:strokeLineCap="round"
         android:pathData="M20,55 v-20

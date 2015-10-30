@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout  xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+<TextView
+
+    android:layout_centerHorizontal="true"
+    style="@style/AppTheme.TextView"
+    android:textSize="16sp"
+    android:text="4/4: Оплата"
+    android:padding="10dp"
+
+    />
+<LinearLayout
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
@@ -31,4 +45,17 @@
 
 
 </LinearLayout>
+
+
+
+
+        <TextView
+            style="@style/AppTheme.Forvard"
+            android:text="Готово"
+            />
+
+        <TextView
+            style="@style/AppTheme.Back"
+            />
+</RelativeLayout>
 </layout>

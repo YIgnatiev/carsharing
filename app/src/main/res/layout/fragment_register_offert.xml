@@ -1,12 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:background="@drawable/bg">
+
+
+        <TextView
+            style="@style/AppTheme.TextView"
+            android:layout_centerHorizontal="true"
+            android:padding="10dp"
+            android:id="@+id/tvTitle"
+            android:text="1/4: Офферта"
+            android:textSize="16sp" />
+
+
+
+<LinearLayout
     android:orientation="vertical"
+    android:layout_below="@id/tvTitle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg">
+    android:padding="20dp">
+
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -46,5 +69,16 @@
             />
 
 </LinearLayout>
+
+
+        <TextView
+            android:onClick='@{listener.onForvard}'
+            style="@style/AppTheme.Forvard"/>
+
+        <TextView
+            style="@style/AppTheme.Back"
+            android:onClick='@{listener.onBack}'
+            android:text="Отмена"/>
+    </RelativeLayout>
 
 </layout>

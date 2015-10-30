@@ -3,7 +3,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff">
+
+    android:background="@drawable/bg">
 
 
 
@@ -21,17 +22,29 @@
     android:layout_height="wrap_content"
     app:radius="5dp"
     app:centered="true"
-    app:fillColor="#000000"
-    app:strokeColor="#000000"
+    app:fillColor="#ffffff"
+    app:strokeColor="#ffffff"
     app:strokeWidth="1px"
     app:snap="true"
 
     />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_cancel"
+        android:padding="10dp"
+        android:layout_gravity="center|right"
+
+        />
 </FrameLayout>
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/flIndicator"/>
+
+
+
 </RelativeLayout>
 </layout>
