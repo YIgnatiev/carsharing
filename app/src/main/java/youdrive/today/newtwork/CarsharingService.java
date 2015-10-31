@@ -4,6 +4,7 @@ import retrofit.http.Body;
 import retrofit.http.DELETE;
 import retrofit.http.GET;
 import retrofit.http.POST;
+import retrofit.http.PUT;
 import retrofit.http.Path;
 import retrofit.http.Query;
 import rx.Observable;
@@ -11,12 +12,14 @@ import youdrive.today.models.ApiCommand;
 import youdrive.today.models.Car;
 import youdrive.today.models.InviteUser;
 import youdrive.today.models.LoginUser;
+import youdrive.today.models.RegistrationUser;
 import youdrive.today.response.BaseResponse;
 import youdrive.today.response.CarResponse;
 import youdrive.today.response.CommandResponse;
 import youdrive.today.response.LoginResponse;
 import youdrive.today.response.PolygonResponse;
 import youdrive.today.response.RegionsResponse;
+import youdrive.today.response.RegistrationModel;
 
 /**
  * Created by Oleh Makhobey
@@ -58,5 +61,12 @@ public interface CarsharingService {
 
     @GET("/action/{token}")
     Observable <CommandResponse> result(@Path("token")String token) ;
+
+
+    @POST("/create-account")
+    Observable<RegistrationModel> createAccount(@Body RegistrationModel model);
+
+    @PUT("/create-account/{registrationId}")
+    Observable<RegistrationModel> updateAccount(@Path("registrationId") String registrationId,  @Body RegistrationUser user);
 
 }

@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.databinding.DataBindingUtil;
 import android.support.v13.app.FragmentPagerAdapter;
+import android.view.View;
 
 import youdrive.today.BaseActivity;
 import youdrive.today.R;
@@ -24,6 +25,7 @@ public class WellcomeActivity extends BaseActivity {
     @Override
     public void bindActivity() {
         b = DataBindingUtil.setContentView(this, R.layout.activity_wellcome);
+        b.setListener(this);
         setPager();
 
         b.cpIndicator.setViewPager(b.viewPager);
@@ -34,6 +36,11 @@ public class WellcomeActivity extends BaseActivity {
         b.viewPager.setAdapter(new WellcomeAdapter(getFragmentManager()));
 
 
+    }
+
+
+    public void onBack(View view){
+       onBackPressed();
     }
 
 

@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout>
+
+    <data>
+        <variable
+            name="listener"
+            type="youdrive.today.fragments.RegisterProfileFragment"/>
+    </data>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@drawable/bg"
-    android:padding="10dp"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -18,24 +24,43 @@
         android:textSize="16sp" />
 
 
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:id="@+id/ivEmailHint"
-        android:layout_margin="10dp"
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/tvTitle"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        >
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+   >
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivEmailHint"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+
         android:layout_alignParentRight="true"
         android:alpha="0.7"
         android:src="@drawable/ic_question_mark"/>
 
 
     <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/etLogin"
+        android:id="@+id/etEmail"
         android:layout_toLeftOf="@id/ivEmailHint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/ivEmailHint"
         android:hint="E-mail"
+        android:textSize="14sp"
         app:met_textColorHint="@color/hint"
         app:met_baseColor="@color/white"
         app:met_primaryColor="@color/main"
@@ -43,8 +68,8 @@
         android:inputType="textEmailAddress"
         />
 <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/ivPhoneHint"
     android:layout_below="@id/ivEmailHint"
         android:layout_margin="10dp"
@@ -60,15 +85,17 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/ivPhoneHint"
         android:hint="Мобильный телефон"
+        android:textSize="14sp"
+
         app:met_textColorHint="@color/hint"
         app:met_baseColor="@color/white"
         app:met_primaryColor="@color/main"
         app:met_errorColor="@color/error"
-        android:inputType="textEmailAddress"
+        android:inputType="number"
         />
 <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/ivPasswordHind"
         android:layout_below="@id/ivPhoneHint"
         android:layout_margin="10dp"
@@ -84,6 +111,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/ivPasswordHind"
         android:hint="Пароль"
+        android:textSize="14sp"
         app:met_textColorHint="@color/hint"
         app:met_baseColor="@color/white"
         app:met_primaryColor="@color/main"
@@ -91,8 +119,8 @@
         android:inputType="textEmailAddress"
         />
 <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/ivPasswordAgainHint"
     android:layout_below="@id/ivPasswordHind"
         android:layout_margin="10dp"
@@ -108,6 +136,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/ivPasswordAgainHint"
         android:hint="Подтверждение пароля"
+        android:textSize="14sp"
+
         app:met_textColorHint="@color/hint"
         app:met_baseColor="@color/white"
         app:met_primaryColor="@color/main"
@@ -115,8 +145,8 @@
         android:inputType="textEmailAddress"
         />
 <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/ivPromoHint"
     android:layout_below="@id/ivPasswordAgainHint"
         android:layout_margin="10dp"
@@ -132,6 +162,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/ivPromoHint"
         android:hint="Промо-код"
+        android:textSize="14sp"
+
         app:met_textColorHint="@color/hint"
         app:met_baseColor="@color/white"
         app:met_primaryColor="@color/main"
@@ -139,8 +171,8 @@
         android:inputType="textEmailAddress"
         />
 <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/ivSurnameHint"
     android:layout_below="@id/ivPromoHint"
         android:layout_margin="10dp"
@@ -157,6 +189,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/ivSurnameHint"
         android:hint="Фамилия"
+        android:textSize="14sp"
+
         app:met_textColorHint="@color/hint"
         app:met_baseColor="@color/white"
         app:met_primaryColor="@color/main"
@@ -164,8 +198,8 @@
         android:inputType="textPersonName"
         />
 <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/ivNameHint"
     android:layout_below="@id/ivSurnameHint"
         android:layout_margin="10dp"
@@ -181,6 +215,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/ivNameHint"
         android:hint="Имя"
+        android:textSize="14sp"
+
         app:met_textColorHint="@color/hint"
         app:met_baseColor="@color/white"
         app:met_primaryColor="@color/main"
@@ -188,8 +224,8 @@
         android:inputType="textPersonName"
         />
 <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/ivMidleNameHint"
     android:layout_below="@id/ivNameHint"
     android:layout_margin="10dp"
@@ -205,19 +241,26 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/ivMidleNameHint"
         android:hint="Отчество"
+        android:textSize="14sp"
         app:met_textColorHint="@color/hint"
         app:met_baseColor="@color/white"
         app:met_primaryColor="@color/main"
         app:met_errorColor="@color/error"
         android:inputType="textEmailAddress"
         />
+</RelativeLayout>
 
+   </ScrollView>
 
     <TextView
-        style="@style/AppTheme.Forvard"/>
+        style="@style/AppTheme.Forvard"
+        android:id="@+id/tvForvard"
+        android:onClick='@{listener.onForvard}'/>
 
     <TextView
-        style="@style/AppTheme.Back"/>
+        style="@style/AppTheme.Back"
+        android:onClick='@{listener.onBack}'/>
+
 
 
 </RelativeLayout>

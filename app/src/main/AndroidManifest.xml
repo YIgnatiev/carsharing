@@ -56,7 +56,11 @@
 
 
 
-        <activity android:name=".activities.RegistrationNewActivity"/>
+        <activity android:name=".activities.RegistrationNewActivity"
+
+android:windowSoftInputMode="adjustPan"
+
+            />
 
         <activity android:name=".activities.LoginActivity"/>
         <activity android:name=".activities.MapsActivity"/>

@@ -6,17 +6,20 @@ import java.util.concurrent.TimeUnit;
 
 import retrofit.RestAdapter;
 import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
 import youdrive.today.models.ApiCommand;
 import youdrive.today.models.Car;
 import youdrive.today.models.Command;
 import youdrive.today.models.InviteUser;
 import youdrive.today.models.LoginUser;
+import youdrive.today.models.RegistrationUser;
 import youdrive.today.response.BaseResponse;
 import youdrive.today.response.CarResponse;
 import youdrive.today.response.CommandResponse;
 import youdrive.today.response.LoginResponse;
 import youdrive.today.response.PolygonResponse;
 import youdrive.today.response.RegionsResponse;
+import youdrive.today.response.RegistrationModel;
 
 /**
  * Created by psuhoterin on 21.04.15.
@@ -40,6 +43,8 @@ public class ApiClient {
                 .build()
                 .create(CarsharingService.class);
     }
+
+
 
 
     public Observable<LoginResponse> login(String email, String password) {
@@ -84,5 +89,24 @@ public class ApiClient {
 
     public Observable<CommandResponse> result(String token) {
         return mService.result(token);
+    }
+
+    public Observable<RegistrationModel> createUser(){
+        return mService
+                .createAccount(new RegistrationModel())
+                .retry(3)
+                .timeout(3, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+
+
+    public Observable<RegistrationModel> updateUser(String userId,RegistrationUser user){
+        return mService
+                .updateAccount(userId, user)
+                .retry(3)
+                .timeout(3, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread());
     }
 }

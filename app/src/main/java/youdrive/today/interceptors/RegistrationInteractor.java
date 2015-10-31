@@ -10,4 +10,5 @@ public interface RegistrationInteractor {
     void getInvite(String name, Long phone, String region, boolean readyToUse, RegistrationActionListener listener);
     void getRegions(RegistrationActionListener listener);
 
+
 }

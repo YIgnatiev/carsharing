@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout  xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="listener"
+            type="youdrive.today.fragments.RegisterPaymentsFragment"/>
+    </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -35,12 +42,26 @@
         android:layout_marginTop="10dp"
         android:text="CloudPayments"/>
 
-    <TextView
+
+
+    <com.dd.CircularProgressButton
+        android:id="@+id/btnLogin"
+        android:onClick="@{listener.onCardLink}"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:textAppearance="@android:style/TextAppearance.Medium"
+        android:textColor="@color/white"
         android:layout_marginTop="15dp"
-        style="@style/AppTheme.TextView"
-        android:background="#ed7777"
-        android:padding="10dp"
-        android:text="Привязать карту"/>
+        app:cpb_selectorIdle="@drawable/idle_state_selector"
+        app:cpb_selectorComplete="@drawable/complete_state_selector"
+        app:cpb_selectorError="@drawable/error_state_selector"
+        app:cpb_cornerRadius="5dp"
+        app:cpb_colorIndicator="@color/main"
+        app:cpb_colorProgress="@color/cpb_white"
+        app:cpb_textError="@string/error"
+        app:cpb_textIdle="Привязать карту"
+        app:cpb_iconComplete="@drawable/ic_action_accept"/>
 
 
 
@@ -52,10 +73,12 @@
         <TextView
             style="@style/AppTheme.Forvard"
             android:text="Готово"
+            android:onClick='@{listener.onForvard}'
             />
 
         <TextView
             style="@style/AppTheme.Back"
+            android:onClick='@{listener.onBack}'
             />
 </RelativeLayout>
 </layout>

@@ -12,6 +12,8 @@ android {
         versionCode 2
         versionName "1.1"
 
+            multiDexEnabled true
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -64,7 +66,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     /*System*/
     compile 'com.android.support:appcompat-v7:23.1.0'
-    compile 'com.google.android.gms:play-services:7.3.0'
+    compile 'com.google.android.gms:play-services-location:8.1.0'
     compile 'com.android.support:support-v13:23.1.0'
 
     /*Code*/
@@ -77,6 +79,7 @@ dependencies {
     compile 'io.reactivex:rxandroid:0.24.0'
     compile 'io.reactivex:rxjava:1.0.14'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
+   // compile 'com.uploadcare:uploadcare:2.0'
 //    /*JSON*/
 //    compile 'com.google.code.gson:gson:2.3.1'
     /*Log*/

@@ -1,11 +1,17 @@
 package youdrive.today.activities;
 
+import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.databinding.DataBindingUtil;
+import android.widget.Toast;
 
+import rx.Subscription;
 import youdrive.today.BaseActivity;
 import youdrive.today.R;
 import youdrive.today.databinding.ActivityRegistrationNewBinding;
 import youdrive.today.fragments.RegisterOffertFragment;
+import youdrive.today.models.RegistrationUser;
+import youdrive.today.newtwork.ApiClient;
 
 /**
  * Created by Oleh Makhobey
@@ -17,26 +23,71 @@ import youdrive.today.fragments.RegisterOffertFragment;
 public class RegistrationNewActivity extends BaseActivity{
 
     private ActivityRegistrationNewBinding b;
+    private Subscription mCreateSubscription;
+    private Subscription mUpdateSubscription;
+    public RegistrationUser mUser;
+    public String userId;
+
+    private ProgressDialog pdLoading;
+    public ApiClient mClient;
+
+
     @Override
     public void bindActivity() {
         b = DataBindingUtil.setContentView(this, R.layout.activity_registration_new);
+        mClient = new  ApiClient();
+        pdLoading = new ProgressDialog(this);
+        pdLoading.setMessage("Загрузка...");
+        pdLoading.setCancelable(false);
         startFragment();
     }
 
     private void startFragment(){
         getFragmentManager()
-                .beginTransaction().add(R.id.flContainer,new RegisterOffertFragment())
+                .beginTransaction().add(R.id.flContainer, new RegisterOffertFragment())
                 .commitAllowingStateLoss();
     }
 
 
-    public void startFragmentLeft(){
+    public void startFragmentLeft(Fragment fragment){
             getFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.flContainer,new RegisterOffertFragment())
-                    .setCustomAnimations(R.animator.move_right_in, R.animator.move_right_out,R.animator.move_left_in, R.animator.move_left_out)
+                    .setCustomAnimations(R.animator.move_right_in, R.animator.move_right_out, R.animator.move_left_in, R.animator.move_left_out)
+                    .replace(R.id.flContainer, fragment)
                     .addToBackStack(null)
                     .commitAllowingStateLoss();
     }
+
+
+
+    public void onCreateFailure(Throwable throwable){
+       hideProgress();
+        Toast.makeText(this,"Network error",Toast.LENGTH_SHORT).show();
+    }
+
+
+
+
+
+    public void showProgress(){
+        pdLoading.show();
+    }
+
+    public void hideProgress(){
+        pdLoading.hide();
+    }
+
+
+
+
+    @Override
+    protected void onStop() {
+        if(mCreateSubscription != null) mCreateSubscription.unsubscribe();
+        if(mUpdateSubscription != null)mUpdateSubscription.unsubscribe();
+        super.onStop();
+
+
+    }
+
 
 }
