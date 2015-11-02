@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.databinding.DataBindingUtil;
 import android.widget.Toast;
 
-import rx.Subscription;
 import youdrive.today.BaseActivity;
 import youdrive.today.R;
 import youdrive.today.databinding.ActivityRegistrationNewBinding;
@@ -23,11 +22,10 @@ import youdrive.today.newtwork.ApiClient;
 public class RegistrationNewActivity extends BaseActivity{
 
     private ActivityRegistrationNewBinding b;
-    private Subscription mCreateSubscription;
-    private Subscription mUpdateSubscription;
+
     public RegistrationUser mUser;
     public String userId;
-
+    public String price;
     private ProgressDialog pdLoading;
     public ApiClient mClient;
 
@@ -62,7 +60,7 @@ public class RegistrationNewActivity extends BaseActivity{
 
     public void onCreateFailure(Throwable throwable){
        hideProgress();
-        Toast.makeText(this,"Network error",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -79,15 +77,6 @@ public class RegistrationNewActivity extends BaseActivity{
 
 
 
-
-    @Override
-    protected void onStop() {
-        if(mCreateSubscription != null) mCreateSubscription.unsubscribe();
-        if(mUpdateSubscription != null)mUpdateSubscription.unsubscribe();
-        super.onStop();
-
-
-    }
 
 
 }

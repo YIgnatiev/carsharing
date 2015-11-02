@@ -2,9 +2,13 @@ package youdrive.today.newtwork;
 
 import com.squareup.okhttp.OkHttpClient;
 
+import java.io.File;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import retrofit.RestAdapter;
+import retrofit.client.OkClient;
+import retrofit.mime.TypedFile;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import youdrive.today.models.ApiCommand;
@@ -20,6 +24,8 @@ import youdrive.today.response.LoginResponse;
 import youdrive.today.response.PolygonResponse;
 import youdrive.today.response.RegionsResponse;
 import youdrive.today.response.RegistrationModel;
+import youdrive.today.response.UploadCareResponse;
+import youdrive.today.response.UploadGroupResponse;
 
 /**
  * Created by psuhoterin on 21.04.15.
@@ -27,8 +33,11 @@ import youdrive.today.response.RegistrationModel;
 public class ApiClient {
 
     private static String HOST = "https://youdrive.today";
+    private static String UPLOADCARE_KEY = "demopublickey";
+
 
     private CarsharingService mService;
+    private UploadService mUploadService;
 
     public ApiClient() {
         OkHttpClient client = new OkHttpClient();
@@ -42,6 +51,18 @@ public class ApiClient {
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .build()
                 .create(CarsharingService.class);
+
+
+
+
+
+
+       mUploadService = new RestAdapter.Builder()
+                .setEndpoint("https://upload.uploadcare.com")
+                .setClient(new OkClient(new OkHttpClient()))
+                .setLogLevel(RestAdapter.LogLevel.FULL)
+                .build()
+                .create(UploadService.class);
     }
 
 
@@ -109,4 +130,17 @@ public class ApiClient {
                 .timeout(3, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
+
+    public Observable<UploadCareResponse> uploadFile(File file){
+        TypedFile typedFile = new TypedFile("multipart/form-data", file);
+       return mUploadService.uploadFile(UPLOADCARE_KEY, 1, typedFile);
+    }
+
+
+    public Observable<UploadGroupResponse> uploadGroup(Map<String ,String>params){
+        return mUploadService.uploadGroup(UPLOADCARE_KEY,params);
+    }
+
+
 }

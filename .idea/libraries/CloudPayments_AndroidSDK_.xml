@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="CloudPayments_AndroidSDK-">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res" />
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

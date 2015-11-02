@@ -19,7 +19,12 @@ public class SplashActivity extends BaseActivity {
 
 
             if (App.getInstance().getPreference() != null) {
-                if (App.getInstance().getPreference().isInvite()) {
+
+
+                if(App.getInstance().getPreference().isFirst() && App.getInstance().getPreference().getUser() == null){
+                    startActivity(new Intent(this, WellcomeActivity.class));
+                }
+                else if (App.getInstance().getPreference().isInvite()) {
                     App.getInstance().getPreference().putInvite(false);
                     startActivity(new Intent(SplashActivity.this, RegistrationActivity.class));
                 } else if (App.getInstance().getPreference().getUser()!= null) {

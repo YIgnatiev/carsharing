@@ -13,6 +13,7 @@ public class PreferenceHelper {
     protected static final String USER_FILE = "youdrive.today.data.USER_FILE";
     protected static final String SESSION_ID = "youdrive.today.data.SESSION_ID";
     protected static final String INVITE = "youdrive.today.data.INVITE";
+    protected static final String IS_FIRST = "youdrive.today.data.ISFIRST";
 
     private final SharedPreferences mHelper;
 
@@ -53,6 +54,14 @@ public class PreferenceHelper {
         return mHelper.getBoolean(INVITE, true);
     }
 
+
+    public boolean isFirst(){
+        return mHelper.getBoolean(IS_FIRST, true);
+    }
+
+    public void setIsFirst(){
+        mHelper.edit().putBoolean(IS_FIRST, false).commit();
+    }
     public void clear(){
         getEditor().clear().apply();
     }

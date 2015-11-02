@@ -47,6 +47,9 @@
     <string name="password_dont_match">Пароли не совпадают</string>
     <string name="short_phone">Телефон введен некорректно</string>
     <string name="enter_price">Вы должны ввести сумму</string>
+    <string name="summ_bigger_than_3000">Сумма должна быть не менее 3000 рублей</string>
+
+
     <string name="email_not_valid">Email введен не корректно</string>
     <string name="internal_error">Внутренняя ошибка</string>
     <string name="inform">Мы сообщим Вам, когда начнем работать в Вашем регионе.</string>
@@ -72,8 +75,8 @@
                                     удостоверения (обе стороны).Документы будут проверятся службой безопасности.
     </string>
     <string name="payments">В соответсвии с офертой, при регистрации мы вносим на Ваш личный счет
-                            авнсовый платеж в размере 199999 рублей на оплату первых поездок. Оплата
-                            последующих поездок (сверх 1999999 рублей) будет списываться с вашей банковской
+                            авнсовый платеж в размере %1$s рублей на оплату первых поездок. Оплата
+                            последующих поездок (сверх %1$s рублей) будет списываться с вашей банковской
                             карты сразу после завершения аренды. Вы можете управлять списком привязаных
                             банковских карт через личный кабинет на сайте. Мы не храним данных ваших банковских
                             карт. Обработку платежной информации осуществаляет наш партнер -
@@ -273,5 +276,51 @@
     <string name="enter_price_check">Введите сумму в рублях</string>
     <string name="set_sum">Укажите сумму аванса, удерживаемую при регистрации (уазана в оферте):</string>
     <string name="cancel">Отмена</string>
+
+
+
+
+
+
+
+    <string name="pay_via_build_in_form">Оплата через встроенную форму</string>
+    <string name="pay_via_custom_form">Оплата через свою форму</string>
+
+    <string name="amount_hint">Введите сумму</string>
+    <string name="desc_hint">Введите назначение</string>
+    <string name="pay">Оплатить</string>
+
+    <string name="payment_not_finished">[Оплата не завершена]</string>
+    <string name="payment_finished">[Оплата завершена]</string>
+    <string name="operation_canceled">[Операция отменена]</string>
+    <string name="pay_3ds">Оптатить (3ds)</string>
+
+    <string name="card_number">Card number</string>
+    <string name="card_exp">Expired date</string>
+    <string name="card_holder_name">Card holder name</string>
+    <string name="card_cvv">CVV</string>
+    <string name="card_number_hint">****************</string>
+    <string name="card_exp_hint">mmyy</string>
+    <string name="card_holder_name_hint">HOLDER NAME</string>
+    <string name="card_cvv_hint">***</string>
+    <string name="payment">Payment</string>
+
+    <string name="enter_card_number">Enter card number</string>
+    <string name="enter_exp">Enter expired date</string>
+    <string name="enter_cvv">Enter CVV</string>
+    <string name="enter_card_holder_name">Enter card holder name</string>
+    <string name="enter_amount">Enter amount</string>
+    <string name="enter_desc">Enter description</string>
+    <string name="amount">Amount</string>
+    <string name="desc">Description</string>
+
+
+
+
+
+
+
+
+
 
 </resources>

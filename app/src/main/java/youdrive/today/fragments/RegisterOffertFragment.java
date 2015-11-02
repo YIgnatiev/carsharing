@@ -54,8 +54,11 @@ public class RegisterOffertFragment extends BaseFragment<RegistrationNewActivity
     public void onForvard(View view){
 
         if (b.etPrice.getText().length() == 0) b.etPrice.setError(getString(R.string.enter_price));
-        else {
 
+        else if(Integer.parseInt(b.etPrice.getText().toString())< 3000) b.etPrice.setError(getString(R.string.summ_bigger_than_3000));
+
+        else {
+            mActivity.price = b.etPrice.getText().toString();
             createUser();
         }
     }
