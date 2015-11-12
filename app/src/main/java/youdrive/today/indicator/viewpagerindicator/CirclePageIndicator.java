@@ -59,7 +59,6 @@ public class CirclePageIndicator extends View implements PageIndicator {
     private int mOrientation;
     private boolean mCentered;
     private boolean mSnap;
-
     private int mTouchSlop;
     private float mLastMotionX = -1;
     private int mActivePointerId = INVALID_POINTER;
@@ -114,6 +113,7 @@ public class CirclePageIndicator extends View implements PageIndicator {
         final ViewConfiguration configuration = ViewConfiguration.get(context);
         mTouchSlop = ViewConfigurationCompat.getScaledPagingTouchSlop(configuration);
     }
+
 
 
     public void setCentered(boolean centered) {
@@ -411,6 +411,11 @@ public class CirclePageIndicator extends View implements PageIndicator {
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+
+
+
+
         mCurrentPage = position;
         mPageOffset = positionOffset;
         invalidate();

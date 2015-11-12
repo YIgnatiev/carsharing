@@ -14,7 +14,7 @@ import youdrive.today.databinding.FragmentAboutFirstBinding;
  * email : tajcig@ya.ru
  * on 10/25/15.
  */
-public class AboutFirst extends BaseFragment{
+public class AboutFirst extends BaseFragment {
     private FragmentAboutFirstBinding b;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -22,4 +22,7 @@ public class AboutFirst extends BaseFragment{
     return b.getRoot();
 
     }
+
+
+
 }

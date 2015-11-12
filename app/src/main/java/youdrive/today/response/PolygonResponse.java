@@ -3,6 +3,7 @@ package youdrive.today.response;
 import java.util.List;
 
 import youdrive.today.models.Coord;
+import youdrive.today.models.SimpleCar;
 
 /**
  * Created by Oleh Makhobey
@@ -12,7 +13,14 @@ import youdrive.today.models.Coord;
 public class PolygonResponse extends BaseResponse {
 
 
-    List<Coord>[] area;
+    private List<Coord>[] area;
+    private List<SimpleCar> cars;
+
+
+    public List<SimpleCar> getCars(){
+        return cars;
+    }
+
     public List<Coord> getArea() {
         return area[0];
     }

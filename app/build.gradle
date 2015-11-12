@@ -77,11 +77,14 @@ dependencies {
 
     /*System*/
     compile 'com.android.support:appcompat-v7:23.1.0'
-    compile 'com.google.android.gms:play-services-location:8.1.0'
+    compile 'com.google.android.gms:play-services-location:8.3.0'
+    compile 'com.google.android.gms:play-services-maps:8.3.0'
     compile 'com.android.support:support-v13:23.1.0'
 
     /*Code*/
     /*Дизайн*/
+    compile 'com.android.support:design:23.1.0'
+
     compile 'com.afollestad:material-dialogs:0.7.4.2'
     compile 'com.github.dmytrodanylyk.circular-progress-button:library:1.1.3'
     compile 'com.rengwuxian.materialedittext:library:2.1.3'

@@ -3,265 +3,273 @@
 <layout>
 
     <data>
+
         <variable
             name="listener"
-            type="youdrive.today.fragments.RegisterProfileFragment"/>
+            type="youdrive.today.fragments.RegisterProfileFragment" />
     </data>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
-        style="@style/AppTheme.TextView"
-        android:layout_centerHorizontal="true"
-        android:padding="10dp"
-        android:id="@+id/tvTitle"
-        android:text="2/4: Профиль"
-        android:textSize="16sp" />
-
-
-
-
-    <ScrollView
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvTitle"
-        android:paddingRight="20dp"
-        android:paddingLeft="20dp"
-        >
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-   >
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ivEmailHint"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-
-        android:layout_alignParentRight="true"
-        android:alpha="0.7"
-        android:src="@drawable/ic_question_mark"/>
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/AppTheme.TextView"
+            android:layout_centerHorizontal="true"
+            android:padding="10dp"
+            android:text="2/4: Профиль"
+            android:textSize="16sp" />
 
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/etEmail"
-        android:layout_toLeftOf="@id/ivEmailHint"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/ivEmailHint"
-        android:hint="E-mail"
-        android:textSize="14sp"
-        app:met_textColorHint="@color/hint"
-        app:met_baseColor="@color/white"
-        app:met_primaryColor="@color/main"
-        app:met_errorColor="@color/error"
-        android:inputType="textEmailAddress"
-        />
-<ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ivPhoneHint"
-    android:layout_below="@id/ivEmailHint"
-        android:layout_margin="10dp"
-        android:layout_alignParentRight="true"
-    android:alpha="0.7"
-    android:src="@drawable/ic_question_mark"/>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTitle"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/ivEmailHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="30dp"
+                    android:alpha="0.7"
+                    android:onClick='@{listener.onEmail}'
+                    android:src="@drawable/ic_question_mark" />
 
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/etPhone"
-        android:layout_toLeftOf="@id/ivEmailHint"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/ivPhoneHint"
-        android:hint="Мобильный телефон"
-        android:textSize="14sp"
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/etEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/ivEmailHint"
+                    android:layout_toLeftOf="@id/ivEmailHint"
+                    android:hint="E-mail"
+                    android:inputType="textEmailAddress"
+                    android:textSize="14sp"
+                    app:met_baseColor="@color/white"
+                    app:met_errorColor="@color/error"
+                    app:met_primaryColor="@color/main"
+                    app:met_textColorHint="@color/hint" />
 
-        app:met_textColorHint="@color/hint"
-        app:met_baseColor="@color/white"
-        app:met_primaryColor="@color/main"
-        app:met_errorColor="@color/error"
-        android:inputType="number"
-        />
-<ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ivPasswordHind"
-        android:layout_below="@id/ivPhoneHint"
-        android:layout_margin="10dp"
-        android:layout_alignParentRight="true"
-    android:alpha="0.7"
-    android:src="@drawable/ic_question_mark"/>
+                <ImageView
+                    android:id="@+id/ivPhoneHint"
 
-
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/etPassword"
-        android:layout_toLeftOf="@id/ivPasswordHind"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/ivPasswordHind"
-        android:hint="Пароль"
-        android:textSize="14sp"
-        app:met_textColorHint="@color/hint"
-        app:met_baseColor="@color/white"
-        app:met_primaryColor="@color/main"
-        app:met_errorColor="@color/error"
-        android:inputType="textEmailAddress"
-        />
-<ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ivPasswordAgainHint"
-    android:layout_below="@id/ivPasswordHind"
-        android:layout_margin="10dp"
-        android:layout_alignParentRight="true"
-    android:alpha="0.7"
-    android:src="@drawable/ic_question_mark"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/ivEmailHint"
+                    android:layout_margin="10dp"
+                    android:alpha="0.7"
+                    android:onClick='@{listener.onPhone}'
+                    android:src="@drawable/ic_question_mark" />
 
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/etPaswordAgain"
-        android:layout_toLeftOf="@id/ivEmailHint"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/ivPasswordAgainHint"
-        android:hint="Подтверждение пароля"
-        android:textSize="14sp"
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/etPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/ivPhoneHint"
+                    android:layout_toLeftOf="@id/ivEmailHint"
+                    android:hint="Мобильный телефон"
+                    android:inputType="number"
 
-        app:met_textColorHint="@color/hint"
-        app:met_baseColor="@color/white"
-        app:met_primaryColor="@color/main"
-        app:met_errorColor="@color/error"
-        android:inputType="textEmailAddress"
-        />
-<ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ivPromoHint"
-    android:layout_below="@id/ivPasswordAgainHint"
-        android:layout_margin="10dp"
-        android:layout_alignParentRight="true"
-    android:alpha="0.7"
-    android:src="@drawable/ic_question_mark"/>
+                    android:textSize="14sp"
+                    app:met_baseColor="@color/white"
+                    app:met_errorColor="@color/error"
+                    app:met_primaryColor="@color/main"
+                    app:met_textColorHint="@color/hint" />
 
+                <ImageView
+                    android:id="@+id/ivPasswordHind"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick='@{listener.onPassword}'
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/etPromo"
-        android:layout_toLeftOf="@id/ivPromoHint"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/ivPromoHint"
-        android:hint="Промо-код"
-        android:textSize="14sp"
-
-        app:met_textColorHint="@color/hint"
-        app:met_baseColor="@color/white"
-        app:met_primaryColor="@color/main"
-        app:met_errorColor="@color/error"
-        android:inputType="textEmailAddress"
-        />
-<ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ivSurnameHint"
-    android:layout_below="@id/ivPromoHint"
-        android:layout_margin="10dp"
-        android:layout_alignParentRight="true"
-    android:alpha="0.7"
-    android:src="@drawable/ic_question_mark"/>
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/ivPhoneHint"
+                    android:layout_margin="10dp"
+                    android:alpha="0.7"
+                    android:src="@drawable/ic_question_mark" />
 
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/etSurname"
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/ivPasswordHind"
+                    android:layout_toLeftOf="@id/ivPasswordHind"
+                    android:hint="Пароль"
+                    android:inputType="textEmailAddress"
+                    android:textSize="14sp"
+                    app:met_baseColor="@color/white"
+                    app:met_errorColor="@color/error"
+                    app:met_primaryColor="@color/main"
+                    app:met_textColorHint="@color/hint" />
 
-        android:layout_toLeftOf="@id/ivSurnameHint"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/ivSurnameHint"
-        android:hint="Фамилия"
-        android:textSize="14sp"
-
-        app:met_textColorHint="@color/hint"
-        app:met_baseColor="@color/white"
-        app:met_primaryColor="@color/main"
-        app:met_errorColor="@color/error"
-        android:inputType="textPersonName"
-        />
-<ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ivNameHint"
-    android:layout_below="@id/ivSurnameHint"
-        android:layout_margin="10dp"
-        android:layout_alignParentRight="true"
-    android:alpha="0.7"
-    android:src="@drawable/ic_question_mark"/>
-
-
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/etName"
-        android:layout_toLeftOf="@id/ivNameHint"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/ivNameHint"
-        android:hint="Имя"
-        android:textSize="14sp"
-
-        app:met_textColorHint="@color/hint"
-        app:met_baseColor="@color/white"
-        app:met_primaryColor="@color/main"
-        app:met_errorColor="@color/error"
-        android:inputType="textPersonName"
-        />
-<ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ivMidleNameHint"
-    android:layout_below="@id/ivNameHint"
-    android:layout_margin="10dp"
-        android:layout_alignParentRight="true"
-    android:alpha="0.7"
-    android:src="@drawable/ic_question_mark"/>
+                <ImageView
+                    android:id="@+id/ivPasswordAgainHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/ivPasswordHind"
+                    android:layout_margin="10dp"
+                    android:alpha="0.7"
+                    android:src="@drawable/ic_question_mark"
+                    android:visibility="invisible" />
 
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/etMiddleName"
-        android:layout_toLeftOf="@id/ivMidleNameHint"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/ivMidleNameHint"
-        android:hint="Отчество"
-        android:textSize="14sp"
-        app:met_textColorHint="@color/hint"
-        app:met_baseColor="@color/white"
-        app:met_primaryColor="@color/main"
-        app:met_errorColor="@color/error"
-        android:inputType="textEmailAddress"
-        />
-</RelativeLayout>
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/etPaswordAgain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/ivPasswordAgainHint"
+                    android:layout_toLeftOf="@id/ivEmailHint"
+                    android:hint="Подтверждение пароля"
+                    android:inputType="textEmailAddress"
 
-   </ScrollView>
+                    android:textSize="14sp"
+                    app:met_baseColor="@color/white"
+                    app:met_errorColor="@color/error"
+                    app:met_primaryColor="@color/main"
+                    app:met_textColorHint="@color/hint" />
 
-    <TextView
-        style="@style/AppTheme.Forvard"
-        android:id="@+id/tvForvard"
-        android:onClick='@{listener.onForvard}'/>
+                <ImageView
+                    android:id="@+id/ivPromoHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:onClick='@{listener.onPromo}'
 
-    <TextView
-        style="@style/AppTheme.Back"
-        android:onClick='@{listener.onBack}'/>
+                    android:layout_below="@id/ivPasswordAgainHint"
+                    android:layout_margin="10dp"
+                    android:alpha="0.7"
+                    android:src="@drawable/ic_question_mark" />
 
 
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/etPromo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/ivPromoHint"
+                    android:layout_toLeftOf="@id/ivPromoHint"
+                    android:hint="Промо-код"
+                    android:inputType="textEmailAddress"
 
-</RelativeLayout>
+                    android:textSize="14sp"
+                    app:met_baseColor="@color/white"
+                    app:met_errorColor="@color/error"
+                    app:met_primaryColor="@color/main"
+                    app:met_textColorHint="@color/hint" />
+
+                <ImageView
+                    android:id="@+id/ivSurnameHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+
+                    android:layout_below="@id/ivPromoHint"
+                    android:layout_margin="10dp"
+                    android:alpha="0.7"
+                    android:onClick='@{listener.onSurName}'
+                    android:src="@drawable/ic_question_mark" />
+
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/etSurname"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/ivSurnameHint"
+                    android:layout_toLeftOf="@id/ivSurnameHint"
+                    android:hint="Фамилия"
+                    android:inputType="textPersonName"
+
+                    android:textSize="14sp"
+                    app:met_baseColor="@color/white"
+                    app:met_errorColor="@color/error"
+                    app:met_primaryColor="@color/main"
+                    app:met_textColorHint="@color/hint" />
+
+                <ImageView
+                    android:id="@+id/ivNameHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/ivSurnameHint"
+                    android:layout_margin="10dp"
+                    android:alpha="0.7"
+                    android:onClick='@{listener.onName}'
+                    android:src="@drawable/ic_question_mark" />
+
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/etName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/ivNameHint"
+                    android:layout_toLeftOf="@id/ivNameHint"
+                    android:hint="Имя"
+                    android:inputType="textPersonName"
+
+                    android:textSize="14sp"
+                    app:met_baseColor="@color/white"
+                    app:met_errorColor="@color/error"
+                    app:met_primaryColor="@color/main"
+                    app:met_textColorHint="@color/hint" />
+
+                <ImageView
+                    android:id="@+id/ivMidleNameHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/ivNameHint"
+                    android:layout_margin="10dp"
+                    android:alpha="0.7"
+                    android:onClick='@{listener.onMiddleName}'
+                    android:src="@drawable/ic_question_mark" />
+
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/etMiddleName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/ivMidleNameHint"
+                    android:layout_toLeftOf="@id/ivMidleNameHint"
+                    android:hint="Отчество"
+                    android:inputType="textEmailAddress"
+                    android:textSize="14sp"
+                    app:met_baseColor="@color/white"
+                    app:met_errorColor="@color/error"
+                    app:met_primaryColor="@color/main"
+                    app:met_textColorHint="@color/hint" />
+            </RelativeLayout>
+
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/tvForvard"
+            style="@style/AppTheme.Forvard"
+            android:onClick='@{listener.onForvard}' />
+
+        <TextView
+            style="@style/AppTheme.Back"
+            android:onClick='@{listener.onBack}' />
+
+
+    </RelativeLayout>
 </layout>

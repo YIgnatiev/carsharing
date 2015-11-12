@@ -279,6 +279,10 @@
 
 
 
+<string name="have_questions"  formatted="false"><![CDATA[
+                                                Не нашли ответ на свой вопрос? <br>
+                                                Задайте его <br>
+                                                 в <a href="http://youdrive.copiny.com">нашем сообществе</a>!   ]]> </string>
 
 
 
@@ -313,14 +317,13 @@
     <string name="enter_desc">Enter description</string>
     <string name="amount">Amount</string>
     <string name="desc">Description</string>
-
-
-
-
-
-
-
-
+    <string name="email_hint">Будет использоваться для входа в приложение, а также для отправки чеков по совершенным заказам.</string>
+    <string name="phone_hint">Необходим для связи в экстренных случаях (эвакуация, ДТП, угон).</string>
+    <string name="surname_hint">Может потребоваться для оформления некоторых документов при эвакуации автомобиля на штрафстоянку.</string>
+    <string name="name_hint">Мы будем обращаться к вам по имени в письмах.</string>
+    <string name="middlename_hint">Также может потребоваться для заполнения некоторых документов.</string>
+    <string name="promo_hint">Просто оставьте поле пустым, если у вас его нет.</string>
+    <string name="password_hint">Используется для входа в приложение и в личный кабинет на сайте.</string>
 
 
 </resources>

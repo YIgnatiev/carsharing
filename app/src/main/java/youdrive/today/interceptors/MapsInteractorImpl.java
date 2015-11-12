@@ -1,5 +1,6 @@
 package youdrive.today.interceptors;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import rx.Subscription;
@@ -9,7 +10,9 @@ import rx.subscriptions.CompositeSubscription;
 import youdrive.today.App;
 import youdrive.today.listeners.MapsActionListener;
 import youdrive.today.listeners.PolygonListener;
+import youdrive.today.listeners.ValueFunction;
 import youdrive.today.models.ApiError;
+import youdrive.today.models.SimpleCar;
 import youdrive.today.models.Status;
 import youdrive.today.newtwork.ApiClient;
 import youdrive.today.response.CarResponse;
@@ -93,6 +96,29 @@ public class MapsInteractorImpl implements MapsInteractor {
             subscriptions.add(subscription);
 
 }
+
+
+
+
+    public void getInfo(ValueFunction<List<SimpleCar>> successFunc, ValueFunction<Throwable> errorFunc , CompositeSubscription subscriptions) {
+       Subscription subscription = mApiClient
+                .getPolygon()
+                .retry(3)
+                .timeout(3, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(PolygonResponse::getCars)
+                .subscribe(successFunc::apply, errorFunc::apply);
+        subscriptions.add(subscription);
+
+
+}
+
+
+
+
+
+
 
     private void onCarResponseSuccess(CarResponse response, MapsActionListener listener) {
         if (response.isSuccess()) {

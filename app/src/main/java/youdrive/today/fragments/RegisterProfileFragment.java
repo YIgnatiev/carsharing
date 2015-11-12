@@ -6,6 +6,8 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 
 import rx.Observable;
 import rx.Subscription;
@@ -14,6 +16,7 @@ import rx.android.widget.WidgetObservable;
 import youdrive.today.R;
 import youdrive.today.activities.RegistrationNewActivity;
 import youdrive.today.databinding.FragmentRegisterProfileBinding;
+import youdrive.today.databinding.ItemPopupBinding;
 import youdrive.today.models.RegistrationUser;
 import youdrive.today.response.RegistrationModel;
 
@@ -25,10 +28,20 @@ import youdrive.today.response.RegistrationModel;
 public class RegisterProfileFragment extends BaseFragment<RegistrationNewActivity> {
 
     private FragmentRegisterProfileBinding b;
+    private ItemPopupBinding bPopup;
+    private PopupWindow mPopupWindow;
     private Subscription mSubscription;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         b = DataBindingUtil.inflate(inflater, R.layout.fragment_register_profile, container, false);
+        bPopup = DataBindingUtil.inflate(inflater,R.layout.item_popup,null, false);
+
+
+
+        mPopupWindow = new PopupWindow( LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        mPopupWindow.setContentView(bPopup.getRoot());
+        mPopupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.popup_background));
+        mPopupWindow.setOutsideTouchable(true);
         b.setListener(this);
         checkFields();
         b.tvForvard.setEnabled(false);
@@ -45,8 +58,38 @@ public class RegisterProfileFragment extends BaseFragment<RegistrationNewActivit
 
         updateUser(mActivity.userId, mActivity.mUser);
 
-
     }
+
+
+
+    public void onEmail(View view){
+        popupInit(view, getString(R.string.email_hint));
+    }
+
+    public void onPhone(View view){
+        popupInit(view, getString(R.string.phone_hint));
+    }
+
+    public void onName(View view){
+        popupInit(view, getString(R.string.name_hint));
+    }
+    
+    public void onSurName(View view){
+        popupInit(view,getString(R.string.surname_hint));
+    }
+
+    public void onMiddleName(View view){
+        popupInit(view, getString(R.string.middlename_hint));
+    }
+
+    public void onPromo(View view){
+        popupInit(view, getString(R.string.promo_hint));
+    }
+
+    public void onPassword(View view ){popupInit(view, getString(R.string.password_hint));}
+    
+
+
 
 
     public void updateUser(String userId ,RegistrationUser user ){
@@ -63,6 +106,24 @@ public class RegisterProfileFragment extends BaseFragment<RegistrationNewActivit
         mActivity.startFragmentLeft(new RegisterDocumentsFragment());
     }
 
+
+
+
+
+
+
+
+    public void popupInit(View view , String message) {
+            mPopupWindow.dismiss();
+        bPopup.tvText.setText(message);
+        mPopupWindow.showAsDropDown(view, 0, 0);
+
+
+
+
+
+
+}
 
 
 
