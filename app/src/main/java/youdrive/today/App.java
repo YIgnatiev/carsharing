@@ -4,7 +4,7 @@ import android.app.Application;
 
 import timber.log.Timber;
 import youdrive.today.helpers.PreferenceHelper;
-import youdrive.today.newtwork.ApiClient;
+import youdrive.today.network.ApiClient;
 
 /**
  * Created by psuhoterin on 21.04.15.

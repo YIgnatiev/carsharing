@@ -19,7 +19,13 @@ import youdrive.today.listeners.Function;
  */
 public abstract class BaseActivity extends AppCompatActivity {
     private final int LOCATION_PERMISSION = 10;
+    private final int WRITE_PERMISSION = 9;
     private Function mLocationFunction;
+    private Function mWritePermission;
+
+    private static final String READ_EXTERNAL_STORAGE = "android.permission.READ_EXTERNAL_STORAGE";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,14 +35,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
-
     public abstract void bindActivity();
 
-    protected void showToast(String text){
+    protected void showToast(String text) {
         Toast.makeText(this, text, Toast.LENGTH_LONG).show();
     }
 
-    public  boolean isNetworkConnected() {
+    public boolean isNetworkConnected() {
         ConnectivityManager connMgr =
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeInfo = connMgr.getActiveNetworkInfo();
@@ -44,18 +49,32 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
+    public void getWriteExternalPermission(Function function) {
 
-    public  void getLocationPermission(Function function) {
+        mWritePermission = function;
+
+
+        if (ContextCompat.checkSelfPermission(this, READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(this, READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this, new String[]{READ_EXTERNAL_STORAGE}, WRITE_PERMISSION);
+
+        } else {
+            mWritePermission.apply();
+        }
+    }
+
+
+    public void getLocationPermission(Function function) {
         mLocationFunction = function;
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_PERMISSION);
 
-        }else {
+        } else {
             mLocationFunction.apply();
         }
-
     }
 
 
@@ -64,10 +83,18 @@ public abstract class BaseActivity extends AppCompatActivity {
         switch (requestCode) {
             case LOCATION_PERMISSION: {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if(mLocationFunction != null)mLocationFunction.apply();
+                    if (mLocationFunction != null) mLocationFunction.apply();
                 } else {
 
                     Toast.makeText(this, "You did not allow to access your current location", Toast.LENGTH_LONG).show();
+                }
+            }
+            case WRITE_PERMISSION: {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (mWritePermission != null) mWritePermission.apply();
+                } else {
+
+                    Toast.makeText(this, "You did not to choose picture`", Toast.LENGTH_LONG).show();
                 }
             }
 

@@ -9,7 +9,9 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#6e6d6d"
         android:gravity="center"
+        android:padding="10dp"
         android:orientation="vertical">
 
 
@@ -17,7 +19,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/background_card"
                 android:paddingTop="20dp"
                 android:paddingBottom="20dp"
                 android:paddingLeft="10dp"
@@ -29,93 +30,71 @@
                     android:padding="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/background_card_number"
                     android:hint="НОМЕР КАРТЫ"
                     android:inputType="number"
                     android:textSize="14sp"
                     android:maxLength="16"
-                    app:met_baseColor="@color/black"
+                    app:met_baseColor="@color/white"
                     app:met_errorColor="@color/error"
                     app:met_primaryColor="@color/main"
-                    app:met_textColorHint="@color/black" />
+                    app:met_textColorHint="@color/white" />
 
 
-                <com.rengwuxian.materialedittext.MaterialEditText
-                    android:id="@+id/etExpired"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="ММ/ГГ"
-                    android:layout_marginTop="10dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@id/etCardNumber"
-                    android:inputType="number"
-                    android:maxLength="4"
-                    android:textSize="14sp"
-                    app:met_baseColor="@color/black"
-                    app:met_errorColor="@color/error"
-                    app:met_primaryColor="@color/main"
-                    app:met_textColorHint="@color/black" />
+
 
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/etName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/etExpired"
+                    android:layout_below="@id/etCardNumber"
                     android:layout_marginTop="10dp"
                     android:hint="ИМЯ ВЛАДЕЛЬЦА"
                     android:inputType="text"
                     android:textSize="14sp"
-                    app:met_baseColor="@color/black"
+                    app:met_baseColor="@color/white"
                     app:met_errorColor="@color/error"
                     app:met_primaryColor="@color/main"
-                    app:met_textColorHint="@color/black" />
+                    app:met_textColorHint="@color/white" />
 
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/etExpired"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="ММ/ГГ"
+                    android:layout_below="@id/etName"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:textSize="14sp"
+                    app:met_baseColor="@color/white"
+                    app:met_errorColor="@color/error"
+                    app:met_primaryColor="@color/main"
+                    app:met_textColorHint="@color/white" />
 
-
-
-
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/etCvv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/etName"
+                    android:layout_alignParentRight="true"
+                    android:hint="КОД CVV"
+                    android:inputType="numberPassword"
+                    android:gravity="center"
+                    android:maxLength="3"
+                    android:textSize="14sp"
+                    app:met_baseColor="@color/white"
+                    app:met_errorColor="@color/error"
+                    app:met_primaryColor="@color/main"
+                    app:met_textColorHint="@color/hint" />
 
             </RelativeLayout>
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/etCvv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="КОД CVV"
-            android:inputType="numberPassword"
-            android:gravity="center"
-            android:maxLength="3"
-            android:textSize="14sp"
-            app:met_baseColor="@color/white"
-            app:met_errorColor="@color/error"
-            app:met_primaryColor="@color/main"
-            app:met_textColorHint="@color/hint" />
 
 
 
 
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/etEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:maxLength="3"
-            android:textSize="14sp"
-            app:met_baseColor="@color/white"
-            app:met_errorColor="@color/error"
-            app:met_primaryColor="@color/main"
-            app:met_textColorHint="@color/hint" />
 
-
-
-
-        <TextView style="@style/AppTheme.TextView"
-            android:id="@+id/tvPrice"
-            android:padding="5dp"
-            android:text="3000 he,ktq"/>
 
 
         <com.dd.CircularProgressButton

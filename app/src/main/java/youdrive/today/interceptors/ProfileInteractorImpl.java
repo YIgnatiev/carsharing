@@ -13,7 +13,7 @@ import rx.schedulers.Schedulers;
 import rx.subscriptions.Subscriptions;
 import youdrive.today.listeners.ProfileActionListener;
 import youdrive.today.models.ApiError;
-import youdrive.today.newtwork.ApiClient;
+import youdrive.today.network.ApiClient;
 import youdrive.today.response.BaseResponse;
 
 public class ProfileInteractorImpl implements ProfileInteractor, Observer<BaseResponse> {

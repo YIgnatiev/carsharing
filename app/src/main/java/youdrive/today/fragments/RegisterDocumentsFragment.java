@@ -87,12 +87,9 @@ public class RegisterDocumentsFragment extends BaseFragment<RegistrationNewActiv
 
     }
 
-
-
     public void onLoad(View view) {
-        chooseFile();
+     mActivity.getWriteExternalPermission(this::chooseFile);
     }
-
 
     private void chooseFile() {
 //        Intent chooseFile;
@@ -107,7 +104,6 @@ public class RegisterDocumentsFragment extends BaseFragment<RegistrationNewActiv
 
     }
 
-
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != Activity.RESULT_OK) return;
         if (requestCode == ACTIVITY_CHOOSE_FILE) {
@@ -119,19 +115,12 @@ public class RegisterDocumentsFragment extends BaseFragment<RegistrationNewActiv
         }
     }
 
-
-
-
-
-
-
     public void onUploadSuccess(UploadCareResponse file, ProgressBar progressBar) {
         progressBar.setVisibility(View.GONE);
 
 
         addParams(file.getFile());
     }
-
 
     public void addParams(String id){
         String param = String.format(parameter, params.size()+1);
@@ -149,17 +138,13 @@ public class RegisterDocumentsFragment extends BaseFragment<RegistrationNewActiv
 
     private void addImageView(String filePath) {
 
-
         Bitmap bitmap = decodeSampledBitmapFromFile(filePath);
-
         ItemImageBinding item = DataBindingUtil.inflate(mActivity.getLayoutInflater(), R.layout.item_image, null, false);
         item.ivThumb.setImageBitmap(bitmap);
         b.glImages.addView(item.getRoot());
         uplaodFile(filePath,item.pbLoading);
 
     }
-
-
 
     private void uplaodFile(String filePath , ProgressBar bar){
 
@@ -174,9 +159,6 @@ public class RegisterDocumentsFragment extends BaseFragment<RegistrationNewActiv
 
     }
 
-
-
-
     public static Bitmap decodeSampledBitmapFromFile(String path) {
 
         final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -188,8 +170,7 @@ public class RegisterDocumentsFragment extends BaseFragment<RegistrationNewActiv
 
     }
 
-    public static int calculateInSampleSize(
-            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+    public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
 
         final int height = options.outHeight;
         final int width = options.outWidth;

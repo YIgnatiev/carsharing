@@ -1,4 +1,4 @@
-package youdrive.today.newtwork;
+package youdrive.today.network;
 
 import retrofit.http.Body;
 import retrofit.http.DELETE;
@@ -10,6 +10,8 @@ import retrofit.http.Query;
 import rx.Observable;
 import youdrive.today.models.ApiCommand;
 import youdrive.today.models.Car;
+import youdrive.today.models.CreditCardModel;
+import youdrive.today.models.CreditCardResponse;
 import youdrive.today.models.InviteUser;
 import youdrive.today.models.LoginUser;
 import youdrive.today.models.RegistrationUser;
@@ -69,4 +71,6 @@ public interface CarsharingService {
     @PUT("/create-account/{registrationId}")
     Observable<RegistrationModel> updateAccount(@Path("registrationId") String registrationId,  @Body RegistrationUser user);
 
+    @POST("/cards/init")
+    Observable<CreditCardResponse> initCreditCard(@Body CreditCardModel model);
 }

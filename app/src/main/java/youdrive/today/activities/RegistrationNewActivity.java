@@ -10,7 +10,7 @@ import youdrive.today.R;
 import youdrive.today.databinding.ActivityRegistrationNewBinding;
 import youdrive.today.fragments.RegisterOffertFragment;
 import youdrive.today.models.RegistrationUser;
-import youdrive.today.newtwork.ApiClient;
+import youdrive.today.network.ApiClient;
 
 /**
  * Created by Oleh Makhobey

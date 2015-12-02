@@ -15,7 +15,7 @@ import youdrive.today.App;
 import youdrive.today.listeners.LoginActionListener;
 import youdrive.today.models.ApiError;
 import youdrive.today.models.User;
-import youdrive.today.newtwork.ApiClient;
+import youdrive.today.network.ApiClient;
 import youdrive.today.response.LoginResponse;
 
 public class LoginInteractorImpl implements LoginInteractor , Observer<LoginResponse>{

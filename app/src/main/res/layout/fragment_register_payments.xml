@@ -71,6 +71,7 @@
 
         <TextView
             style="@style/AppTheme.Forvard"
+            android:id="@+id/tvReady"
             android:text="Готово"
             android:onClick='@{listener.onForvard}'
             />
@@ -79,5 +80,15 @@
             style="@style/AppTheme.Back"
             android:onClick='@{listener.onBack}'
             />
+
+
+
+        <WebView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/wvPayment"
+            android:visibility="gone"
+            android:layout_alignParentTop="true"
+            android:layout_above="@id/tvReady"/>
 </RelativeLayout>
 </layout>

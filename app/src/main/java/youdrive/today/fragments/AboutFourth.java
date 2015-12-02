@@ -136,7 +136,7 @@ public class AboutFourth extends BaseFragment<WellcomeActivity> {
         if (cars.size() != 1) {
             LatLng firstPoint = new LatLng(cars.get(0).getLatitude(), cars.get(0).getLongitude());
             LatLng secondPoint = new LatLng(cars.get(cars.size() - 1).getLatitude(), cars.get(cars.size() - 1).getLongitude());
-            onMoveCameraWithMe(firstPoint, secondPoint);
+            CameraUpdateFactory.newLatLngZoom(new LatLng(cars.get(0).getLatitude(), cars.get(0).getLongitude()), 15);
         } else {
             CameraUpdateFactory.newLatLngZoom(new LatLng(cars.get(0).getLatitude(), cars.get(0).getLongitude()), 15);
         }

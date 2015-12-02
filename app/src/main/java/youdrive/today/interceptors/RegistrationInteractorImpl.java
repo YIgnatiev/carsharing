@@ -12,7 +12,7 @@ import rx.subscriptions.CompositeSubscription;
 import youdrive.today.App;
 import youdrive.today.listeners.RegistrationActionListener;
 import youdrive.today.models.ApiError;
-import youdrive.today.newtwork.ApiClient;
+import youdrive.today.network.ApiClient;
 import youdrive.today.response.BaseResponse;
 import youdrive.today.response.RegionsResponse;
 

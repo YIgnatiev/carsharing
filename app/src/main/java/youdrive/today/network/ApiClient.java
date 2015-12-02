@@ -1,4 +1,4 @@
-package youdrive.today.newtwork;
+package youdrive.today.network;
 
 import com.squareup.okhttp.OkHttpClient;
 
@@ -11,9 +11,12 @@ import retrofit.client.OkClient;
 import retrofit.mime.TypedFile;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import youdrive.today.models.ApiCommand;
 import youdrive.today.models.Car;
 import youdrive.today.models.Command;
+import youdrive.today.models.CreditCardModel;
+import youdrive.today.models.CreditCardResponse;
 import youdrive.today.models.InviteUser;
 import youdrive.today.models.LoginUser;
 import youdrive.today.models.RegistrationUser;
@@ -33,7 +36,7 @@ import youdrive.today.response.UploadGroupResponse;
 public class ApiClient {
 
     private static String HOST = "https://youdrive.today";
-    private static String UPLOADCARE_KEY = "demopublickey";
+    private static String UPLOADCARE_KEY = "507278759b3577e5f137";
 
 
     private CarsharingService mService;
@@ -117,6 +120,7 @@ public class ApiClient {
                 .createAccount(new RegistrationModel())
                 .retry(3)
                 .timeout(3, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
@@ -128,6 +132,15 @@ public class ApiClient {
                 .updateAccount(userId, user)
                 .retry(3)
                 .timeout(3, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+    public Observable<CreditCardResponse> initCard(CreditCardModel model){
+        return mService.initCreditCard(model)
+                .timeout(5,TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
