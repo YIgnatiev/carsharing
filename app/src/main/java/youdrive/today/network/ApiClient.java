@@ -37,14 +37,12 @@ public class ApiClient {
 
     private static String HOST = "https://youdrive.today";
     private static String UPLOADCARE_KEY = "507278759b3577e5f137";
-
-
     private CarsharingService mService;
     private UploadService mUploadService;
 
     public ApiClient() {
         OkHttpClient client = new OkHttpClient();
-        client.setConnectTimeout(3, TimeUnit.SECONDS);
+        client.setConnectTimeout(5, TimeUnit.SECONDS);
         client.interceptors().add(new AddCookiesInterceptor());
         client.interceptors().add(new ReceivedCookiesInterceptor());
 
@@ -55,11 +53,6 @@ public class ApiClient {
                 .build()
                 .create(CarsharingService.class);
 
-
-
-
-
-
        mUploadService = new RestAdapter.Builder()
                 .setEndpoint("https://upload.uploadcare.com")
                 .setClient(new OkClient(new OkHttpClient()))
@@ -67,9 +60,6 @@ public class ApiClient {
                 .build()
                 .create(UploadService.class);
     }
-
-
-
 
     public Observable<LoginResponse> login(String email, String password) {
         return mService.login(new LoginUser(email, password));
@@ -119,23 +109,19 @@ public class ApiClient {
         return mService
                 .createAccount(new RegistrationModel())
                 .retry(3)
-                .timeout(3, TimeUnit.SECONDS)
+                .timeout(5, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
     }
-
-
-
 
     public Observable<RegistrationModel> updateUser(String userId,RegistrationUser user){
         return mService
                 .updateAccount(userId, user)
                 .retry(3)
-                .timeout(3, TimeUnit.SECONDS)
+                .timeout(5, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
     }
-
 
     public Observable<CreditCardResponse> initCard(CreditCardModel model){
         return mService.initCreditCard(model)
@@ -144,16 +130,12 @@ public class ApiClient {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-
     public Observable<UploadCareResponse> uploadFile(File file){
         TypedFile typedFile = new TypedFile("multipart/form-data", file);
        return mUploadService.uploadFile(UPLOADCARE_KEY, 1, typedFile);
     }
 
-
     public Observable<UploadGroupResponse> uploadGroup(Map<String ,String>params){
         return mUploadService.uploadGroup(UPLOADCARE_KEY,params);
     }
-
-
 }

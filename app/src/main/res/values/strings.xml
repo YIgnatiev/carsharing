@@ -324,6 +324,11 @@
     <string name="middlename_hint">Также может потребоваться для заполнения некоторых документов.</string>
     <string name="promo_hint">Просто оставьте поле пустым, если у вас его нет.</string>
     <string name="password_hint">Используется для входа в приложение и в личный кабинет на сайте.</string>
+    <string name="minimal_password_length">Минимальная длина пароля 6 символов</string>
+    <string name="loading">Загрузка...</string>
+    <string name="network_error">Ошибка сети</string>
+    <string name="wrong_card_id">Не правильный номер карты</string>
+    <string name="cannot_register_user">Не удалось зарегистрировать пользователя</string>
 
 
 </resources>

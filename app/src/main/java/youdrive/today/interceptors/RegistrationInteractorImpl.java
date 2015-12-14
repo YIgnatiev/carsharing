@@ -36,7 +36,7 @@ public class RegistrationInteractorImpl implements RegistrationInteractor {
         Subscription subscription = mApiClient
                 .invite(email,phone,region,readyToUse)
                 .retry(3)
-                .timeout(3, TimeUnit.SECONDS)
+                .timeout(5, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onSuccessInvite,this::onFailureInvite);
 
@@ -66,7 +66,7 @@ public class RegistrationInteractorImpl implements RegistrationInteractor {
         Subscription subscription = mApiClient
                 .getRegions()
                 .retry(3)
-                .timeout(3, TimeUnit.SECONDS)
+                .timeout(5, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onRegionsRespnseSuccess,this::onRegionsFailure);
         subscriptions.add(subscription);

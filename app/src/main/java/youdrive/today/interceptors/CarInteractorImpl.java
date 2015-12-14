@@ -31,7 +31,7 @@ public class CarInteractorImpl implements CarInteractor {
         Subscription subscription = mApiClient
                 .booking(id, lat, lon)
                 .retry(3)
-                .timeout(3, TimeUnit.SECONDS)
+                .timeout(5, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onBookingSuccess, this::handleNetworkError);
@@ -62,7 +62,7 @@ public class CarInteractorImpl implements CarInteractor {
         Subscription subscription = mApiClient
                 .command(command)
                 .retry(3)
-                .timeout(3, TimeUnit.SECONDS)
+                .timeout(5, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> onCommandSuccess(command, response), this::handleNetworkError);
@@ -89,7 +89,7 @@ public class CarInteractorImpl implements CarInteractor {
        Subscription subscription = mApiClient
                 .complete()
                 .retry(3)
-                .timeout(3, TimeUnit.SECONDS)
+                .timeout(5, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> onCompleteSuccess(command, response), this::handleNetworkError);
@@ -115,7 +115,7 @@ public class CarInteractorImpl implements CarInteractor {
         Subscription subscription = mApiClient
                 .result(token)
                 .retry(3)
-                .timeout(3, TimeUnit.SECONDS)
+                .timeout(5, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> onResultSuccess(command, response), this::handleNetworkError);

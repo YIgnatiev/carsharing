@@ -20,9 +20,5 @@ public class AboutFirst extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
      b = DataBindingUtil.inflate(inflater, R.layout.fragment_about_first,container,false);
     return b.getRoot();
-
     }
-
-
-
 }

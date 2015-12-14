@@ -32,7 +32,7 @@ public class ProfileInteractorImpl implements ProfileInteractor, Observer<BaseRe
         subscription = mApiClient
                 .logout()
                 .retry(3)
-                .timeout(3, TimeUnit.SECONDS)
+                .timeout(5, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this);

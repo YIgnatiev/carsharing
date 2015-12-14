@@ -19,64 +19,50 @@ import youdrive.today.network.ApiClient;
  */
 
 
-public class RegistrationNewActivity extends BaseActivity{
+public class RegistrationNewActivity extends BaseActivity {
 
     private ActivityRegistrationNewBinding b;
-
     public RegistrationUser mUser;
     public String userId;
     public String price;
     private ProgressDialog pdLoading;
     public ApiClient mClient;
 
-
     @Override
     public void bindActivity() {
         b = DataBindingUtil.setContentView(this, R.layout.activity_registration_new);
-        mClient = new  ApiClient();
+        mClient = new ApiClient();
         pdLoading = new ProgressDialog(this);
-        pdLoading.setMessage("Загрузка...");
+        pdLoading.setMessage(getString(R.string.loading));
         pdLoading.setCancelable(false);
         startFragment();
     }
 
-    private void startFragment(){
+    private void startFragment() {
         getFragmentManager()
                 .beginTransaction().add(R.id.flContainer, new RegisterOffertFragment())
                 .commitAllowingStateLoss();
     }
 
-
-    public void startFragmentLeft(Fragment fragment){
-            getFragmentManager()
-                    .beginTransaction()
-                    .setCustomAnimations(R.animator.move_right_in, R.animator.move_right_out, R.animator.move_left_in, R.animator.move_left_out)
-                    .replace(R.id.flContainer, fragment)
-                    .addToBackStack(null)
-                    .commitAllowingStateLoss();
+    public void startFragmentLeft(Fragment fragment) {
+        getFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(R.animator.move_right_in, R.animator.move_right_out, R.animator.move_left_in, R.animator.move_left_out)
+                .replace(R.id.flContainer, fragment)
+                .addToBackStack(null)
+                .commitAllowingStateLoss();
     }
 
-
-
-    public void onCreateFailure(Throwable throwable){
-       hideProgress();
-        Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
+    public void onCreateFailure(Throwable throwable) {
+        hideProgress();
+        Toast.makeText(this, R.string.cannot_register_user, Toast.LENGTH_SHORT).show();
     }
 
-
-
-
-
-    public void showProgress(){
+    public void showProgress() {
         pdLoading.show();
     }
 
-    public void hideProgress(){
+    public void hideProgress() {
         pdLoading.hide();
     }
-
-
-
-
-
 }

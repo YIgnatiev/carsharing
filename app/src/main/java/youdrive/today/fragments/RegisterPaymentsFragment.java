@@ -11,12 +11,16 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.google.gson.Gson;
+
 import rx.Subscription;
+import youdrive.today.App;
 import youdrive.today.R;
 import youdrive.today.activities.MapsActivity;
 import youdrive.today.activities.RegistrationNewActivity;
 import youdrive.today.databinding.FragmentRegisterPaymentsBinding;
 import youdrive.today.models.RegistrationUser;
+import youdrive.today.models.User;
 import youdrive.today.response.RegistrationModel;
 
 /**
@@ -49,18 +53,6 @@ public class RegisterPaymentsFragment extends BaseFragment<RegistrationNewActivi
         String paymentsText = getString(R.string.payments, mActivity.price);
     }
 
-
-    public void onBack(View view) {
-
-        if (b.wvPayment.getVisibility() == View.VISIBLE) b.wvPayment.setVisibility(View.GONE);
-        else mActivity.getFragmentManager().popBackStack();
-    }
-
-    public void onForvard(View view) {
-        if (b.wvPayment.getVisibility() == View.VISIBLE) b.wvPayment.setVisibility(View.GONE);
-        else updateUser(mActivity.userId, mActivity.mUser);
-    }
-
     public void updateUser(String userId, RegistrationUser user) {
         mActivity.showProgress();
         mSubscription = mActivity.mClient
@@ -70,18 +62,16 @@ public class RegisterPaymentsFragment extends BaseFragment<RegistrationNewActivi
 
     public void onUpdateSuccess(RegistrationModel model) {
         mActivity.hideProgress();
-        startActivity(new Intent(mActivity, MapsActivity.class));
-        mActivity.finish();
+        String sessionId = model.getData().getSession_id();
+        if (sessionId != null) {
+            User user = new User(sessionId, model.getData().getFirst_name(), null);
+            if (App.getInstance().getPreference() != null) {
+                App.getInstance().getPreference().putUser(new Gson().toJson(user));
+            }
+            startActivity(new Intent(mActivity, MapsActivity.class));
+            mActivity.finish();
+        }
     }
-
-    public void onCardLink(View view) {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.addToBackStack(null);
-        dialogFragment = PaymentDialogFragment.newInstance(mActivity.userId, mActivity.price, this::openUrl);
-        dialogFragment.show(ft, "dialog");
-
-    }
-
 
     private void initWebView() {
         b.wvPayment.setWebViewClient(new WebViewClient() {
@@ -99,4 +89,21 @@ public class RegisterPaymentsFragment extends BaseFragment<RegistrationNewActivi
         b.wvPayment.loadUrl(url);
     }
 
+    public void onCardLink(View view) {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.addToBackStack(null);
+        dialogFragment = PaymentDialogFragment.newInstance(mActivity.userId, mActivity.price, this::openUrl);
+        dialogFragment.show(ft, "dialog");
+
+    }
+
+    public void onForvard(View view) {
+        if (b.wvPayment.getVisibility() == View.VISIBLE) b.wvPayment.setVisibility(View.GONE);
+        else updateUser(mActivity.userId, mActivity.mUser);
+    }
+
+    public void onBack(View view) {
+        if (b.wvPayment.getVisibility() == View.VISIBLE) b.wvPayment.setVisibility(View.GONE);
+        else mActivity.getFragmentManager().popBackStack();
+    }
 }

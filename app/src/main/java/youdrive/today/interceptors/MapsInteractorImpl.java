@@ -33,7 +33,7 @@ public class MapsInteractorImpl implements MapsInteractor {
         Subscription subscription = mApiClient
                 .getStatusCars()
                 .retry(3)
-                .timeout(3, TimeUnit.SECONDS)
+                .timeout(5, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> onStatusCarSuccess(response, listener),
@@ -88,7 +88,7 @@ public class MapsInteractorImpl implements MapsInteractor {
        Subscription subscription = mApiClient
                 .getStatusCars(lat, lon)
                 .retry(3)
-                .timeout(3, TimeUnit.SECONDS)
+                .timeout(5, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> onCarResponseSuccess(response,listener),
@@ -104,7 +104,7 @@ public class MapsInteractorImpl implements MapsInteractor {
        Subscription subscription = mApiClient
                 .getPolygon()
                 .retry(3)
-                .timeout(3, TimeUnit.SECONDS)
+                .timeout(5, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(PolygonResponse::getCars)

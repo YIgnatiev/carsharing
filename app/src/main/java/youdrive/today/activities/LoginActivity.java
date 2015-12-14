@@ -22,7 +22,6 @@ import youdrive.today.models.User;
 
 public class LoginActivity extends BaseActivity implements LoginActionListener {
     private LoginInteractorImpl mInteractor;
-
     private ActivityLoginBinding b;
 
     @Override
@@ -35,11 +34,9 @@ public class LoginActivity extends BaseActivity implements LoginActionListener {
        checkFields();
     }
 
-
     //listener
     public void onLogin(View view) {
         if (b.btnLogin.getProgress() == 0 && isConnected()) {
-
             setEnabled(false);
             b.btnLogin.setProgress(50);
             mInteractor.login(b.etLogin.getText().toString(), b.etPassword.getText().toString(), this);
@@ -75,11 +72,9 @@ public class LoginActivity extends BaseActivity implements LoginActionListener {
         return isConnected;
     }
 
-
     private boolean validateEmail(String email) {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
-
 
     @Override
     public void onSuccess(User user) {
@@ -87,16 +82,12 @@ public class LoginActivity extends BaseActivity implements LoginActionListener {
         if (App.getInstance().getPreference() != null) {
             App.getInstance().getPreference().putUser(new Gson().toJson(user));
         }
-
         AppUtils.success(b.btnLogin, getString(R.string.open_car));
         startActivity(new Intent(this, MapsActivity.class));
         finish();
     }
 
-
     public void checkFields() {
-
-
         Observable<Boolean> email = WidgetObservable
                 .text(b.etLogin)
                 .distinctUntilChanged()
@@ -117,10 +108,7 @@ public class LoginActivity extends BaseActivity implements LoginActionListener {
         Observable.combineLatest(email, password, (a, b) -> a && b)
                 .distinctUntilChanged()
                 .subscribe(b.btnLogin::setEnabled);
-
-
     }
-
 
     @Override
     public void onError() {
@@ -152,5 +140,4 @@ public class LoginActivity extends BaseActivity implements LoginActionListener {
         mInteractor.getSubscription().unsubscribe();
         super.onDestroy();
     }
-
 }

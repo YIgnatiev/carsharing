@@ -52,7 +52,6 @@ public class AboutFourth extends BaseFragment<WellcomeActivity> {
         b = DataBindingUtil.inflate(inflater, R.layout.fragment_about_fourth, container, false);
         b.setListener(this);
         initTextView();
-
         b.map.onCreate(savedInstanceState);
         MapsInitializer.initialize(getActivity());
         b.map.getMapAsync(this::initMap);
@@ -62,7 +61,6 @@ public class AboutFourth extends BaseFragment<WellcomeActivity> {
     private void initTextView() {
         b.tvFooter.setText(Html.fromHtml(getString(R.string.have_questions)));
         b.tvFooter.setMovementMethod(LinkMovementMethod.getInstance());
-
     }
 
     private void initMap(GoogleMap map) {
@@ -77,7 +75,6 @@ public class AboutFourth extends BaseFragment<WellcomeActivity> {
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(moscow, 11);
         mMap.animateCamera(cameraUpdate);
         getCars();
-
     }
 
     public void onRegister(View view) {
@@ -132,7 +129,6 @@ public class AboutFourth extends BaseFragment<WellcomeActivity> {
         for (SimpleCar c : cars) {
             addMarker(c);
         }
-
         if (cars.size() != 1) {
             LatLng firstPoint = new LatLng(cars.get(0).getLatitude(), cars.get(0).getLongitude());
             LatLng secondPoint = new LatLng(cars.get(cars.size() - 1).getLatitude(), cars.get(cars.size() - 1).getLongitude());
@@ -140,33 +136,10 @@ public class AboutFourth extends BaseFragment<WellcomeActivity> {
         } else {
             CameraUpdateFactory.newLatLngZoom(new LatLng(cars.get(0).getLatitude(), cars.get(0).getLongitude()), 15);
         }
-
-
     }
 
     private void onCarsFailure(Throwable t) {
         mActivity.showErrorMessage(getString(R.string.error));
-    }
-
-    private void onMoveCameraWithMe(final LatLng position, final LatLng secondPosition) {
-        new Handler().post(new Runnable() {
-            @Override
-            public void run() {
-                if (secondPosition.latitude > position.latitude) {
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(
-                            new LatLngBounds(
-                                    position,
-                                    secondPosition),
-                            getPx(20)));
-                } else {
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(
-                            new LatLngBounds(
-                                    secondPosition,
-                                    position),
-                            getPx(20)));
-                }
-            }
-        });
     }
 
     private int getPx(int dp) {
@@ -203,8 +176,5 @@ public class AboutFourth extends BaseFragment<WellcomeActivity> {
                         mMap.addMarker(markerOptions);
                     }
                 });
-
-
     }
-
 }

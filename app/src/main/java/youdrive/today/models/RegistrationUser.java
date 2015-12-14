@@ -8,7 +8,7 @@ package youdrive.today.models;
 public class RegistrationUser {
 
 
-    private String online_contract_signed;
+    private boolean online_contract_signed;
     private String email;
     private String password;
     private String password_confirm;
@@ -20,12 +20,21 @@ public class RegistrationUser {
     private String card_number;
     private String promocode;
 
+    private String session_id;
 
-    public String getOnline_contract_signed() {
+    public String getSession_id() {
+        return session_id;
+    }
+
+    public void setSession_id(String session_id) {
+        this.session_id = session_id;
+    }
+
+    public boolean getOnline_contract_signed() {
         return online_contract_signed;
     }
 
-    public void setOnline_contract_signed(String online_contract_signed) {
+    public void setOnline_contract_signed(boolean online_contract_signed) {
         this.online_contract_signed = online_contract_signed;
     }
 

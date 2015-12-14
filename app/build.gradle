@@ -81,14 +81,12 @@ dependencies {
     compile 'io.reactivex:rxandroid:0.24.0'
     compile 'io.reactivex:rxjava:1.0.14'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
-//    /*JSON*/
-//    compile 'com.google.code.gson:gson:2.3.1'
     /*Log*/
     compile 'com.jakewharton.timber:timber:3.1.0'
     /*Картинки*/
     compile 'com.github.bumptech.glide:glide:3.6.0'
     /*Тестирование*/
-    androidTestCompile 'com.android.support:support-annotations:23.1.0'
+    androidTestCompile 'com.android.support:support-annotations:23.1.1'
     androidTestCompile 'com.android.support.test:runner:0.2'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.1'
 }

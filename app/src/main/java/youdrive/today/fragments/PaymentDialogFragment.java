@@ -32,10 +32,11 @@ public class PaymentDialogFragment extends DialogFragment {
     private String mRegId;
     private Subscription mSubscription;
     private ValueFunction<String> mFunction;
-    public static final String devId = "pk_348c635ba69b355d6f4dc75a4a20";
-    private String mPrice;
-
+    //public static final String devId = "pk_348c635ba69b355d6f4dc75a4a20";
+    public static final String productionId = "pk_7b64d8f50ff4d81f83b50ca103f8a";
     public static final String publicId = "pk_348c635ba69b355d6f4dc75a4a205";
+    private String mPrice;
+    private FragmentPaymentBinding b;
 
     public static DialogFragment newInstance(String regId, String price, ValueFunction<String> callback) {
         PaymentDialogFragment fragment = new PaymentDialogFragment();
@@ -57,13 +58,9 @@ public class PaymentDialogFragment extends DialogFragment {
         mPrice = price;
     }
 
-    private FragmentPaymentBinding b;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         b = DataBindingUtil.inflate(inflater, R.layout.fragment_payment, container, false);
-
         b.setListener(this);
         b.btnPay.setIdleText(mPrice + " рублей");
         b.btnPay.setEnabled(false);
@@ -85,24 +82,22 @@ public class PaymentDialogFragment extends DialogFragment {
     }
 
     private void makePayment() {
-
         ICard card = CardFactory.create(b.etCardNumber.getText().toString(),
                 b.etExpired.getText().toString(),
                 b.etCvv.getText().toString());
-
         if (card.isValidNumber()) {
-            //   String hardcodedCrypto ="014925000087170902geD+UKHNLf+SHemZU/ty8spDA/309+In4MgRQXAysNbteN+IIsOuG9iRe4W1rBChqr08GwH+0LYSGKmvTNClxtbC25KzyzP6IEgSrw474k8L33wlmLl1Ifqzri9le+GrOldcBFEf69PjyYezrXR9nAmFFCpz5jh91WJ3A1+V3qljALEI0z5Zf+Xknxoaq4bTVZMa2XwhcLdHqW1SzVyP1kSQkwIr/xIBV+tOETp1w7i31n17yJxo+JLpHqzvZRQmk6fNHwB3pc1lDrpFHuxfy5AWFwFZGsuoZkjdVntlzc6znL5tlxApdZg4jX8uyl5P+qkHpnlnSG4ATBZ/s07ucg==";
+            ((RegistrationNewActivity)getActivity())
+                    .mUser
+                    .setCard_number(b.etCardNumber.getText().toString());
             CreditCardModel model = new CreditCardModel(mRegId,
                     mPrice,
                     b.etName.getText().toString().toUpperCase(),
-                    card.cardCryptogram(devId));
-
+                    card.cardCryptogram(productionId));
             mSubscription = ((RegistrationNewActivity) getActivity()).mClient
                     .initCard(model)
                     .subscribe(this::onCreditCardSuccess, this::onFailure);
-
         } else {
-            b.etCardNumber.setError("CardNumber is not valid");
+            b.etCardNumber.setError(getString(R.string.wrong_card_id));
             b.btnPay.setProgress(0);
         }
     }
@@ -132,6 +127,7 @@ public class PaymentDialogFragment extends DialogFragment {
                 .doOnNext(bool -> {
                     if (!bool) b.etCardNumber.setError("В номере карты допущены ошибки");
                 });
+
         Observable<Boolean> date = WidgetObservable.text(b.etExpired)
                 .distinctUntilChanged()
                 .map(OnTextChangeEvent::text)
@@ -148,6 +144,7 @@ public class PaymentDialogFragment extends DialogFragment {
                 .doOnNext(bool -> {
                     if (!bool) b.etName.setError(getString(R.string.empty));
                 });
+
         Observable<Boolean> cvv = WidgetObservable.text(b.etCvv)
                 .distinctUntilChanged()
                 .map(OnTextChangeEvent::text)
@@ -157,10 +154,8 @@ public class PaymentDialogFragment extends DialogFragment {
 
                 });
 
-
         Observable.combineLatest(cardNum, date, name, cvv, (a, b, c, d) -> a && b && c && d)
                 .distinctUntilChanged()
                 .subscribe(b.btnPay::setEnabled);
-
     }
 }

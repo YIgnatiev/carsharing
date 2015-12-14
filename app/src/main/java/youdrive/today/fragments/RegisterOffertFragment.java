@@ -42,13 +42,11 @@ public class RegisterOffertFragment extends BaseFragment<RegistrationNewActivity
         b.checkbox.setEnabled(false);
         b.checkbox.setOnCheckedChangeListener(this);
         b.svAgreement.getViewTreeObserver().addOnScrollChangedListener(this);
-
     }
 
     public void onBack(View view){
         startActivity(new Intent(mActivity, WellcomeActivity.class));
         mActivity.finish();
-
     }
 
     public void onForvard(View view){

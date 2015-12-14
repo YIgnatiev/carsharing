@@ -34,7 +34,7 @@ public class LoginInteractorImpl implements LoginInteractor , Observer<LoginResp
         subscription = mApiClient
                 .login(email, password)
                 .retry(3)
-                .timeout(3, TimeUnit.SECONDS)
+                .timeout(5, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this);

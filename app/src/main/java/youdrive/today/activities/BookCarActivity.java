@@ -7,16 +7,13 @@ import android.view.View;
 import com.bumptech.glide.Glide;
 
 import youdrive.today.BaseActivity;
-import youdrive.today.models.Car;
 import youdrive.today.R;
 import youdrive.today.databinding.ActivityOrderCarBinding;
+import youdrive.today.models.Car;
 
 public class BookCarActivity extends BaseActivity {
 
    private ActivityOrderCarBinding b;
-
-
-
 
     @Override
     public void bindActivity() {

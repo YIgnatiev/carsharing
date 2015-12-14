@@ -31,14 +31,12 @@ public class RegisterProfileFragment extends BaseFragment<RegistrationNewActivit
     private ItemPopupBinding bPopup;
     private PopupWindow mPopupWindow;
     private Subscription mSubscription;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         b = DataBindingUtil.inflate(inflater, R.layout.fragment_register_profile, container, false);
-        bPopup = DataBindingUtil.inflate(inflater,R.layout.item_popup,null, false);
-
-
-
-        mPopupWindow = new PopupWindow( LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        bPopup = DataBindingUtil.inflate(inflater, R.layout.item_popup, null, false);
+        mPopupWindow = new PopupWindow(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         mPopupWindow.setContentView(bPopup.getRoot());
         mPopupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.popup_background));
         mPopupWindow.setOutsideTouchable(true);
@@ -48,88 +46,33 @@ public class RegisterProfileFragment extends BaseFragment<RegistrationNewActivit
         return b.getRoot();
     }
 
-
-    public void onBack(View view) {
-        mActivity.getFragmentManager().popBackStack();
-
+    @Override
+    public void onStop() {
+        if (mSubscription != null) mSubscription.unsubscribe();
+        super.onStop();
     }
 
-    public void onForvard(View view) {
-
-        updateUser(mActivity.userId, mActivity.mUser);
-
-    }
-
-
-
-    public void onEmail(View view){
-        popupInit(view, getString(R.string.email_hint));
-    }
-
-    public void onPhone(View view){
-        popupInit(view, getString(R.string.phone_hint));
-    }
-
-    public void onName(View view){
-        popupInit(view, getString(R.string.name_hint));
-    }
-    
-    public void onSurName(View view){
-        popupInit(view,getString(R.string.surname_hint));
-    }
-
-    public void onMiddleName(View view){
-        popupInit(view, getString(R.string.middlename_hint));
-    }
-
-    public void onPromo(View view){
-        popupInit(view, getString(R.string.promo_hint));
-    }
-
-    public void onPassword(View view ){popupInit(view, getString(R.string.password_hint));}
-    
-
-
-
-
-    public void updateUser(String userId ,RegistrationUser user ){
+    public void updateUser(String userId, RegistrationUser user) {
+        user.setOnline_contract_signed(true);
         mActivity.showProgress();
         mSubscription = mActivity.mClient
                 .updateUser(userId, user)
                 .subscribe(this::onUpdateSuccess, mActivity::onCreateFailure);
     }
 
-    public void onUpdateSuccess(RegistrationModel model){
+    public void onUpdateSuccess(RegistrationModel model) {
         mActivity.hideProgress();
         mActivity.mUser = model.getData();
-
         mActivity.startFragmentLeft(new RegisterDocumentsFragment());
     }
 
-
-
-
-
-
-
-
-    public void popupInit(View view , String message) {
-            mPopupWindow.dismiss();
+    public void popupInit(View view, String message) {
+        mPopupWindow.dismiss();
         bPopup.tvText.setText(message);
         mPopupWindow.showAsDropDown(view, 0, 0);
-
-
-
-
-
-
-}
-
-
-
+    }
 
     public void checkFields() {
-
 
         Observable<Boolean> email = WidgetObservable
                 .text(b.etEmail)
@@ -140,13 +83,13 @@ public class RegisterProfileFragment extends BaseFragment<RegistrationNewActivit
                     if (!bool) b.etEmail.setError(getString(R.string.email_not_valid));
                     else mActivity.mUser.setEmail(b.etEmail.getText().toString());
                 });
-            WidgetObservable
+
+        WidgetObservable
                 .text(b.etPromo)
                 .distinctUntilChanged()
                 .map(OnTextChangeEvent::text)
                 .doOnNext(text -> mActivity.mUser.setPromocode(text.toString()))
-                    .subscribe();
-
+                .subscribe();
 
         Observable<Boolean> mobilePhone = WidgetObservable.text(b.etPhone)
                 .distinctUntilChanged()
@@ -157,13 +100,12 @@ public class RegisterProfileFragment extends BaseFragment<RegistrationNewActivit
                     else mActivity.mUser.setPhone(b.etPhone.getText().toString());
                 });
 
-
         Observable<Boolean> password = WidgetObservable.text(b.etPassword)
                 .distinctUntilChanged()
                 .map(OnTextChangeEvent::text)
-                .map(t -> t.length() != 0)
+                .map(t -> t.length() >= 6)
                 .doOnNext(bool -> {
-                    if (!bool) b.etPassword.setError(getString(R.string.empty));
+                    if (!bool) b.etPassword.setError(getString(R.string.minimal_password_length));
                     else mActivity.mUser.setPassword(b.etPassword.getText().toString());
                 });
 
@@ -184,6 +126,7 @@ public class RegisterProfileFragment extends BaseFragment<RegistrationNewActivit
                     if (!bool) b.etName.setError(getString(R.string.empty));
                     else mActivity.mUser.setFirst_name(b.etName.getText().toString());
                 });
+
         Observable<Boolean> surname = WidgetObservable.text(b.etSurname)
                 .distinctUntilChanged()
                 .map(OnTextChangeEvent::text)
@@ -192,6 +135,7 @@ public class RegisterProfileFragment extends BaseFragment<RegistrationNewActivit
                     if (!bool) b.etSurname.setError(getString(R.string.empty));
                     else mActivity.mUser.setLast_name(b.etSurname.getText().toString());
                 });
+
         Observable<Boolean> middleName = WidgetObservable.text(b.etMiddleName)
                 .distinctUntilChanged()
                 .map(OnTextChangeEvent::text)
@@ -201,22 +145,49 @@ public class RegisterProfileFragment extends BaseFragment<RegistrationNewActivit
                     else mActivity.mUser.setMiddle_name(b.etMiddleName.getText().toString());
                 });
 
-
-        Observable.combineLatest(email, mobilePhone, password, passwordAgain, name, surname, middleName, (e, m, p, pa, n, s, mi) -> e && m && p && pa && n && s && mi)
+        Observable.combineLatest(email, mobilePhone, password, passwordAgain, name, surname, middleName,
+                (e, m, p, pa, n, s, mi) -> e && m && p && pa && n && s && mi)
                 .distinctUntilChanged()
                 .subscribe(b.tvForvard::setEnabled);
-
-
     }
 
     private boolean validateEmail(String email) {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
+    public void onForvard(View view) {
+        updateUser(mActivity.userId, mActivity.mUser);
+    }
 
-    @Override
-    public void onStop() {
-        if(mSubscription != null)mSubscription.unsubscribe();
-        super.onStop();
+    public void onEmail(View view) {
+        popupInit(view, getString(R.string.email_hint));
+    }
+
+    public void onPhone(View view) {
+        popupInit(view, getString(R.string.phone_hint));
+    }
+
+    public void onName(View view) {
+        popupInit(view, getString(R.string.name_hint));
+    }
+
+    public void onSurName(View view) {
+        popupInit(view, getString(R.string.surname_hint));
+    }
+
+    public void onMiddleName(View view) {
+        popupInit(view, getString(R.string.middlename_hint));
+    }
+
+    public void onPromo(View view) {
+        popupInit(view, getString(R.string.promo_hint));
+    }
+
+    public void onPassword(View view) {
+        popupInit(view, getString(R.string.password_hint));
+    }
+
+    public void onBack(View view) {
+        mActivity.getFragmentManager().popBackStack();
     }
 }

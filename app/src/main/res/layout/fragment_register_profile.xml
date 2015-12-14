@@ -112,7 +112,7 @@
                     android:layout_alignBottom="@id/ivPasswordHind"
                     android:layout_toLeftOf="@id/ivPasswordHind"
                     android:hint="Пароль"
-                    android:inputType="textEmailAddress"
+                    android:inputType="textPassword"
                     android:textSize="14sp"
                     app:met_baseColor="@color/white"
                     app:met_errorColor="@color/error"
@@ -138,7 +138,7 @@
                     android:layout_alignBottom="@id/ivPasswordAgainHint"
                     android:layout_toLeftOf="@id/ivEmailHint"
                     android:hint="Подтверждение пароля"
-                    android:inputType="textEmailAddress"
+                    android:inputType="textPassword"
 
                     android:textSize="14sp"
                     app:met_baseColor="@color/white"
