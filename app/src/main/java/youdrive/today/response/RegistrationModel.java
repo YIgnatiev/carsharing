@@ -12,6 +12,15 @@ public class RegistrationModel extends BaseResponse {
     private String id;
     private RegistrationUser data;
     private RegistrationUser validation;
+    private String session_id;
+
+    public String getSession_id() {
+        return session_id;
+    }
+
+    public void setSession_id(String session_id) {
+        this.session_id = session_id;
+    }
 
     public String getId() {
         return id;

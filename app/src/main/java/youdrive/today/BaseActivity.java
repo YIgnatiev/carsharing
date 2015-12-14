@@ -20,8 +20,10 @@ import youdrive.today.listeners.Function;
 public abstract class BaseActivity extends AppCompatActivity {
     private final int LOCATION_PERMISSION = 10;
     private final int WRITE_PERMISSION = 9;
+    private final int PHONE = 8;
     private Function mLocationFunction;
     private Function mWritePermission;
+    private Function mPhonePemission;
 
     private static final String READ_EXTERNAL_STORAGE = "android.permission.READ_EXTERNAL_STORAGE";
 
@@ -78,6 +80,23 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
+    public void checkPhonePermission(Function phonePemission){
+        mPhonePemission = phonePemission;
+        int permissionCheck = ContextCompat.checkSelfPermission(this,
+                "android.permission.CALL_PHONE");
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, "android.permission.CALL_PHONE")) {
+
+            } else {
+
+                ActivityCompat.requestPermissions(this, new String[]{"android.permission.CALL_PHONE"}, PHONE);
+
+            }
+        }else phonePemission.apply();
+
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
@@ -89,14 +108,23 @@ public abstract class BaseActivity extends AppCompatActivity {
                     Toast.makeText(this, "You did not allow to access your current location", Toast.LENGTH_LONG).show();
                 }
             }
-            case WRITE_PERMISSION: {
+            break;
+            case WRITE_PERMISSION:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     if (mWritePermission != null) mWritePermission.apply();
                 } else {
 
-                    Toast.makeText(this, "You did not to choose picture`", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "You did not allow to choose picture`", Toast.LENGTH_LONG).show();
                 }
-            }
+
+            break;
+
+            case PHONE:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (mPhonePemission != null) mPhonePemission.apply();
+                } else {
+                    Toast.makeText(this, "You did not allow to use phone`", Toast.LENGTH_LONG).show();
+                }
 
         }
     }

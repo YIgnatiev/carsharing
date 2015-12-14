@@ -8,6 +8,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -44,7 +45,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
+import rx.Observable;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import timber.log.Timber;
 import youdrive.today.App;
 import youdrive.today.BaseActivity;
@@ -79,15 +85,10 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     private static final int RC_BOOK = 0;
     private static final int RC_CHECK = 1;
-
-
-
-
-    ActivityMapsBinding b;
-    DialogInfo bInfo;
-    OpenCarDialog bOpenCar;
-    DialogCloseCar bCloseCar;
-
+    private ActivityMapsBinding b;
+    private DialogInfo bInfo;
+    private OpenCarDialog bOpenCar;
+    private DialogCloseCar bCloseCar;
     private String mToken;
     private Marker mMarker;
     private Car mCar;
@@ -101,13 +102,10 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private float mZoomLevel;
     private Check mCheck;
     private GoogleApiClient mGoogleApiClient;
-
     private Location mLastLocation;
     private int mBookingTimeLeft;
     private Status mStatus;
-
     private MaterialDialog mDialog;
-
     private User mUser;
 
     private boolean isShowCommandPopup = false;
@@ -118,7 +116,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     private boolean isFake = false;
     private Timer mTimer;
-
 
     // listener
     public void onZoomIn(View v) {
@@ -138,8 +135,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             }
         }
     }
-
-
     //listener
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -163,15 +158,26 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         }
     }
 
+    private Subscription timerSubscription;
+    private void startUpdates() {
+        timerSubscription = Observable
+                .interval(5, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe((result) -> {
+            Log.v("timer", "timer = " + result);
+        });
+    }
+
     private void call() {
-        startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:+74993223875")));
+        checkPhonePermission(() -> {
+            startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:+74993223875")));
+        });
     }
 
     private void openUrl(String url) {
-        startActivity(new Intent(Intent.ACTION_VIEW,
-                Uri.parse(url)));
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
     }
-
 
     @Override
     public void bindActivity() {
@@ -180,10 +186,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         b.toolbar.setNavigationIcon(R.drawable.ic_ab_drawer);
         setSupportActionBar(b.toolbar);
         setUpMapIfNeeded();
-
-
         createLocationRequest();
-
         mZoomLevel = mMap.getMinZoomLevel();
 
         if (App.getInstance().getPreference() != null) {
@@ -205,11 +208,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         mProfileInteractor = new ProfileInteractorImpl();
         mCarInteractor = new CarInteractorImpl();
         mMapsInteractor = new MapsInteractorImpl();
-
         buildGoogleApiClient();
         checkInternet();
     }
-
 
     @Override
     protected void onStart() {
@@ -224,7 +225,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         if (mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
         }
-
         mTimer.cancel();
     }
 
@@ -243,14 +243,11 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         if (mGoogleApiClient.isConnected()) {
             startLocationUpdates();
         }
-
         mTimer = new Timer();
         mTimer.schedule(new TimerTask() {
             @Override
             public void run() {
                 if (mStatus != null && mLastLocation != null) {
-
-
                     if (Status.NORMAL.equals(mStatus) || Status.BOOKING.equals(mStatus)) {
                         if(isNetworkConnected())mMapsInteractor.getStatusCars(mLastLocation.getLatitude(), mLastLocation.getLongitude(), MapsActivity.this);
                     } else {
@@ -260,7 +257,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             }
         }, 20 * 1000, 20 * 1000);
     }
-
 
     private void checkInternet() {
         if (!isNetworkConnected()) {
@@ -274,7 +270,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(position, 11);
         mMap.animateCamera(cameraUpdate);
     }
-
 
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -293,7 +288,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         items.add(new Menu(R.drawable.icon_exit, getString(R.string.exit)));
         return items;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -355,13 +349,10 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 .show();
     }
 
-
     public void onBookClicked(View view) {
         mDialog.getBuilder().autoDismiss(false);
         bInfo.btnBook.setProgress(50);
-
         if (view.getTag() != null && mLastLocation.getLatitude() > 0.0d && mLastLocation.getLongitude() > 0.0d) {
-
             mCarInteractor.booking((String)view.getTag(), mLastLocation.getLatitude(), mLastLocation.getLongitude(), MapsActivity.this);
 
         } else {
@@ -370,12 +361,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         }
     }
 
-
     HashMap<Marker, Car> mMarkerCar = new HashMap<>();
-
     private void addMarker(final Car car) {
-
-
         Glide.with(getApplicationContext())
                 .load(car.getPointer_resource() + "_android.png")
                 .asBitmap()
@@ -389,7 +376,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                                 .title(car.getModel())
                                 .icon(BitmapDescriptorFactory.fromBitmap(resource));
                         mMarkerCar.put(mMap.addMarker(markerOptions), car);
-
                     }
 
                     @Override
@@ -402,8 +388,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                         mMarkerCar.put(mMap.addMarker(markerOptions), car);
                     }
                 });
-
-
     }
 
     @Override
@@ -478,7 +462,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             bCloseCar.btnCloseRent.setEnabled(true);
             AppUtils.success(bCloseCar.btnCloseOrOpen, getString(R.string.open_car));
         }
-
         mMapsInteractor.getStatusCar(this);
     }
 
@@ -494,11 +477,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     public void onBookingTimeLeft(int bookingTimeLeft) {
         Timber.tag("Action").d("onBookingTimeLeft " + bookingTimeLeft);
         mBookingTimeLeft = bookingTimeLeft;
-
-//        if (Status.BOOKING.equals(mStatus)
-//                && !isInfoPopup){
-//            showInfoPopup(bookingTimeLeft);
-//        }
 
         for (Map.Entry<Marker, Car> entry : mMarkerCar.entrySet()) {
             if (entry.getValue().equals(mCar)) {
@@ -521,9 +499,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onCars(List<Car> cars) {
-
         clear();
-
         if (mPolygon != null) mMap.addPolygon(mPolygon);
         else mMapsInteractor.getInfo(this);
         Collections.sort(cars);
@@ -531,17 +507,13 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             isMoveCameraWithMe = true;
             onMoveCameraWithMe(cars.get(0));
         }
-
         for (Car c : cars) {
             addMarker(c);
         }
-
         showDistancePopup(cars.get(0).getWalktime());
     }
 
     private void onMoveCameraWithMe(final Car car) {
-
-
         if (mMarker != null) {
             if (isFake) animateCamera(mMarker.getPosition());
             else onMoveCameraWithMe(mMarker.getPosition(), car);
@@ -554,17 +526,13 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             @Override
             public void run() {
                 if (car.getLat() > position.latitude) {
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(
-                            new LatLngBounds(
-                                    position,
-                                    new LatLng(car.getLat(), car.getLon())),
-                            getPx(20)));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(new LatLngBounds(position,
+                                                                                            new LatLng(car.getLat(),
+                                                                                            car.getLon())), getPx(20)));
                 } else {
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(
-                            new LatLngBounds(
-                                    new LatLng(car.getLat(), car.getLon()),
-                                    position),
-                            getPx(20)));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(new LatLngBounds(new LatLng(car.getLat(),
+                                                                                            car.getLon()), position),
+                                                                                            getPx(20)));
                 }
             }
         });
@@ -742,8 +710,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onPleaseWait() {
-        if (mToken != null
-                && mCommand != null) {
+        if (mToken != null && mCommand != null) {
+
             new Handler().postDelayed(() -> mCarInteractor.result(mCommand, mToken, MapsActivity.this), 3000);
         }
     }

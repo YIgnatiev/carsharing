@@ -20,16 +20,6 @@ public class RegistrationUser {
     private String card_number;
     private String promocode;
 
-    private String session_id;
-
-    public String getSession_id() {
-        return session_id;
-    }
-
-    public void setSession_id(String session_id) {
-        this.session_id = session_id;
-    }
-
     public boolean getOnline_contract_signed() {
         return online_contract_signed;
     }

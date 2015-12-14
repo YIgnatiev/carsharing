@@ -62,7 +62,7 @@ public class RegisterPaymentsFragment extends BaseFragment<RegistrationNewActivi
 
     public void onUpdateSuccess(RegistrationModel model) {
         mActivity.hideProgress();
-        String sessionId = model.getData().getSession_id();
+        String sessionId = model.getSession_id();
         if (sessionId != null) {
             User user = new User(sessionId, model.getData().getFirst_name(), null);
             if (App.getInstance().getPreference() != null) {
