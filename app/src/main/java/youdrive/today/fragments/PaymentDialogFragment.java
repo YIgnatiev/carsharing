@@ -55,8 +55,7 @@ public class PaymentDialogFragment extends DialogFragment {
     }
 
     private void setPrice(String price) {
-        //mPrice = price;
-        mPrice = "1";
+        mPrice = price;
     }
 
     @Override

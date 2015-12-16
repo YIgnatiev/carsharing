@@ -24,7 +24,6 @@ public class RegistrationNewActivity extends BaseActivity {
     private ActivityRegistrationNewBinding b;
     public RegistrationUser mUser;
     public String userId;
-    public String price;
     private ProgressDialog pdLoading;
     public ApiClient mClient;
 

@@ -98,7 +98,7 @@ public class RegisterDocumentsFragment extends BaseFragment<RegistrationNewActiv
     public void addParams(String id) {
         String param = String.format(parameter, params.size() + 1);
         params.put(param, id);
-        if (params.size() > 2) b.tvForvard.setEnabled(true);
+        if (params.size() >= 2) b.tvForvard.setEnabled(true);
         if (params.size() > 5) b.btnLoad.setEnabled(false);
     }
 

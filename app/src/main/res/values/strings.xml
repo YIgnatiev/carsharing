@@ -329,6 +329,7 @@
     <string name="network_error">Ошибка сети</string>
     <string name="wrong_card_id">Не правильный номер карты</string>
     <string name="cannot_register_user">Не удалось зарегистрировать пользователя</string>
+    <string name="minimal_price">999</string>
 
 
 </resources>

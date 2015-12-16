@@ -38,7 +38,6 @@ public class RegisterPaymentsFragment extends BaseFragment<RegistrationNewActivi
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         b = DataBindingUtil.inflate(inflater, R.layout.fragment_register_payments, container, false);
         b.setListener(this);
-        setData();
         initWebView();
         return b.getRoot();
     }
@@ -47,10 +46,6 @@ public class RegisterPaymentsFragment extends BaseFragment<RegistrationNewActivi
     public void onStop() {
         super.onStop();
         if (mSubscription != null) mSubscription.unsubscribe();
-    }
-
-    private void setData() {
-        String paymentsText = getString(R.string.payments, mActivity.price);
     }
 
     public void updateUser(String userId, RegistrationUser user) {
@@ -92,7 +87,7 @@ public class RegisterPaymentsFragment extends BaseFragment<RegistrationNewActivi
     public void onCardLink(View view) {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.addToBackStack(null);
-        dialogFragment = PaymentDialogFragment.newInstance(mActivity.userId, mActivity.price, this::openUrl);
+        dialogFragment = PaymentDialogFragment.newInstance(mActivity.userId, getString(R.string.minimal_price) , this::openUrl);
         dialogFragment.show(ft, "dialog");
 
     }
