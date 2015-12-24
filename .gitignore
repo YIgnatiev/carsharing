@@ -2,3 +2,5 @@ carsharing-android.iml
 app/app.iml
 build
 local.properties
+.idea/
+gradle/
