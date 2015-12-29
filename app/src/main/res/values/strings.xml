@@ -45,7 +45,7 @@
     <string name="error">Ошибка</string>
     <string name="empty">Пустое поле</string>
     <string name="password_dont_match">Пароли не совпадают</string>
-    <string name="short_phone">Телефон введен некорректно</string>
+    <string name="phone_error">Введите номер формата (xxx) xxx-xx-xx без +7 </string>
     <string name="enter_price">Вы должны ввести сумму</string>
     <string name="summ_bigger_than_3000">Сумма должна быть не менее 3000 рублей</string>
 

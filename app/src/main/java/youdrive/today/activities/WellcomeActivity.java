@@ -23,6 +23,11 @@ import youdrive.today.fragments.AboutThird;
  */
 public class WellcomeActivity extends BaseActivity implements ViewPager.OnPageChangeListener{
 
+    private final int FIRST_SCREEN  = 0;
+    private final int SECOND_SCREEN = 1;
+    private final int THIRD_SCREEN  = 2;
+    private final int FOURTH_SCREEN = 3;
+
     ActivityWellcomeBinding b;
     private AboutFirst mFirst;
     @Override
@@ -37,19 +42,19 @@ public class WellcomeActivity extends BaseActivity implements ViewPager.OnPageCh
     }
 
     private void setPager() {
-        b.viewPager.setAdapter(new WellcomeAdapter(getFragmentManager()));
+        b.viewPager.setAdapter(new WelcomeAdapter(getFragmentManager()));
 
 
     }
 
     public void onBack(View view) {
-        onBackPressed();
+        b.viewPager.setCurrentItem(FOURTH_SCREEN,true);
     }
 
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        if(position == 0) {
+        if(position == FIRST_SCREEN) {
             float alpha =  (float) positionOffsetPixels / b.getRoot().getWidth();
 
             if(mFirst != null && mFirst.getView() != null)
@@ -68,9 +73,9 @@ public class WellcomeActivity extends BaseActivity implements ViewPager.OnPageCh
 
     }
 
-    private class WellcomeAdapter extends FragmentPagerAdapter {
+    private class WelcomeAdapter extends FragmentPagerAdapter {
 
-        public WellcomeAdapter(FragmentManager manager) {
+        public WelcomeAdapter(FragmentManager manager) {
             super(manager);
         }
 
@@ -79,15 +84,16 @@ public class WellcomeActivity extends BaseActivity implements ViewPager.OnPageCh
 
 
             switch (position) {
-                case 0:
+                case FIRST_SCREEN:
                     mFirst = new AboutFirst();
                     return  mFirst;
-                case 1:
+                case SECOND_SCREEN:
                     return new AboutSecond();
-                case 2:
+                case THIRD_SCREEN:
                     return new AboutThird();
-                default:
+                case FOURTH_SCREEN:
                     return new AboutFourth();
+                default:throw new RuntimeException("Unknown screen");
             }
         }
 

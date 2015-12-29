@@ -2,6 +2,7 @@ package youdrive.today.fragments;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.text.Selection;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -91,12 +92,21 @@ public class RegisterProfileFragment extends BaseFragment<RegistrationNewActivit
                 .doOnNext(text -> mActivity.mUser.setPromocode(text.toString()))
                 .subscribe();
 
+        b.etPhone.setText("+7");
+        Selection.setSelection(b.etPhone.getText(), b.etPhone.getText().length());
+
         Observable<Boolean> mobilePhone = WidgetObservable.text(b.etPhone)
                 .distinctUntilChanged()
                 .map(OnTextChangeEvent::text)
-                .map(t -> t.length() > 8)
+                .map(t -> {
+                    if(!t.toString().startsWith("+7")){
+                        b.etPhone.setText("+7");
+                        Selection.setSelection(b.etPhone.getText(), b.etPhone.getText().length());
+                    }
+                    return t.length() == 12;
+                })
                 .doOnNext(bool -> {
-                    if (!bool) b.etPhone.setError(getString(R.string.short_phone));
+                    if (!bool) b.etPhone.setError(getString(R.string.phone_error));
                     else mActivity.mUser.setPhone(b.etPhone.getText().toString());
                 });
 
