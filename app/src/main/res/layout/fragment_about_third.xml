@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout>
+
+    <data>
+        <variable
+            name="listener"
+            type="youdrive.today.fragments.AboutThird"/>
+    </data>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,22 +26,23 @@
 
     <TextView
         style="@style/AppTheme.TextView"
+        android:id="@+id/tvMinuteTarification"
         android:drawablePadding="10dp"
         android:gravity="center|left"
         android:padding="10dp"
-        android:drawableLeft="@drawable/ic_clock"
-
-        android:text="Поминутная тарификация" />
+        android:onClick='@{listener.onMinuteTarrification}'
+        android:drawableLeft="@drawable/ic_clock" />
 
 
     <TextView
         style="@style/AppTheme.TextView"
+        android:id="@+id/tvFreeParking"
         android:drawablePadding="10dp"
         android:gravity="center|left"
         android:padding="10dp"
-
+        android:onClick='@{listener.onFreeParking}'
         android:drawableLeft="@drawable/ic_ruble"
-        android:text="Бесплатная парковка на  местах Московского паркинга" />
+        />
 
 
 
@@ -45,29 +52,33 @@
         android:drawablePadding="10dp"
         android:gravity="center|left"
         android:padding="10dp"
+        android:onClick='@{listener.onFuelIsPayed}'
+        android:id="@+id/tvFreeFuel"
         android:drawableLeft="@drawable/ic_car"
-        android:text="Бензин включен в стоимость" />
+         />
 
 
 
     <TextView
         style="@style/AppTheme.TextView"
+        android:id="@+id/tvFreeNight"
         android:drawablePadding="10dp"
         android:gravity="center|left"
         android:padding="10dp"
         android:drawableLeft="@drawable/ic_hotel"
-
-        android:text="Бесплатный ночной тариф"/>
+        android:onClick='@{listener.onFreeNightParking}'
+       />
 
 
     <TextView
         style="@style/AppTheme.TextView"
         android:drawablePadding="10dp"
         android:gravity="center|left"
+        android:id="@+id/tvFarRides"
         android:padding="10dp"
         android:drawableLeft="@drawable/ic_road_sign"
-
-        android:text="Вы можете совершать дальние поездки" />
+        android:onClick='@{listener.onFarRides}'
+        />
 
 </LinearLayout>
 
