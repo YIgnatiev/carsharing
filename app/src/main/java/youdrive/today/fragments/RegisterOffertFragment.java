@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 
+import com.yandex.metrica.YandexMetrica;
+
 import rx.Subscription;
 import youdrive.today.R;
 import youdrive.today.activities.RegistrationNewActivity;
@@ -56,6 +58,13 @@ public class RegisterOffertFragment extends BaseFragment<RegistrationNewActivity
         mSubscription = mActivity.mClient
                         .createUser()
                         .subscribe(this::onCreateSucccess, mActivity::onCreateFailure);
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        YandexMetrica.reportEvent("registration_1_0");
 
     }
 

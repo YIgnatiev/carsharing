@@ -12,6 +12,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.google.gson.Gson;
+import com.yandex.metrica.YandexMetrica;
 
 import rx.Subscription;
 import youdrive.today.App;
@@ -43,6 +44,13 @@ public class RegisterPaymentsFragment extends BaseFragment<RegistrationNewActivi
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        YandexMetrica.reportEvent("registration_4_0");
+
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
         if (mSubscription != null) mSubscription.unsubscribe();
@@ -63,6 +71,9 @@ public class RegisterPaymentsFragment extends BaseFragment<RegistrationNewActivi
             if (App.getInstance().getPreference() != null) {
                 App.getInstance().getPreference().putUser(new Gson().toJson(user));
             }
+
+            YandexMetrica.reportEvent("registration_5_0");
+
             startActivity(new Intent(mActivity, MapsActivity.class));
             mActivity.finish();
         }
@@ -87,7 +98,7 @@ public class RegisterPaymentsFragment extends BaseFragment<RegistrationNewActivi
     public void onCardLink(View view) {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.addToBackStack(null);
-        dialogFragment = PaymentDialogFragment.newInstance(mActivity.userId, getString(R.string.minimal_price) , this::openUrl);
+        dialogFragment = PaymentDialogFragment.newInstance(mActivity.userId, getString(R.string.minimal_price), this::openUrl);
         dialogFragment.show(ft, "dialog");
 
     }

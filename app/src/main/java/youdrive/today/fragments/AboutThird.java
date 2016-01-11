@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.yandex.metrica.YandexMetrica;
+
 import youdrive.today.R;
 import youdrive.today.databinding.FragmentAboutThirdBinding;
 
@@ -46,6 +48,12 @@ public class AboutThird extends BaseFragment {
     }
 
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        YandexMetrica.reportEvent("registration_0_2");
+
+    }
 
     public void onMinuteTarrification(View view){
         showTextDialog(getString(R.string.minute_tarification));

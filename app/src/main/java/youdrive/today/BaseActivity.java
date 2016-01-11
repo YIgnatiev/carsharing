@@ -11,6 +11,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import com.yandex.metrica.YandexMetrica;
+
 import youdrive.today.helpers.FontsOverride;
 import youdrive.today.listeners.Function;
 
@@ -95,6 +97,18 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
         }else phonePemission.apply();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        YandexMetrica.onResumeActivity(this);
+    }
+
+    @Override
+    protected void onPause() {
+        YandexMetrica.onPauseActivity(this);
+        super.onPause();
     }
 
     @Override

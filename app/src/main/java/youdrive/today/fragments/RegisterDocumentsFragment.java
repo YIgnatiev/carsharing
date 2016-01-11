@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.yandex.metrica.YandexMetrica;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -67,7 +69,7 @@ public class RegisterDocumentsFragment extends BaseFragment<RegistrationNewActiv
 
     private void onUploadGroupSuccess(UploadGroupResponse response) {
         mActivity.mUser.setDocuments_storage_url(response.getUrl());
-        updateUser(mActivity.userId,mActivity.mUser);
+        updateUser(mActivity.userId, mActivity.mUser);
     }
 
     private void onUploadGroupsFailed(Throwable t) {
@@ -91,8 +93,16 @@ public class RegisterDocumentsFragment extends BaseFragment<RegistrationNewActiv
     }
 
     public void onUploadSuccess(UploadCareResponse file, ProgressBar progressBar) {
+        b.btnLoad.setEnabled(true);
         progressBar.setVisibility(View.GONE);
         addParams(file.getFile());
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        YandexMetrica.reportEvent("registration_3_0");
+
     }
 
     public void addParams(String id) {
@@ -103,6 +113,8 @@ public class RegisterDocumentsFragment extends BaseFragment<RegistrationNewActiv
     }
 
     public void onUploadFailure(Throwable t, ProgressBar progressBar) {
+        b.btnLoad.setEnabled(true);
+
         progressBar.setVisibility(View.GONE);
         Toast.makeText(mActivity, "failure", Toast.LENGTH_SHORT).show();
     }
@@ -116,6 +128,7 @@ public class RegisterDocumentsFragment extends BaseFragment<RegistrationNewActiv
     }
 
     private void uploadFile(String filePath, ProgressBar bar) {
+        b.btnLoad.setEnabled(false);
         uploadingSubscription = mActivity.mClient.uploadFile(new File(filePath))
                 .retry(3)
                 .timeout(15, TimeUnit.SECONDS)

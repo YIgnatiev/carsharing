@@ -5,7 +5,6 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.TypedValue;
@@ -22,8 +21,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.yandex.metrica.YandexMetrica;
 
 import java.util.Collections;
 import java.util.List;
@@ -99,6 +98,13 @@ public class AboutFourth extends BaseFragment<WellcomeActivity> {
         mSubscriptions.unsubscribe();
         super.onPause();
         b.map.onPause();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        YandexMetrica.reportEvent("registration_0_3");
+
     }
 
     @Override

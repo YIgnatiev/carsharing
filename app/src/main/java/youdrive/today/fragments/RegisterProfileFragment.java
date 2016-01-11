@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
+import com.yandex.metrica.YandexMetrica;
+
 import rx.Observable;
 import rx.Subscription;
 import rx.android.widget.OnTextChangeEvent;
@@ -65,6 +67,13 @@ public class RegisterProfileFragment extends BaseFragment<RegistrationNewActivit
         mActivity.hideProgress();
         mActivity.mUser = model.getData();
         mActivity.startFragmentLeft(new RegisterDocumentsFragment());
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        YandexMetrica.reportEvent("registration_2_0");
+
     }
 
     public void popupInit(View view, String message) {

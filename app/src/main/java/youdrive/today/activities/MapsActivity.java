@@ -37,6 +37,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.gson.Gson;
+import com.yandex.metrica.YandexMetrica;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -175,6 +176,11 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         });
     }
 
+
+
+
+
+
     private void openUrl(String url) {
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
     }
@@ -215,6 +221,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     protected void onStart() {
         super.onStart();
+        YandexMetrica.reportEvent("map_0_0");
         mGoogleApiClient.connect();
     }
 
