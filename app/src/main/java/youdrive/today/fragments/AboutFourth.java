@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -28,6 +29,7 @@ import java.util.Collections;
 import java.util.List;
 
 import rx.subscriptions.CompositeSubscription;
+import youdrive.today.App;
 import youdrive.today.R;
 import youdrive.today.activities.LoginActivity;
 import youdrive.today.activities.RegistrationNewActivity;
@@ -105,6 +107,8 @@ public class AboutFourth extends BaseFragment<WellcomeActivity> {
         super.onStart();
         YandexMetrica.reportEvent("registration_0_3");
 
+        App.tracker().setScreenName("registration_0_3");
+        App.tracker().send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override

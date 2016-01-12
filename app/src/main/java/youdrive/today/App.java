@@ -18,7 +18,9 @@ public class App extends Application {
     private static App sInstance;
     private PreferenceHelper mPreference;
     private ApiClient mApiClient;
-    private Tracker mTracker;
+    private static Tracker mTracker;
+    private static GoogleAnalytics analytics;
+
     private final String YANDEX_API_KEY = "14cbd311-8785-44c6-97e5-4622679719f5";
     public App() {
         sInstance = this;
@@ -32,6 +34,12 @@ public class App extends Application {
         mApiClient = new ApiClient();
         YandexMetrica.activate(getApplicationContext(), YANDEX_API_KEY);
         // Отслеживание активности пользователей
+        analytics = GoogleAnalytics.getInstance(this);
+        mTracker = analytics.newTracker("UA-64074244-1");
+        mTracker.enableExceptionReporting(true);
+        mTracker.enableAdvertisingIdCollection(true);
+        mTracker.enableAutoActivityTracking(true);
+
         YandexMetrica.enableActivityAutoTracking(this);
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
@@ -41,16 +49,16 @@ public class App extends Application {
     public PreferenceHelper getPreference(){
         return mPreference;
     }
-
-    synchronized public Tracker getDefaultTracker() {
-        if (mTracker == null) {
-            GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
-            // To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
-          //  mTracker = analytics.newTracker(R.xml.global_tracker);
-//
-        }
+    public static Tracker tracker() {
         return mTracker;
     }
+
+    public static GoogleAnalytics analytics() {
+        return analytics;
+    }
+
+
+
 
     public ApiClient getApiClient(){
         return mApiClient;

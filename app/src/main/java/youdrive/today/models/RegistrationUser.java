@@ -7,7 +7,6 @@ package youdrive.today.models;
  */
 public class RegistrationUser {
 
-
     private boolean online_contract_signed;
     private String email;
     private String password;
@@ -106,5 +105,22 @@ public class RegistrationUser {
 
     public void setPromocode(String promocode) {
         this.promocode = promocode;
+    }
+
+    @Override
+    public String toString() {
+        return "RegistrationUser{" +
+                "online_contract_signed=" + online_contract_signed +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", password_confirm='" + password_confirm + '\'' +
+                ", phone='" + phone + '\'' +
+                ", first_name='" + first_name + '\'' +
+                ", middle_name='" + middle_name + '\'' +
+                ", last_name='" + last_name + '\'' +
+                ", documents_storage_url='" + documents_storage_url + '\'' +
+                ", card_number='" + card_number + '\'' +
+                ", promocode='" + promocode + '\'' +
+                '}';
     }
 }

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.google.android.gms.analytics.HitBuilders;
 import com.google.gson.Gson;
 import com.yandex.metrica.YandexMetrica;
 
@@ -73,6 +74,8 @@ public class RegisterPaymentsFragment extends BaseFragment<RegistrationNewActivi
             }
 
             YandexMetrica.reportEvent("registration_5_0");
+            App.tracker().setScreenName("registration_5_0");
+            App.tracker().send(new HitBuilders.ScreenViewBuilder().build());
 
             startActivity(new Intent(mActivity, MapsActivity.class));
             mActivity.finish();

@@ -8,8 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.analytics.HitBuilders;
 import com.yandex.metrica.YandexMetrica;
 
+import youdrive.today.App;
 import youdrive.today.R;
 import youdrive.today.databinding.FragmentAboutThirdBinding;
 
@@ -52,6 +54,9 @@ public class AboutThird extends BaseFragment {
     public void onStart() {
         super.onStart();
         YandexMetrica.reportEvent("registration_0_2");
+
+        App.tracker().setScreenName("registration_0_2");
+        App.tracker().send(new HitBuilders.ScreenViewBuilder().build());
 
     }
 

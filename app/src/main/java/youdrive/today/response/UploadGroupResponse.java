@@ -9,7 +9,7 @@ public class UploadGroupResponse {
     private String id;
     private String datetime_created;
     private String datetime_stored;
-    private String files_count;
+    private int files_count;
     private String cdn_url;
     private String url;
 
@@ -26,7 +26,7 @@ public class UploadGroupResponse {
         return datetime_stored;
     }
 
-    public String getFiles_count() {
+    public int getFiles_count() {
         return files_count;
     }
 
@@ -36,5 +36,17 @@ public class UploadGroupResponse {
 
     public String getUrl() {
         return url;
+    }
+
+    @Override
+    public String toString() {
+        return "UploadGroupResponse{" +
+                "id='" + id + '\'' +
+                ", datetime_created='" + datetime_created + '\'' +
+                ", datetime_stored='" + datetime_stored + '\'' +
+                ", files_count=" + files_count +
+                ", cdn_url='" + cdn_url + '\'' +
+                ", url='" + url + '\'' +
+                '}';
     }
 }

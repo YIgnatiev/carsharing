@@ -9,9 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 
+import com.google.android.gms.analytics.HitBuilders;
 import com.yandex.metrica.YandexMetrica;
 
 import rx.Subscription;
+import youdrive.today.App;
 import youdrive.today.R;
 import youdrive.today.activities.RegistrationNewActivity;
 import youdrive.today.activities.WellcomeActivity;
@@ -65,7 +67,8 @@ public class RegisterOffertFragment extends BaseFragment<RegistrationNewActivity
     public void onStart() {
         super.onStart();
         YandexMetrica.reportEvent("registration_1_0");
-
+        App.tracker().setScreenName("registration_1_0");
+        App.tracker().send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     public void onCreateSucccess(RegistrationModel model){

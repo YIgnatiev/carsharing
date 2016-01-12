@@ -9,13 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
 import com.yandex.metrica.YandexMetrica;
 
 import rx.Observable;
 import rx.Subscription;
 import rx.android.widget.OnTextChangeEvent;
 import rx.android.widget.WidgetObservable;
+import youdrive.today.App;
 import youdrive.today.R;
 import youdrive.today.activities.RegistrationNewActivity;
 import youdrive.today.databinding.FragmentRegisterProfileBinding;
@@ -64,7 +67,13 @@ public class RegisterProfileFragment extends BaseFragment<RegistrationNewActivit
     }
 
     public void onUpdateSuccess(RegistrationModel model) {
+
         mActivity.hideProgress();
+
+        if(!model.isSuccess()){
+            Toast.makeText(mActivity, "Произошла неизвестная ошибка.", Toast.LENGTH_SHORT).show();
+            return;
+        }
         mActivity.mUser = model.getData();
         mActivity.startFragmentLeft(new RegisterDocumentsFragment());
     }
@@ -73,6 +82,8 @@ public class RegisterProfileFragment extends BaseFragment<RegistrationNewActivit
     public void onStart() {
         super.onStart();
         YandexMetrica.reportEvent("registration_2_0");
+        App.tracker().setScreenName("registration_2_0");
+        App.tracker().send(new HitBuilders.ScreenViewBuilder().build());
 
     }
 
@@ -116,7 +127,7 @@ public class RegisterProfileFragment extends BaseFragment<RegistrationNewActivit
                 })
                 .doOnNext(bool -> {
                     if (!bool) b.etPhone.setError(getString(R.string.phone_error));
-                    else mActivity.mUser.setPhone(b.etPhone.getText().toString());
+                    else mActivity.mUser.setPhone(b.etPhone.getText().toString().substring(2));
                 });
 
         Observable<Boolean> password = WidgetObservable.text(b.etPassword)

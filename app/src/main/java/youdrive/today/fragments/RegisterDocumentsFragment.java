@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
 import com.yandex.metrica.YandexMetrica;
 
 import java.io.File;
@@ -25,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import youdrive.today.App;
 import youdrive.today.R;
 import youdrive.today.activities.RegistrationNewActivity;
 import youdrive.today.databinding.FragmentRegisterDocumentsBinding;
@@ -102,6 +104,8 @@ public class RegisterDocumentsFragment extends BaseFragment<RegistrationNewActiv
     public void onStart() {
         super.onStart();
         YandexMetrica.reportEvent("registration_3_0");
+        App.tracker().setScreenName("registration_0_3");
+        App.tracker().send(new HitBuilders.ScreenViewBuilder().build());
 
     }
 

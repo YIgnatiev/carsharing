@@ -21,6 +21,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -222,6 +223,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     protected void onStart() {
         super.onStart();
         YandexMetrica.reportEvent("map_0_0");
+        App.tracker().setScreenName("map_0_0");
+        App.tracker().send(new HitBuilders.ScreenViewBuilder().build());
         mGoogleApiClient.connect();
     }
 
