@@ -42,7 +42,6 @@ public class RegisterOffertFragment extends BaseFragment<RegistrationNewActivity
         b.tvDogovor.setText(Html.fromHtml(getString(R.string.dogovor)));
         b.checkbox.setOnCheckedChangeListener(this);
         b.tvForvard.setEnabled(false);
-        b.checkbox.setOnCheckedChangeListener(this);
     }
 
     public void onBack(View view){

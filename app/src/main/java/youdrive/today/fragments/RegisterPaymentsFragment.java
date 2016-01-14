@@ -4,7 +4,9 @@ import android.app.DialogFragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +37,7 @@ public class RegisterPaymentsFragment extends BaseFragment<RegistrationNewActivi
     private Subscription mSubscription;
     private FragmentRegisterPaymentsBinding b;
     private DialogFragment dialogFragment;
+    private final String FINISH_URL = "https://youdrive.today/create-mob-account-done.html";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -83,11 +86,24 @@ public class RegisterPaymentsFragment extends BaseFragment<RegistrationNewActivi
     }
 
     private void initWebView() {
+
+        b.wvPayment.getSettings().setJavaScriptEnabled(true);
         b.wvPayment.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
                 return false;
+            }
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+
+                Log.v("Retrofit",url);
+                if(url.equals(FINISH_URL)){
+                    b.wvPayment.setVisibility(View.GONE);
+                    updateUser(mActivity.userId,mActivity.mUser);
+                }
             }
         });
     }

@@ -32,9 +32,7 @@ public class PaymentDialogFragment extends DialogFragment {
     private String mRegId;
     private Subscription mSubscription;
     private ValueFunction<String> mFunction;
-    //public static final String devId = "pk_348c635ba69b355d6f4dc75a4a20";
     public static final String productionId = "pk_7b64d8f50ff4d81f83b50ca103f8a";
-    public static final String publicId = "pk_348c635ba69b355d6f4dc75a4a205";
     private String mPrice;
     private FragmentPaymentBinding b;
 
@@ -109,8 +107,8 @@ public class PaymentDialogFragment extends DialogFragment {
 
     private void onCreditCardSuccess(CreditCardResponse response) {
         b.btnPay.setProgress(0);
-        if(response.getFinish_url() != null)mFunction.apply(response.getFinish_url());
-        else if(response.getReq_url() != null)mFunction.apply(response.getReq_url());
+        if(response.getReq_url() != null) mFunction.apply(response.getReq_url());
+        else if(response.getFinish_url() != null)mFunction.apply(response.getFinish_url());
         else mFunction.apply("http://www.yandex.ru");
     }
 
