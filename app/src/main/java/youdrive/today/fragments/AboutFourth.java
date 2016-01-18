@@ -23,6 +23,7 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolygonOptions;
 import com.yandex.metrica.YandexMetrica;
 
 import java.util.Collections;
@@ -36,7 +37,9 @@ import youdrive.today.activities.RegistrationNewActivity;
 import youdrive.today.activities.WellcomeActivity;
 import youdrive.today.databinding.FragmentAboutFourthBinding;
 import youdrive.today.interceptors.MapsInteractorImpl;
+import youdrive.today.models.Coord;
 import youdrive.today.models.SimpleCar;
+import youdrive.today.response.PolygonResponse;
 
 /**
  * Created by Oleh Makhobey
@@ -45,6 +48,7 @@ import youdrive.today.models.SimpleCar;
  */
 public class AboutFourth extends BaseFragment<WellcomeActivity> {
     private GoogleMap mMap;
+    private PolygonOptions mPolygon;
     private FragmentAboutFourthBinding b;
     private CompositeSubscription mSubscriptions = new CompositeSubscription();
 
@@ -72,7 +76,7 @@ public class AboutFourth extends BaseFragment<WellcomeActivity> {
     private void setMyLocation() {
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
         mMap.setMyLocationEnabled(true);
-        LatLng moscow= new LatLng(55.749792,37.632495);
+        LatLng moscow = new LatLng(55.749792, 37.632495);
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(moscow, 11);
         mMap.animateCamera(cameraUpdate);
         getCars();
@@ -106,7 +110,6 @@ public class AboutFourth extends BaseFragment<WellcomeActivity> {
     public void onStart() {
         super.onStart();
         YandexMetrica.reportEvent("registration_0_3");
-
         App.tracker().setScreenName("registration_0_3");
         App.tracker().send(new HitBuilders.ScreenViewBuilder().build());
     }
@@ -134,18 +137,35 @@ public class AboutFourth extends BaseFragment<WellcomeActivity> {
         }
     }
 
-    private void onCarsSuccess(List<SimpleCar> cars) {
+    private void onCarsSuccess(PolygonResponse response) {
+
+        List<SimpleCar> cars = response.getCars();
         Collections.sort(cars, (left, right) -> Double.compare(left.getLatitude(), right.getLatitude()));
         for (SimpleCar c : cars) {
             addMarker(c);
         }
+        drawPolygon(response.getArea());
         if (cars.size() != 1) {
-            LatLng firstPoint = new LatLng(cars.get(0).getLatitude(), cars.get(0).getLongitude());
-            LatLng secondPoint = new LatLng(cars.get(cars.size() - 1).getLatitude(), cars.get(cars.size() - 1).getLongitude());
             CameraUpdateFactory.newLatLngZoom(new LatLng(cars.get(0).getLatitude(), cars.get(0).getLongitude()), 15);
         } else {
             CameraUpdateFactory.newLatLngZoom(new LatLng(cars.get(0).getLatitude(), cars.get(0).getLongitude()), 15);
         }
+    }
+
+
+    private void drawPolygon(List<Coord> coordList) {
+
+        mPolygon = new PolygonOptions()
+                .fillColor(getResources().getColor(R.color.polygonColor))
+                .strokeColor(getResources().getColor(android.R.color.transparent))
+                .geodesic(true);
+
+        for (Coord coord : coordList)
+            mPolygon.add(coord.toLatLng());
+        mPolygon.add(coordList.get(0).toLatLng());
+        mMap.addPolygon(mPolygon);
+
+
     }
 
     private void onCarsFailure(Throwable t) {

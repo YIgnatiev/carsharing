@@ -49,6 +49,7 @@ public class App extends Application {
     public PreferenceHelper getPreference(){
         return mPreference;
     }
+
     public static Tracker tracker() {
         return mTracker;
     }
@@ -56,9 +57,6 @@ public class App extends Application {
     public static GoogleAnalytics analytics() {
         return analytics;
     }
-
-
-
 
     public ApiClient getApiClient(){
         return mApiClient;

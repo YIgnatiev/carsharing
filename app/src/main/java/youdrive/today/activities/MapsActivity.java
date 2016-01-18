@@ -664,7 +664,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
 
-    private void drawLine(List<Coord> coordList) {
+    private void drawPolygon(List<Coord> coordList) {
 
         mPolygon = new PolygonOptions()
                 .fillColor(getResources().getColor(R.color.polygonColor))
@@ -938,7 +938,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onPolygonSuccess(List<Coord> coordList) {
-        drawLine(coordList);
+        drawPolygon(coordList);
     }
 
     @Override
