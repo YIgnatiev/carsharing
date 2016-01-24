@@ -52,7 +52,7 @@ public class LoginActivity extends BaseActivity implements LoginActionListener {
     }
 
     public void onRegistration(View view) {
-        startActivity(new Intent(this, RegistrationActivity.class));
+        startActivity(new Intent(this, RegistrationNewActivity.class));
         finish();
     }
 

@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="5dp"
         android:layout_weight="1"
+        android:gravity="center"
         android:textColor="@color/white"
         app:cpb_colorIndicator="@color/main"
         app:cpb_colorProgress="@color/cpb_white"

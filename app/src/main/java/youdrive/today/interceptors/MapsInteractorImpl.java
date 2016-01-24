@@ -1,5 +1,6 @@
 package youdrive.today.interceptors;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import rx.Subscription;
@@ -11,6 +12,7 @@ import youdrive.today.listeners.MapsActionListener;
 import youdrive.today.listeners.PolygonListener;
 import youdrive.today.listeners.ValueFunction;
 import youdrive.today.models.ApiError;
+import youdrive.today.models.Coord;
 import youdrive.today.models.Status;
 import youdrive.today.network.ApiClient;
 import youdrive.today.response.CarResponse;
@@ -20,6 +22,7 @@ public class MapsInteractorImpl implements MapsInteractor {
 
     private final ApiClient mApiClient;
     CompositeSubscription subscriptions = new CompositeSubscription();
+
     public MapsInteractorImpl() {
         mApiClient = App.getInstance().getApiClient();
     }
@@ -74,8 +77,8 @@ public class MapsInteractorImpl implements MapsInteractor {
 
     private void onGetInfoSuccess(PolygonResponse response, PolygonListener listener) {
         if (response.isSuccess()) {
-            listener.onPolygonSuccess(response.getArea());
-
+            for (List<Coord> coords : response.getArea())
+                listener.onPolygonSuccess(coords);
         } else {
             listener.onPolygonFailed();
         }
@@ -83,40 +86,29 @@ public class MapsInteractorImpl implements MapsInteractor {
 
     @Override
     public void getStatusCars(final double lat, final double lon, final MapsActionListener listener) {
-       Subscription subscription = mApiClient
+        Subscription subscription = mApiClient
                 .getStatusCars(lat, lon)
                 .retry(3)
                 .timeout(5, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response -> onCarResponseSuccess(response,listener),
-                        error -> handleNetworkError(error,listener));
-            subscriptions.add(subscription);
+                .subscribe(response -> onCarResponseSuccess(response, listener),
+                        error -> handleNetworkError(error, listener));
+        subscriptions.add(subscription);
 
-}
+    }
 
-
-
-
-    public void getInfo(ValueFunction<PolygonResponse> successFunc, ValueFunction<Throwable> errorFunc , CompositeSubscription subscriptions) {
-       Subscription subscription = mApiClient
+    public void getInfo(ValueFunction<PolygonResponse> successFunc, ValueFunction<Throwable> errorFunc, CompositeSubscription subscriptions) {
+        Subscription subscription = mApiClient
                 .getPolygon()
                 .retry(3)
                 .timeout(5, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-
                 .subscribe(successFunc::apply, errorFunc::apply);
         subscriptions.add(subscription);
 
-
-}
-
-
-
-
-
-
+    }
 
     private void onCarResponseSuccess(CarResponse response, MapsActionListener listener) {
         if (response.isSuccess()) {

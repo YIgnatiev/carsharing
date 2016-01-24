@@ -3,7 +3,7 @@
     <string name="title_activity_maps">YouDrive</string>
     <string name="restore_password">Восстановить пароль</string>
     <string name="about">О проекте</string>
-    <string name="registration">Запрос приглашения</string>
+    <string name="registration">Регистрация</string>
     <string name="login">Войти</string>
     <string name="receive_an_invitation">Запрос приглашения</string>
     <string name="thanks">Спасибо</string>

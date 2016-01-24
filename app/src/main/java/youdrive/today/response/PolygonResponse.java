@@ -21,8 +21,8 @@ public class PolygonResponse extends BaseResponse {
         return cars;
     }
 
-    public List<Coord> getArea() {
-        return area[0];
+    public List<Coord>[] getArea() {
+        return area;
     }
 
 }

@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +38,8 @@ public class PaymentDialogFragment extends DialogFragment {
     public static final String productionId = "pk_7b64d8f50ff4d81f83b50ca103f8a";
     private String mPrice;
     private FragmentPaymentBinding b;
+
+
 
     public static DialogFragment newInstance(String regId, String price, ValueFunction<String> callback) {
         PaymentDialogFragment fragment = new PaymentDialogFragment();
@@ -69,7 +74,8 @@ public class PaymentDialogFragment extends DialogFragment {
     public void onPay(View view) {
         if (b.btnPay.getProgress() == 0) {
             b.btnPay.setProgress(50);
-            setCancelable(false);makePayment();
+            setCancelable(false);
+            makePayment();
         }
     }
 
@@ -84,7 +90,7 @@ public class PaymentDialogFragment extends DialogFragment {
                 b.etExpired.getText().toString(),
                 b.etCvv.getText().toString());
         if (card.isValidNumber()) {
-            ((RegistrationNewActivity)getActivity())
+            ((RegistrationNewActivity) getActivity())
                     .mUser
                     .setCard_number(b.etCardNumber.getText().toString());
             CreditCardModel model = new CreditCardModel(mRegId,
@@ -107,8 +113,8 @@ public class PaymentDialogFragment extends DialogFragment {
 
     private void onCreditCardSuccess(CreditCardResponse response) {
         b.btnPay.setProgress(0);
-        if(response.getReq_url() != null) mFunction.apply(response.getReq_url());
-        else if(response.getFinish_url() != null)mFunction.apply(response.getFinish_url());
+        if (response.getReq_url() != null) mFunction.apply(response.getReq_url());
+        else if (response.getFinish_url() != null) mFunction.apply(response.getFinish_url());
         else mFunction.apply("http://www.yandex.ru");
     }
 
@@ -116,29 +122,85 @@ public class PaymentDialogFragment extends DialogFragment {
         b.btnPay.setProgress(0);
     }
 
+
     public void checkFields() {
+
+
         Observable<Boolean> cardNum = WidgetObservable
                 .text(b.etCardNumber)
                 .distinctUntilChanged()
-                .map(OnTextChangeEvent::text)
-                .map(t -> t.length() == 16)
+                .map(OnTextChangeEvent::view)
+
+                .map((textView) -> {
+
+                    Editable s = textView.getEditableText();
+                    // Change this to what you want... ' ', '-' etc..
+                    final char space = ' ';
+                    // Remove spacing char
+                    if (s.length() > 0 && (s.length() % 5) == 0) {
+                        final char c = s.charAt(s.length() - 1);
+                        if (space == c) {
+                            s.delete(s.length() - 1, s.length());
+                        }
+                    }
+                    // Insert char where needed.
+                    if (s.length() > 0 && (s.length() % 5) == 0) {
+                        char c = s.charAt(s.length() - 1);
+                        // Only if its a digit where there should be a space we insert a space
+                        if (Character.isDigit(c) && TextUtils.split(s.toString(), String.valueOf(space)).length <= 4) {
+                            s.insert(s.length() - 1, String.valueOf(space));
+
+                        }
+                    }
+
+
+                    return s.length() == 19 || s.length() == 22;
+                })
                 .doOnNext(bool -> {
+
                     if (!bool) b.etCardNumber.setError("В номере карты допущены ошибки");
                 });
 
-        Observable<Boolean> date = WidgetObservable.text(b.etExpired)
+        Observable<Boolean> date = WidgetObservable
+                .text(b.etExpired)
                 .distinctUntilChanged()
-                .map(OnTextChangeEvent::text)
-                .map(t -> t.length() == 4)
+                .map(OnTextChangeEvent::view)
+                .map((textView) -> {
+
+                    Editable s = textView.getEditableText();
+                    // Change this to what you want... ' ', '-' etc..
+                    final char space = '/';
+                    // Remove spacing char
+                    if (s.length() > 0 && (s.length() % 3) == 0) {
+                        final char c = s.charAt(s.length() - 1);
+                        if (space == c) {
+                            s.delete(s.length() - 1, s.length());
+                        }
+                    }
+                    // Insert char where needed.
+                    if (s.length() > 0 && (s.length() % 3) == 0) {
+                        char c = s.charAt(s.length() - 1);
+                        // Only if its a digit where there should be a space we insert a space
+                        if (Character.isDigit(c) && TextUtils.split(s.toString(), String.valueOf(space)).length <= 2) {
+                            s.insert(s.length() - 1, String.valueOf(space));
+
+                        }
+                    }
+
+
+
+
+                    return s.length() == 5;
+                })
                 .doOnNext(bool -> {
                     if (!bool) b.etExpired.setError("Ошибка");
 
                 });
-
+        b.etName.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
         Observable<Boolean> name = WidgetObservable.text(b.etName)
                 .distinctUntilChanged()
                 .map(OnTextChangeEvent::text)
-                .map(t -> t.length() != 0)
+                .map((t)-> t.length() != 0)
                 .doOnNext(bool -> {
                     if (!bool) b.etName.setError(getString(R.string.empty));
                 });

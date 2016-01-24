@@ -1,0 +1,629 @@
+{
+  "cars": [
+    {
+      "car_id": "00471e45-913e-460d-8e46-1cd6ec8c2705",
+      "img": "https://youdrive.today/static/cars/mercedes_smart.jpg",
+      "pointer_resource": "https://youdrive.today/static/resources/car_pointer/smart",
+      "model": "smart",
+      "number": "н823мт750",
+      "color": "неизвестно",
+      "lat": 55.744084,
+      "lon": 37.683352,
+      "distance": 1597424,
+      "walktime": 1150145,
+      "transmission": "Робот / Секвентальная",
+      "fuel": null,
+      "tariff": {
+        "usage": 800,
+        "parking": 0
+      }
+    },
+    {
+      "car_id": "06b6e0f8-7706-4865-b612-648704b70ddd",
+      "img": "https://youdrive.today/static/cars/mercedes_smart.jpg",
+      "pointer_resource": "https://youdrive.today/static/resources/car_pointer/smart",
+      "model": "smart",
+      "number": "е915му750",
+      "color": "белый / чёрный",
+      "lat": 55.740656,
+      "lon": 37.59118,
+      "distance": 1590061,
+      "walktime": 1144843,
+      "transmission": "Робот / Секвентальная",
+      "fuel": null,
+      "tariff": {
+        "usage": 800,
+        "parking": 0
+      }
+    },
+    {
+      "car_id": "10c8abf0-8bdd-40c7-a6e6-565b04219b6a",
+      "img": "https://youdrive.today/static/cars/mercedes_smart.jpg",
+      "pointer_resource": "https://youdrive.today/static/resources/car_pointer/smart",
+      "model": "smart",
+      "number": "в597ку750",
+      "color": "Неизвестно",
+      "lat": 55.7932483333333,
+      "lon": 37.5461083333333,
+      "distance": 1590775,
+      "walktime": 1145358,
+      "transmission": "Робот / Секвентальная",
+      "fuel": 6,
+      "tariff": {
+        "usage": 800,
+        "parking": 0
+      }
+    },
+    {
+      "car_id": "1877a6d5-ec15-4427-b9b1-3601382763d9",
+      "img": "https://youdrive.today/static/cars/mercedes_smart.jpg",
+      "pointer_resource": "https://youdrive.today/static/resources/car_pointer/smart",
+      "model": "smart",
+      "number": "в912ку750",
+      "color": "Неизвестно",
+      "lat": 55.685925,
+      "lon": 37.4141016666667,
+      "distance": 1572121,
+      "walktime": 1131927,
+      "transmission": "Робот / Секвентальная",
+      "fuel": 11,
+      "tariff": {
+        "usage": 800,
+        "parking": 0
+      }
+    },
+    {
+      "car_id": "1f272d74-e523-4cd3-b489-f76572782e1c",
+      "img": "https://youdrive.today/static/cars/mercedes_smart.jpg",
+      "pointer_resource": "https://youdrive.today/static/resources/car_pointer/smart",
+      "model": "smart",
+      "number": "о170вв750",
+      "color": "белая",
+      "lat": 55.68699,
+      "lon": 37.5463866666667,
+      "distance": 1582390,
+      "walktime": 1139320,
+      "transmission": "Робот / Секвентальная",
+      "fuel": 39,
+      "tariff": {
+        "usage": 800,
+        "parking": 0
+      }
+    },
+    {
+      "car_id": "2139db35-7236-4a4c-8f2f-1d4d097d4c4e",
+      "img": "https://youdrive.today/static/cars/mercedes_smart.jpg",
+      "pointer_resource": "https://youdrive.today/static/resources/car_pointer/smart",
+      "model": "smart",
+      "number": "е954му750",
+      "color": "неизвестно",
+      "lat": 55.788264,
+      "lon": 37.685044,
+      "distance": 1601028,
+      "walktime": 1152740,
+      "transmission": "Робот / Секвентальная",
+      "fuel": null,
+      "tariff": {
+        "usage": 800,
+        "parking": 0
+      }
+    },
+    {
+      "car_id": "2b1cb838-a4ff-49b3-a55e-39363ef138c8",
+      "img": "https://youdrive.today/static/cars/mercedes_smart.jpg",
+      "pointer_resource": "https://youdrive.today/static/resources/car_pointer/smart",
+      "model": "smart",
+      "number": "с441ку750",
+      "color": "Желтый",
+      "lat": 55.7924233333333,
+      "lon": 37.5289966666667,
+      "distance": 1589400,
+      "walktime": 1144368,
+      "transmission": "Робот / Секвентальная",
+      "fuel": 34,
+      "tariff": {
+        "usage": 800,
+        "parking": 0
+      }
+    },
+    {
+      "car_id": "33c1592f-bc03-4495-b5d3-ccc251fb639f",
+      "img": "https://youdrive.today/static/cars/skoda_rapid.jpg",
+      "pointer_resource": "https://youdrive.today/static/resources/car_pointer/skoda",
+      "model": "Skoda Rapid",
+      "number": "с080нн 777",
+      "color": "Белый",
+      "lat": 55.7278316666667,
+      "lon": 37.559915,
+      "distance": 1586645,
+      "walktime": 1142384,
+      "transmission": "Автомат",
+      "fuel": null,
+      "tariff": {
+        "usage": 800,
+        "parking": 0
+      }
+    },
+    {
+      "car_id": "350c0fff-b92b-4162-a3b2-88f2f2113769",
+      "img": "https://youdrive.today/static/cars/mercedes_smart.jpg",
+      "pointer_resource": "https://youdrive.today/static/resources/car_pointer/smart",
+      "model": "smart",
+      "number": "е103ку750",
+      "color": "Неизвестно",
+      "lat": 55.8160366666667,
+      "lon": 37.60461,
+      "distance": 1597065,
+      "walktime": 1149886,
+      "transmission": "Робот / Секвентальная",
+      "fuel": 73,
+      "tariff": {
+        "usage": 800,
+        "parking": 0
+      }
+    },
+    {
+      "car_id": "35a8683a-f163-491e-a5dc-1b2db1a95953",
+      "img": "https://youdrive.today/static/cars/skoda_rapid.jpg",
+      "pointer_resource": "https:
+      D: ssion
+      ":"
+      Автомат
+      ","
+      fuel
+      ":null,"
+      tariff
+      ":{"
+      usage
+      ":800,"
+      parking
+      ":0}},{"
+      car_id
+      ":"
+      3736
+      cff3
+      -
+      e6a7
+      -44
+      fe
+      -
+      b1f2
+      -6
+      a28aef62aa2
+      ","
+      img
+      ":"
+      https: //youdrive.today/static/cars/mercedes_smart.jpg","pointer_resource":"https://youdrive.today/static/resources/car_pointer/smart","model":"smart","number":"н855мт750","color":"","lat":55.732552,"lon":37.535912,"distance":1585173,"walktime":1141324,"transmission":"Робот / Секвентальная","fuel":null,"tariff":{"usage":800,"parking":0}},{"car_id":"3b8464b7-f7d8-4573-bd8e-7fdbab7cb5d9","img":"https://youdrive.today/static/cars/mercedes_smart.jpg","pointer_resource":"https://youdrive.today/static/resources/car_pointer/smart","model":"smart","number":"н784еу750","color":"Неизвестно","lat":55.8071983333333,"lon":37.508745,"distance":1589035,"walktime":1144105,"transmission":"Робот / Секвентальная","fuel":69,"tariff":{"usage":800,"parking":0}},{"car_id":"3ee31dde-7ca9-41e3-b67e-c077f6fcf640","img":"https://youdrive.today/static/cars/mercedes_smart.jpg","pointer_resource":"https://youdrive.today/static/resources/car_pointer/smart","model":"smart","number":"м563ку750","color":"Неизвестно","lat":55.8060233333333,"lon":37.5447683333333,"distance":1591693,"walktime":1146018,"transmission":"Робот / Секвентальная","fuel":25,"tariff":{"usage":800,"parking":0}},{"car_id":"42720ff6-eb5b-402a-95e7-0f81a5bbff5e","img":"https://youdrive.today/static/cars/mercedes_smart.jpg","pointer_resource":"https://youdrive.today/static/resources/car_pointer/smart","model":"smart","number":"в410ку750","color":"Неизвестно","lat":55.7621116666667,"lon":37.6837983333333,"distance":1598873,"walktime":1151188,"transmission":"Робот / Секвентальная","fuel":37,"tariff":{"usage":800,"parking":0}},{"car_id":"430a3305-24bd-461a-b804-b13dabd7f397","img":"https://youdrive.today/static/cars/mercedes_smart.jpg","pointer_resource":"https://youdrive.today/static/resources/car_pointer/smart","model":"smart","number":"о788мс750","color":"","lat":55.685044,"lon":37.412564,"distance":1571935,"walktime":1131793,"transmission":"Робот / Секвентальная","fuel":null,"tariff":{"usage":800,"parking":0}},{"car_id":"4e8fd1ea-2a8a-4e56-bd45-ea79a2b97595","img":"https://youdrive.today/static/cars/mercedes_smart.jpg","pointer_resource":"https://youdrive.today/static/resources/car_pointer/smart","model":"smart","number":"у531ав750","color":"белая","lat":55.7589083333333,"lon":37.6432316666667,"distance":1595501,"walktime":1148760,"transmission":"Робот / Секвентальная","fuel":27,"tariff":{"usage":800,"parking":0}},{"car_id":"52ed7438-db27-424d-bab8-35b56929394a","img":"https://youdrive.today/static/cars/mercedes_smart.jpg","pointer_resource":"https://youdrive.today/static/resources/car_pointer/smart","model":"smart","number":"т710вв750","color":"белый","lat":55.706456,"lon":37.570008,"distance":1585739,"walktime":1141732,"transmission":"Робот / Секвентальная","fuel":null,"tariff":{"usage":800,"parking":0}},{"car_id":"54d34127-817d-413e-8ccc-5af31531be37","img":"https://youdrive.today/static/cars/mercedes_smart.jpg","pointer_resource":"https://youdrive.today/static/resources/car_pointer/smart","model":"smart","number":"м556ку750","color":"Неизвестно","lat":55.73835,"lon":37.6345983333333,"distance":1593220,"walktime":1147118,"transmission":"Робот / Секвентальная","fuel":24,"tariff":{"usage":800,"parking":0}},{"car_id":"589c4c21-8537-4a12-a538-4686688ecbe6","img":"https://youdrive.today/static/cars/mercedes_smart.jpg","pointer_resource":"https://youdrive.today/static/resources/car_pointer/smart","model":"smart","number":"р622мс750","color":"","lat":55.799008,"lon":37.557632,"distance":1592116,"walktime":1146323,"transmission":"Робот / Секвентальная","fuel":null,"tariff":{"usage":800,"parking":0}},{"car_id":"5bc71d65-d458-4e96-a119-40c6e383a8ed","img":"https://youdrive.today/static/cars/mercedes_smar
+      D
+      :
+      83333333,
+      "distance": 1601121,
+      "walktime": 1152807,
+      "transmission": "Робот / Секвентальная",
+      "fuel": 48,
+      "tariff": {
+        "usage": 800,
+        "parking": 0
+      }
+    },
+    {
+      "car_id": "5e821eb8-a9b7-40bf-80f3-64f0ecfbcb67",
+      "img": "https://youdrive.today/static/cars/mercedes_smart.jpg",
+      "pointer_resource": "https://youdrive.today/static/resources/car_pointer/smart",
+      "model": "smart",
+      "number": "н860мт750",
+      "color": "белый / оранжевый",
+      "lat": 55.684816,
+      "lon": 37.412748,
+      "distance": 1571930,
+      "walktime": 1131789,
+      "transmission": "Робот / Секвентальная",
+      "fuel": null,
+      "tariff": {
+        "usage": 800,
+        "parking": 0
+      }
+    },
+    {
+      "car_id": "6098e0d6-57a3-4e86-abbb-af3657b30d0c",
+      "img": "https://youdrive.today/static/cars/skoda_rapid.jpg",
+      "pointer_resource": "https://youdrive.today/static/resources/car_pointer/skoda",
+      "model": "Skoda Rapid",
+      "number": "с048нн 777",
+      "color": "Белый",
+      "lat": 55.691435,
+      "lon": 37.5343266666667,
+      "distance": 1581809,
+      "walktime": 1138902,
+      "transmission": "Автомат",
+      "fuel": null,
+      "tariff": {
+        "usage": 800,
+        "parking": 0
+      }
+    },
+    {
+      "car_id": "698093fb-0e26-4944-b934-acdb759af0b0",
+      "img": "https://youdrive.today/static/cars/mercedes_smart.jpg",
+      "pointer_resource": "https://youdrive.today/static/resources/car_pointer/smart",
+      "model": "smart",
+      "number": "в955ку750",
+      "color": "Неизвестно",
+      "lat": 55.7624533333333,
+      "lon": 37.7142466666667,
+      "distance": 1601243,
+      "walktime": 1152894,
+      "transmission": "Робот / Секвентальная",
+      "fuel": 43,
+      "tariff": {
+        "usage": 800,
+        "parking": 0
+      }
+    },
+    {
+      "car_id": "6decf8ee-d738-4b45-9504-4c69bbdbc87b",
+      "img": "https://youdrive.today/static/cars/mercedes_smart.jpg",
+      "pointer_resource": "https://youdrive.today/static/resources/car_pointer/smart",
+      "model": "smart",
+      "number": "у530ав750",
+      "color": "белая",
+      "lat": 55.728985,
+      "lon": 37.5802933333333,
+      "distance": 1588304,
+      "walktime": 1143578,
+      "transmission": "Робот / Секвентальная",
+      "fuel": 49,
+      "tariff": {
+        "usage": 800,
+        "parking": 0
+      }
+    },
+    {
+      "car_id": "6efecf36-3a34-4fa8-bc8f-741d97a1bb5d",
+      "img": "https://youdrive.today/static/cars/mercedes_smart.jpg",
+      "pointer_resource": "https://youdrive.today/static/resources/car_pointer/smart",
+      "model": "smart",
+      "number": "у529ав750",
+      "color": "черный",
+      "lat": 55.804085,
+      "lon": 37.5349133333333,
+      "distance": 1590785,
+      "walktime": 1145365,
+      "transmission": "Робот / Секвентальная",
+      "fuel": 54,
+      "tariff": {
+        "usage": 800,
+        "parking": 0
+      }
+    },
+    {
+      "car_id": "72491a09-4307-42b5-9279-d5ab3f8e1972",
+      "img": "https://youdrive.today/static/cars/mercedes_smart.jpg",
+      "pointer_resource": "https://youdrive.today/static/resources/car_pointer/smart",
+      "model": "smart",
+      "number": "т690вв750",
+      "color": "чёрный",
+      "lat": 55.74196,
+      "lon": 37.598412,
+      "distance": 1590720,
+      "walktime": 1145318,
+      "transmission": "Робот / Секвентальная",
+      "fuel": null,
+      "tariff": {
+        "usage": 800,
+        "parking": 0
+      }
+    },
+    {
+      "car_id": "7319d2df-79ec-4cdf-b7a3-b2d9b0fd52ee",
+      "img": "https://youdrive.today/static/cars/mercedes_smart.jpg",
+      "pointer_resource": "https://youdrive.today/static/resources/car_pointer/smart",
+      "model": "smart",
+      "number": "с437ку750",
+      "color": "белая",
+      "lat": 55.703165,
+      "lon": 37.663945,
+      "distance": 1592728,
+      "walktime": 1146764,
+      "transmission": "Робот / Секвентальная",
+      "fuel": 70,
+      "tariff": {
+        "usage": 800,
+        "parking": 0
+      }
+    },
+    {
+      "car_id": "78a5fd1b-5930-4d2c-bcca-153572d260a3",
+      "img": "https://youdrive.today/static/cars/mercedes_smart.jpg",
+      "pointer_resource": "https://youdrive.today/static/resources/car_pointer/smart",
+      "model": "smart",
+      "number": "р623мс750",
+      "color": "жёлтый",
+      "lat": 55.7555033333333,
+      "lon": 37.69536,
+      "distance": 1599245,
+      "walktime": 1151456,
+      "transmission": "Робот / Секвентальная",
+      "fuel": 33,
+      "tariff": {
+        "usage": 800,
+        "parking": 0
+      }
+    },
+    {
+      "car_id": "7c96d8de-90d9-4274-a130-09a45579cbb4",
+      "img": "https://youdrive.today/static/cars/mercedes_smart.jpg",
+      "pointer_resource": "https://youdrive.today/static/resources/car_pointer/smart",
+      "model": "smart",
+      "number": "е955му750",
+      "color": "мокрый асфальт / черный",
+      "lat": 55.749348,
+      "lon": 37.717188,
+      "distance": 1600444,
+      "walktime": 1152319,
+      "transmission": "Робот / Секвентальная",
+      "fuel": null,
+      "tariff": {
+        "usage": 800,
+        "parking": 0
+      }
+    },
+    {
+      "c
+      D: ber
+      ":"
+      в602ку750
+      ","
+      color
+      ":"
+      Неизвестно
+      ","
+      lat
+      ":55.755005,"
+      lon
+      ":37.6824866666667,"
+      distance
+      ":1598214,"
+      walktime
+      ":1150714,"
+      transmission
+      ":"
+      Робот
+      /
+      Секвентальная
+      ","
+      fuel
+      ":77,"
+      tariff
+      ":{"
+      usage
+      ":800,"
+      parking
+      ":0}},{"
+      car_id
+      ":"
+      837523
+      bf
+      -842e-4
+      da7
+      -87
+      bf
+      -97
+      f600f0a66d
+      ","
+      img
+      ":"
+      https: //youdrive.today/static/cars/mercedes_smart.jpg","pointer_resource":"https://youdrive.today/static/resources/car_pointer/smart","model":"smart","number":"в604ку750","color":"Неизвестно","lat":55.7531883333333,"lon":37.713045,"distance":1600424,"walktime":1152305,"transmission":"Робот / Секвентальная","fuel":10,"tariff":{"usage":800,"parking":0}},{"car_id":"85b2f82e-e159-4878-972a-4ddee2a7d57e","img":"https://youdrive.today/static/cars/mercedes_smart.jpg","pointer_resource":"https://youdrive.today/static/resources/car_pointer/smart","model":"smart","number":"к034ку750","color":"Неизвестно","lat":55.7545383333333,"lon":37.67894,"distance":1597904,"walktime":1150490,"transmission":"Робот / Секвентальная","fuel":90,"tariff":{"usage":800,"parking":0}},{"car_id":"880896de-3573-46d5-a60c-2c2251a1bed2","img":"https://youdrive.today/static/cars/mercedes_smart.jpg","pointer_resource":"https://youdrive.today/static/resources/car_pointer/smart","model":"smart","number":"т040кс750","color":"Неизвестно","lat":55.7030716666667,"lon":37.5067033333333,"distance":1580600,"walktime":1138032,"transmission":"Робот / Секвентальная","fuel":26,"tariff":{"usage":800,"parking":0}},{"car_id":"88d52872-128e-44da-837b-007a7bb8b391","img":"https://youdrive.today/static/cars/mercedes_smart.jpg","pointer_resource":"https://youdrive.today/static/resources/car_pointer/smart","model":"smart","number":"р536мс750","color":"черный красный","lat":55.8178183333333,"lon":37.515285,"distance":1590386,"walktime":1145077,"transmission":"Робот / Секвентальная","fuel":73,"tariff":{"usage":800,"parking":0}},{"car_id":"8b3b25f7-8b4f-451f-8fa2-933806ee1a02","img":"https://youdrive.today/static/cars/mercedes_smart.jpg","pointer_resource":"https://youdrive.today/static/resources/car_pointer/smart","model":"smart","number":"в963ку750","color":"Неизвестно","lat":55.74661,"lon":37.70273,"distance":1599114,"walktime":1151362,"transmission":"Робот / Секвентальная","fuel":59,"tariff":{"usage":800,"parking":0}},{"car_id":"91d2e44a-52f8-4aec-ae72-c703a8c5c1ae","img":"https://youdrive.today/static/cars/mercedes_smart.jpg","pointer_resource":"https://youdrive.today/static/resources/car_pointer/smart","model":"smart","number":"у489ав750","color":"Серый","lat":55.7883,"lon":37.6776483333333,"distance":1600464,"walktime":1152334,"transmission":"Робот / Секвентальная","fuel":14,"tariff":{"usage":800,"parking":0}},{"car_id":"96eec6c9-c886-41f1-b805-93aff0803a10","img":"https://youdrive.today/static/cars/mercedes_smart.jpg","pointer_resource":"https://youdrive.today/static/resources/car_pointer/smart","model":"smart","number":"у069ао750","color":"белый красный","lat":55.7859183333333,"lon":37.6357983333333,"distance":1597064,"walktime":1149886,"transmission":"Робот / Секвентальная","fuel":27,"tariff":{"usage":800,"parking":0}},{"car_id":"9b185b34-700e-40ee-a59b-180e34e10083","img":"https://youdrive.today/static/cars/mercedes_smart.jpg","pointer_resource":"https://youdrive.today/static/resources/car_pointer/smart","model":"smart","number":"у068ао750","color":"белый+чёрный","lat":55.7529083333333,"lon":37.67023,"distance":1597106,"walktime":1149916,"transmission":"Робот / Секвентальная","fuel":60,"tariff":{"usage":800,"parking":0}},{"car_id":"9d252690-2897-4ec7-96a4-e60095e7a134","img":"https://youdrive.today/static/cars/skoda_rapid.jpg","pointer_resource":"https://youdrive.today/static/resources/car_pointer/skoda","model":"Skoda Rapid","number":"с224нн 777","color":"Белый","lat":55.7793583333333,"lon":37.6652883333333
+      D
+      :
+      "pointer_resource": "https://youdrive.today/static/resources/car_pointer/smart",
+      "model": "smart",
+      "number": "в456ку750",
+      "color": "Чёрный",
+      "lat": 55.78122,
+      "lon": 37.56142,
+      "distance": 1590990,
+      "walktime": 1145512,
+      "transmission": "Робот / Секвентальная",
+      "fuel": 28,
+      "tariff": {
+        "usage": 800,
+        "parking": 0
+      }
+    },
+    {
+      "car_id": "a788a509-7101-4548-b64c-74b294a9a6ef",
+      "img": "https://youdrive.today/static/cars/mercedes_smart.jpg",
+      "pointer_resource": "https://youdrive.today/static/resources/car_pointer/smart",
+      "model": "smart",
+      "number": "н824мт750",
+      "color": "чёрный",
+      "lat": 55.75538,
+      "lon": 37.597996,
+      "distance": 1591748,
+      "walktime": 1146058,
+      "transmission": "Робот / Секвентальная",
+      "fuel": null,
+      "tariff": {
+        "usage": 800,
+        "parking": 0
+      }
+    },
+    {
+      "car_id": "a8170fb9-e7e1-40f0-85a1-d7f416882ae5",
+      "img": "https://youdrive.today/static/cars/mercedes_smart.jpg",
+      "pointer_resource": "https://youdrive.today/static/resources/car_pointer/smart",
+      "model": "smart",
+      "number": "у710ет750",
+      "color": "Неизвестно",
+      "lat": 55.7096083333333,
+      "lon": 37.6271833333333,
+      "distance": 1590394,
+      "walktime": 1145083,
+      "transmission": "Робот / Секвентальная",
+      "fuel": 28,
+      "tariff": {
+        "usage": 800,
+        "parking": 0
+      }
+    },
+    {
+      "car_id": "b3eddc40-759c-442b-bd17-de69771f015e",
+      "img": "https://youdrive.today/static/cars/mercedes_smart.jpg",
+      "pointer_resource": "https://youdrive.today/static/resources/car_pointer/smart",
+      "model": "smart",
+      "number": "у709ет750",
+      "color": "Белый",
+      "lat": 55.8162383333333,
+      "lon": 37.5013966666667,
+      "distance": 1589199,
+      "walktime": 1144223,
+      "transmission": "Робот / Секвентальная",
+      "fuel": 40,
+      "tariff": {
+        "usage": 800,
+        "parking": 0
+      }
+    },
+    {
+      "car_id": "b7fc0034-9661-4022-bf0e-dcffa7c24df2",
+      "img": "https://youdrive.today/static/cars/mercedes_smart.jpg",
+      "pointer_resource": "https://youdrive.today/static/resources/car_pointer/smart",
+      "model": "smart",
+      "number": "с440ку750",
+      "color": "черный",
+      "lat": 55.7482783333333,
+      "lon": 37.7021116666667,
+      "distance": 1599198,
+      "walktime": 1151422,
+      "transmission": "Робот / Секвентальная",
+      "fuel": 22,
+      "tariff": {
+        "usage": 800,
+        "parking": 0
+      }
+    },
+    {
+      "car_id": "b92d1968-6206-41b8-973f-fc1c95280255",
+      "img": "https://youdrive.today/static/cars/mercedes_smart.jpg",
+      "pointer_resource": "https://youdrive.today/static/resources/car_pointer/smart",
+      "model": "smart",
+      "number": "в917ку750",
+      "color": "Неизвестно",
+      "lat": 55.7253716666667,
+      "lon": 37.655155,
+      "distance": 1593786,
+      "walktime": 1147525,
+      "transmission": "Робот / Секвентальная",
+      "fuel": 50,
+      "tariff": {
+        "usage": 800,
+        "parking": 0
+      }
+    },
+    {
+      "car_id": "bca1ed24-f8f4-4532-b481-173f93125160",
+      "img": "https://youdrive.today/static/cars/mercedes_smart.jpg",
+      "pointer_resource": "https://youdrive.today/static/resources/car_pointer/smart",
+      "model": "smart",
+      "number": "в242ку750",
+      "color": "Неизвестно",
+      "lat": 55.7235816666667,
+      "lon": 37.6074866666667,
+      "distance": 1589972,
+      "walktime": 1144779,
+      "transmission": "Робот / Секвентальная",
+      "fuel": 61,
+      "tariff": {
+        "usage": 800,
+        "parking": 0
+      }
+    },
+    {
+      "car_id": "be30dd02-cc66-4836-b470-ecfeb331a98d",
+      "img": "https://youdrive.today/static/cars/mercedes_smart.jpg",
+      "pointer_resource": "https://youdrive.today/static/resources/car_pointer/smart",
+      "model": "smart",
+      "number": "в455ку750",
+      "color": "Неизвестно",
+      "lat": 55.6846783333333,
+      "lon": 37.41253,
+      "distance": 1571902,
+      "walktime": 1131769,
+      "transmission": "Робот / Секвентальная",
+      "fuel": 14,
+      "tariff": {
+        "usage": 800,
+        "parking": 0
+      }
+    },
+    {
+      "car_id": "c0a20ffb-bc38-4e42-8d62-a81b0278cfac",
+      "img": "https://youdrive.today/static/cars/mercedes_smart.jpg",
+      "pointer_resource": "https://youdrive.today/static/resources/car_pointer/smart",
+      "model": "smart",
+      "number": "н428мт750",
+      "color": "жёлтый",
+      "lat": 55.7070683333333,
+      "lon": 37.5112416666667,
+      "distance": 1581264,
+      "walktime": 1138510,
+      "transmission": "Робот / Секвентальная",
+      "fuel": 88,
+      "tariff": {
+        "usage": 800,
+        "parking": 0
+      }
+    },
+    {
+      "car_id": "cac1f74b-612b-4d38-a434-abded6eba09c",
+      "img": "https://youdrive.today/static/cars/mercedes_smart.jpg",
+      "pointer_resource": "https://youdrive.today/static/resources/car_pointer/smart",
+      "model": "smart",
+      "number": "м985ку750",
+      D: id
+      ":"
+      d28c5795
+      -8772
+      -4549
+      -8099
+      -0
+      f07240eccdc
+      ","
+      img
+      ":"
+      https: //youdrive.today/static/cars/mercedes_smart.jpg","pointer_resource":"https://youdrive.today/static/resources/car_pointer/smart","model":"smart","number":"в453ку750","color":"Неизвестно","lat":55.7601816666667,"lon":37.6457033333333,"distance":1595792,"walktime":1148970,"transmission":"Робот / Секвентальная","fuel":34,"tariff":{"usage":800,"parking":0}},{"car_id":"d3052d49-208d-42fa-bcda-31c1aab145e4","img":"https://youdrive.today/static/cars/skoda_rapid.jpg","pointer_resource":"https://youdrive.today/static/resources/car_pointer/skoda","model":"Skoda Rapid","number":"с221нн 777","color":"Белый","lat":55.7831266666667,"lon":37.5682783333333,"distance":1591667,"walktime":1146000,"transmission":"Автомат","fuel":null,"tariff":{"usage":800,"parking":0}},{"car_id":"dceff2f0-da22-4c7f-a001-11fa06899b74","img":"https://youdrive.today/static/cars/mercedes_smart.jpg","pointer_resource":"https://youdrive.today/static/resources/car_pointer/smart","model":"smart","number":"в244ку750","color":"Неизвестно","lat":55.7188533333333,"lon":37.5792516666667,"distance":1587426,"walktime":1142946,"transmission":"Робот / Секвентальная","fuel":15,"tariff":{"usage":800,"parking":0}},{"car_id":"e1537b4c-979a-4153-b58f-bcd786e94c92","img":"https://youdrive.today/static/cars/mercedes_smart.jpg","pointer_resource":"https://youdrive.today/static/resources/car_pointer/smart","model":"smart","number":"в025ку750","color":"Неизвестно","lat":55.72719,"lon":37.6342133333333,"distance":1592314,"walktime":1146466,"transmission":"Робот / Секвентальная","fuel":7,"tariff":{"usage":800,"parking":0}},{"car_id":"e161fd79-8cf2-42ca-8965-657c1c618896","img":"https://youdrive.today/static/cars/mercedes_smart.jpg","pointer_resource":"https://youdrive.today/static/resources/car_pointer/smart","model":"smart","number":"н782еу750","color":"Чёрный","lat":55.7098933333333,"lon":37.6236183333333,"distance":1590141,"walktime":1144901,"transmission":"Робот / Секвентальная","fuel":13,"tariff":{"usage":800,"parking":0}},{"car_id":"e3b9e892-b239-4494-b877-82db9c9ba9ff","img":"https://youdrive.today/static/cars/mercedes_smart.jpg","pointer_resource":"https://youdrive.today/static/resources/car_pointer/smart","model":"smart","number":"о234вв750","color":"Серый металик","lat":55.7732133333333,"lon":37.5397883333333,"distance":1588696,"walktime":1143861,"transmission":"Робот / Секвентальная","fuel":14,"tariff":{"usage":800,"parking":0}},{"car_id":"e4bcbcb9-1dbc-477e-8315-e25c40126e38","img":"https://youdrive.today/static/cars/mercedes_smart.jpg","pointer_resource":"https://youdrive.today/static/resources/car_pointer/smart","model":"smart","number":"в676ку750","color":"Неизвестно","lat":55.7390916666667,"lon":37.626865,"distance":1592683,"walktime":1146731,"transmission":"Робот / Секвентальная","fuel":18,"tariff":{"usage":800,"parking":0}},{"car_id":"ec382b07-f290-4989-90a8-fcaceedcbedb","img":"https://youdrive.today/static/cars/mercedes_smart.jpg","pointer_resource":"https://youdrive.today/static/resources/car_pointer/smart","model":"smart","number":"р537мс750","color":"желтый","lat":55.7945633333333,"lon":37.617095,"distance":1596314,"walktime":1149346,"transmission":"Робот / Секвентальная","fuel":40,"tariff":{"usage":800,"parking":0}},{"car_id":"eeba9e25-ca84-4865-8b11-3e602de832e9","img":"https://youdrive.today/static/cars/mercedes_smart.jpg","pointer_resource":"https://youdrive.today/static/resources/car_pointer/smart","model":"smart","number":"в961ку750","color":"Неизвестно","lat":55.7250583333333,"lon":37.5681083333333,"distance":1587057,"walktime":1142681,"transmission":"Робот / Секвентальная","fuel":31,"tariff":{"usage":800,"parking":0}},{"car_id":"f2e108c1-72e1-4add-b3d6-bc592752f620","img":"https://youdrive.today/static/cars/mercedes_sm
+      D
+      :
+      tance
+      ":1589272,"
+      walktime
+      ":1144275,"
+      transmission
+      ":"
+      Робот
+      /
+      Секвентальная
+      ","
+      fuel
+      ":6,"
+      tariff
+      ":{"
+      usage
+      ":800,"
+      parking
+      ":0}},{"
+      car_id
+      ":"
+      f810a0df
+      -8952
+      -4
+      b2f
+      -
+      b3e8
+      -
+      c1f50c728eeb
+      ","
+      img
+      ":"
+      https://youdrive.today/static/cars/mercedes_smart.jpg","pointer_resource":"https://youdrive.today/static/resources/car_pointer/smart","model":"smart","number":"м971вн750","color":"серый","lat":55.732128,"lon":37.531972,"distance":1584838,"walktime":1141083,"transmission":"Робот / Секвентальная","fuel":null,"tariff":{"usage":800,"parking":0}},{"car_id":"f823c3fd-f202-40b4-a08b-4b8ff5d0c082","img":"https://youdrive.today/static/cars/mercedes_smart.jpg","pointer_resource":"https://youdrive.today/static/resources/car_pointer/smart","model":"smart","number":"е952му750","color":"","lat":55.786564,"lon":37.594968,"distance":1593984,"walktime":1147668,"transmission":"Робот / Секвентальная","fuel":null,"tariff":{"usage":800,"parking":0}}],"status":"normal","success":true}
