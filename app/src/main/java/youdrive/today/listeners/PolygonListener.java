@@ -1,8 +1,6 @@
 package youdrive.today.listeners;
 
-import java.util.List;
-
-import youdrive.today.models.Coord;
+import youdrive.today.response.PolygonResponse;
 
 /**
  * Created by Oleh Makhobey
@@ -10,6 +8,6 @@ import youdrive.today.models.Coord;
  * on 9/19/15.
  */
 public interface PolygonListener {
-    void onPolygonSuccess(List<Coord> coordList);
+    void onPolygonSuccess(PolygonResponse coordList);
     void onPolygonFailed();
 }

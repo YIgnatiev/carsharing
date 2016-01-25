@@ -86,8 +86,8 @@ public class PaymentDialogFragment extends DialogFragment {
     }
 
     private void makePayment() {
-        ICard card = CardFactory.create(b.etCardNumber.getText().toString(),
-                b.etExpired.getText().toString(),
+        ICard card = CardFactory.create(b.etCardNumber.getText().toString().replaceAll(" ",""),
+                b.etExpired.getText().toString().replaceAll("/",""),
                 b.etCvv.getText().toString());
         if (card.isValidNumber()) {
             ((RegistrationNewActivity) getActivity())

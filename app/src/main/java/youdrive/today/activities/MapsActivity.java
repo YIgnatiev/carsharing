@@ -8,7 +8,6 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -46,8 +45,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
@@ -82,8 +79,11 @@ import youdrive.today.models.Coord;
 import youdrive.today.models.Menu;
 import youdrive.today.models.Status;
 import youdrive.today.models.User;
+import youdrive.today.response.PolygonResponse;
 
-import static youdrive.today.models.Status.*;
+import static youdrive.today.models.Status.BOOKING;
+import static youdrive.today.models.Status.NORMAL;
+import static youdrive.today.models.Status.PARKING;
 import static youdrive.today.models.Status.USAGE;
 
 public class MapsActivity extends BaseActivity implements MapsActionListener, ProfileActionListener, CarActionListener,
@@ -100,7 +100,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private Car mCar;
     private Command mCommand;
     private GoogleMap mMap;
-    private PolygonOptions mPolygon;
+    private List<PolygonOptions> mPolygons;
     private ProfileInteractorImpl mProfileInteractor;
     private CarInteractorImpl mCarInteractor;
     private MapsInteractorImpl mMapsInteractor;
@@ -145,20 +145,24 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
         switch (position) {
-            case 1: openUrl("https://youdrive.today/profile.html");
+            case 1:
+                openUrl("https://youdrive.today/profile.html");
                 break;
-            case 2:openUrl("http://youdrive.today/tariffs-regulations.html");
+            case 2:
+                openUrl("http://youdrive.today/tariffs-regulations.html");
                 break;
-            case 3:openUrl("http://youdrive.copiny.com/");
+            case 3:
+                openUrl("http://youdrive.copiny.com/");
                 break;
-            case 4:call();
+            case 4:
+                call();
                 break;
-            case 5:App.getInstance().getPreference().clear();
+            case 5:
+                App.getInstance().getPreference().clear();
                 mProfileInteractor.logout(this);
                 break;
         }
     }
-
 
 
     private void startUpdates() {
@@ -216,7 +220,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         b.lvProfile.addHeaderView(headerBinding.getRoot());
         b.lvProfile.setAdapter(new ProfileAdapter(this, R.layout.item_profile, getMenu()));
 
-        b.drawer.setDrawerShadow(R.drawable.drawer_shadow, Gravity.START);
+        b.drawer.setDrawerShadow(R.drawable.drawer_shadow, Gravity.LEFT);
 
         mProfileInteractor = new ProfileInteractorImpl();
         mCarInteractor = new CarInteractorImpl();
@@ -299,7 +303,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                b.drawer.openDrawer(Gravity.START);
+                b.drawer.openDrawer(Gravity.LEFT);
                 return true;
         }
 
@@ -408,6 +412,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onError() {
+        animateCamera(new LatLng(55.749792, 37.632495));
 
         Timber.tag("Error").d("Internal Error");
         String text = getString(R.string.internal_error);
@@ -509,7 +514,10 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     public void onCars(List<Car> cars) {
         clear();
-        if (mPolygon != null) mMap.addPolygon(mPolygon);
+        if (mPolygons != null)
+            for (PolygonOptions polygon : mPolygons)
+                mMap.addPolygon(polygon);
+
         else mMapsInteractor.getInfo(this);
         Collections.sort(cars);
         if (!isMoveCameraWithMe) {
@@ -584,7 +592,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         mCar = car;
 
         clear();
-        if (mPolygon != null) mMap.addPolygon(mPolygon);
+        if (mPolygons != null)
+            for (PolygonOptions polygon : mPolygons)
+                mMap.addPolygon(polygon);
         else mMapsInteractor.getInfo(this);
         onStatus(BOOKING);
 
@@ -597,7 +607,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         mCar = car;
 
         clear();
-        if (mPolygon != null) mMap.addPolygon(mPolygon);
+        if (mPolygons != null)
+            for (PolygonOptions polygon : mPolygons)
+                mMap.addPolygon(polygon);
         else mMapsInteractor.getInfo(this);
         addMarker(car);
         if (!isMoveCamera) {
@@ -615,7 +627,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             buildUserLocation(mLastLocation);
         }
 
-        switch (status){
+        switch (status) {
             case BOOKING:
                 if (!isInfoPopup) showDistancePopup(mCar.getWalktime());
                 if (!isShowCommandPopup) showCommandPopup();
@@ -652,17 +664,24 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
 
-    private void drawPolygon(List<Coord> coordList) {
+    private void drawPolygon(PolygonResponse coordList) {
+        if (mPolygons == null) mPolygons = new ArrayList<>();
 
-        mPolygon = new PolygonOptions()
-                .fillColor(getResources().getColor(R.color.polygonColor))
-                .strokeColor(getResources().getColor(android.R.color.transparent))
-                .geodesic(true);
+        for (List<Coord> coords : coordList.getArea()) {
 
-        for (Coord coord : coordList)
-            mPolygon.add(coord.toLatLng());
-        mPolygon.add(coordList.get(0).toLatLng());
-        mMap.addPolygon(mPolygon);
+            PolygonOptions polygon = new PolygonOptions()
+                    .fillColor(getResources().getColor(R.color.polygonColor))
+                    .strokeColor(getResources().getColor(android.R.color.transparent))
+                    .geodesic(true);
+            for (Coord coord : coords) {
+                polygon.add(coord.toLatLng());
+            }
+            mPolygons.add(polygon);
+        }
+
+        for (PolygonOptions _polygon : mPolygons)
+            mMap.addPolygon(_polygon);
+
     }
 
     @Override
@@ -751,7 +770,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 mMapsInteractor.getStatusCars(mLastLocation.getLatitude(), mLastLocation.getLongitude(), MapsActivity.this);
             }
 
-            if (mPolygon == null) mMapsInteractor.getInfo(this);
+            if (mPolygons == null) mMapsInteractor.getInfo(this);
 
         } else {
             mLastLocation = new Location("");
@@ -764,7 +783,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             if (mMarkerCar.isEmpty()) {
                 mMapsInteractor.getStatusCars(0, 0, MapsActivity.this);
             }
-            if (mPolygon == null) mMapsInteractor.getInfo(this);
+            if (mPolygons == null) mMapsInteractor.getInfo(this);
 
             showToast("Не удалось определить месторасположение");
         }
@@ -923,13 +942,13 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
     @Override
-    public void onPolygonSuccess(List<Coord> coordList) {
-        drawPolygon(coordList);
+    public void onPolygonSuccess(PolygonResponse response) {
+        drawPolygon(response);
     }
 
     @Override
     public void onPolygonFailed() {
-        if (mPolygon == null) mMapsInteractor.getInfo(this); //try again
+        if (mPolygons == null) mMapsInteractor.getInfo(this); //try again
 
     }
 

@@ -18,13 +18,17 @@ public class RegistrationUser {
     private String documents_storage_url;
     private String card_number;
     private String promocode;
-
+    private String user_id;
     public boolean getOnline_contract_signed() {
         return online_contract_signed;
     }
 
     public void setOnline_contract_signed(boolean online_contract_signed) {
         this.online_contract_signed = online_contract_signed;
+    }
+
+    public String getUserId(){
+        return user_id;
     }
 
     public String getEmail() {

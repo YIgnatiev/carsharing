@@ -1,6 +1,5 @@
 package youdrive.today.interceptors;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import rx.Subscription;
@@ -12,7 +11,6 @@ import youdrive.today.listeners.MapsActionListener;
 import youdrive.today.listeners.PolygonListener;
 import youdrive.today.listeners.ValueFunction;
 import youdrive.today.models.ApiError;
-import youdrive.today.models.Coord;
 import youdrive.today.models.Status;
 import youdrive.today.network.ApiClient;
 import youdrive.today.response.CarResponse;
@@ -77,8 +75,7 @@ public class MapsInteractorImpl implements MapsInteractor {
 
     private void onGetInfoSuccess(PolygonResponse response, PolygonListener listener) {
         if (response.isSuccess()) {
-            for (List<Coord> coords : response.getArea())
-                listener.onPolygonSuccess(coords);
+                listener.onPolygonSuccess(response);
         } else {
             listener.onPolygonFailed();
         }

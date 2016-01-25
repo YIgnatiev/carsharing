@@ -5,8 +5,6 @@ import android.app.ProgressDialog;
 import android.databinding.DataBindingUtil;
 import android.widget.Toast;
 
-import com.yandex.metrica.YandexMetrica;
-
 import youdrive.today.BaseActivity;
 import youdrive.today.R;
 import youdrive.today.databinding.ActivityRegistrationNewBinding;
@@ -44,7 +42,7 @@ public class RegistrationNewActivity extends BaseActivity {
 
     private void startFragment() {
         getFragmentManager()
-                .beginTransaction().add(R.id.flContainer, new RegisterOffertFragment())
+                .beginTransaction().replace(R.id.flContainer, new RegisterOffertFragment())
                 .commitAllowingStateLoss();
     }
 

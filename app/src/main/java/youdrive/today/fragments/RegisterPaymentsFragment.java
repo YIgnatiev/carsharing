@@ -69,10 +69,13 @@ public class RegisterPaymentsFragment extends BaseFragment<RegistrationNewActivi
 
     public void onUpdateSuccess(RegistrationModel model) {
         mActivity.hideProgress();
-        String sessionId = model.getSession_id();
+//        String sessionId = model.getSession_id();
+        String sessionId = model.getData().getUserId();
         if (sessionId != null) {
-            User user = new User(sessionId, model.getData().getFirst_name(), null);
+            User user = new User(sessionId, model.getData().getFirst_name() + " " + model.getData().getLast_name(), null);
+           Log.v("retrofit" , "************** session id = " + sessionId);
             if (App.getInstance().getPreference() != null) {
+
                 App.getInstance().getPreference().putUser(new Gson().toJson(user));
             }
 

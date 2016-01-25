@@ -141,7 +141,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
+            android:gravity="center"
             android:orientation="horizontal"
             android:padding="5dp">
 
@@ -149,12 +150,11 @@
                 android:id="@+id/btnCloseOrOpen"
                 android:onClick='@{listener.onCloseOrOpen}'
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_alignLeft="@+id/etPassword"
                 android:layout_alignRight="@+id/etPassword"
                 android:layout_below="@+id/etPassword"
                 android:layout_marginRight="5dp"
-                android:layout_marginTop="15dp"
                 android:layout_weight="1"
                 android:textColor="@color/white"
                 app:cpb_colorIndicator="@color/main"
@@ -170,11 +170,10 @@
                 android:onClick='@{listener.onCloseRent}'
                 android:id="@+id/btnCloseRent"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_alignLeft="@+id/etPassword"
                 android:layout_alignRight="@+id/etPassword"
                 android:layout_below="@+id/etPassword"
-                android:layout_marginTop="15dp"
                 android:layout_weight="1"
                 android:textColor="@color/white"
                 app:cpb_colorIndicator="@color/main"
