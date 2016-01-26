@@ -350,6 +350,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         if (!NORMAL.equals(mStatus)) return;
 
         bInfo = DataBindingUtil.inflate(getLayoutInflater(), R.layout.dialog_info_contents, null, false);
+        mCar = car;
         bInfo.setActivity(this);
         bInfo.setCar(car);
         bInfo.btnBook.setIndeterminateProgressMode(true);
@@ -966,8 +967,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             }
             MarkerInfo bMarkerInfo = DataBindingUtil.inflate(getLayoutInflater(), R.layout.marker_info, null, false);
 
-            bMarkerInfo.setCar(mCar);
-
+            bMarkerInfo.txtColor.setText(mCar.getColor());
+            bMarkerInfo.txtModel.setText(mCar.getModel());
+            bMarkerInfo.txtNumber.setText(mCar.getNumber());
             if (BOOKING.equals(mStatus)) {
                 bMarkerInfo.ltRentInfo.setVisibility(View.VISIBLE);
                 bMarkerInfo.txtStartUsage.setText("До начала аренды " + AppUtils.toTime(mBookingTimeLeft) + getString(R.string.minutes));

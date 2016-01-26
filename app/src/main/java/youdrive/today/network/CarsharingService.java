@@ -71,6 +71,11 @@ public interface CarsharingService {
     @PUT("/create-account/{registrationId}")
     Observable<RegistrationModel> updateAccount(@Path("registrationId") String registrationId,  @Body RegistrationUser user);
 
+    @GET("/create-account/{registrationId}")
+    Observable<RegistrationModel> createAccount(@Path("registrationId") String registrationId);
+
+
+
     @POST("/cards/init")
     Observable<CreditCardResponse> initCreditCard(@Body CreditCardModel model);
 }

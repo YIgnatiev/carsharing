@@ -35,6 +35,7 @@ import youdrive.today.response.RegistrationModel;
 public class RegisterPaymentsFragment extends BaseFragment<RegistrationNewActivity> {
 
     private Subscription mSubscription;
+    private Subscription mUserSubscription;
     private FragmentRegisterPaymentsBinding b;
     private DialogFragment dialogFragment;
     private final String FINISH_URL = "https://youdrive.today/create-mob-account-done.html";
@@ -68,25 +69,40 @@ public class RegisterPaymentsFragment extends BaseFragment<RegistrationNewActivi
     }
 
     public void onUpdateSuccess(RegistrationModel model) {
-        mActivity.hideProgress();
-//        String sessionId = model.getSession_id();
-        String sessionId = model.getData().getUserId();
-        if (sessionId != null) {
-            User user = new User(sessionId, model.getData().getFirst_name() + " " + model.getData().getLast_name(), null);
-           Log.v("retrofit" , "************** session id = " + sessionId);
+        createUser(mActivity.userId);
+
+    }
+
+    public void createUser(String userId) {
+        mActivity.showProgress();
+        mUserSubscription = mActivity
+                .mClient
+                .createUser(userId)
+                .subscribe(this:: onCreateUserSuccess, mActivity::onCreateFailure);
+    }
+
+
+    private void onCreateUserSuccess(RegistrationModel model) {
+        String sessionId = model.getSession_id();
+
+        User user = new User(sessionId, model.getData().getFirst_name() + " " + model.getData().getLast_name(), null);
+        Log.v("retrofit" , "************** session id = " + sessionId);
+
             if (App.getInstance().getPreference() != null) {
 
-                App.getInstance().getPreference().putUser(new Gson().toJson(user));
-            }
-
-            YandexMetrica.reportEvent("registration_5_0");
-            App.tracker().setScreenName("registration_5_0");
-            App.tracker().send(new HitBuilders.ScreenViewBuilder().build());
-
-            startActivity(new Intent(mActivity, MapsActivity.class));
-            mActivity.finish();
+            App.getInstance().getPreference().putUser(new Gson().toJson(user));
         }
+
+        YandexMetrica.reportEvent("registration_5_0");
+        App.tracker().setScreenName("registration_5_0");
+        App.tracker().send(new HitBuilders.ScreenViewBuilder().build());
+
+        startActivity(new Intent(mActivity, MapsActivity.class));
+        mActivity.finish();
     }
+
+
+
 
     private void initWebView() {
 
@@ -102,10 +118,10 @@ public class RegisterPaymentsFragment extends BaseFragment<RegistrationNewActivi
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
 
-                Log.v("Retrofit",url);
-                if(url.equals(FINISH_URL)){
+                Log.v("Retrofit", url);
+                if (url.equals(FINISH_URL)) {
                     b.wvPayment.setVisibility(View.GONE);
-                    updateUser(mActivity.userId,mActivity.mUser);
+                    updateUser(mActivity.userId, mActivity.mUser);
                 }
             }
         });

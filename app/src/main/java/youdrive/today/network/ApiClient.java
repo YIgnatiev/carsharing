@@ -123,6 +123,15 @@ public class ApiClient {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+ public Observable<RegistrationModel> createUser(String userId){
+        return mService
+                .createAccount(userId)
+                .retry(3)
+                .timeout(5, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
     public Observable<CreditCardResponse> initCard(CreditCardModel model){
         return mService.initCreditCard(model)
                 .timeout(5,TimeUnit.SECONDS)
