@@ -3,7 +3,6 @@ package youdrive.today.helpers;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import youdrive.today.R;
@@ -26,7 +25,7 @@ public class PreferenceHelper {
         return mHelper.edit();
     }
 
-    public void putSession(HashSet<String> cookies){
+    public void putSession(Set<String> cookies){
         getEditor().putStringSet(SESSION_ID, cookies).apply();
     }
 

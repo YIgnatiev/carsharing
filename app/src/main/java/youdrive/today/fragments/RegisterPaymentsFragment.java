@@ -17,6 +17,8 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.gson.Gson;
 import com.yandex.metrica.YandexMetrica;
 
+import java.util.Set;
+
 import rx.Subscription;
 import youdrive.today.App;
 import youdrive.today.R;
@@ -78,7 +80,7 @@ public class RegisterPaymentsFragment extends BaseFragment<RegistrationNewActivi
         mUserSubscription = mActivity
                 .mClient
                 .createUser(userId)
-                .subscribe(this:: onCreateUserSuccess, mActivity::onCreateFailure);
+                .subscribe(this::onCreateUserSuccess, mActivity::onCreateFailure);
     }
 
 
@@ -86,22 +88,35 @@ public class RegisterPaymentsFragment extends BaseFragment<RegistrationNewActivi
         String sessionId = model.getSession_id();
 
         User user = new User(sessionId, model.getData().getFirst_name() + " " + model.getData().getLast_name(), null);
-        Log.v("retrofit" , "************** session id = " + sessionId);
 
-            if (App.getInstance().getPreference() != null) {
 
-            App.getInstance().getPreference().putUser(new Gson().toJson(user));
+        Log.v("retrofit", "************** session id = " + sessionId);
+
+        if (App.getInstance().getPreference() != null) {
+
+            String userString = new Gson().toJson(user);
+            Log.v("SESSION_ID", "trying to save "+ userString);
+            App.getInstance().getPreference().putUser(userString);
+
+
+        }else {
+            YandexMetrica.reportEvent("SessionID777777 not saved");
         }
 
         YandexMetrica.reportEvent("registration_5_0");
         App.tracker().setScreenName("registration_5_0");
         App.tracker().send(new HitBuilders.ScreenViewBuilder().build());
 
+        Log.v("SESSION_ID", "trying to read saved session Id" + App.getInstance().getPreference().getSession());
+        Log.v("SESSION_ID", "trying to read saved user object" + App.getInstance().getPreference().getUser());
+
+
+        Set <String> set  = App.getInstance().getPreference().getSession();
+        set.add("session_id=" + sessionId);
+        App.getInstance().getPreference().putSession(set);
         startActivity(new Intent(mActivity, MapsActivity.class));
         mActivity.finish();
     }
-
-
 
 
     private void initWebView() {
