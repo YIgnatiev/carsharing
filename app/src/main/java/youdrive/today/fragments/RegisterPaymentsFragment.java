@@ -112,6 +112,7 @@ public class RegisterPaymentsFragment extends BaseFragment<RegistrationNewActivi
 
 
         Set <String> set  = App.getInstance().getPreference().getSession();
+        set.clear();
         set.add("session_id=" + sessionId);
         App.getInstance().getPreference().putSession(set);
         startActivity(new Intent(mActivity, MapsActivity.class));

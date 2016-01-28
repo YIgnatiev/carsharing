@@ -543,13 +543,19 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         LatLng target = new LatLng(car.getLat(), car.getLon());
 
-        if (car.getLat() > position.latitude) {
-            LatLngBounds bounds = new LatLngBounds(position, target);
+      //  if (car.getLat() > position.latitude) {
+
+           LatLngBounds bounds =  LatLngBounds
+                   .builder()
+                   .include(position)
+                   .include(target)
+                   .build();
+           // LatLngBounds bounds = new LatLngBounds(position, target);
             mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, getPx(20)));
-        } else {
-            LatLngBounds bounds = new LatLngBounds(target, position);
-            mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, getPx(20)));
-        }
+     //   } else {
+     //       LatLngBounds bounds = new LatLngBounds(target, position);
+     //       mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, getPx(20)));
+      //  }
 
     }
 
