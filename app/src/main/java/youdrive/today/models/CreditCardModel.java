@@ -13,7 +13,8 @@ public class CreditCardModel {
 
     public CreditCardModel(String registration_id, String amount, String card_holder, String crypto_packet) {
         this.registration_id = registration_id;
-        this.amount = amount;
+        int amountKop = Integer.parseInt(amount) * 100;
+        this.amount = Integer.toString(amountKop);
         this.card_holder = card_holder;
         this.crypto_packet = crypto_packet;
     }
