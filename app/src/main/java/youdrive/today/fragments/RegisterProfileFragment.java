@@ -20,7 +20,7 @@ import rx.android.widget.OnTextChangeEvent;
 import rx.android.widget.WidgetObservable;
 import youdrive.today.App;
 import youdrive.today.R;
-import youdrive.today.activities.RegistrationNewActivity;
+import youdrive.today.activities.RegistrationActivity;
 import youdrive.today.databinding.FragmentRegisterProfileBinding;
 import youdrive.today.databinding.ItemPopupBinding;
 import youdrive.today.models.RegistrationUser;
@@ -31,7 +31,7 @@ import youdrive.today.response.RegistrationModel;
  * email : tajcig@ya.ru
  * on 10/25/15.
  */
-public class RegisterProfileFragment extends BaseFragment<RegistrationNewActivity> {
+public class RegisterProfileFragment extends BaseFragment<RegistrationActivity> {
 
     private FragmentRegisterProfileBinding b;
     private ItemPopupBinding bPopup;

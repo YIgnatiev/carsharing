@@ -122,48 +122,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     private boolean isFake = false;
 
-    // listener
-    public void onZoomIn(View v) {
-        if (mMap != null) {
-            mZoomLevel = mMap.getCameraPosition().zoom;
-            if (mZoomLevel < mMap.getMaxZoomLevel()) {
-                mMap.animateCamera(CameraUpdateFactory.zoomTo(++mZoomLevel));
-            }
-        }
-    }
-
-    public void onZoomOut(View v) {
-        if (mMap != null) {
-            mZoomLevel = mMap.getCameraPosition().zoom;
-            if (mZoomLevel > mMap.getMinZoomLevel()) {
-                mMap.animateCamera(CameraUpdateFactory.zoomTo(--mZoomLevel));
-            }
-        }
-    }
-
-    //listener
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-        switch (position) {
-            case 1:
-                openUrl("https://youdrive.today/profile.html");
-                break;
-            case 2:
-                openUrl("http://youdrive.today/tariffs-regulations.html");
-                break;
-            case 3:
-                openUrl("http://youdrive.copiny.com/");
-                break;
-            case 4:
-                call();
-                break;
-            case 5:
-                App.getInstance().getPreference().clear();
-                mProfileInteractor.logout(this);
-                break;
-        }
-    }
-
 
     private void startUpdates() {
         timerSubscription = Observable
@@ -187,14 +145,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         }
     }
 
-
-    private void call() {
-        checkPhonePermission(() -> startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:+74993223875"))));
-    }
-
-    private void openUrl(String url) {
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
-    }
 
     @Override
     public void bindActivity() {
@@ -281,7 +231,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         mMap.animateCamera(cameraUpdate);
     }
 
-    protected synchronized void buildGoogleApiClient() {
+    protected void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -361,17 +311,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 .show();
     }
 
-    public void onBookClicked(View view) {
-        mDialog.getBuilder().autoDismiss(false);
-        bInfo.btnBook.setProgress(50);
-        if (view.getTag() != null && mLastLocation.getLatitude() > 0.0d && mLastLocation.getLongitude() > 0.0d) {
-            mCarInteractor.booking((String) view.getTag(), mLastLocation.getLatitude(), mLastLocation.getLongitude(), MapsActivity.this);
-
-        } else {
-
-            showToast("Не удалось установить месторасположение");
-        }
-    }
 
     HashMap<Marker, Car> mMarkerCar = new HashMap<>();
 
@@ -543,20 +482,12 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         LatLng target = new LatLng(car.getLat(), car.getLon());
 
-      //  if (car.getLat() > position.latitude) {
-
-           LatLngBounds bounds =  LatLngBounds
-                   .builder()
-                   .include(position)
-                   .include(target)
-                   .build();
-           // LatLngBounds bounds = new LatLngBounds(position, target);
-            mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, getPx(20)));
-     //   } else {
-     //       LatLngBounds bounds = new LatLngBounds(target, position);
-     //       mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, getPx(20)));
-      //  }
-
+        LatLngBounds bounds = LatLngBounds
+                .builder()
+                .include(position)
+                .include(target)
+                .build();
+        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, getPx(20)));
     }
 
     private void onMoveCamera(final Car car) {
@@ -673,7 +604,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     private void drawPolygon(PolygonResponse coordList) {
         if (mPolygons == null) mPolygons = new ArrayList<>();
-
+        mPolygons.clear();
         for (List<Coord> coords : coordList.getArea()) {
 
             PolygonOptions polygon = new PolygonOptions()
@@ -879,6 +810,60 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         bOpenCar.btnOpen.setEnabled(false);
     }
 
+    // listener
+    public void onZoomIn(View v) {
+        if (mMap != null) {
+            mZoomLevel = mMap.getCameraPosition().zoom;
+            if (mZoomLevel < mMap.getMaxZoomLevel()) {
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(++mZoomLevel));
+            }
+        }
+    }
+
+    public void onZoomOut(View v) {
+        if (mMap != null) {
+            mZoomLevel = mMap.getCameraPosition().zoom;
+            if (mZoomLevel > mMap.getMinZoomLevel()) {
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(--mZoomLevel));
+            }
+        }
+    }
+
+    //listener
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+        switch (position) {
+            case 1:
+                openUrl("https://youdrive.today/profile.html");
+                break;
+            case 2:
+                openUrl("http://youdrive.today/tariffs-regulations.html");
+                break;
+            case 3:
+                openUrl("http://youdrive.copiny.com/");
+                break;
+            case 4:
+                call();
+                break;
+            case 5:
+                App.getInstance().getPreference().clear();
+                mProfileInteractor.logout(this);
+                break;
+        }
+    }
+
+    public void onBookClicked(View view) {
+        mDialog.getBuilder().autoDismiss(false);
+        bInfo.btnBook.setProgress(50);
+        if (view.getTag() != null && mLastLocation.getLatitude() > 0.0d && mLastLocation.getLongitude() > 0.0d) {
+            mCarInteractor.booking((String) view.getTag(), mLastLocation.getLatitude(), mLastLocation.getLongitude(), MapsActivity.this);
+
+        } else {
+
+            showToast("Не удалось установить месторасположение");
+        }
+    }
+
 
     private void showClosePopup() {
         hideBottomWindow();
@@ -903,7 +888,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             updateCheck();
         }
     }
-
 
     public void onCloseRent(View view) {
         bCloseCar.btnCloseOrOpen.setEnabled(false);
@@ -977,8 +961,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             bMarkerInfo.txtModel.setText(mCar.getModel());
             bMarkerInfo.txtNumber.setText(mCar.getNumber());
             if (BOOKING.equals(mStatus)) {
-                bMarkerInfo.ltRentInfo.setVisibility(View.VISIBLE);
-                bMarkerInfo.txtStartUsage.setText("До начала аренды " + AppUtils.toTime(mBookingTimeLeft) + getString(R.string.minutes));
+                bMarkerInfo.txtStartUsage.setVisibility(View.VISIBLE);
+                String arendaBegining ="До начала аренды " + mBookingTimeLeft/60 + "мин";
+                bMarkerInfo.txtStartUsage.setText(arendaBegining);
             }
 
             return bMarkerInfo.getRoot();
@@ -991,6 +976,15 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         mProfileInteractor.getSubscription().unsubscribe();
         mCarInteractor.getSubscription().unsubscribe();
         super.onDestroy();
+    }
+
+
+    private void call() {
+        checkPhonePermission(() -> startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:+74993223875"))));
+    }
+
+    private void openUrl(String url) {
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
     }
 
     @Override

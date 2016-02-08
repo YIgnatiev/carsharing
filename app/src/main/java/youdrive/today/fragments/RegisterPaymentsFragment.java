@@ -23,7 +23,7 @@ import rx.Subscription;
 import youdrive.today.App;
 import youdrive.today.R;
 import youdrive.today.activities.MapsActivity;
-import youdrive.today.activities.RegistrationNewActivity;
+import youdrive.today.activities.RegistrationActivity;
 import youdrive.today.databinding.FragmentRegisterPaymentsBinding;
 import youdrive.today.models.RegistrationUser;
 import youdrive.today.models.User;
@@ -34,7 +34,7 @@ import youdrive.today.response.RegistrationModel;
  * email : tajcig@ya.ru
  * on 10/25/15.
  */
-public class RegisterPaymentsFragment extends BaseFragment<RegistrationNewActivity> {
+public class RegisterPaymentsFragment extends BaseFragment<RegistrationActivity> {
 
     private Subscription mSubscription;
     private Subscription mUserSubscription;

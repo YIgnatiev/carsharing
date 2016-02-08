@@ -15,7 +15,7 @@ import com.yandex.metrica.YandexMetrica;
 import rx.Subscription;
 import youdrive.today.App;
 import youdrive.today.R;
-import youdrive.today.activities.RegistrationNewActivity;
+import youdrive.today.activities.RegistrationActivity;
 import youdrive.today.activities.WellcomeActivity;
 import youdrive.today.databinding.FragmentRegisterOffertBinding;
 import youdrive.today.response.RegistrationModel;
@@ -25,7 +25,7 @@ import youdrive.today.response.RegistrationModel;
  * email : tajcig@ya.ru
  * on 10/25/15.
  */
-public class RegisterOffertFragment extends BaseFragment<RegistrationNewActivity> implements CompoundButton.OnCheckedChangeListener {
+public class RegisterOffertFragment extends BaseFragment<RegistrationActivity> implements CompoundButton.OnCheckedChangeListener {
 
 
     private FragmentRegisterOffertBinding b;

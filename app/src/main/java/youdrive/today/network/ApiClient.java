@@ -49,7 +49,7 @@ public class ApiClient {
         mService = new RestAdapter.Builder()
                 .setEndpoint(HOST)
                 .setClient(new CustomClient(client))
-                .setLogLevel(RestAdapter.LogLevel.FULL)
+                .setLogLevel(RestAdapter.LogLevel.NONE)
                 .build()
                 .create(CarsharingService.class);
 

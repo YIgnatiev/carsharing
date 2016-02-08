@@ -8,8 +8,6 @@ import android.widget.Toast;
 
 import com.dd.CircularProgressButton;
 
-import java.util.concurrent.TimeUnit;
-
 /**
  * Created by psuhoterin on 20.05.15.
  */
@@ -51,12 +49,12 @@ public class AppUtils {
     }
 
     public static String toKm(int meters) {
-        return meters * 0.001 + " ";
+        return String.format("%.2f км", meters * 0.001);
     }
 
     public static String toTime(int seconds) {
-        long minute = TimeUnit.SECONDS.toMinutes(seconds);
-        return minute + " ";
+        long minute = seconds/60;
+        return (String.valueOf(minute) + " мин");
     }
 
     public static void success(CircularProgressButton button) {

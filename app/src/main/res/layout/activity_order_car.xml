@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -7,21 +8,24 @@
             name="listener"
             type="youdrive.today.activities.BookCarActivity"/>
     </data>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@drawable/bg">
+
 
     <android.support.v7.widget.Toolbar
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/main"/>
-
+        android:background="#c824ddad"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_below="@id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#afffffff">
     <ImageView
         android:id="@+id/imgCar"
         android:layout_width="match_parent"
@@ -42,7 +46,7 @@
         android:layout_height="wrap_content"
         android:text="@string/info"
         android:textColor="@color/black"
-        android:gravity="center_horizontal"/>
+        android:gravity="center"/>
 
     <TextView
         android:id="@+id/txtModel"
@@ -97,5 +101,5 @@
         app:cpb_textIdle="@string/show_on_map" />
 
 </LinearLayout>
-
+</RelativeLayout>
 </layout>

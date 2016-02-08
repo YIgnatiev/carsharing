@@ -33,7 +33,7 @@ import rx.subscriptions.CompositeSubscription;
 import youdrive.today.App;
 import youdrive.today.R;
 import youdrive.today.activities.LoginActivity;
-import youdrive.today.activities.RegistrationNewActivity;
+import youdrive.today.activities.RegistrationActivity;
 import youdrive.today.activities.WellcomeActivity;
 import youdrive.today.databinding.FragmentAboutFourthBinding;
 import youdrive.today.interceptors.MapsInteractorImpl;
@@ -83,7 +83,7 @@ public class AboutFourth extends BaseFragment<WellcomeActivity> {
     }
 
     public void onRegister(View view) {
-        startActivity(new Intent(getActivity(), RegistrationNewActivity.class));
+        startActivity(new Intent(getActivity(), RegistrationActivity.class));
         getActivity().finish();
     }
 

@@ -110,7 +110,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/white">
+        android:background="#50ffffff">
 
         <TextView
             android:id="@+id/txtAbout"
@@ -120,7 +120,7 @@
             android:text="@string/about"
             android:layout_gravity="left"
             android:padding="20dp"
-            android:textColor="@color/black"/>
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/txtRegistration"
@@ -130,7 +130,7 @@
             android:text="@string/registration"
             android:layout_gravity="right"
             android:padding="20dp"
-            android:textColor="@color/black"/>
+            android:textColor="@color/white"/>
 
     </FrameLayout>
 

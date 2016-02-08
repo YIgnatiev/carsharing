@@ -19,7 +19,7 @@ import rx.Subscription;
 import rx.android.widget.OnTextChangeEvent;
 import rx.android.widget.WidgetObservable;
 import youdrive.today.R;
-import youdrive.today.activities.RegistrationNewActivity;
+import youdrive.today.activities.RegistrationActivity;
 import youdrive.today.databinding.FragmentPaymentBinding;
 import youdrive.today.listeners.ValueFunction;
 import youdrive.today.models.CreditCardModel;
@@ -90,14 +90,14 @@ public class PaymentDialogFragment extends DialogFragment {
                 b.etExpired.getText().toString().replaceAll("/",""),
                 b.etCvv.getText().toString());
         if (card.isValidNumber()) {
-            ((RegistrationNewActivity) getActivity())
+            ((RegistrationActivity) getActivity())
                     .mUser
                     .setCard_number(b.etCardNumber.getText().toString());
             CreditCardModel model = new CreditCardModel(mRegId,
                     mPrice,
                     b.etName.getText().toString().toUpperCase(),
                     card.cardCryptogram(productionId));
-            mSubscription = ((RegistrationNewActivity) getActivity()).mClient
+            mSubscription = ((RegistrationActivity) getActivity()).mClient
                     .initCard(model)
                     .subscribe(this::onCreditCardSuccess, this::onFailure);
         } else {

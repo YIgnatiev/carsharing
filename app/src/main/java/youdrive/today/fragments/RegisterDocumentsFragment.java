@@ -28,7 +28,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import youdrive.today.App;
 import youdrive.today.R;
-import youdrive.today.activities.RegistrationNewActivity;
+import youdrive.today.activities.RegistrationActivity;
 import youdrive.today.databinding.FragmentRegisterDocumentsBinding;
 import youdrive.today.databinding.ItemImageBinding;
 import youdrive.today.models.RegistrationUser;
@@ -41,7 +41,7 @@ import youdrive.today.response.UploadGroupResponse;
  * email : tajcig@ya.ru
  * on 10/25/15.
  */
-public class RegisterDocumentsFragment extends BaseFragment<RegistrationNewActivity> {
+public class RegisterDocumentsFragment extends BaseFragment<RegistrationActivity> {
     private FragmentRegisterDocumentsBinding b;
     private String parameter = "files[%d]";
     private Subscription uploadingSubscription;

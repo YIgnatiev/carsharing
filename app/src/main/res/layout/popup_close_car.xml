@@ -27,15 +27,17 @@
 
             <TextView
                 android:layout_width="0dp"
+                android:textSize="10sp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:gravity="right"
+                android:gravity="left"
                 android:text="@string/current_tariff"
                 android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/txtTariff"
+                android:textSize="10sp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -54,13 +56,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:gravity="right"
+                android:gravity="left"
+                android:textSize="10sp"
                 android:text="@string/price_per_min"
                 android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/txtPerMin"
                 android:layout_width="0dp"
+                android:textSize="10sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="@color/black" />
@@ -78,13 +82,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:gravity="right"
+                android:gravity="left"
+                android:textSize="10sp"
                 android:text="@string/usage"
                 android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/txtTotalUsage"
                 android:layout_width="0dp"
+                android:textSize="10sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="@color/black" />
@@ -102,13 +108,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:gravity="right"
+                android:gravity="left"
+                android:textSize="10sp"
                 android:text="@string/parking"
                 android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/txtParking"
                 android:layout_width="0dp"
+                android:textSize="10sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="@color/black" />
@@ -126,13 +134,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:gravity="right"
+                android:gravity="left"
+                android:textSize="10sp"
                 android:text="@string/total"
                 android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/txtTotal"
                 android:layout_width="0dp"
+                android:textSize="10sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="@color/black" />

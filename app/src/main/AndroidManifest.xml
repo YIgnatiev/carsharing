@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="youdrive.today" >
+    package="youdrive.today">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -8,20 +8,19 @@
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />"
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />"
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
-        android:required="true" >
-    </uses-feature>
+        android:required="true"></uses-feature>
 
     <application
         android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -29,18 +28,15 @@
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="@string/google_maps_key" />
 
- <activity
+        <activity
             android:name=".activities.SplashActivity"
             android:label="@string/title_activity_maps"
             android:theme="@style/AppTheme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
 
 
         <activity
@@ -50,18 +46,30 @@
             android:theme="@style/AppTheme.Splash">
 
         </activity>
-        <activity android:name=".activities.RegistrationNewActivity"
+        <activity
+            android:name=".activities.RegistrationActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
 
-        <activity android:name=".activities.LoginActivity"/>
-        <activity android:name=".activities.MapsActivity"/>
-        <activity android:name=".activities.RegistrationActivity"/>
-        <activity android:name=".activities.ConfirmationActivity"/>
-        <activity android:name=".activities.ThanksActivity"/>
-        <activity android:name=".activities.BookCarActivity"/>
-        <activity android:name=".activities.CompleteActivity"/>
-        <activity android:name=".activities.InformActivity"/>
+        <activity android:name=".activities.LoginActivity" />
+        <activity android:name=".activities.MapsActivity" />
+        <activity android:name=".activities.ConfirmationActivity" />
+        <activity android:name=".activities.ThanksActivity" />
+        <activity android:name=".activities.BookCarActivity" />
+        <activity android:name=".activities.CompleteActivity" />
+        <activity android:name=".activities.InformActivity" />
+
+        <!-- Used for Google Play Store Campaign Measurement-->
+        <service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
+        <receiver
+            android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"
+            android:exported="true"
+            android:permission="android.permission.INSTALL_PACKAGES">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+
 
     </application>
 
