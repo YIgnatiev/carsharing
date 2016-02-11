@@ -1,6 +1,8 @@
 package youdrive.today.activities;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
@@ -41,8 +43,21 @@ public class BookCarActivity extends BaseActivity {
     }
 
     //listener
-    public void onShow(View view) {
-        finish();
+    public void onShowMap(View view) {
+        Car mCar = getIntent().getParcelableExtra("car");
+        Uri gmmIntentUri = Uri.parse("google.navigation:q="+mCar.getLat()+", "+mCar.getLon()+"&mode=w");
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        if (mapIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(mapIntent);
+        } else {
+            final String appPackageName = "com.google.android.apps.maps";
+            try {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+            } catch (android.content.ActivityNotFoundException anfe) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+            }
+        }
     }
 
 }

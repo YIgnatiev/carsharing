@@ -84,7 +84,7 @@
 
     <com.dd.CircularProgressButton
         android:id="@+id/btnShowOnMap"
-        android:onClick='@{listener.onShow}'
+        android:onClick='@{listener.onShowMap}'
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="30dp"
