@@ -12,6 +12,7 @@ import retrofit.mime.TypedFile;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import youdrive.today.BuildConfig;
 import youdrive.today.models.ApiCommand;
 import youdrive.today.models.Car;
 import youdrive.today.models.Command;
@@ -35,8 +36,10 @@ import youdrive.today.response.UploadGroupResponse;
  */
 public class ApiClient {
 
-    private static String HOST = "https://youdrive.today";
+	//private static String HOST = "https://youdrive.today";
+    private static String HOST = "http://188.166.36.215:3000";
     private static String UPLOADCARE_KEY = "507278759b3577e5f137";
+    private static final boolean enableLog = BuildConfig.DEBUG;
     private CarsharingService mService;
     private UploadService mUploadService;
 
@@ -49,7 +52,7 @@ public class ApiClient {
         mService = new RestAdapter.Builder()
                 .setEndpoint(HOST)
                 .setClient(new CustomClient(client))
-                .setLogLevel(RestAdapter.LogLevel.NONE)
+                .setLogLevel(enableLog ? RestAdapter.LogLevel.FULL : RestAdapter.LogLevel.NONE)
                 .build()
                 .create(CarsharingService.class);
 
