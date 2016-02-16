@@ -790,6 +790,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         isShowCommandPopup = true;
         bOpenCar = DataBindingUtil.inflate(getLayoutInflater(), R.layout.popup_open_car, null, false);
+        bOpenCar.btnNavigate.setProgress(100);
         addBottomWindow(bOpenCar.getRoot());
         bOpenCar.setListener(this);
         bOpenCar.btnOpen.setIndeterminateProgressMode(true);
@@ -808,6 +809,22 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         bOpenCar.btnCancel.setProgress(50);
         mCarInteractor.complete(Command.COMPLETE, MapsActivity.this);
         bOpenCar.btnOpen.setEnabled(false);
+    }
+
+    public void onButtonNavigate(View view){
+        Uri gmmIntentUri = Uri.parse("google.navigation:q="+mCar.getLat()+", "+mCar.getLon()+"&mode=w");
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        if (mapIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(mapIntent);
+        } else {
+            final String appPackageName = "com.google.android.apps.maps";
+            try {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+            } catch (android.content.ActivityNotFoundException anfe) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+            }
+        }
     }
 
     // listener

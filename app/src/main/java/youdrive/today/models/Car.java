@@ -99,6 +99,8 @@ public class Car implements Comparable<Car>, Parcelable {
         dest.writeString(number);
         dest.writeString(color);
         dest.writeString(img);
+        dest.writeFloat(lat);
+        dest.writeFloat(lon);
     }
 
     protected Car(Parcel in) {
@@ -106,6 +108,8 @@ public class Car implements Comparable<Car>, Parcelable {
         number = in.readString();
         color = in.readString();
         img = in.readString();
+        lat = in.readFloat();
+        lon = in.readFloat();
     }
 
     public static final Parcelable.Creator<Car> CREATOR = new Parcelable.Creator<Car>() {
