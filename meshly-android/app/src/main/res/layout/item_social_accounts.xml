@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/iv_logo_ItemSocialAccount"
+        android:layout_margin="10dp"/>
+
+    <TextView
+       style="@style/AppTheme.EditProfileTextView"
+        android:id="@+id/tv_name_ItemSocialAccount"
+        android:text="LinkedIn"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/iv_logo_ItemSocialAccount"/>
+
+    <com.vakoms.meshly.views.CustomSwitch
+        android:id="@+id/cs_social_ItemSocialAccount"
+        android:layout_width="75dp"
+        android:layout_height="50dp"
+        android:padding="10dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        custom:thumb_color="@color/white"
+        custom:back_color_pressed="@color/switch_background_pressed"
+        custom:inner_padding="2dp"
+        custom:round_radius="17dp"
+        custom:back_color="#ffd7d7d7"/>
+
+</RelativeLayout>

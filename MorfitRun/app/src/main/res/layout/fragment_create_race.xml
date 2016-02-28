@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <ScrollView android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/llBtnContainer_FCR">
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:weightSum="1">
+            <RelativeLayout android:layout_width="match_parent"
+                            android:layout_height="@dimen/preview_map_height">
+                <com.google.android.gms.maps.MapView
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                          android:id="@+id/map_FCR"
+                          android:layout_width="match_parent"
+                          android:layout_height="match_parent"/>
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true" android:layout_alignParentStart="true"
+                        android:background="@color/color_white" android:alpha="0.7">
+                    <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/ivSeeOnMap_FCR" android:layout_gravity="left|center_vertical"
+                            android:background="@android:drawable/ic_menu_crop"
+                            android:padding="@dimen/default_padding" android:layout_margin="@dimen/default_margin"/>
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/see_on_map"
+                            android:id="@+id/tvSeeOnMap_FCR" android:layout_gravity="center"
+                            android:textColor="@color/text_color_black" android:textSize="@dimen/text_size_medium"
+                            android:padding="@dimen/default_padding"/>
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <com.andreabaccega.widget.FormEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/etRunTitle_FCR"
+                    android:layout_margin="@dimen/default_margin"
+                    android:hint="@string/hint_run_title"
+                    style="@style/AppTheme.EditText_FCR"/>
+            <com.andreabaccega.widget.FormEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/etDescription_FCR"
+                    android:layout_margin="@dimen/default_margin"
+                    android:background="@drawable/gray_frame"
+                    android:hint="@string/hint_description"
+                    style="@style/AppTheme.EditText_FCR"/>
+            <RelativeLayout android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/default_padding">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/start_on"
+                        android:id="@+id/tvStartOn_FCR"
+                        style="@style/AppTheme.TextView_FCR"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/deadline"
+                        android:id="@+id/tvDeadline_FCR" android:layout_below="@+id/tvStartOn_FCR"
+                        android:layout_alignParentLeft="true" android:layout_alignParentStart="true"
+                        android:padding="@dimen/default_padding" android:textSize="@dimen/text_size_medium"
+                        android:textColor="@color/text_color_black"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/repeat"
+                        android:id="@+id/tvRepeat_FCR" android:layout_below="@+id/tvDeadline_FCR"
+                        android:layout_alignParentLeft="true" android:layout_alignParentStart="true"
+                        android:padding="@dimen/default_padding" android:textSize="@dimen/text_size_medium"
+                        android:textColor="@color/text_color_black"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/limit"
+                        android:id="@+id/tvLimit_FCR" android:layout_below="@+id/tvRepeat_FCR"
+                        android:layout_alignParentLeft="true" android:layout_alignParentStart="true"
+                        android:padding="@dimen/default_padding" android:textSize="@dimen/text_size_medium"
+                        android:textColor="@color/text_color_black"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add"
+                        android:id="@+id/tvAddStartOn_FCR"
+                        android:layout_alignBottom="@+id/tvStartOn_FCR" android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        style="@style/AppTheme.TextViewAdd_FCR" android:clickable="true"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add"
+                        android:id="@+id/tvAddDeadline_FCR" android:layout_above="@+id/tvRepeat_FCR"
+                        android:layout_alignParentRight="true" android:layout_alignParentEnd="true"
+                        style="@style/AppTheme.TextViewAdd_FCR" android:clickable="true"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add"
+                        android:id="@+id/tvAddRepeat_FCR" android:layout_above="@+id/tvLimit_FCR"
+                        android:layout_alignParentRight="true" android:layout_alignParentEnd="true"
+                        style="@style/AppTheme.TextViewAdd_FCR" android:clickable="true"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add"
+                        android:id="@+id/tvAddLimit_FCR" android:layout_below="@+id/tvAddRepeat_FCR"
+                        android:layout_alignParentRight="true" android:layout_alignParentEnd="true"
+                        style="@style/AppTheme.TextViewAdd_FCR" android:clickable="true"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvStartOnData_FCR" android:layout_alignParentTop="true"
+                        android:layout_toLeftOf="@+id/tvAddStartOn_FCR"
+                        android:layout_toStartOf="@+id/tvAddStartOn_FCR" style="@style/AppTheme.TextView_FCR"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvDeadlineData_FCR" android:layout_below="@+id/tvAddStartOn_FCR"
+                        android:layout_toLeftOf="@+id/tvAddStartOn_FCR"
+                        android:layout_toStartOf="@+id/tvAddStartOn_FCR" style="@style/AppTheme.TextView_FCR"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvRepeatData_FCR" android:layout_below="@+id/tvAddDeadline_FCR"
+                        android:layout_toLeftOf="@+id/tvAddDeadline_FCR"
+                        android:layout_toStartOf="@+id/tvAddDeadline_FCR" style="@style/AppTheme.TextView_FCR"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvLimitData_FCR" android:layout_alignParentBottom="true"
+                        android:layout_toLeftOf="@+id/tvAddLimit_FCR" android:layout_toStartOf="@+id/tvAddLimit_FCR"
+                        style="@style/AppTheme.TextView_FCR"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+    <FrameLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/llBtnContainer_FCR"
+            android:layout_gravity="bottom" android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true" android:layout_alignParentStart="true"
+            android:padding="@dimen/btn_container_padding">
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/create"
+                android:id="@+id/btnCreate_FCR"
+                style="@style/AppTheme.Button"/>
+    </FrameLayout>
+</RelativeLayout>

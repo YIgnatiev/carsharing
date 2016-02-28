@@ -1,0 +1,68 @@
+language: android
+
+android:
+  components:
+    - build-tools-21.1.2
+    - android-21
+    - extra
+
+env:
+  global:
+    - LAWIS_LANGUAGES="android" # A space separated list of your repository's languages in the format that .travis.yml supports: http://docs.travis-ci.com/user/languages/
+
+    # Consider encrypting these (http://docs.travis-ci.com/user/encryption-keys/)
+    - LAWIS_SEC_HOCKEY_APP_ID="ea5c8ca1a3b0f96e6f6dd3c0629c2490"
+    - LAWIS_SEC_HOCKEY_APP_TOKEN="c842610f7b4e6cf52a7cc1a8a0a49799"
+
+
+
+
+branches:
+  only:
+    - master
+    - develop
+
+
+cache:
+  directories:
+  - $HOME/.gradle/caches/
+
+
+
+
+before_install:
+  - chmod +x gradlew
+  - ./lawis/run.sh before_install
+
+before_script: 
+  - ./lawis/run.sh before_script
+
+script: 
+
+
+#- ./gradlew build
+
+- ./lawis/run.sh script
+
+
+
+
+
+after_success: 
+ - ./lawis/run.sh after_success
+
+
+after_failure: 
+  - ./lawis/run.sh after_failure
+
+after_script: 
+  - ./lawis/run.sh after_script
+
+before_deploy:
+  - ./lawis/run.sh before_deploy
+
+after_deploy:
+  - ./lawis/run.sh before_deploy
+
+notifications:
+  slack: lapioworks:jH1uPumZCD5gPBQqUIZXDVru

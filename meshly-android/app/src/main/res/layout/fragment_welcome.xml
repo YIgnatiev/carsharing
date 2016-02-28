@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<LinearLayout
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:padding="20dp">
+    <com.vakoms.meshly.views.font.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvHeyUser"
+        android:textColor="@color/white"
+        app:custom_font="@string/font_helvetica_thin"
+        android:text="@string/welcome_user"
+        android:textSize="30sp"
+        android:gravity="center"/>
+
+
+    <com.vakoms.meshly.views.font.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/white_transparent_50"
+        app:custom_font="@string/font_helvetica_thin"
+        android:text="@string/welcome_text"
+        android:textSize="16sp"
+        android:gravity="center" />
+
+
+
+</LinearLayout>
+
+</layout>

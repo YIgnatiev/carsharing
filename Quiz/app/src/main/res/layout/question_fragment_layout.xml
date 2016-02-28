@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+   <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:background="#ffe3e3e3"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+
+
+    >
+
+
+    <ListView
+
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView_questions_QuizFragment"
+        tools:listitem="@layout/question_item"
+        android:dividerHeight="18dp"
+
+        android:headerDividersEnabled="true"
+        android:footerDividersEnabled="true"
+
+        android:divider="#fff"
+        android:scrollbars="none"
+        android:listSelector="@null"
+
+
+        />
+
+
+</LinearLayout>
+

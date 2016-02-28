@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="connections_details_tabs">
+
+    <item>Souls</item>
+
+    <item>Author</item>
+
+    <item>Favorites</item>
+
+</string-array>
+    <array name="background_random_color_array">
+        <item>@color/detail_backgroud_random_1</item>
+        <item>@color/detail_backgroud_random_2</item>
+        <item>@color/detail_backgroud_random_3</item>
+        <item>@color/detail_backgroud_random_4</item>
+        <item>@color/detail_backgroud_random_5</item>
+        <item>@color/detail_backgroud_random_6</item>
+    </array>
+</resources>

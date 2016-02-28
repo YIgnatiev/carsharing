@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="activity"
+            type="com.vakoms.meshly.MainActivity" />
+
+
+        <variable
+            name="user"
+            type="com.vakoms.meshly.models.UserMe" />
+
+
+        <import
+            type="android.view.View"/>
+
+    </data>
+
+
+    <LinearLayout
+        android:id="@+id/llContainer_itemProfile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="30dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/ivUserAvatar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            android:onClick="@{activity.onEditUserClicked}"
+            custom:image="@{user.picture}"
+            custom:roundAsCircle="true" />
+
+            <com.vakoms.meshly.views.font.CustomTextView
+                custom:custom_font="@string/font_helvetica_thin"
+                android:layout_width="wrap_content"
+                android:visibility="gone"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:padding="5dp"
+                android:textColor="@color/white"
+                android:layout_toRightOf="@id/ivUserAvatar"
+                android:layout_centerVertical="true"
+                android:text="Edit"/>
+
+        </RelativeLayout>
+
+        <com.vakoms.meshly.views.font.CustomTextView
+            android:id="@+id/tvName_itemProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@{user.username}"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            custom:custom_font="@string/font_helvetica_thin" />
+
+
+        <com.vakoms.meshly.views.font.CustomTextView
+            android:id="@+id/tvPosition_itemProfile"
+            style="@style/AppTheme.TextViewProfile"
+            android:text="@{user.job}"
+            android:textSize="18sp"
+            custom:custom_font="@string/font_helvetica_thin" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:weightSum="2">
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <com.vakoms.meshly.views.font.CustomTextView
+
+                    android:id="@+id/tvFollowing_itemProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:onClick='@{activity.onFollowingClicked}'
+                    android:text='@{(user.follow == null || user.follow.users == null) ?"0" : String.valueOf(user.follow.users.size)}'
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    custom:custom_font="@string/font_helvetica_thin" />
+
+                <com.vakoms.meshly.views.font.CustomTextView
+                    style="@style/AppTheme.TextViewProfile"
+                    android:layout_width="match_parent"
+                    android:paddingBottom="20dp"
+                    android:gravity="center"
+                    android:text="@string/following"
+                    android:textAllCaps="true"
+                    android:textSize="14sp"
+                    custom:custom_font="@string/font_helvetica_thin" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="25dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/white_transparent_25" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <com.vakoms.meshly.views.font.CustomTextView
+                    android:id="@+id/tvFollowers_itemProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    custom:custom_font="@string/font_helvetica_thin"
+                    android:text='@{(user.followedBy == null )?"0" : String.valueOf(user.followedBy.size)}'
+                    />
+
+                <com.vakoms.meshly.views.font.CustomTextView
+                    style="@style/AppTheme.TextViewProfile"
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:text="@string/followers"
+                    android:textAllCaps="true"
+                    android:textSize="14sp"
+                    custom:custom_font="@string/font_helvetica_thin" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <com.vakoms.meshly.views.font.CustomTextView
+                    style="@style/AppTheme.TextViewProfileHeader"
+                    android:layout_width="match_parent"
+                    android:onClick="@{activity.onOpportunitiesClicked}"
+                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp"
+                    android:text="@string/opportunities"
+                    custom:custom_font="@string/font_helvetica_thin" />
+
+
+                <View
+
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/white_transparent_25" />
+
+
+                <com.vakoms.meshly.views.font.CustomTextView
+                    style="@style/AppTheme.TextViewProfileHeader"
+                    android:layout_width="match_parent"
+                    android:onClick="@{activity.onPeopleClicked}"
+
+                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp"
+                    android:text="@string/people"
+                    custom:custom_font="@string/font_helvetica_thin" />
+
+                <View
+
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/white_transparent_25" />
+
+
+                <com.vakoms.meshly.views.font.CustomTextView
+                    style="@style/AppTheme.TextViewProfileHeader"
+                    android:layout_width="match_parent"
+                    android:onClick="@{activity.onEventsClicked}"
+
+                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp"
+                    android:text="@string/events"
+                    custom:custom_font="@string/font_helvetica_thin" />
+
+                <View
+
+                    android:id="@+id/vwLine_ItemMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_below="@id/tvMenu_itemMenu"
+                    android:background="@color/white_transparent_25" />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{activity.onMessagesClicked}"
+                    android:orientation="vertical">
+
+                    <com.vakoms.meshly.views.font.CustomTextView
+                        android:id="@+id/tvMenu_itemMenu"
+                        style="@style/AppTheme.TextViewProfileHeader"
+                        android:paddingBottom="15dp"
+                        android:paddingTop="15dp"
+                        android:text="@string/messages"
+                        custom:custom_font="@string/font_helvetica_thin" />
+
+
+                    <com.vakoms.meshly.views.font.CustomTextView
+                        android:id="@+id/tvDotMessages"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="20dp"
+                        android:background="@drawable/background_dot"
+                        android:gravity="center"
+                        android:text="@{String.valueOf(activity.messagesCount)}"
+                        android:paddingBottom="2dp"
+                        android:paddingLeft="7dp"
+                        android:paddingRight="7dp"
+                        android:paddingTop="2dp"
+                        android:textColor="@android:color/white"
+
+                        android:visibility="@{activity.messagesCount &lt; 1  ? View.GONE : View.VISIBLE}"
+
+                        custom:custom_font="@string/font_helvetica_thin" />
+                </RelativeLayout>
+
+
+                <com.vakoms.meshly.views.font.CustomTextView
+                    custom:custom_font="@string/font_helvetica_thin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+
+
+                    android:layout_marginRight="@dimen/menu_padding"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center|left"
+                    android:onClick="@{activity.onAboutClicked}"
+                    android:paddingBottom="10dp"
+
+                    android:paddingTop="10dp"
+                    android:text="@string/about_meshly"
+                    android:textColor="@color/white_transparent_50"
+                    android:textSize="20sp" />
+
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>

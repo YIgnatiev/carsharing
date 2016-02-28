@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="data"
+            type="com.vakoms.meshly.models.Industry"/>
+
+        <variable
+            name="listener"
+            type="com.vakoms.meshly.interfaces.IndustriesListener"/>
+        <variable
+            name="isChoosen"
+            type="Boolean"/>
+
+    </data>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:onClick='@{listener.onIndustries}'
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:layout_margin="10dp"
+        android:layout_width="20dp "
+        android:layout_height="20dp"
+        android:src='@{isChoosen ? @drawable/ic_check : @drawable/ic_uncheck}'
+        android:id="@+id/ivCheckbox_ItemIndustries"/>
+    <com.vakoms.meshly.views.font.CustomTextView
+        app:custom_font="@string/font_helvetica_regular"
+        android:textColor="@color/white_transparent_50"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvIndustries_ItemIndustries"
+        android:text='@{data.name}'
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/ivCheckbox_ItemIndustries"/>
+</RelativeLayout>
+
+</layout>

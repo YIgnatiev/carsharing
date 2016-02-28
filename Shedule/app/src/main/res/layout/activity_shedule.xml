@@ -1,0 +1,82 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="#fff"
+    >
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff2f4f5"
+            android:text="September"
+            android:textSize="15dp"
+            android:gravity="center"
+            android:id="@+id/tvMonth"/>
+<LinearLayout
+        android:background="#fff2f4f5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/linLayoutWeek">
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/ivLeftArrow"
+            android:src="@drawable/selector_arrow_left"
+            android:layout_weight="0.1"/>
+
+    <GridView
+        android:id="@+id/gridView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/gridView"
+        android:layout_alignParentTop="true"
+        android:horizontalSpacing="2dp"
+        android:numColumns="7"
+
+        android:listSelector="@drawable/gridview_selector"
+        android:scrollbars="none"
+
+        android:paddingBottom="10dp"
+
+        android:paddingTop="5dp"
+            android:layout_weight="0.8"/>
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/selector_arrow_right"
+            android:id="@+id/ivRightArrow"
+            android:layout_weight="0.1"
+            />
+    </LinearLayout>
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/selector_arrow_down"
+            android:id="@+id/ivDownArrow"
+
+            android:layout_gravity="center_horizontal"/>
+    <ListView
+
+        android:dividerHeight="1dp"
+        android:divider="#fff1f3f4"
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+    </ListView>
+    <LinearLayout
+            android:id="@+id/emptyView"
+            android:layout_width="fill_parent"
+            android:layout_height="150dp">
+
+        <TextView
+                android:layout_width="match_parent" android:layout_height="match_parent"
+                android:text="@string/no_connection"
+                android:gravity="center"
+                android:id="@+id/empty"
+                android:textColor="#ff767676"/>
+    </LinearLayout>
+
+</LinearLayout>

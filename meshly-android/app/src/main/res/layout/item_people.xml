@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data class="PeopleItem">
+
+
+        <variable
+            name="isFirst"
+            type="Boolean" />
+
+        <variable
+            name="listener"
+            type="com.vakoms.meshly.interfaces.PeopleListener" />
+
+        <variable
+            name="user"
+            type="com.vakoms.meshly.models.NewUser" />
+
+        <import type="android.view.View" />
+    </data>
+
+
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            app:cardBackgroundColor="@color/black_transparent_60"
+            app:cardCornerRadius="10dp"
+            app:cardPreventCornerOverlap="true">
+
+            <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/root"
+                android:onClick="@{listener.onProfile}">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/ivUserAvatar"
+                    android:layout_width="68dp"
+                    android:layout_height="68dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="15dp"
+                    app:actualImageScaleType="focusCrop"
+                    app:fadeDuration="100"
+                    app:imageUrl="@{user.picture}"
+                    android:scaleType="centerInside"
+                    app:placeholderImage="@drawable/ic_placeholder"
+                    app:roundAsCircle="true" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/ivUserAvatar"
+                    android:layout_alignTop="@id/ivUserAvatar"
+                    android:layout_toRightOf="@id/ivUserAvatar"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <com.vakoms.meshly.views.font.CustomTextView
+                        android:id="@+id/tvUserName_ItemPeople"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_toRightOf="@id/ivUserAvatar"
+                        android:singleLine="true"
+                        android:text="@{user.username}"
+                        android:textColor="@color/white"
+                        android:textSize="23sp"
+                        app:custom_font="@string/font_helvetica_light" />
+
+
+                    <com.vakoms.meshly.views.font.CustomTextView
+                        android:id="@+id/tvUserJob_ItemPeople"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tvUserName_ItemPeople"
+                        android:layout_marginTop="1dp"
+                        android:singleLine="true"
+                        android:text="@{user.job}"
+                        android:textColor="@color/white_t_50"
+                        android:textSize="17sp"
+                        app:custom_font="@string/font_helvetica_thin" />
+
+                </LinearLayout>
+
+                <com.vakoms.meshly.views.font.CustomTextView
+                    android:id="@+id/tvDescription_ItemPeople"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ivUserAvatar"
+                    android:ellipsize="end"
+                    android:lineSpacingMultiplier="1.2"
+
+                    android:maxLines="2"
+                    android:padding="15dp"
+                    android:text="@{user.summary}"
+
+                    android:textColor="@android:color/white"
+                    android:textSize="17sp"
+                    app:custom_font="@string/font_helvetica_thin" />
+
+                <LinearLayout
+
+                    android:id="@+id/llCommon_ItemPeople"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvDescription_ItemPeople"
+                    android:orientation="horizontal">
+
+
+                    <com.vakoms.meshly.views.font.CustomTextView
+                        android:layout_width="wrap_content"
+
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:paddingLeft="15dp"
+                        android:singleLine="true"
+                        android:text="You are both visiting :"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white_transparent_50"
+                        android:textSize="11sp"
+                        android:visibility='@{user.attendingTheSameEvent == null  ? View.GONE : View.VISIBLE}'
+                        app:custom_font="@string/font_helvetica_thin" />
+
+                    <com.vakoms.meshly.views.font.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:ellipsize="end"
+                        android:onClick="@{listener.onEvent}"
+
+                        android:paddingLeft="2dp"
+                        android:singleLine="true"
+                        android:text="@{user.attendingTheSameEvent}"
+                        android:textColor="@color/blue"
+                        android:textSize="13sp"
+                        app:custom_font="@string/font_helvetica_thin" />
+
+                </LinearLayout>
+
+                <com.vakoms.meshly.views.LabelLayout
+                    android:id="@+id/llCommonIndustries"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/llCommon_ItemPeople">
+
+
+                </com.vakoms.meshly.views.LabelLayout>
+
+                <LinearLayout
+                    android:id="@+id/llLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/llCommonIndustries"
+                    android:gravity="bottom"
+                    android:padding="10dp">
+
+
+
+
+                    <com.vakoms.meshly.views.font.CustomTextView
+
+                        android:id="@+id/tvLocation_ItemPeople"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:drawableLeft="@drawable/ic_pin17"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        app:setDistance='@{user.geo}'
+                        android:textColor="@color/blue"
+                        android:textSize="13sp"
+                        app:custom_font="@string/font_helvetica_thin" />
+
+
+
+                    <com.vakoms.meshly.views.font.CustomTextView
+                        android:drawableLeft="@drawable/ic_clock"
+                        android:id="@+id/tvTimeRemaining_ItemPeople"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginRight="5dp"
+                        android:singleLine="true"
+                        android:gravity="center"
+
+                        app:setTime='@{user}'
+                        android:textColor="@color/blue"
+                        android:textSize="13sp"
+                        app:custom_font="@string/font_helvetica_thin" />
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/vwFooterDivider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_below="@id/llLocation"
+                    android:background="@color/white_transparent_25" />
+
+
+                <!--android:background="@drawable/background_people_footer"-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/vwFooterDivider"
+                    android:background="#000"
+                    android:weightSum="2">
+
+                    <View
+                        android:id="@+id/vw_center"
+                        android:layout_width="1px"
+                        android:layout_height="15dp"
+                        android:layout_centerInParent="true"
+                        android:background="@color/white_transparent_10" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:padding="15dp"
+                        android:layout_toLeftOf="@id/vw_center"
+                        android:gravity="center|bottom"
+                        android:onClick="@{listener.onFollow}">
+
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@{user.isFollowedByMe ? @drawable/ic_follow : @drawable/ic_unfollow}"/>
+
+                        <android.widget.Space
+                            android:layout_width="10dp"
+                            android:layout_height="10dp" />
+
+                        <com.vakoms.meshly.views.font.CustomTextView
+                            android:id="@+id/tvFollowing"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text='@{user.isFollowedByMe ? "following" : "follow" }'
+                            android:textAllCaps="true"
+
+                            android:textColor="@{user.isFollowedByMe ? @color/blue : @color/white_transparent_50}"
+                            android:textSize="13sp"
+                            app:custom_font="@string/font_helvetica_thin" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:padding="15dp"
+                        android:onClick="@{listener.onChat}"
+
+                        android:layout_toRightOf="@id/vw_center"
+                        android:gravity="center|bottom">
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_alignBaseline="@id/tvFollowing"
+                            android:src="@drawable/ic_chat" />
+
+                        <android.widget.Space
+                            android:layout_width="10dp"
+                            android:layout_height="10dp" />
+
+                        <com.vakoms.meshly.views.font.CustomTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:gravity="center"
+                            android:text="@string/chat"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white_transparent_50"
+                            android:textSize="13sp"
+                            app:custom_font="@string/font_helvetica_thin" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </RelativeLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+
+
+
+
+</layout>
+
+
+
+

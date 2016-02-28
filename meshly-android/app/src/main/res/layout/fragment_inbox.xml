@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="listener"
+            type="com.vakoms.meshly.fragments.chat.InboxFragment"/>
+    </data>
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="60dp"
+            android:onClick='@{listener.onMenuClick}'
+            android:src="@drawable/new_menu" />
+
+        <ImageView
+            android:id="@+id/ivDotIcon_FragmentInbox"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/background_blue_dot"
+            android:visibility="gone"
+            />
+
+        <com.vakoms.meshly.views.font.CustomTextView
+            app:custom_font="@string/font_helvetica_regular"
+            android:id="@+id/tvTitle_FragmentInbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/fragment_inbox_Messages"
+            android:textColor="@android:color/white"
+            android:textSize="19sp"
+            android:visibility="visible" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical">
+
+        <com.vakoms.meshly.views.font.CustomTextView
+            app:custom_font="@string/font_helvetica_regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginLeft="62dp"
+            android:text="@string/fragment_inbox_From"
+            android:textSize="18sp"
+            android:textColor="@color/white" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <com.vakoms.meshly.views.font.CustomTextView
+                app:custom_font="@string/font_helvetica_regular"
+                android:id="@+id/tvConnectionsCounter"
+                style="@style/InboxCounter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_background"
+                android:text="2"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:visibility="invisible"/>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rlButtonContainer"
+                android:padding="2dp"
+                android:background="@drawable/blue_rounded_stroke">
+            <View
+                android:layout_width="130dp"
+                android:layout_height="38dp"
+                android:id="@+id/vwMovingBackGround"
+                android:background="@drawable/blue_rounded_rectangle"
+                />
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:gravity="center">
+            <com.vakoms.meshly.views.font.CustomTextView
+                app:custom_font="@string/font_helvetica_regular"
+                android:id="@+id/tvConnections"
+                android:onClick='@{listener.onConnectoinsClick}'
+                android:layout_width="130dp"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="@string/fragment_inbox_Connections" />
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="5dp" />
+
+            <com.vakoms.meshly.views.font.CustomTextView
+                app:custom_font="@string/font_helvetica_regular"
+                android:id="@+id/tvOthers"
+                android:onClick='@{listener.onOthersClick}'
+                android:layout_width="130dp"
+                android:gravity="center"
+                android:layout_toRightOf="@id/tvProfile"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="@string/fragment_inbox_Others" />
+           </LinearLayout>
+
+
+
+            </FrameLayout>
+
+            <com.vakoms.meshly.views.font.CustomTextView
+                app:custom_font="@string/font_helvetica_regular"
+                android:id="@+id/tvOthersCounter"
+                style="@style/InboxCounter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_background"
+                android:text="125"
+                android:visibility="invisible"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp">
+
+
+        <com.vakoms.meshly.views.font.CustomTextView
+            app:custom_font="@string/font_helvetica_regular"
+            android:id="@+id/tvNoChatsYet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/fragment_inbox_NoChatsYet"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+
+
+
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvChatListConnections"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:scrollbars="none" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvChatListOthers"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:scrollbars="none" />
+
+
+
+    </FrameLayout>
+
+
+</LinearLayout>
+
+</layout>

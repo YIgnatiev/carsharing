@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.vakoms.meshly.views.font.CustomTextView
+        app:custom_font="@string/font_helvetica_thin"
+        android:id="@+id/tvHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:textColor="@color/white"
+        android:padding="10dp"
+        android:text="Let us know what Industries you are active and we make sure to get you some deals!"
+        />
+
+
+
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rvIndustries"
+        android:layout_below="@id/tvHeader" />
+
+
+
+
+</RelativeLayout>
+</layout>

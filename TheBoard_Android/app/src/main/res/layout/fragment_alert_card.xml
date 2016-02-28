@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <pro.theboard.custom_views.CardsLayout
+        android:id="@+id/clCards"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        custom:top_offset="10dp" />
+
+    <LinearLayout
+        android:id="@+id/llFinish"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="50dp"
+        android:visibility="gone">
+
+
+        <pro.theboard.custom_views.CustomTextView
+            android:id="@+id/tvMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/main_font"
+            android:textSize="20sp"
+            custom:custom_font="@string/font_regular" />
+    </LinearLayout>
+</RelativeLayout>
+</layout>

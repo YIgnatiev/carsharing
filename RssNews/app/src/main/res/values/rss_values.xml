@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    LENTA RU-->
+    <array name="channel_lenta_ru">
+        <item>@string/rss_lenta_ru</item>
+        <item>@drawable/lenta_ru</item>
+        <item>@array/categories_lentaru</item>
+    </array>
+
+    <array name="categories_lentaru">
+        <item>@array/cat_lenta_ru_all</item>
+    </array>
+
+    <array name="cat_lenta_ru_all">
+        <item>@string/category_all</item>
+        <item>http://lenta.ru/rss</item>
+    </array>
+    <!--    RIA RU-->
+    <array name="channel_ria_ru">
+        <item>@string/rss_ria</item>
+        <item>@drawable/ria_ru</item>
+        <item>@array/categories_ria_ru</item>
+    </array>
+
+    <array name="categories_ria_ru">
+        <item>@array/cat_ria_ru_politics</item>
+        <item>@array/cat_ria_ru_world</item>
+        <item>@array/cat_ria_ru_economics</item>
+        <item>@array/cat_ria_ru_society</item>
+        <item>@array/cat_ria_ru_moscow</item>
+        <item>@array/cat_ria_ru_sport</item>
+        <item>@array/cat_ria_ru_defence_safety</item>
+        <item>@array/cat_ria_ru_science</item>
+        <item>@array/cat_ria_ru_eco</item>
+        <item>@array/cat_ria_ru_culture</item>
+    </array>
+
+    <array name="cat_ria_ru_politics">
+        <item>@string/category_politics</item>
+        <item>http://ria.ru/export/rss2/politics/index.xml</item>
+    </array>
+    <array name="cat_ria_ru_world">
+        <item>@string/category_world_news</item>
+        <item>http://ria.ru/export/rss2/world/index.xml</item>
+    </array>
+    <array name="cat_ria_ru_economics">
+        <item>@string/category_economics</item>
+        <item>http://ria.ru/export/rss2/economy/index.xml</item>
+    </array>
+    <array name="cat_ria_ru_society">
+        <item>@string/category_society</item>
+        <item>http://ria.ru/export/rss2/society/index.xml</item>
+    </array>
+    <array name="cat_ria_ru_moscow">
+        <item>@string/category_moscow</item>
+        <item>http://ria.ru/export/rss2/moscow/index.xml</item>
+    </array>
+    <array name="cat_ria_ru_sport">
+        <item>@string/category_sport</item>
+        <item>http://sport.ria.ru/export/rss2/sport/index.xml</item>
+    </array>
+    <array name="cat_ria_ru_defence_safety">
+        <item>@string/category_defence</item>
+        <item>http://ria.ru/export/rss2/defense_safety/index.xml</item>
+    </array>
+    <array name="cat_ria_ru_science">
+        <item>@string/category_science</item>
+        <item>http://ria.ru/export/rss2/science/index.xml</item>
+    </array>
+    <array name="cat_ria_ru_eco">
+        <item>@string/category_ecology</item>
+        <item>http://eco.ria.ru/export/rss2/eco/index.xml</item>
+    </array>
+    <array name="cat_ria_ru_culture">
+        <item>@string/category_culture</item>
+        <item>http://ria.ru/export/rss2/culture/index.xml</item>
+    </array>
+<!-- PRAVDA RU-->
+    <array name="channel_pravda_ru">
+        <item>@string/rss_pravda_ru</item>
+        <item>@drawable/pravda_ru</item>
+        <item>@array/categories_pravda_ru</item>
+    </array>
+
+    <array name="categories_pravda_ru">
+        <item>@array/cat_pravda_ru_world</item>
+        <item>@array/cat_pravda_ru_politics</item>
+        <item>@array/cat_pravda_ru_economics</item>
+        <item>@array/cat_pravda_ru_culture</item>
+        <item>@array/cat_pravda_ru_russia</item>
+        <item>@array/cat_pravda_ru_science</item>
+        <item>@array/cat_pravda_ru_week</item>
+        <item>@array/cat_pravda_ru_accidents</item>
+
+    </array>
+
+
+
+    <array name="cat_pravda_ru_world">
+        <item>@string/category_world_news</item>
+        <item>http://www.pravda.ru/world/export-news.xml</item>
+    </array>
+ <array name="cat_pravda_ru_politics">
+        <item>@string/category_politics</item>
+        <item>http://www.pravda.ru/politics/export-news.xml</item>
+    </array>
+ <array name="cat_pravda_ru_economics">
+        <item>@string/category_economics</item>
+        <item>http://www.pravda.ru/economics/export-news.xml</item>
+    </array>
+ <array name="cat_pravda_ru_culture">
+        <item>@string/category_culture</item>
+        <item>http://www.pravda.ru/culture/export-news.xml</item>
+    </array>
+ <array name="cat_pravda_ru_russia">
+        <item>@string/category_russia</item>
+        <item>http://www.pravda.ru/districts/export-news.xml</item>
+    </array>
+ <array name="cat_pravda_ru_science">
+        <item>@string/category_science</item>
+        <item>http://www.pravda.ru/science/export-news.xml</item>
+    </array>
+ <array name="cat_pravda_ru_week">
+        <item>@string/category_week</item>
+        <item>http://www.pravda.ru/week/export-news.xml</item>
+    </array>
+ <array name="cat_pravda_ru_accidents">
+        <item>@string/category_accidents</item>
+        <item>http://www.pravda.ru/accidents/export-news.xml</item>
+    </array>
+
+
+
+
+
+    <!-- Ukrainean-->
+    <!-- CENZOR NET-->
+
+    <array name="channel_cenzor_net">
+        <item>@string/rss_cenzor_net</item>
+        <item>@drawable/cenzor_net</item>
+        <item>@array/categories_cenzor_net</item>
+    </array>
+
+    <array name="categories_cenzor_net">
+        <item>@array/cat_cenzor_net_all</item>
+        <item>@array/cat_cenzor_net_resonance</item>
+
+    </array>
+
+    <array name="cat_cenzor_net_all">
+        <item>@string/category_all</item>
+        <item>http://censor.net.ua/includes/news_ru.xml</item>
+    </array>
+
+    <array name="cat_cenzor_net_resonance">
+        <item>@string/category_resonance</item>
+        <item>http://censor.net.ua/includes/resonance_ru.xml</item>
+    </array>
+
+    <!-- PRAVDA UA-->
+
+    <array name="channel_pravda_ua">
+        <item>@string/rss_ukrainska_pravda</item>
+        <item>@drawable/pravda_ua</item>
+        <item>@array/categories_pravda_ua</item>
+    </array>
+    <array name="categories_pravda_ua">
+        <item>@array/cat_pravda_ua_all</item>
+        <item>@array/cat_pravda_ua_news</item>
+        <item>@array/cat_pravda_ua_main_news</item>
+        <item>@array/cat_pravda_ua_publications</item>
+    </array>
+    <array name="cat_pravda_ua_all">
+        <item>@string/category_all</item>
+        <item>http://www.pravda.com.ua/rss/</item>
+    </array>
+    <array name="cat_pravda_ua_news">
+        <item>@string/category_news</item>
+        <item>http://www.pravda.com.ua/rss/view_news/</item>
+    </array>
+    <array name="cat_pravda_ua_main_news">
+        <item>@string/category_main</item>
+        <item>http://www.pravda.com.ua/rss/view_mainnews/</item>
+    </array>
+    <array name="cat_pravda_ua_publications">
+        <item>@string/category_publications</item>
+        <item>http://www.pravda.com.ua/rss/view_pubs/</item>
+    </array>
+
+    <!-- PODROBNOSTI UA-->
+
+    <array name="channel_podrobnosti_ua">
+        <item>@string/rss_podrobnosti</item>
+        <item>@drawable/podrobnosti</item>
+        <item>@array/categories_podrobnosti_ua</item>
+    </array>
+
+    <array name="categories_podrobnosti_ua">
+        <item>@array/cat_podrobnosti_ua_all</item>
+        <item>@array/cat_podrobnosti_ua_hot</item>
+        <item>@array/cat_podrobnosti_ua_ukraine</item>
+        <item>@array/cat_podrobnosti_ua_world</item>
+        <item>@array/cat_podrobnosti_ua_economy</item>
+        <item>@array/cat_podrobnosti_ua_sports</item>
+    </array>
+
+    <array name="cat_podrobnosti_ua_all">
+        <item>@string/category_all</item>
+        <item>http://podrobnosti.ua/rss/</item>
+    </array>
+     <array name="cat_podrobnosti_ua_hot">
+        <item>@string/category_hot</item>
+        <item>http://podrobnosti.ua/rss/hot.rss</item>
+    </array>
+     <array name="cat_podrobnosti_ua_ukraine">
+        <item>@string/category_ukraine</item>
+        <item>http://podrobnosti.ua/rss/news/ukraine.rss</item>
+    </array>
+     <array name="cat_podrobnosti_ua_world">
+        <item>@string/category_world_news</item>
+        <item>http://podrobnosti.ua/rss/news/world.rss</item>
+    </array>
+     <array name="cat_podrobnosti_ua_economy">
+        <item>@string/category_economics</item>
+        <item>http://podrobnosti.ua/rss/economy.rss</item>
+    </array>
+     <array name="cat_podrobnosti_ua_sports">
+        <item>@string/category_sport</item>
+        <item>http://podrobnosti.ua/rss/sports.rss</item>
+    </array>
+
+    <!-- META UA-->
+
+    <array name="channel_meta_ua">
+        <item>@string/rss_meta_ua</item>
+        <item>@drawable/meta_ua</item>
+        <item>@array/categories_meta_ua</item>
+    </array>
+    <array name="categories_meta_ua">
+        <item>@array/cat_meta_ua_all</item>
+    </array>
+    <array name="cat_meta_ua_all">
+        <item>@string/category_all</item>
+        <item>http://news.meta.ua/ua/metka:%D1%83%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D1%81%D1%8C%D0%BA%D0%B8/?rss</item>
+    </array>
+
+    <!-- OBOZREVATEL UA-->
+
+    <array name="channel_obozrevatel_ua">
+        <item>@string/rss_obozrevatel</item>
+        <item>@drawable/obozrevatel</item>
+        <item>@array/categories_obozrevatel_ua</item>
+    </array>
+    <array name="categories_obozrevatel_ua">
+        <item>@array/cat_obozrevatel_ua_all</item>
+    </array>
+    <array name="cat_obozrevatel_ua_all">
+        <item>@string/category_all</item>
+        <item>http://obozrevatel.com/rss.xml</item>
+    </array>
+
+
+    <!-- ZAHID NET -->
+
+    <array name="channel_zahid_net">
+        <item>@string/rss_zahid_net</item>
+        <item>@drawable/zaxid_net</item>
+        <item>@array/categories_zahid_net</item>
+    </array>
+
+    <array name="categories_zahid_net">
+        <item>@array/cat_zahid_net_all</item>
+    </array>
+
+    <array name="cat_zahid_net_all">
+        <item>@string/rss_zahid_net</item>
+        <item>http://feeds.feedburner.com/zaxid/rss_ua</item>
+
+    </array>
+
+
+    <!-- KORRESPONDENT UA-->
+
+    <array name="channel_korrespondent_ua">
+        <item>@string/rss_korrespondent</item>
+        <item>@drawable/korrespondent</item>
+        <item>@array/categories_korrespondent_ua</item>
+    </array>
+    <array name="categories_korrespondent_ua">
+        <item>@array/cat_korrespondent_ua_all</item>
+        <item>@array/cat_korrespondent_ua_main_day</item>
+        <item>@array/cat_korrespondent_ua_business</item>
+        <item>@array/cat_korrespondent_ua_ukraine</item>
+        <item>@array/cat_korrespondent_ua_sport</item>
+        <item>@array/cat_korrespondent_ua_world</item>
+        <item>@array/cat_korrespondent_ua_kyiv</item>
+
+    </array>
+
+    <array name="cat_korrespondent_ua_all">
+        <item>@string/category_all</item>
+        <item>http://k.img.com.ua/rss/ru/all_news2.0.xml</item>
+    </array>
+    <array name="cat_korrespondent_ua_main_day">
+        <item>@string/category_main</item>
+        <item>http://k.img.com.ua/rss/ru/mainbyday.xml</item>
+    </array>
+    <array name="cat_korrespondent_ua_business">
+        <item>@string/category_economics</item>
+        <item>http://k.img.com.ua/rss/ru/business.xml</item>
+    </array>
+    <array name="cat_korrespondent_ua_ukraine">
+        <item>@string/category_ukraine</item>
+        <item>http://k.img.com.ua/rss/ru/ukraine.xml</item>
+    </array>
+    <array name="cat_korrespondent_ua_sport">
+        <item>@string/category_sport</item>
+        <item>http://k.img.com.ua/rss/ru/sport.xml</item>
+    </array>
+    <array name="cat_korrespondent_ua_world">
+        <item>@string/category_world_news</item>
+        <item>http://k.img.com.ua/rss/ru/world.xml</item>
+    </array>
+     <array name="cat_korrespondent_ua_kyiv">
+        <item>@string/category_kyiv</item>
+        <item>http://k.img.com.ua/rss/ru/kyiv.xml</item>
+    </array>
+
+    <!-- RUSSIAN GROUP-->
+
+    <array name="rss_group_russian">
+        <item>@array/channel_lenta_ru</item>
+        <item>@array/channel_ria_ru</item>
+        <item>@array/channel_pravda_ru</item>
+    </array>
+
+    <!-- UKRAINEAN GROUP-->
+
+    <array name="rss_group_ukrinean">
+
+        <item>@array/channel_pravda_ua</item>
+        <item>@array/channel_podrobnosti_ua</item>
+        <item>@array/channel_meta_ua</item>
+        <item>@array/channel_obozrevatel_ua</item>
+        <item>@array/channel_zahid_net</item>
+
+        <item>@array/channel_korrespondent_ua</item>
+        <item>@array/channel_cenzor_net</item>
+
+    </array>
+
+
+
+
+</resources>

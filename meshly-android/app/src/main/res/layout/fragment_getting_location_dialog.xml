@@ -1,0 +1,68 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:padding="15dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.vakoms.meshly.views.font.TextViewCustomFont
+            android:id="@+id/tvWarningIcon_DialogGettingLocation"
+            style="@style/AwesomeBlueWarningText"
+            android:layout_marginRight="10dp"
+            android:visibility="visible" />
+
+        <ProgressBar
+            android:id="@+id/pbLoading_DialogGettingLocation"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tvStatus_DialogGettingLocation"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Getting your location.."
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:visibility="visible" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llHelperButtonsLayout_DialogGettingLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvSettings_DialogGettingLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:background="@drawable/background_login_button"
+            android:textColor="@color/text_color_login"
+            android:text="Settings"
+            android:visibility="gone"/>
+        <Space
+            android:layout_width="30dp"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/tvRetry_DialogGettingLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:visibility="gone"
+            android:textColor="@color/text_color_login"
+            android:background="@drawable/background_login_button"
+            android:text="Try again" />
+
+    </LinearLayout>
+</LinearLayout>

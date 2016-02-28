@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">RssNews</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="loading">Загрузка</string>
+    <string name="share">Поделится с друзъями</string>
+    <string name="news">НОВОСТИ</string>
+
+    <string name="category_politics">Политика</string>
+    <string name="category_world_news">Новости мира</string>
+    <string name="category_economics">Экономика</string>
+    <string name="category_society">Общество</string>
+    <string name="category_moscow">Москва</string>
+    <string name="category_sport">Спорт</string>
+    <string name="category_science">Наука</string>
+    <string name="category_ecology">Экология</string>
+    <string name="category_culture">Культура</string>
+    <string name="category_russia">Россия</string>
+    <string name="category_defence">Безопасность и оборона</string>
+    <string name="category_week">Новости недели</string>
+    <string name="category_accidents">Проишествия</string>
+    <string name="category_all">Все новости</string>
+    <string name="category_resonance">Резонанс</string>
+    <string name="category_hot">Гарячие новости</string>
+    <string name="category_kyiv">Киев</string>
+    <string name="category_main">Главные новости</string>
+    <string name="category_news">Новости</string>
+    <string name="category_publications">Публикации</string>
+    <string name="category_ukraine">Украина</string>
+
+
+
+    <!-- russian -->
+
+    <string name="rss_lenta_ru">Лента РУ</string>
+    <string name="rss_ria">Риа новости</string>
+    <string name="rss_pravda_ru">Правда</string>
+
+    <!-- ukrainean-->
+
+    <string name="rss_ukrainska_pravda">Укр. правда</string>
+    <string name="rss_podrobnosti">Подробности</string>
+    <string name="rss_meta_ua">Мета</string>
+    <string name="rss_obozrevatel">Обозреватель</string>
+    <string name="rss_zahid_net">Захід-НЕТ</string>
+    <string name="rss_liha_zakon">Ліга Закон</string>
+    <string name="rss_korrespondent">Корреспондент</string>
+    <string name="rss_cenzor_net">Цензор</string>
+
+
+
+</resources>

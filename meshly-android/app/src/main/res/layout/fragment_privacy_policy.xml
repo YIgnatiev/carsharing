@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+    <!--    <RelativeLayout
+8         android:id="@+id/privacy_info_header"
+9         android:layout_width="match_parent"
+10         android:layout_height="wrap_content">
+11
+12         <TextView
+13             android:id="@+id/privacy_policy_tv"
+14             android:layout_width="wrap_content"
+15             android:layout_height="wrap_content"
+16             android:layout_centerInParent="true"
+17             android:textColor="@color/awasome_blue"
+18             android:padding="@dimen/def_icon_padding"
+19             android:text="@string/privacy_policy_title"
+20             android:textSize="@dimen/title_text_size" />
+21     </RelativeLayout>-->
+
+
+       <RelativeLayout  android:id="@+id/privacy_info_header"
+           android:layout_width="match_parent"
+           android:layout_height="45dp"
+           android:layout_gravity="center_horizontal"
+           android:background="@color/background">
+
+
+
+               <ImageView
+                 style="@style/AppTheme.Icon"
+                   android:id="@+id/ivBack"
+                   android:src="@drawable/ic_left_blue" />
+
+
+
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_centerVertical="true"
+               android:layout_centerHorizontal="true"
+               android:textSize="18sp"
+               android:text="@string/privacy_policy_title"
+               android:textColor="#DFE1E2"
+               android:visibility="visible" />
+
+
+       </RelativeLayout>
+
+
+
+
+       <WebView
+           android:id="@+id/wvInfo_FragmentPrivacyPolicy"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:layout_below="@+id/privacy_info_header"/>
+
+
+   </RelativeLayout>

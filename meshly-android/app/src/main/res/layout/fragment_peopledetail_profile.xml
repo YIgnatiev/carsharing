@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="user"
+            type="com.vakoms.meshly.models.NewUser" />
+
+        <variable
+            name="listener"
+            type="com.vakoms.meshly.fragments.people.PeopleDetailFragment" />
+
+
+        <import type="android.view.View" />
+    </data>
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#82000000"
+                android:animateLayoutChanges="true"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+
+
+
+                <android.support.percent.PercentRelativeLayout
+                    android:id="@+id/rlUserAvatarContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <RelativeLayout
+                        android:id="@+id/rlActionBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp">
+
+                        <ImageView
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:onClick="@{listener.onBackClick}"
+                            android:paddingBottom="10dp"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="60dp"
+                            android:paddingTop="10dp"
+                            android:src="@drawable/ic_left_blue" />
+
+                        <com.vakoms.meshly.views.font.CustomTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tvHeader"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:text="@string/profile_title"
+                            android:textColor="#ffffff"
+                            android:textSize="19sp"
+                            app:custom_font="@string/font_helvetica_light" />
+
+
+                    </RelativeLayout>
+
+
+                    <com.vakoms.meshly.views.font.CustomTextView
+                        android:id="@+id/tvCreatedOpportunities"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center|bottom"
+                        android:singleLine="true"
+                        android:text="@{String.valueOf(user.createdOpportunities)}"
+                        android:textColor='@{user.createdOpportunities != 0 ? @color/blue : @color/white_t_50}'
+                        android:textSize="17sp"
+                        app:custom_font="@string/font_helvetica_light"
+                        app:layout_heightPercent="20%"
+                        app:layout_widthPercent="33%" />
+
+
+                    <com.vakoms.meshly.views.font.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@id/tvCreatedOpportunities"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text='@{user.createdOpportunities == 1 ? "deal" : "deals"}'
+                        android:textAllCaps="true"
+                        android:textColor="@color/white_t_50"
+                        android:textSize="10sp"
+                        app:custom_font="@string/font_helvetica_light"
+                        app:layout_widthPercent="33%"
+                        android:id="@+id/tvDeals" />
+
+
+                    <com.vakoms.meshly.views.font.CustomTextView
+                        android:id="@+id/tvFollowers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|bottom"
+                        android:singleLine="true"
+
+                        android:text="@{String.valueOf(user.followersCount)}"
+
+
+                        android:textColor="@color/white"
+                        android:textSize="17sp"
+                        app:custom_font="@string/font_helvetica_light"
+                        app:layout_heightPercent="20%"
+
+                        app:layout_widthPercent="33%" />
+
+                    <com.vakoms.meshly.views.font.CustomTextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tvFollowers"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text='@{user.followersCount == 1 ? "follower" :"followers"}'
+                        android:textAllCaps="true"
+                        android:textColor="@color/white_t_50"
+                        android:textSize="10sp"
+                        app:custom_font="@string/font_helvetica_light"
+
+                        app:layout_widthPercent="33%"
+                        android:id="@+id/tvFollowersLabel" />
+
+
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/ivUserAvatar"
+
+                        android:layout_marginTop="50dp"
+                        android:layout_width="124dp"
+                        android:layout_height="124dp"
+                        android:layout_centerHorizontal="true"
+                        app:imageUrl="@{user.picture}"
+                        app:roundAsCircle="true"
+                        app:roundingBorderColor="#fff"
+                        app:roundingBorderWidth="1dp" />
+
+
+                </android.support.percent.PercentRelativeLayout>
+
+
+                <com.vakoms.meshly.views.font.CustomTextView
+                    android:id="@+id/tvUserName_FragmentPeopleDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:singleLine="true"
+                    android:text="@{user.username}"
+                    android:textColor="@color/white"
+                    android:textSize="27sp"
+                    app:custom_font="@string/font_helvetica_regular" />
+
+
+                <com.vakoms.meshly.views.font.CustomTextView
+                    android:id="@+id/tvUserJob_FragmentPeopleDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    app:setJob='@{user}'
+                    android:textColor="@color/white_transparent_50"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    app:custom_font="@string/font_helvetica_thin" />
+
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="2dp"
+
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/blue"
+                    android:id="@+id/vwDivider" />
+
+
+                <com.vakoms.meshly.views.font.CustomTextView
+                    android:id="@+id/tvDescription_FragmentPeopleDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_gradient"
+                    android:gravity="center"
+                    android:lineSpacingMultiplier="1.2"
+                    android:maxLines="3"
+                    android:padding="17dp"
+                    android:text="@{user.summary}"
+                    android:textColor="@android:color/white"
+                    android:textSize="17sp"
+                    app:custom_font="@string/font_helvetica_light" />
+
+            </LinearLayout>
+
+
+
+
+
+</layout>

@@ -1,0 +1,158 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/layout_padding"
+    android:paddingLeft="@dimen/layout_padding"
+    android:paddingRight="@dimen/layout_padding"
+    android:gravity="center"
+    >
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivBack_FR"
+        android:layout_gravity="left"
+        android:src="@drawable/background_back_button_selector"
+        android:paddingRight="@dimen/default_padding"
+        android:paddingTop="@dimen/default_padding"
+        android:paddingBottom="@dimen/default_padding"
+
+        />
+
+
+    <FrameLayout
+        android:layout_width="168dp"
+        android:layout_height="168dp"
+        android:background="@drawable/background_round_image"
+        android:id="@+id/frRoundImage"
+
+
+        >
+    <com.morfitrun.custom_views.RoundedImageView
+        android:layout_width="@dimen/image_avatar_height"
+        android:layout_height="@dimen/image_avatar_width"
+        android:id="@+id/ivUserAvatar_FR"
+        android:src="@drawable/no_photo"
+        android:layout_gravity="center"
+        android:padding="@dimen/roung_image_padding"
+        />
+    </FrameLayout>
+
+    <com.andreabaccega.widget.FormEditText
+        android:id="@+id/etName_FR"
+        style="@style/AppTheme.EditText"
+        android:hint="@string/hint_name"
+        custom:testType="alpha"
+        />
+
+
+  <com.andreabaccega.widget.FormEditText
+        android:id="@+id/etEmail_FR"
+        style="@style/AppTheme.EditText"
+        custom:testType="email"
+        android:inputType="textEmailAddress"
+        android:hint="@string/hint_email"
+        />
+  <com.andreabaccega.widget.FormEditText
+        android:id="@+id/etPassword_FR"
+        style="@style/AppTheme.EditText"
+        custom:testType="regexp"
+        custom:customRegexp="^.{8,20}$"
+        custom:testErrorString="@string/wrong_password_length"
+        android:inputType="textPassword"
+        android:hint="@string/hint_password"
+        />
+    <com.andreabaccega.widget.FormEditText
+        android:id="@+id/etPasswordConfirm_FR"
+        style="@style/AppTheme.EditText"
+        custom:testType="regexp"
+        custom:customRegexp="^.{8,20}$"
+        custom:testErrorString="@string/wrong_password_length"
+        android:inputType="textPassword"
+        android:hint="@string/hint_confirm_password"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_margin"
+        >
+        <TextView
+            android:id="@+id/tvBirthday_FR"
+            style="@style/AppTheme.TextView"
+            android:text="@string/birthday"
+            />
+        <TextView
+
+            style="@style/AppTheme.TextView"
+            android:layout_width="120dp"
+           android:layout_centerHorizontal="true"
+            android:id="@+id/tvBirthDateFR"
+            android:text="@string/empty_date"
+            android:gravity="center"
+
+            />
+        <TextView
+            style="@style/AppTheme.TextView"
+            android:textColor="@drawable/text_green_selector"
+            android:id="@+id/tvAdd_FR"
+            android:text="@string/add"
+            android:layout_alignParentRight="true"
+            />
+
+        <TextView
+            style="@style/AppTheme.TextView"
+            android:text="@string/gender"
+            android:id="@+id/tvGender_FR"
+            android:layout_below="@id/tvBirthday_FR"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/feamle"
+            android:id="@+id/ivFemale_FR"
+            android:layout_below="@id/tvBirthday_FR"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            />
+
+        <android.support.v7.widget.SwitchCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textSize="18sp"
+            android:id="@+id/swGender_FR"
+            android:layout_toLeftOf="@id/ivFemale_FR"
+            android:layout_toStartOf="@id/ivFemale_FR"
+            android:layout_below="@id/tvBirthday_FR"
+
+             />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/male"
+            android:layout_below="@id/tvBirthday_FR"
+            android:layout_toLeftOf="@id/swGender_FR"
+            />
+
+
+
+        </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tvSubmit_FR"
+        android:layout_marginTop="20dp"
+        style="@style/AppTheme.Button"
+        android:text="@string/sign_up" />
+
+
+</LinearLayout>
+</ScrollView>

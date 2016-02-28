@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Soul Intentions</string>
+    <string name="title_souls">Souls</string>
+    <string name="post_title">Soul Intentions by Mary Jo</string>
+    <string name="title_author">Author</string>
+    <string name="web_url">maryjorapini.com</string>
+    <string name="title_favorites">Favorites</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!--facebook-->
+    <string name="facebook_app_id">371023559736666</string>
+    <!--twitter-->
+    <string name="twitter_consumer_key">kWpScxMHkk8OZOSxdtDinnZeq</string>
+    <string name="twitter_cosumer_secret">KUYdQN30tcEc93ve3cvfknPV2Jz2Rt9NJZ7hOs4MeJUAsbRSfm</string>
+
+    <string name="no_internet_connection">No internet connection.</string>
+    <string name="error_default">Server error was occurred</string>
+
+    <string name="posting_repost">Posting…</string>
+    <string name="network_isnt_supported">Network isn\'t supported</string>
+    <string name="reposted_successfully">Reposted successfully</string>
+    <string name="already_reposted">You have already reposted that</string>
+    <string name="problem_with_connection">Problem with connection. \n Please try again</string>
+
+    <string name="empty_view_message">No items</string>
+    <string name="empty_view_message_favorite">No favorite items</string>
+    <string name="empty_view_message_search">No items found</string>
+
+    <string name="sort_by_calendar">by DATE</string>
+    <string name="sort_by_favourites">by RATING</string>
+
+
+
+
+</resources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CardsLayout">
+        <attr name="top_offset" format="dimension"/>
+
+    </declare-styleable>
+
+
+
+
+
+    <declare-styleable name="CustomSwitch">
+        <attr name="thumb_color" format="color"/>
+        <attr name="back_color" format="color"/>
+        <attr name="back_color_pressed" format="color"/>
+        <attr name="inner_padding" format="dimension"/>
+        <attr name="round_radius" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="CustomEditText">
+        <attr name="edit_text_font" format="string|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomTextView">
+        <attr name="custom_font" format="string|reference" />
+    </declare-styleable>
+
+
+    <declare-styleable name="CustomRadioButton">
+        <attr name="radio_font" format="string|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomCheckbox">
+        <attr name="checkbox_font" format="string|reference" />
+    </declare-styleable>
+
+
+
+
+
+
+</resources>

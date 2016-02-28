@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="cases">
+        <item>Everyone</item>
+        <item>Those I follow</item>
+        <item>Nobody</item>
+    </string-array>
+    <string-array name="cases_hide_from">
+        <item>Let others find me again</item>
+        <item>2 hours</item>
+        <item>6 hours</item>
+        <item>12 hours</item>
+    </string-array>
+</resources>

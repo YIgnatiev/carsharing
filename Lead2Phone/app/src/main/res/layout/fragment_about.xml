@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <ru.lead2phone.ru.lead2phone.views.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/about_text"
+        android:textColor="@android:color/white"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        app:custom_font="@string/helvetica_roman"
+
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:id="@+id/tvText_FragmentAbout"/>
+    <ru.lead2phone.ru.lead2phone.views.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:custom_font="@string/helvetica_roman"
+
+        android:text="Назад"
+        android:layout_alignParentBottom="true"
+        android:padding="15dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:id="@+id/tvBack_FragmentAbout"/>
+</RelativeLayout>

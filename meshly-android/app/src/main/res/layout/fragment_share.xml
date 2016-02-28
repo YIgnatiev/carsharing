@@ -1,0 +1,102 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data class="ShareFragmentb">
+        <variable
+            name="listener"
+            type="com.vakoms.meshly.fragments.ShareWithLinkedinFragment"/>
+
+
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_gravity="center_horizontal">
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:orientation="horizontal">
+
+            <ImageView
+
+                android:onClick='@{listener.onBackClicked}'
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="5dp"
+                android:src="@drawable/close_blue" />
+
+        </LinearLayout>
+
+        <com.vakoms.meshly.views.font.CustomTextView
+            app:custom_font="@string/font_helvetica_regular"
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Share to your Network"
+            android:textColor="#DFE1E2"
+            android:textSize="19sp" />
+
+        <ImageView
+            android:onClick='@{listener.onOkclicked}'
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingRight="5dp"
+            android:src="@drawable/ok_blue" />
+
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/ivLinkedInBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/linked_in_btn" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ivLinkedInBtn"
+        android:layout_marginTop="100dp"
+        android:orientation="vertical">
+
+        <com.vakoms.meshly.views.font.CustomTextView
+            app:custom_font="@string/font_helvetica_regular"
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:textColor="#8D8D8E"
+            android:textSize="17sp" />
+
+        <com.vakoms.meshly.views.font.CustomEditText
+            app:custom_edit_text_font="@string/font_helvetica_regular"
+            android:id="@+id/etShareText"
+            style="@style/AppTheme.EditTextNoUnderline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:padding="20dp"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+
+
+</RelativeLayout>
+
+</layout>

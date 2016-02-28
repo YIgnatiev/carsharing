@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data class="EditFieldBinding">
+        <variable
+            name="listener"
+            type="com.vakoms.meshly.fragments.events.AddEventEditFieldFragment"/>
+
+
+
+    </data>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/save">
+
+        <com.vakoms.meshly.views.font.CustomTextView
+            app:custom_font="@string/font_helvetica_regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvSave_FragmentAddEventEdit"
+            android:layout_alignParentRight="true"
+            android:text="@string/save"
+            android:textColor="@color/blue"
+            android:textSize="22sp"
+            android:layout_centerVertical="true"
+
+            android:onClick="@{listener.onSave}"
+            android:layout_marginRight="15dp"
+            android:visibility="visible" />
+
+       <com.vakoms.meshly.views.font.CustomTextView
+           app:custom_font="@string/font_helvetica_regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textSize="19sp"
+            android:textColor="@color/white"
+            android:id="@+id/tvTitle" />
+
+
+
+            <ImageView
+                android:onClick="@{listener.onBack}"
+                android:src="@drawable/ic_left_blue"
+                style="@style/AppTheme.Icon"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/save">
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:id="@+id/ivLogo_AddEventEdit"
+            android:background="@color/white_transparent_25"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="5dp" />
+
+        <com.vakoms.meshly.views.font.CustomTextView
+            app:custom_font="@string/font_helvetica_regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="140"
+            android:id="@+id/tvSymbols"
+            android:layout_below="@+id/ivLogo_AddEventEdit"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="5dp"
+            android:textColor="@color/white_transparent_50"
+            android:textSize="18sp" />
+
+        <com.vakoms.meshly.views.font.CustomEditText
+            app:custom_edit_text_font="@string/font_helvetica_regular"
+            style="@style/AppTheme.EditTextNoUnderline"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="start"
+            android:id="@+id/etDescription"
+            android:layout_below="@+id/tvSymbols"
+            android:textSize="19sp"
+            android:padding="5dp"
+            android:maxLength="140" />
+    </RelativeLayout>
+
+</RelativeLayout>
+
+</layout>

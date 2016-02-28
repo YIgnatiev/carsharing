@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:paddingRight="30dp"
+    android:paddingLeft="30dp">
+    <com.morfitrun.custom_views.RoundedImageView
+        android:layout_width="@dimen/item_round_image_dimmension"
+        android:layout_height="@dimen/item_round_image_dimmension"
+        android:src="@drawable/no_photo"
+        android:layout_marginRight="10dp"
+
+        android:id="@+id/ivAvatar_item_FRegRun"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvName_item_FRegRun"
+        android:text="Greg House"
+        android:layout_alignTop="@id/ivAvatar_item_FRegRun"
+        android:layout_toRightOf="@id/ivAvatar_item_FRegRun"
+        android:textSize="16sp"
+        android:textColor="@color/primary_blue"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvEmail_item_FRegRun"
+        android:textSize="12sp"
+        android:text="greg.house@gmail.comm"
+        android:layout_toRightOf="@id/ivAvatar_item_FRegRun"
+        android:layout_alignBottom="@id/ivAvatar_item_FRegRun"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/background_forward_button_selector"
+        android:layout_centerVertical="true"
+        />
+
+</RelativeLayout>

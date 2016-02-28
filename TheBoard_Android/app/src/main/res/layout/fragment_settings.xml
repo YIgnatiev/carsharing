@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+
+    android:layout_height="match_parent">
+
+
+
+
+    <pro.theboard.custom_views.CustomSwitch
+        android:id="@+id/csEnableNotification"
+        android:layout_marginTop="150dp"
+        android:layout_width="75dp"
+        android:layout_height="50dp"
+        android:layout_marginRight="10dp"
+        android:padding="10dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        custom:thumb_color="@color/main_color"
+        custom:back_color_pressed="#77ffffff"
+        custom:inner_padding="2dp"
+        custom:round_radius="17dp"
+        custom:back_color="@android:color/white"/>
+
+    <pro.theboard.custom_views.CustomTextView
+        custom:custom_font="@string/font_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+
+        android:gravity="center"
+        android:layout_alignBottom="@id/csEnableNotification"
+        android:layout_alignTop="@id/csEnableNotification"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:text="Ilmoitukset"  />
+
+    <pro.theboard.custom_views.CustomTextView
+        custom:custom_font="@string/font_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/tvNotifAlert"
+        android:gravity="left"
+        android:layout_below="@id/csEnableNotification"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/settings_explanation_font_size"
+     android:layout_toLeftOf="@id/csEnableNotification"
+        android:text="@string/notification_alert"  />
+
+    <View android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/tvNotifAlert"
+        android:background="#fff"/>
+
+<pro.theboard.custom_views.CustomSwitch
+        android:id="@+id/csEnableLocation"
+        android:layout_marginTop="50dp"
+        android:layout_width="75dp"
+        android:layout_height="50dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@id/csEnableNotification"
+        android:padding="10dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+    custom:thumb_color="@color/main_color"
+    custom:back_color_pressed="#77ffffff"
+        custom:inner_padding="2dp"
+        custom:round_radius="17dp"
+    custom:back_color="@android:color/white"/>
+
+    <pro.theboard.custom_views.CustomTextView
+        custom:custom_font="@string/font_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_alignBottom="@id/csEnableLocation"
+        android:layout_alignTop="@id/csEnableLocation"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:text="Paikannus"  />
+    <pro.theboard.custom_views.CustomTextView
+        custom:custom_font="@string/font_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:id="@+id/tvLocationAlert"
+        android:layout_marginLeft="10dp"
+        android:layout_toLeftOf="@id/csEnableLocation"
+        android:layout_below="@id/csEnableLocation"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/settings_explanation_font_size"
+        android:text="@string/location_alert"  />
+
+    <View android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/tvLocationAlert"
+        android:background="#fff"/>
+
+</RelativeLayout>

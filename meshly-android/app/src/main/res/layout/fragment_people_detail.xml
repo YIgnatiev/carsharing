@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="user"
+            type="com.vakoms.meshly.models.NewUser" />
+
+        <variable
+            name="listener"
+            type="com.vakoms.meshly.fragments.people.PeopleDetailFragment" />
+
+
+        <import type="android.view.View" />
+    </data>
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#0d0d0d"
+        android:id="@+id/root">
+
+        <FrameLayout
+            android:id="@+id/rlUserBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#c8000000"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/ivBackground_FragmentPeopleDetail"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_centerInParent="true"
+                app:actualImageScaleType="centerCrop" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@android:color/transparent"
+                android:id="@+id/overLay"/>
+
+
+      <include
+          android:id="@+id/included"
+          layout="@layout/fragment_peopledetail_profile"
+          app:user='@{user}'
+          app:listener='@{listener}'
+          />
+
+
+
+
+
+        </FrameLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/llFooter_FragmentPeopleDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="#0d0d0d"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:id="@+id/llFollow_FragmentPeopleDetail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/ivFollowButton"
+                    android:layout_width="67dp"
+                    android:layout_height="67dp"
+                    android:background="@drawable/background_circle_blue"
+                    android:onClick="@{listener.followUser}"
+                    android:padding="15dp"
+                    android:src="@{user.isFollowedByMe?@drawable/following_icon:@drawable/follow_icon}" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white_transparent_10" />
+
+            <LinearLayout
+                android:id="@+id/llWrite_FragmentPeopleDetail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+
+                <ImageView
+                    android:layout_width="67dp"
+                    android:layout_height="67dp"
+                    android:id="@+id/ivMessageButton"
+                    android:background="@drawable/background_circle_blue"
+                    android:onClick="@{listener.onWriteClick}"
+                    android:padding="15dp"
+                    android:src="@drawable/message" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignTop="@id/llFooter_FragmentPeopleDetail"
+            android:background="@color/white_transparent_10" />
+
+    <com.github.ksoichiro.android.observablescrollview.ObservableScrollView
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/svMain"
+            android:layout_marginTop="@dimen/scroll_margin"
+            android:layout_above="@id/llFooter_FragmentPeopleDetail"
+
+            android:overScrollMode="never">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:id="@+id/emptyPlaceholder"
+                    android:onClick="@{listener.showAvatar}"
+
+                    android:layout_height="1dp"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:onClick='@{listener.onDescription}'
+
+                    android:id="@+id/emptyPlaceholderBottom"
+                    android:layout_height="1dp"/>
+
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/white_transparent_10" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ivMap_PeopleDetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/map" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignBottom="@id/ivMap_PeopleDetail"
+                        android:layout_alignTop="@id/ivMap_PeopleDetail"
+                        android:background="@drawable/background_round_shadow"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.vakoms.meshly.views.font.CustomTextView
+                                android:id="@+id/tvLastSeenTitle_FragmentPeopleDetail"
+                                style="@style/AppTheme.TransparentLabel"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="10dp"
+                                android:gravity="center"
+                                android:text="last seen in"
+
+                                app:custom_font="@string/font_helvetica_thin" />
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_alignBottom="@id/tvLastSeenTitle_FragmentPeopleDetail"
+                                android:layout_marginRight="10dp"
+                                android:layout_toLeftOf="@id/tvLastSeenTitle_FragmentPeopleDetail"
+                                android:src="@drawable/target" />
+
+                        </RelativeLayout>
+
+                        <com.vakoms.meshly.views.font.CustomTextView
+                            android:id="@+id/tvLocation_FragmentPeopleDetail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            app:setLocation='@{user.geo}'
+
+
+                            android:textColor="@color/blue"
+                            android:textSize="17sp"
+                            app:custom_font="@string/font_helvetica_light" />
+
+                        <com.vakoms.meshly.views.font.CustomTextView
+                            android:id="@+id/tvLastSeenTime_FragmentPeopleDetail"
+                            style="@style/AppTheme.TransparentLabel"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center"
+                            app:setTime='@{user}'
+
+                            android:textAllCaps="true"
+                            app:custom_font="@string/font_helvetica_thin" />
+
+                    </LinearLayout>
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#0d0d0d"
+                    android:orientation="vertical">
+
+                    <com.vakoms.meshly.views.font.CustomTextView
+                        style="@style/AppTheme.Title"
+                        android:text="Industries"
+                        android:visibility="@{user.industries == null  ? View.GONE : View.VISIBLE}"
+                        app:custom_font="@string/font_helvetica_thin" />
+
+                    <com.vakoms.meshly.views.LabelLayout
+                        android:id="@+id/lIndustries"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:visibility="@{user.industries == null  ? View.GONE : View.VISIBLE}"
+                        app:item_space="5dp" />
+
+
+                    <com.vakoms.meshly.views.font.CustomTextView
+                        style="@style/AppTheme.Title"
+                        android:text="Home Town"
+                        android:visibility="@{user.homeCity == null  ? View.GONE : View.VISIBLE}"
+                        app:custom_font="@string/font_helvetica_thin" />
+
+
+                    <com.vakoms.meshly.views.font.CustomTextView
+                        android:id="@+id/tvHomeTown_FragmentPeopleDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:singleLine="true"
+                        android:text="@{user.homeCity}"
+                        android:textColor="@color/white"
+                        android:textSize="17sp"
+                        android:visibility="@{user.homeCity == null ? View.GONE : View.VISIBLE}"
+                        app:custom_font="@string/font_helvetica_light" />
+
+
+                    <!--android:visibility="@{user.getCompanyIsEmpty == null ? View.GONE : View.VISIBLE}"-->
+
+
+                    <com.vakoms.meshly.views.font.CustomTextView
+                        style="@style/AppTheme.Title"
+
+                        android:text="Company"
+                        android:visibility="@{(user.company == null &amp;&amp; user.companyWebsite == null &amp;&amp; user.companyDescription == null) ? View.GONE : View.VISIBLE}"
+                        app:custom_font="@string/font_helvetica_thin" />
+
+
+                    <com.vakoms.meshly.views.font.CustomTextView
+                        android:id="@+id/tvCompanyName_FragmentPeopleDetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="20dp"
+                        android:singleLine="true"
+                        android:text="@{user.company}"
+                        android:textColor="@android:color/white"
+                        android:textSize="17sp"
+                        android:visibility="@{user.company == null ? View.GONE : View.VISIBLE}"
+                        app:custom_font="@string/font_helvetica_light" />
+
+                    <com.vakoms.meshly.views.font.CustomTextView
+                        android:id="@+id/tvCompanyWebsite_FragmentPeopleDetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:autoLink="web"
+                        android:paddingLeft="10dp"
+                        android:singleLine="true"
+                        android:text="@{user.companyWebsite}"
+                        android:textColor="@color/blue"
+                        android:textSize="17sp"
+                        android:visibility="@{user.companyWebsite == null ? View.GONE : View.VISIBLE}"
+                        app:custom_font="@string/font_helvetica_thin" />
+
+                    <com.vakoms.meshly.views.font.CustomTextView
+                        android:id="@+id/tvCompanyDescription_FragmentPeopleDetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:lineSpacingMultiplier="1.2"
+                        android:padding="10dp"
+                        android:text="@{user.companyDescription}"
+                        android:textColor="@android:color/white"
+                        android:textSize="17sp"
+                        android:visibility="@{user.companyDescription == null ? View.GONE : View.VISIBLE}"
+                        app:custom_font="@string/font_helvetica_thin" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_title"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <com.vakoms.meshly.views.font.CustomTextView
+                            android:id="@+id/tvEventsUpcoming_FragmentPeopleDetail"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@{listener.isPast ? @drawable/background_blue_line:@drawable/backgound_blue_line_pressed}"
+                            android:gravity="center"
+
+
+                            android:onClick="@{listener.onEventsUpcomig}"
+
+
+                            android:padding="15dp"
+                            android:singleLine="true"
+                            android:text="upcoming events"
+                            android:textAllCaps="true"
+                            android:textColor="@{listener.isPast ? @color/blue : @color/white_transparent_50}"
+                            android:textSize="12sp"
+                            app:custom_font="@string/font_helvetica_thin" />
+
+                        <com.vakoms.meshly.views.font.CustomTextView
+                            android:id="@+id/tvPastEvents_FragmentPeopleDetail"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@{!listener.isPast ? @drawable/background_blue_line:@drawable/backgound_blue_line_pressed}"
+                            android:gravity="center"
+                            android:onClick="@{listener.onPastEvents}"
+                            android:padding="15dp"
+                            android:singleLine="true"
+                            android:text="past events"
+                            android:textAllCaps="true"
+                            android:textColor="@{!listener.isPast ? @color/blue : @color/white_transparent_50}"
+                            android:textSize="12sp"
+                            app:custom_font="@string/font_helvetica_thin" />
+
+                    </LinearLayout>
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="#64ffffff" />
+
+
+                    <com.vakoms.meshly.views.font.CustomTextView
+                        android:layout_marginTop="50dp"
+                        android:drawableTop="@drawable/ic_no_events"
+                        android:id="@+id/tvEmptyView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="30dp"
+                        android:visibility="gone"
+                        android:text="No upcoming events"
+                        android:textColor="@color/white_t_50"
+                        android:textSize="20sp"
+                        app:custom_font="@string/font_helvetica_thin" />
+
+                    <LinearLayout
+                        android:id="@+id/llEvents"
+                        android:animateLayoutChanges="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+
+
+                    <RelativeLayout
+                        android:id="@+id/llDivider"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp">
+
+                        <View
+                            android:id="@+id/vwCenterLine_FragmentPeopleDetail"
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:layout_centerVertical="true"
+                            android:background="@color/white_transparent_25" />
+
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/vwCenterLine_FragmentPeopleDetail"
+                            android:background="@android:color/black" />
+
+                        <com.vakoms.meshly.views.font.CustomTextView
+                            android:id="@+id/tvShowMore_FragmentPeopleDetail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/background_show_more"
+                            android:gravity="center"
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:paddingTop="5dp"
+                            android:text="show more"
+                            android:textAllCaps="true"
+                            android:textColor="@color/text_color_login"
+                            android:layout_marginBottom="50dp"
+                            android:textSize="12sp"
+                            app:custom_font="@string/font_helvetica_thin" />
+
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
+
+
+
+
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,49 @@
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.maryjorapini.soulintention.fragments.SoulsFragment"
+    android:id="@+id/srLayout">
+
+<!--<ScrollView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/base_white"
+        >
+    <com.maryjorapini.soulintention.custom_views.swipe_item.SwipeableListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:dividerHeight="0.5dp"
+        android:overScrollMode="never"
+        android:background="@color/background_black_color"
+        android:id="@+id/lvPostList_FP"
+        />
+
+
+    <TextView
+        android:id="@+id/tvEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/empty_view_message"
+        android:gravity="center"
+        />
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pbPost"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+
+    </FrameLayout>
+
+
+<!--</ScrollView>-->
+</android.support.v4.widget.SwipeRefreshLayout>
+

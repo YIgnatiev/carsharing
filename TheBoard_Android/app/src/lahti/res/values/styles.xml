@@ -1,0 +1,84 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:typeface">monospace</item>
+        <item name="android:windowBackground">@color/background</item>
+    </style>
+
+    <style name="AppTheme.Card">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@drawable/background_rounded_corners</item>
+        <item name="android:layout_width">@dimen/card_width</item>
+        <item name="android:layout_height">@dimen/card_height</item>
+
+    </style>
+
+
+    <style name="AppTheme.Menu">
+
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:textColor">@color/main_font</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="AppTheme.Question">
+
+        <item name="custom_font">@string/font_bold</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/secondary_font</item>
+        <item name="android:textSize">@dimen/card_header_text_size</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_marginLeft">@dimen/card_header_margin</item>
+        <item name="android:layout_marginRight">@dimen/card_header_margin</item>
+        <item name="android:text">Question</item>
+    </style>
+
+    <style name="AppTheme.Button">
+
+        <item name="android:layout_width">@dimen/card_button_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/card_bottom_padding</item>
+        <item name="android:layout_marginRight">@dimen/card_bottom_padding</item>
+        <item name="android:background">@drawable/background_button_selector</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingBottom">@dimen/card_bottom_padding</item>
+        <item name="android:paddingTop">@dimen/card_bottom_padding</item>
+        <item name="android:text">@string/answer</item>
+        <item name="android:textColor">@color/main_font</item>
+        <item name="android:textSize">@dimen/card_button_text_size</item>
+        <item name="custom_font">@string/font_semibold</item>
+
+    </style>
+
+    <style name="AppTheme.CardBottom">
+
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:layout_margin">1dp</item>
+        <item name="android:background">@drawable/background_bottom</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">20dp</item>
+
+    </style>
+
+    <style name="AppTheme.SliderText">
+
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/secondary_font</item>
+        <item name="android:textSize">@dimen/card_slider_option_font_size</item>
+        <item name="custom_font">@string/font_regular</item>
+
+    </style>
+
+</resources>

@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Meshly</string>
+    <string name="action_settings">Settings</string>
+
+
+    <string-array name="skillsList">
+
+        <item>C#                        </item>
+        <item>Android                   </item>
+        <item>iOS                       </item>
+        <item>Arduino                   </item>
+        <item>Java                      </item>
+        <item>C                         </item>
+        <item>C++                       </item>
+        <item>Objective-C               </item>
+        <item>C#                        </item>
+        <item>JavaScript                </item>
+        <item>PHP                       </item>
+        <item>Python                    </item>
+        <item>Visual Basic              </item>
+        <item>Visual Basic .NET         </item>
+        <item>Delphi/Object Pascal      </item>
+        <item>Perl                      </item>
+        <item>Transact-SQL              </item>
+        <item>MATLAB                    </item>
+        <item>ABAP                      </item>
+        <item>F#                        </item>
+        <item>PL/SQL                    </item>
+        <item>Ruby                      </item>
+        <item>R                         </item>
+        <item>Pascal                    </item>
+
+
+    </string-array>
+
+
+
+
+
+
+
+
+
+    <string-array name="open_for_array">
+
+
+        <item>One day</item>
+        <item>One week</item>
+        <item>One month</item>
+        <item>Forever</item>
+
+    </string-array>
+
+
+
+
+
+
+   <string name="twitter_consumer_key">7n7PfzN2xRmrMQ33ujUCylFtt</string>
+   <string name="twitter_consumer_secret">CsOH7tvIEsmucENyNB3DaXRq36xfoSc8ewn33qrqboBIZruon2</string>
+
+
+
+
+    <string name="linkedin_consumer_key"></string>
+    <string name="linkedin_consumer_secret"></string>
+
+
+
+
+    <string name="facebook_app_id">350561328474995</string>
+
+
+
+
+    <string name="inbox_YearsAgo">years ago</string>
+    <string name="who_is_nearby">Who\'s Nearby</string>
+    <string name="profile">Your Profile</string>
+
+    <string name="leave_feedback">Leave Feedback</string>
+    <string name="log_out">Log Out</string>
+    <string name="events">Events</string>
+    <string name="minute">minute</string>
+    <string name="messages">Messages</string>
+    <string name="edit_your_profile">Edit your profile</string>
+    <string name="people">People</string>
+    <string name="settings">SETTINGS</string>
+    <string name="feedback">FEEDBACK</string>
+    <string name="attendees">Attendees</string>
+    <string name="live">Live</string>
+    <string name="share">Share</string>
+    <string name="about">ABOUT</string>
+    <string name="profile_item">PROFILE</string>
+    <string name="share_meshly">SHARE MESHLY</string>
+    <string name="open">Open for new business connections</string>
+    <string name="hide_from_everyone">Hide from everyone</string>
+    <string name="nobody">Nobody</string>
+    <string name="privacy_hint"><![CDATA[Sharing settings allows you to control the audience <b> who can see your information</b> on meshly.]]></string>
+    <string name="sharing_settings">Sharing settings</string>
+    <string name="timestamp">Timestamp</string>
+    <string name="location">Location</string>
+    <string name="messaging">Messaging</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="privacy">PRIVACY</string>
+    <string name="privacy_title">Privacy</string>
+
+    <!-- font awesome icons -->
+    <string name="fa_angle_left">&#xf104;</string>
+    <string name="fa_remove">&#xf00d;</string>
+    <string name="fa_info_circle">&#xf05a;</string>
+    <string name="fa_times_circle">&#xf057;</string>
+    <string name="fa_pin">&#xf041;</string>
+    <string name="fa_bars">&#xf0c9;</string>
+    <string name="fa_search">&#xf002;</string>
+    <string name="fa_plus">&#xf067;</string>
+    <string name="fa_check">&#xf00c;</string>
+    <string name="fa_comment">&#xf075;</string>
+    <string name="fa_warning">&#xf071;</string>
+    <string name="fa_clock">&#xf017;</string>
+    <string name="fa_linked_in">&#xf0e1;</string>
+    <string name="fa_facebook">&#xf09a;</string>
+    <string name="fa_envelope">&#xf0e0;</string>
+    <string name="fa_folder">&#xf07b;</string>
+
+
+    <!--fonts-->
+    <string name="font_helvetica_light">HelveticaLight.ttf</string>
+    <string name="font_helvetica_regular">HelveticaRegular.ttf</string>
+    <string name="font_helvetica_thin">HelveticaThin.ttf</string>
+    <!--fonts ?-->
+    <string name="font_roboto_thin">fonts/Roboto-Thin.ttf</string>
+
+    <string name="fragment_skills_Input_hint">Type your skill</string>
+    <string name="fragment_skills_Save">Save</string>
+    <string name="fragment_settings_Skills">SKILLS</string>
+    <string name="fragment_settings_ProfilesFound">PROFILES FOUND</string>
+    <string name="fragment_settings_RemoveFilters">REMOVE FILTERS</string>
+    <string name="fragment_settings_ListRange">List range</string>
+    <string name="fragment_settings_CantFindLocation">Can\'t find your location</string>
+    <string name="fragment_settings_SearchEverywhere">Everywhere</string>
+    <string name="fragment_settings_SearchRangeKilometers">"Within %d kilometers"</string>
+    <string name="fragment_settings_SearchRangeKilometer">Within %d kilometer</string>
+    <string name="fragment_settings_CurrentLocation">Current location</string>
+    <string name="fragment_settings_HowFarDoYouWantToLook">How far do you want to look?</string>
+    <string name="fragment_inbox_Messages">Messages</string>
+    <string name="fragment_about_About">About</string>
+    <string name="fragment_about_GetYourEventsOnMeshly">Get your event on meshly!</string>
+    <string name="fragment_about_Events">Events</string>
+    <string name="fragment_about_SubmitEvent">SUBMIT EVENT</string>
+    <string name="fragment_about_MeshlyEmail"><![CDATA[<a href=\"partners@meshly.io\">partners@meshly.io</a>]]></string>
+    <string name="fragment_about_SendUsAnEmail">Send us an email to</string>
+    <string name="fragment_about_PartnerUpWithMeshly">Partner up with meshly!</string>
+    <string name="fragment_event_Events">Events</string>
+    <string name="meshly_email">partners@meshly.io</string>
+
+
+    <string name="how_long">How long do you wish to be hidden?</string>
+    <string name="timestamp_popup_title">How long do you wish to be hidden?</string>
+    <string name="location_popup_title">Who should see your location?</string>
+    <string name="messaging_popup_title">Whose messages you should receive notifications?</string>
+    <string name="everyone">Everyone</string>
+    <string name="privacy_protected">PRIVATE</string>
+    <string name="protected_user_title_message">USER IS IN PRIVATE MODE AND MIGHT NOT SEE YOUR MESSAGE</string>
+    <string name="fragment_nearby_user_Follow">&#xf067; FOLLOW</string>
+    <string name="fragment_nearby_user_Following">&#xf00c; FOLLOWING</string>
+    <string name="fragment_edit_EditYourProfile">Edit your profile</string>
+    <string name="fragment_edit_Photo">Picture</string>
+    <string name="fragment_edit_Name">Name</string>
+    <string name="fragment_edit_hint_AddYourName">add your name</string>
+    <string name="fragment_edit_Company">Company name</string>
+    <string name="fragment_edit_hint_AddCompanyName">add company name</string>
+    <string name="fragment_edit_Title">Title</string>
+    <string name="fragment_edit_hint_AddYourPosition">add your position</string>
+    <string name="fragment_edit_Skills">Skills</string>
+    <string name="fragment_edit_hint_AddSkills">add skills</string>
+    <string name="fragment_edit_LogOut">Log out</string>
+    <string name="fragment_edit_DeleteAccount">Delete Account</string>
+    <string name="fragment_last_screen_StartOver">START OVER</string>
+    <string name="goneThroughAllProfiles">You\'ve gone through all %d profiles nearby.</string>
+    <string name="fragment_inbox_From">FROM</string>
+    <string name="fragment_inbox_Connections">CONNECTIONS</string>
+    <string name="fragment_inbox_Others">OTHERS</string>
+    <string name="message">Message</string>
+    <string name="deprecated_app_version">Your application version is now deprecated. Please, update to the latest.</string>
+    <string name="view_privacy_policy">View privacy policy</string>
+    <string name="privacy_policy_title">Privacy policy</string>
+    <string name="fragment_live_Title">Live</string>
+    <string name="fragment_inbox_NoChatsYet">No chats yet</string>
+    <string name="fragment_NetworkSearch_Title_listRange">List range</string>
+    <string name="fragment_NetworkSearch_Title_listFilters">List filters</string>
+    <string name="logout_multiply_signin">You logged in with another device. You can be logged in to meshly only with one device. If you want to continue using meshly with this device please login again</string>
+    <string name="logout_LoginError">Login error</string>
+    <string name="fragment_events_confirmText">Please confirm that you\'re attending</string>
+    <string name="fragment_events_Cancel">Cancel</string>
+    <string name="fragment_events_Yes">Yes</string>
+    <string name="fragment_events_YesShareViaLinkedIn">Yes &amp; Share with LinkedIn</string>
+    <string name="fragment_events_ImGoingTo">I\'m going to %1$s in %2$s. Check it out on Meshly at http://mesh.ly and let\'s catch up!</string>
+    <string name="fragment_events_CancelText">"Cancel your participation in %1$s?"</string>
+    <string name="fragment_events_GoingText">Going.</string>
+    <string name="fragment_events_GoingTextAsk">Going?</string>
+    <string name="obsolete_app_version">Your application is obsolete. Please, update to the new version</string>
+    <string name="inbox_FewMonthsAgo">few months ago</string>
+    <string name="inbox_Seconds">seconds</string>
+    <string name="inbox_JustNow">Just now</string>
+    <string name="editProfileFragment_deleteProfileTitle">Please, confirm deletion</string>
+    <string name="partners">Partners</string>
+    <string name="edit_profile">Profile</string>
+    <string name="your_profile">Your Information</string>
+    <string name="website">Website</string>
+    <string name="company_information">Company Information</string>
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
+    <string name="about_sign">\?</string>
+    <string name="about_meshly">About meshly</string>
+    <string name="dialog_save">Save</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_status">Status</string>
+    <string name="save">Save</string>
+    <string name="change_status">Change status</string>
+    <string name="connected_social_accounts">Connected Social Accounts</string>
+    <string name="linked_in">LinkedIn</string>
+    <string name="twitter">Twitter</string>
+    <string name="facebook">Facebook</string>
+    <string name="xing">Xing</string>
+    <string name="vk">VK</string>
+    <string name="viadeo">Viadeo</string>
+    <string name="delete">Delete</string>
+    <string name="please_confirm_deletion">Please confirm deletion</string>
+    <string name="select_photo_source">Select photo source</string>
+    <string name="select_from_galery">Select from galery</string>
+    <string name="take_photo">Take a photo</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="fake_massage">Lorem ipsum dolor sit amet, consecteur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit</string>
+    <string name="remaining">remaining</string>
+    <string name="in">in</string>
+    <string name="local">Local</string>
+    <string name="network">network</string>
+    <string name="add_post">Add Post</string>
+    <string name="title">Title</string>
+    <string name="open_for">Open for</string>
+    <string name="description">Description</string>
+    <string name="skills">Skills</string>
+    <string name="share_to">Share to</string>
+    <string name="share_this_opportunity">Share this deal</string>
+    <string name="looking_for">Looking for</string>
+    <string name="expires_in">Expires in</string>
+    <string name="add_details">+ Add details</string>
+    <string name="delete_opportunity">Delete deal</string>
+    <string name="edit_opportunity">Edit deal</string>
+    <string name="opportunities">Deals</string>
+    <string name="interested">Interested ?</string>
+    <string name="is_interested">Interested</string>
+    <string name="industries">Industries</string>
+    <string name="name">Name</string>
+    <string name="post">Post</string>
+    <string name="home_city">Home city</string>
+    <string name="email">email</string>
+    <string name="password">password</string>
+    <string name="again">again</string>
+    <string name="type_in_your_email">Type in your email and press Done</string>
+    <string name="photo">Photo</string>
+    <string name="company">Company</string>
+    <string name="login_with">login with</string>
+    <string name="or">or</string>
+    <string name="are_you_interested">Interested ?</string>
+
+    <string name="last_seen_in">Last seen in</string>
+    <string name="career">CAREER</string>
+    <string name="active">active</string>
+    <string name="expired">expired</string>
+    <string name="delete_post">Delete Deal</string>
+
+
+    <string name="im_interested">Hello, I\'m interested in your deal</string>
+    <string name="share_a_post">Share a post</string>
+    <string name="introduction">Introduction</string>
+    <string name="edit">Edit</string>
+    <string name="ok">OK</string>
+
+
+
+    <string name="profile_title">Profile</string>
+    <string name="you_have_network_troubles">You have network troubles</string>
+    <string name="try_again">Try again</string>
+    <string name="sign_up_here">Sign up here</string>
+    <string name="done">Done</string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="dont_have_any_account">Don\'t have an account?</string>
+    <string name="forgotten_passoword">Forgotten Password</string>
+    <string name="position">Position</string>
+    <string name="change">Change</string>
+    <string name="my_opportunities">My Deals</string>
+    <string name="chat">chat</string>
+    <string name="please_enable_location">Please enable location services</string>
+
+
+
+    <string name="welcome_user" formatted="false"><![CDATA[
+            <p>Hey <font color="#56cbfd"> %1$s</font>,<br> great to have you here!</p>
+        ]]></string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <string name="welcome_text">Let\'s get started with some cool hacks to \n
+                                make sure you get the best value out of our \n
+                                community</string>
+
+    <string name="let_us_know_industries">Let us know what\n
+                                            Industries you are active\n
+                                        and we make sure to get\n
+                                        you some deals!</string>
+
+    <plurals name="eventTimeCaptionsForDays">
+        <!--zero doesn't work!!! see https://code.google.com/p/android/issues/detail?id=8287-->
+        <!--<item quantity="zero">Today</item> -->
+        <item quantity="one">Tomorrow</item>
+        <item quantity="other">%d days from now</item>
+    </plurals>
+
+    <plurals name="eventTimeCaptionsForWeeks">
+        <item quantity="one">%d week from now</item>
+        <item quantity="other">%d weeks from now</item>
+    </plurals>
+
+    <plurals name="eventTimeCaptionsForMonths">
+        <item quantity="one">%d month from now</item>
+        <item quantity="other">%d months from now</item>
+    </plurals>
+
+    <plurals name="eventTimeCaptionsForYears">
+        <item quantity="one">%d year from now</item>
+        <item quantity="other">%d years from now</item>
+    </plurals>
+
+    <plurals name="inboxTimeCaptionsForMinutes">
+        <item quantity="one">%d minute</item>
+        <item quantity="other">%d minutes</item>
+    </plurals>
+
+    <plurals name="inboxTimeCaptionsForHours">
+        <item quantity="one">%d hour</item>
+        <item quantity="other">%d hours</item>
+    </plurals>
+
+    <plurals name="inboxTimeCaptionsForDays">
+        <item quantity="one">Yesterday</item>
+        <item quantity="other">%d days ago</item>
+    </plurals>
+    <string name="title_activity_wellcome">WellcomeActivity</string>
+    <string name="going">Going?</string>
+    <string name="send">Send</string>
+    <string name="add_your_event">Add your event</string>
+    <string name="categories">Categories</string>
+    <string name="begins">Begins</string>
+    <string name="next">next</string>
+    <string name="lets_go">Let\'s go</string>
+</resources>

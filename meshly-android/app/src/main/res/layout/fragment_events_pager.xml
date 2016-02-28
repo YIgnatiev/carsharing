@@ -1,0 +1,104 @@
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <data class="EventsFragmentB">
+        <variable
+            name="listener"
+            type="com.vakoms.meshly.fragments.events.EventsFragment" />
+    </data>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/ivBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="false"
+        android:scaleType="centerCrop" />
+
+    <com.vakoms.meshly.views.VerticalViewPager
+        android:id="@+id/vvPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+
+    <RelativeLayout
+        android:id="@+id/privacyInfoHeader"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/transparent">
+
+
+
+
+
+
+
+            <ImageView
+                style="@style/AppTheme.Icon"
+                android:onClick='@{listener.onMenuClick}'
+                android:src="@drawable/ic_menu1" />
+
+
+
+
+        <com.vakoms.meshly.views.font.CustomTextView
+            app:custom_font="@string/font_helvetica_regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/fragment_event_Events"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:visibility="visible" />
+
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true">
+
+        <ImageView
+            android:id="@+id/ivDownArrow"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:onClick="@{listener.onDownArrow}"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="15dp"
+            android:src="@drawable/ic_down" />
+
+        <ImageView
+            android:onClick="@{listener.onUpArrow}"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:padding="15dp"
+            android:src="@drawable/ic_up" />
+
+        <com.vakoms.meshly.views.font.CustomTextView
+            app:custom_font="@string/font_helvetica_regular"
+            android:id="@+id/tvCounter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:text="77"
+            android:visibility="visible" />
+    </RelativeLayout>
+
+</RelativeLayout>
+</layout>
