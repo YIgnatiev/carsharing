@@ -16,7 +16,7 @@
             android:layout_centerHorizontal="true"
             android:padding="10dp"
             android:id="@+id/tvTitle"
-            android:text="1/4: Офферта"
+            android:text="1/4: Оферта"
             android:textSize="16sp" />
 
         <TextView
