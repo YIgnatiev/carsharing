@@ -365,6 +365,8 @@
 
                                             Вы можете совершать дальние поездки (<font color="#24DDAD">подробнее</font>)
                                               ]]> </string>
+    <string name="discount">Скидка</string>
+    <string name="unknown">Неизвестно</string>
 
 
 </resources>

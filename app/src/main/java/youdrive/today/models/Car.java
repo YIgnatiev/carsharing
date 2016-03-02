@@ -24,6 +24,7 @@ public class Car implements Comparable<Car>, Parcelable {
     Tariff tariff;
     String img;
     String pointer_resource;
+    int discount;
 
     public Car(String id,float lat, float lon){
         this.id = id;
@@ -81,6 +82,10 @@ public class Car implements Comparable<Car>, Parcelable {
 
     public Tariff getTariff() {
         return tariff;
+    }
+
+    public int getDiscount() {
+        return discount;
     }
 
     @Override

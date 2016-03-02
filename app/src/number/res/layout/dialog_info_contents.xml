@@ -17,6 +17,8 @@
         <import type="java.util.concurrent.TimeUnit" />
 
         <import type="youdrive.today.helpers.AppUtils" />
+
+        <import type="android.view.View" />
     </data>
 
     <LinearLayout
@@ -24,7 +26,8 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
 
         <TextView
             android:id="@+id/txtModel"
@@ -42,6 +45,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:weightSum="2">
 
 
@@ -73,6 +78,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:weightSum="2">
 
 
@@ -105,6 +112,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:weightSum="2">
 
 
@@ -137,6 +146,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:weightSum="2">
 
 
@@ -169,6 +180,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:weightSum="2">
 
 
@@ -202,6 +215,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:weightSum="2">
 
 
@@ -232,6 +247,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:weightSum="2">
 
 
@@ -253,11 +270,49 @@
                 android:layout_marginBottom="15dp"
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:text='@{car.fuel + " л"}'
+                android:text='@{car.fuel == null ? @string/unknown : car.fuel + " л"}'
                 android:textColor="@color/black"
                 android:textSize="10sp" />
 
         </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_info_discount"
+            android:visibility="@{car.getDiscount() == 0 ? View.GONE : View.VISIBLE}"
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:foregroundGravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_percent_white"
+                    android:drawablePadding="8dp"
+                    android:gravity="center"
+                    android:paddingRight="25dp"
+                    android:text="@string/discount"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_discount_red_rounded"
+                    android:gravity="center"
+                    android:text='@{"-"+car.getDiscount()+"%"}'
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+        </RelativeLayout>
 
         <com.dd.CircularProgressButton
             android:id="@+id/btnBook"
@@ -265,6 +320,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/etPassword"
             android:layout_alignRight="@+id/etPassword"
+            android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal"
             android:onClick="@{activity.onBookClicked}"
             android:paddingLeft="20dp"

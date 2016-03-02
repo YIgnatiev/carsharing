@@ -42,7 +42,6 @@ public class CarInteractorImpl implements CarInteractor {
 
 
     public void onBookingSuccess(CarResponse response) {
-
         if (response.isSuccess()) {
             if (response.getCar() != null) {
                 mListener.onBook(response.getCar());
