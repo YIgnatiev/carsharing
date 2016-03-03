@@ -68,6 +68,12 @@
 
         android:text="Оплата поеоздки будет списана с вашей карты" />
 
+    <TextView
+        style="@style/AppTheme.TextView"
+        android:layout_gravity="center_horizontal"
+        android:padding="10dp"
+        android:text="@string/registration_driver_experience_warning"
+        android:textSize="18sp" />
 </LinearLayout>
 
 </layout>

@@ -27,7 +27,7 @@
     <string name="km">км.</string>
     <string name="success">Готово!</string>
     <string name="info">Автомобиль успешно забронирован. \n Аренда начнется через 20 минут.</string>
-    <string name="car_number">Номер: %1$s</string>
+    <string name="car_number">Номер:</string>
     <string name="car_color">Цвет: %1$s</string>
     <string name="car_model">Автомобиль: %1$s</string>
     <string name="show_on_map">Показать на карте</string>
@@ -365,6 +365,8 @@
 
                                             Вы можете совершать дальние поездки (<font color="#24DDAD">подробнее</font>)
                                               ]]> </string>
+
+    <string name="registration_driver_experience_warning">ВНИМАНИЕ: Для регистрации в сервисе ваш водительский стаж по категории «В» должен быть не менее 2-х лет.</string>
 
 
 </resources>
