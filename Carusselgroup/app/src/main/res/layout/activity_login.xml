@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/dwt_background" />
+    <ImageView
+
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/carussel_logo"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/login_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="40dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/login_header_background"
+            android:drawableLeft="@drawable/lock"
+            android:drawablePadding="10dp"
+            android:padding="20dp"
+            android:text="@string/login_field_title"
+            android:textColor="@color/login_header_text"
+            android:textSize="@dimen/login_field_title_text" />
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/login_background_child"
+            android:orientation="vertical"
+            android:padding="30dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <EditText
+                    android:id="@+id/edittext_UserName_LoginActivity"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:maxEms="20"
+                    android:background="@drawable/login_edit_text_background"
+                    android:hint="@string/login_form_username_hint"
+                    android:maxLength="25" />
+
+                <ImageView
+                    android:id="@+id/login_form_username_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/profile" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+
+                <EditText
+                    android:id="@+id/edittext_Password_LoginActivity"
+                    android:background="@drawable/login_edit_text_background"
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:hint="@string/login_form_password_hint"
+                    android:maxEms="20"
+                    android:inputType="textPassword"
+                    android:maxLength="25" />
+
+                <ImageView
+                    android:id="@+id/login_form_password_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/sequr" />
+
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/login_form_remember_margin_top"
+                android:id="@+id/checkbox_RememberMe_LoginActivity"
+                android:orientation="horizontal"
+                android:gravity="center_vertical|left">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/login_imageview_checkbox"
+                    android:src="@drawable/checkbox_small_unchecked"/>
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:checked="true"
+                android:paddingLeft="@dimen/login_form_remember_padding_left"
+                android:text="@string/login_form_remember"
+                android:textColor="@color/login_checkbox_text_color"
+                android:textSize="@dimen/login_checkbox_text" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:orientation="horizontal"
+                android:weightSum="21">
+
+                <Button
+                    android:id="@+id/button_ResetButton_LoginActivity"
+                    style="@style/AppTheme.LoginButton"
+                    android:background="@drawable/login_yellow_button"
+                    android:layout_weight="10"
+                    android:text="@string/login_form_reset_button" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/button_LoginButton_LoginActivity"
+                    style="@style/AppTheme.LoginButton"
+                    android:layout_weight="10"
+
+                    android:text="@string/login_form_login_button" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
+    <TextView
+        android:id="@+id/login_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/login_layout"
+        android:layout_marginTop="1dp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/login_title_stock"
+        android:textColor="@android:color/black"
+        android:textSize="13sp" />
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/login_title"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/login_title_carusel"
+        android:textColor="@android:color/black"
+        android:textSize="22sp" />
+
+
+</RelativeLayout>

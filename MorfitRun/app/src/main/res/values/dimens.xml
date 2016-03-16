@@ -1,0 +1,60 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="default_margin">8dp</dimen>
+    <dimen name="small_margin">5dp</dimen>
+    <dimen name="default_padding">10dp</dimen>
+    <dimen name="btn_container_padding">20dp</dimen>
+    <dimen name="preview_map_height">250dp</dimen>
+
+
+
+    <!--default btn-->
+    <dimen name="base_btn_high">40dp</dimen>
+    <dimen name="base_btn_frame_width">2px</dimen>
+    <dimen name="base_btn_corner_radius">2dp</dimen>
+
+    <!--text size-->
+    <dimen name="text_size_micro">12sp</dimen>
+    <dimen name="text_size_small">14sp</dimen>
+    <dimen name="text_size_medium">18sp</dimen>
+    <dimen name="text_size_large">22sp</dimen>
+    <dimen name="tool_bar_text">18sp</dimen>
+
+
+    <!--login/register fragment-->
+
+    <dimen name="edit_text_padding">10dp</dimen>
+    <dimen name="edit_text_text_size">16sp</dimen>
+    <dimen name="edit_text_margin_top">20dp</dimen>
+
+    <dimen name="text_view_padding">10dp</dimen>
+    <dimen name="text_small_margin">10dp</dimen>
+    <dimen name="text_normal_margin">20dp</dimen>
+
+    <dimen name="round_button_padding">8dp</dimen>
+
+    <dimen name="image_avatar_height">150dp</dimen>
+    <dimen name="image_avatar_width">150dp</dimen>
+    <dimen name="roung_image_padding">50dp</dimen>
+    <dimen name="layout_padding">30dp</dimen>
+    <dimen name="item_round_image_dimmension">40dp</dimen>
+
+    <dimen name="dialog_forgot_title_size">20sp</dimen>
+    <dimen name="dialog_forgot_enter_email_size">18sp</dimen>
+    <dimen name="dialog_forgot_buttons_size">20sp</dimen>
+    <dimen name="dialog_forgot_padding">25dp</dimen>
+    <dimen name="dialog_forgot_views_margins">20dp</dimen>
+    <dimen name="dialog_forgot_send_margin">10dp</dimen>
+    <dimen name="dialog_forgot_cancel_margin">30dp</dimen>
+    <dimen name="dialog_forgot_bottom_margin">40dp</dimen>
+
+    <!--settings fragments-->
+    <dimen name="btn_save_settings_corners">5dp</dimen>
+    <dimen name="user_photo_size">120dp</dimen>
+    <dimen name="user_photo_margin">25dp</dimen>
+
+    <dimen name="zero_dimension">0dp</dimen>
+</resources>

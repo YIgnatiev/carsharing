@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/action_bar_layout"
+    android:background="@drawable/login_action_bar_background"
+
+    >
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/ivActionBarBack"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        >
+    <ImageView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/back_button_selector"
+        android:textStyle="bold"
+        android:textSize="20sp"
+
+        />
+
+     <ImageView
+         android:layout_width="25dp"
+         android:id="@+id/imageView_actionBar_logo"
+         android:layout_height="25dp"
+
+         android:src="@drawable/action_bar_icon_selector"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvActionBarText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textColor="#ffffffff"
+        android:layout_toRightOf="@id/ivActionBarBack"
+        android:layout_toEndOf="@id/ivActionBarBack"
+        android:textSize="18sp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_centerVertical="true"
+        />
+
+</RelativeLayout>
+

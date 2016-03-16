@@ -1,0 +1,116 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/primary_blue</item>
+        <item name="colorPrimaryDark">@color/primary_blue</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+
+    <style name="AppTheme.DefaultButton">
+        <item name="android:background">@drawable/selector_default_btn</item>
+        <item name="android:textColor">@color/text_color_white</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:layout_height">@dimen/base_btn_high</item>
+        <item name="android:layout_marginLeft">@dimen/activity_horizontal_margin</item>
+        <item name="android:layout_marginRight">@dimen/activity_horizontal_margin</item>
+        <item name="android:layout_marginBottom">@dimen/activity_horizontal_margin</item>
+        <item name="android:layout_marginTop">@dimen/activity_horizontal_margin</item>
+    </style>
+
+    <style name="AppTheme.DefaultButton.SmallMargin">
+        <item name="android:layout_marginLeft">@dimen/default_margin</item>
+        <item name="android:layout_marginRight">@dimen/default_margin</item>
+        <item name="android:layout_marginBottom">@dimen/activity_horizontal_margin</item>
+        <item name="android:layout_marginTop">@dimen/activity_horizontal_margin</item>
+    </style>
+
+    <style name="AppTheme.EditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/edit_text_padding</item>
+        <item name="android:gravity">center|left</item>
+        <item name="android:textSize">@dimen/edit_text_text_size</item>
+        <item name="android:layout_marginTop">@dimen/edit_text_margin_top</item>
+        <item name="android:background">@drawable/background_login_edit_text_selector</item>
+    </style>
+
+    <style name="AppTheme.Button">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:padding">@dimen/text_view_padding</item>
+        <item name="android:background">@drawable/selector_default_blue_button</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+    </style>
+
+    <style name="AppTheme.TextView">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@drawable/text_white_selector</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:padding">@dimen/text_view_padding</item>
+
+
+    </style>
+
+    <style name="AppTheme.RoundButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/round_button_padding</item>
+
+
+    </style>
+
+    <!--create race fragment-->
+    <style name="AppTheme.EditText_FCR">
+        <item name="android:background">@drawable/gray_frame</item>
+        <item name="android:padding">@dimen/default_padding</item>
+        <item name="android:textColor">@color/text_color_black</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+    </style>
+
+    <style name="AppTheme.TextView_FCR">
+        <item name="android:padding">@dimen/default_padding</item>
+        <item name="android:textColor">@color/text_color_black</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+    </style>
+
+    <style name="AppTheme.TextViewAdd_FCR" parent="AppTheme.TextView_FCR">
+        <item name="android:textColor">@color/text_color_green</item>
+    </style>
+
+    <!--race view fragment-->
+    <style name="AppTheme.EditText_FRV" parent="AppTheme.TextView_FCR"/>
+
+    <!--fragment settings-->
+    <style name="AppTheme.EditText_FS">
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textColor">@color/text_color_black</item>
+        <item name="android:background">@drawable/background_settings_edit_text</item>
+        <item name="android:layout_margin">@dimen/small_margin</item>
+        <item name="android:padding">@dimen/default_padding</item>
+        <item name="android:hint">@string/sample_text</item>
+    </style>
+
+    <style name="AppTheme.TextView_FS">
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textColor">@color/text_color_black</item>
+        <item name="android:background">@color/color_white</item>
+        <item name="android:layout_margin">@dimen/small_margin</item>
+        <item name="android:padding">@dimen/default_padding</item>
+
+    </style>
+
+    <style name="AppTheme.TextView_ItemRunners">
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:textColor">@color/primary_blue</item>
+        <item name="android:layout_width">@dimen/zero_dimension</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+
+    </style>
+
+</resources>

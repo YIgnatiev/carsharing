@@ -1,0 +1,43 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+
+    <TextView
+        android:id="@+id/tvLastStartOver_FragmentFinderLastUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_marginTop="110dp"
+        android:gravity="center_horizontal"
+        android:text="@string/goneThroughAllProfiles"
+        android:textColor="#ffffff"
+        android:textSize="21sp" />
+
+    <ImageView
+        android:id="@+id/image_last_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="180dp"
+        android:background="@drawable/opacity_logo" />
+
+    <TextView
+        android:id="@+id/tvButton_FragmentFinderLastUser"
+        android:layout_width="150dp"
+        android:layout_height="38dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="330dp"
+        android:background="@drawable/blue_rounded_stroke"
+        android:text="@string/fragment_last_screen_StartOver"
+        android:gravity="center"
+        android:textColor="#66D6FF"
+        android:textSize="18sp" />
+
+
+</RelativeLayout>

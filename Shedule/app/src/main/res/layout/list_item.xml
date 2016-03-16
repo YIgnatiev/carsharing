@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:divider="@drawable/veritical_divider"
+    android:showDividers="middle"
+    android:background="#fff"
+        >
+    <RelativeLayout
+        android:layout_width="90dp"
+        android:layout_height="match_parent"
+            >
+        <TextView
+            android:textSize="15dp"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+           android:text="9:00"
+           android:padding="2dp"
+            android:id="@+id/starttime"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10:25"
+
+            android:id="@+id/endtime"
+            android:textSize="10dp"
+            android:textStyle="bold"
+
+
+            android:layout_below="@+id/starttime"
+            android:layout_centerHorizontal="true"/>
+
+
+        </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical">
+        <TextView
+            android:textColor="#ff444444"
+            android:textSize="15dp"
+            android:id="@+id/txt_subject"
+            android:layout_marginTop="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Obscaja fizika\n hello"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp" />
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="auditoria"
+            android:id="@+id/txt_classroom"
+            android:textSize="9dp"
+            android:textStyle="bold"
+            android:layout_below="@+id/txt_subject"
+            android:layout_alignLeft="@+id/txt_subject"
+            android:layout_alignStart="@+id/txt_subject"
+            android:layout_marginTop="5dp"/>
+        </RelativeLayout>
+
+</LinearLayout>

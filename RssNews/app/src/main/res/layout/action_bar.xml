@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+              android:layout_width="match_parent"
+              android:layout_height="30dp"
+                android:background="#ffe7e7e7"
+        >
+    <ImageView
+            android:id="@+id/ivActionBarBack"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_action_previous_item_dark"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            />
+
+    <ImageView
+            android:id="@+id/ivActionBarAdd"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_action_new"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:paddingRight="10dp"
+            android:paddingEnd="10dp"
+            />
+
+    <TextView
+            android:id="@+id/tvActionBarText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/news"
+            android:textColor="#000"
+            android:layout_gravity="center_vertical"
+
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>

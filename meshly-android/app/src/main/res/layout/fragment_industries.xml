@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="listener"
+            type="com.vakoms.meshly.fragments.IndustriesFragment"/>
+    </data>
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/llBack"
+        android:onClick="@{listener.onBackClicked}"
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/back_details" />
+    </LinearLayout>
+
+    <com.vakoms.meshly.views.font.CustomTextView
+
+        android:onClick="@{listener.onSaveClicked}"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/llBack"
+        android:layout_alignTop="@id/llBack"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="@string/fragment_skills_Save"
+        android:textColor="@color/blue"
+        android:textSize="22sp"
+        app:custom_font="@string/font_helvetica_regular" />
+
+    <com.vakoms.meshly.views.font.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/llBack"
+        android:layout_alignTop="@id/llBack"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="@string/industries"
+        android:textColor="@color/white"
+        android:textSize="19sp"
+        app:custom_font="@string/font_helvetica_regular" />
+
+    <ListView
+        android:id="@+id/lvIndustries"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/llBack"
+        android:onItemClick="@{listener.onListItemClicked}"
+        android:divider="@color/white_transparent_10"
+        android:dividerHeight="1px"
+        android:overScrollMode="never" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        android:background="@drawable/background_loading" />
+</RelativeLayout>
+
+</layout>
+

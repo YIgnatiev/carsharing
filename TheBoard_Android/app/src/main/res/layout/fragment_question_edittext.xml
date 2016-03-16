@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="listener"
+            type="pro.theboard.fragments.cards_fragments.CardWithEditTextFragment"/>
+    </data>
+
+    <RelativeLayout style="@style/AppTheme.Card">
+
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:id="@+id/llQuestionLayout"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical">
+            <pro.theboard.custom_views.CustomTextView
+                android:id="@+id/tvQuestion"
+                style="@style/AppTheme.Question" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/llBottom"
+            style="@style/AppTheme.CardBottom">
+
+            <pro.theboard.custom_views.CustomTextView
+                android:id="@+id/tvSubmit"
+                android:onClick='@{listener.onAnswer}'
+                style="@style/AppTheme.Button"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/llBottom"
+            android:layout_below="@id/llQuestionLayout"
+            android:id="@+id/rlRootContainer">
+
+            <pro.theboard.custom_views.CustomEditText
+                android:id="@+id/etAnswer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/background_edittext"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColor="@color/secondary_font"
+                app:edit_text_font="@string/font_regular" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</layout>

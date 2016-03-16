@@ -1,0 +1,194 @@
+<resources>
+    <string name="app_name">Vetcare</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="answer">Vastaa</string>
+    <string name="yes">KYLLÄ</string>
+    <string name="no">EI</string>
+    <string name="facebook_app_id">407128499454372</string>
+    <string name="login">Login</string>
+    <string name="select_photo_source">Valitse kuvan lähde</string>
+    <string name="take_a_photo">Ota kuva kameralla</string>
+    <string name="select_from_gallery">Valitse kuvagalleriasta</string>
+    <string name="facebook">Facebook</string>
+    <string name="google">Google</string>
+
+
+    <string name="gcm_defaultSenderId">id</string>
+    <string name="gcm_server_api_key">AIzaSyB7u4Ksunbi_F-FnUfGcbokpzM56r8N6OA</string>
+    <string name="gcm_sender_id">593888201716</string>
+    <string name="notification_message">New card available</string>
+
+
+    <string name="google_key">AIzaSyCMqE585Zgbwch2Kr2IziBmePbGfK3gEaM</string>
+    <string name="loading">Loading</string>
+
+    <string name="ok">OK</string>
+
+
+
+
+
+
+
+
+
+    <string name="starter_message_bottom_header">Tervetuloa</string>
+<string name="starter_message_bottom" formatted="false"><![CDATA[
+
+                                                            <p>
+                                                           Tervetuloa Vetcare-sovellukseen!<br>
+                                                            Sovelluksen kautta saat uusinta<br>
+                                                            tietoa tuotteistamme ja pääset <br>
+                                                            mukaan vaikuttamaan tuotteidemme<br>
+                                                            kehittämiseen ja markkinointiin.
+                                                            </p>
+
+
+                                                          ]]> </string>
+
+
+
+
+
+
+
+
+
+    <string name="starter_message_second_header"> Näin olet mukana</string>
+    <string name="starter_message_second" formatted="false"><![CDATA[
+
+                                                        <p>
+                                                      Näet kohta erilaisia kortteja:<br>
+                                                      kysymyksiä, infoja ja tietoiskuja.
+                                                         </p>
+                                                         <p>
+                                                       Voit vastata kysymykseen, kuitata<br>
+                                                       kortin OK:lla luetuksi tai siirtyä <br>
+                                                       seuraavalle kortille vetämällä kortin<br>
+                                                       ruudun ulkopuolelle. Sovelluksen<br>
+                                                       valikosta löydät lisäinfoa.<br>
+                                                       Pääset myöhemmin palaamaan<br>
+                                                       ohitettuihin kortteihin.
+                                                        </p>
+                                                        </p>
+
+                                                              ]]> </string>
+
+
+
+    <string name="finish_header">upeaa!</string>
+      <string name="finish_message" formatted="false"><![CDATA[
+                                                          <p>
+                                                          Olet vastannut kaikkiin <br>
+                                                          kysymyksiin.
+                                                           </p>
+                                                           <p>
+                                                         Uudistamme kysymyksiä <br>
+                                                          kuitenkin jatkuvasti.
+                                                           </p>
+                                                           <p>
+                                                          Saat varmasti kohta meiltä  <br>
+                                                          viestin kun apusi on taas <br>
+                                                          tarpeen.
+                                                           </p>
+                                                          ]]> </string>
+
+    <string name="finish_alert_message" formatted="false"><![CDATA[
+                                                          <p>
+                                                          Hei, valitettavasti Teeren Senaatti <br>
+                                                          on tarkoitettu vain täysi-ikäisille.
+                                                           </p>
+                                                          ]]> </string>
+
+    <string name="starter_message_top" formatted="false"><![CDATA[
+                                                          <p>
+                                                          Näet kohta kortin, <br>
+                                                          mistä löydät kysymyksen.
+                                                           </p>
+                                                           <p>
+                                                         Voit vastata kysymykseen tai<br>
+                                                          siirtyä seuraavaan vetämällä<br>
+                                                         kortin ruudun ulkopuolelle.<br>
+
+                                                           </p>
+
+                                                           <p>
+                                                         Tällöin voit palata myöhemmin <br>
+                                                          vastaamaan ohittamaasi<br>
+                                                          kysymykseen. <br>
+
+                                                           </p>
+
+
+
+                                                          ]]> </string>
+
+
+
+
+    <string name="about_header">Tietoa sovelluksesta</string>
+
+
+    <string name="about_message" formatted="false"><![CDATA[
+                                                          <p>
+                                                        Sovelluksen kautta saat uusinta tietoa<br>
+                                                         tuotteistamme ja pääset mukaan vaikuttamaan<br>
+                                                         tuotteidemme kehittämiseen ja markkinointiin.<br.
+                                                         Mielipiteesi on meille tärkeä ja toivomme<br>
+                                                         sinun innostuvan aktiiviseen vuoropuheluun<br>
+                                                        kanssamme.
+                                                           </p>
+
+
+                                                           <p>
+                                                        Vastaustesi avulla kehitämme<br>
+                                                        toimintaamme.Vetcare -sovellus on<br>
+                                                        Vetcare Finland Oy:n tuottama.
+                                                           </p>
+                                                          ]]> </string>
+
+    <string name="empty_message" formatted="false"><![CDATA[
+                                                          <p>
+                                                         Jatkossa pystyt tallentamaan <br>
+                                                          erilaisia etu- ja  <br>
+                                                          tarjouskortteja tänne.
+                                                           </p>
+                                                          ]]> </string>
+
+
+
+
+
+
+
+
+
+
+    <string name="about_link1">www.vetcare.fi</string>
+    <string name="about_link2"></string>
+    <string name="about_action_bar">VETCARE</string>
+    <string name="empty_action_bar">TALLENNETUT KORTIT</string>
+
+    <string name="answer_question_first">Valitse ensin vastausvaihtoehto</string>
+    <string name="choose_photo_first">Sinun täytyy valita kuva ensin</string>
+    <string name="try_again">Yritä uudelleen</string>
+    <string name="exit">Poistu</string>
+    <string name="you_have_network_troubles">Verkkoon ei saada yhteyttä</string>
+    <string name="ota_kantaa">OTA KANTAA</string>
+    <string name="tallennetut_kortit">Tallennetut kortit</string>
+    <string name="asetukset">Asetukset</string>
+    <string name="teitoa">Tietoa</string>
+    <string name="press_once_again">Paina uudestaan poistuaksesi</string>
+
+
+
+
+
+    <string name="font_regular">minionpro_regular.otf</string>
+    <string name="font_semibold">antonio_bold.ttf</string>
+    <string name="font_bold">antonio_bold.ttf</string>
+    <string name="toolbar_main">VETCARE </string>
+
+
+</resources>

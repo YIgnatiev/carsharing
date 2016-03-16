@@ -1,0 +1,59 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TabHost
+        android:id="@+id/tabHost"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_tab_selector"
+                android:divider="@android:color/transparent"/>
+            <FrameLayout
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="#dcffffff"
+                android:padding="20dp">
+                <TextView
+                    android:id="@+id/tvAddRunner_FRegRun"
+                    style="@style/AppTheme.Button"
+                    android:text="@string/add_runner_manualy"/>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/button"
+                android:layout_below="@android:id/tabs"
+                android:background="#dcffffff">
+                <ListView
+                    android:id="@+id/lvUsers_FRegRun"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:dividerHeight="0.5dp"
+                    android:listSelector="@android:color/transparent"
+                    android:scrollbars="none"/>
+
+            </FrameLayout>
+            <ProgressBar
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/pbLoadProgress_FRegRun"
+                android:visibility="gone"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
+    </TabHost>
+</RelativeLayout>

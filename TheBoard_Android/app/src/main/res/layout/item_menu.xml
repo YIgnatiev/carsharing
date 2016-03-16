@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <data>
+
+        <variable
+            name="listener"
+            type="pro.theboard.MainActivity" />
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/rl_menu_container_MainActivity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_menu_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/background"
+            android:tint="#82000000" />
+
+        <ImageView
+            android:id="@+id/iv_arrow_toolbar"
+            android:layout_width="70dp"
+            android:layout_height="60dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:onClick='@{listener.onArrow}'
+            android:paddingBottom="20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="30dp"
+            android:paddingTop="20dp"
+            android:src="@drawable/arrow" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <pro.theboard.custom_views.CustomTextView
+                android:id="@+id/tvUnanswered_itemMenu"
+                style="@style/AppTheme.Menu"
+                android:onClick='@{listener.onCards}'
+                android:text="@string/unaswered_cards"
+                app:custom_font="@string/font_semibold" />
+
+            <pro.theboard.custom_views.CustomTextView
+                android:id="@+id/tvSettings_itemMenu"
+
+                style="@style/AppTheme.Menu"
+                android:onClick='@{listener.onSettings}'
+                android:text="@string/settings"
+                app:custom_font="@string/font_semibold" />
+
+            <pro.theboard.custom_views.CustomTextView
+                android:id="@+id/tvAnsweredCards_itemMenu"
+                style="@style/AppTheme.Menu"
+                android:onClick='@{listener.onPromo}'
+                android:text="@string/answered_cards"
+                app:custom_font="@string/font_semibold" />
+
+            <pro.theboard.custom_views.CustomTextView
+                android:id="@+id/tvAboutPage_itemMenu"
+                style="@style/AppTheme.Menu"
+                android:onClick='@{listener.onAbout}'
+                android:text="@string/about"
+                app:custom_font="@string/font_semibold" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>
+
+
+

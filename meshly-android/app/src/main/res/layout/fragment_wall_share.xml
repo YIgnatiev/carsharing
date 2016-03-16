@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/main_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <LinearLayout
+            android:id="@+id/llBack_FragmentWallShare"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:visibility="visible">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/back_details" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/add_post"
+            android:textColor="#ffffff"
+            android:textSize="19sp" />
+
+        <TextView
+            android:id="@+id/tvShare_FragmentWallShare"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:paddingRight="15dp"
+            android:text="@string/share"
+            android:textColor="#65d5fe"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:visibility="visible" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/white"
+                android:textCursorDrawable="@drawable/custom_cursor"
+                android:background="@color/white_transparent_50"
+                android:id="@+id/etMessage_FragmentWallShare"
+                android:inputType="textMultiLine" />
+
+
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:custom="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:visibility="gone"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/ivLinkedIn_FragmentAddPost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_linkedin" />
+
+                <com.vakoms.meshly.views.font.SlimTextView
+                    android:id="@+id/tv_name_ItemSocialAccount"
+                    style="@style/AppTheme.EditProfileTextView"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/ivLinkedIn_FragmentAddPost"
+                    android:text="@string/linked_in"
+                    android:textSize="18sp" />
+
+                <com.vakoms.meshly.views.CustomSwitch
+                    android:id="@+id/csLinkedIn_FragmentWallShare"
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true"
+
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="5dp"
+                    custom:back_color="@color/switch_background"
+                    custom:back_color_pressed="@color/switch_background_pressed"
+                    custom:inner_padding="3dp"
+                    custom:round_radius="17dp"
+                    custom:thumb_color="@color/white" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/white_transparent_50" />
+
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:custom="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/ivTwitter_FragmentAddPost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_twitter" />
+
+                <com.vakoms.meshly.views.font.SlimTextView
+                    android:id="@+id/tvTwitter_FragmentAddPost"
+                    style="@style/AppTheme.EditProfileTextView"
+                    android:layout_centerVertical="true"
+
+                    android:layout_toRightOf="@id/ivTwitter_FragmentAddPost"
+                    android:text="@string/twitter"
+                    android:textSize="18sp" />
+
+                <com.vakoms.meshly.views.CustomSwitch
+                    android:id="@+id/csTwitter_FragmentWallShare"
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="5dp"
+                    custom:back_color="@color/switch_background"
+                    custom:back_color_pressed="@color/switch_background_pressed"
+                    custom:inner_padding="3dp"
+                    custom:round_radius="17dp"
+                    custom:thumb_color="@color/white" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/white_transparent_50" />
+
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:custom="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/ivFacebook_FragmentAddPost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_facebook" />
+
+                <com.vakoms.meshly.views.font.SlimTextView
+                    style="@style/AppTheme.EditProfileTextView"
+                    android:layout_centerVertical="true"
+
+                    android:layout_toRightOf="@id/ivFacebook_FragmentAddPost"
+                    android:text="@string/facebook"
+                    android:textSize="18sp" />
+
+                <com.vakoms.meshly.views.CustomSwitch
+                    android:id="@+id/csFacebook_FragmentWallShare"
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="5dp"
+                    custom:back_color="@color/switch_background"
+                    custom:back_color_pressed="@color/switch_background_pressed"
+                    custom:inner_padding="3dp"
+                    custom:round_radius="17dp"
+                    custom:thumb_color="@color/white" />
+
+            </RelativeLayout>
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

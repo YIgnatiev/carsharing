@@ -1,0 +1,125 @@
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="listener"
+            type="com.vakoms.meshly.fragments.opportunities.MyOpportunitiesFragment" />
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/rlActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal">
+
+
+        <ImageView
+            style="@style/AppTheme.Icon"
+            android:onClick="@{listener.onBack}"
+            android:src="@drawable/ic_left_blue" />
+
+        <com.vakoms.meshly.views.font.CustomTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="@string/my_opportunities"
+            android:textColor="@color/white"
+            android:textSize="19sp"
+            app:custom_font="@string/font_helvetica_regular" />
+
+
+        <ImageView
+            style="@style/AppTheme.IconRight"
+            android:layout_alignParentRight="true"
+            android:onClick="@{listener.onAddPost}"
+            android:src="@drawable/ic_plus" />
+
+
+
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvActive"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/tvTitle"
+            android:overScrollMode="never"
+            android:scrollbars="none" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvExpired"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/tvTitle"
+            android:overScrollMode="never"
+            android:scrollbars="none" />
+        <FrameLayout
+            android:id="@+id/flButtonContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTitle"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/blue_rounded_stroke"
+            android:padding="2dp">
+
+            <View
+                android:id="@+id/vwMovingBackGround"
+                android:layout_width="130dp"
+                android:layout_height="38dp"
+                android:background="@drawable/blue_rounded_rectangle" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.vakoms.meshly.views.font.CustomTextView
+                    android:id="@+id/tvActive"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:onClick="@{listener.onActive}"
+                    android:padding="10dp"
+                    android:text="@string/active"
+                    android:textAllCaps="true"
+                    android:textSize="14sp"
+                    app:custom_font="@string/font_helvetica_regular" />
+
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="5dp" />
+
+                <com.vakoms.meshly.views.font.CustomTextView
+                    android:id="@+id/tvExpired"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/tvProfile"
+                    android:gravity="center"
+                    android:onClick="@{listener.onExpired}"
+                    android:padding="10dp"
+                    android:text="@string/expired"
+                    android:textAllCaps="true"
+                    app:custom_font="@string/font_helvetica_regular" />
+            </LinearLayout>
+
+
+        </FrameLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:onClick="@{listener.onAddPost}"
+            android:src="@drawable/ic_plus_white" />
+
+
+    </RelativeLayout>
+</layout>

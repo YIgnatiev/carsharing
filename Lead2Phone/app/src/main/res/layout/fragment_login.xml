@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="20dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingBottom="0dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <ru.lead2phone.ru.lead2phone.views.CustomEditText
+            android:id="@+id/etLogin_FragmentLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:custom_font_e="@string/helvetica_light"
+            android:background="@drawable/background_edittext"
+            android:gravity="center"
+            android:singleLine="true"
+            android:hint="ID"
+            android:padding="15dp"
+            android:textColor="@android:color/black" />
+
+        <ru.lead2phone.ru.lead2phone.views.CustomEditText
+            android:id="@+id/etPassword_FragmentLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:custom_font_e="@string/helvetica_light"
+            android:layout_marginTop="1px"
+            android:background="@drawable/background_edittext"
+            android:gravity="center"
+            android:hint="Пароль"
+            android:inputType="textPassword"
+            android:padding="15dp"
+            android:textColor="@android:color/black" />
+
+        <ru.lead2phone.ru.lead2phone.views.CustomTextView
+            android:id="@+id/tvSubmit_FragmentLogin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:custom_font="@string/helvetica_medium"
+
+            android:layout_marginTop="5dp"
+            android:background="@drawable/background_button"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="Войти"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/llBottomContainer_FragmentLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <ru.lead2phone.ru.lead2phone.views.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvRegistration_FragmentLogin"
+            app:custom_font="@string/helvetica_roman"
+
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:gravity="center"
+            android:text="Регистрация"
+            android:textColor="#ff3991dd"
+            android:textSize="18sp" />
+
+        <ru.lead2phone.ru.lead2phone.views.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:custom_font="@string/helvetica_roman"
+
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:text="/"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+        <ru.lead2phone.ru.lead2phone.views.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvForgotPassword_FragmentLogin"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:gravity="center"
+            android:text="Забыли пароль?"
+            android:textColor="#ff3991dd"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+
+    <ru.lead2phone.ru.lead2phone.views.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvAbout_FragmentLogin"
+        android:layout_above="@id/llBottomContainer_FragmentLogin"
+        android:layout_centerHorizontal="true"
+        app:custom_font="@string/helvetica_roman"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:gravity="center"
+        android:text="О приложении"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+</RelativeLayout>

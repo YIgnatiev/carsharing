@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<pro.theboard.custom_views.CustomRadioButton
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    app:radio_font="@string/font_regular"
+    android:id="@+id/rb_choice"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:button="@drawable/radio_selector"
+    android:textSize="20sp"
+    android:textColor="@color/secondary_font"
+    android:paddingLeft="10dp"
+    android:text="QuestionQuestionQuestionQuestionQuestionQuestionQuestionQuestionQuestionQuestionQuestionQuestionQuestion"
+     />

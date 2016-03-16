@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_item"
+    android:background="@color/base_white"
+    android:padding="@dimen/base_middle_padding">
+
+    <TextView
+        android:id="@+id/tvTitle_ILP"
+        style="@style/BaseTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/base_small_margin"
+        android:maxLines="2"
+        android:text="Title"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+    <!-- android:textAppearance="?android:attr/textAppearanceMedium"-->
+
+    <TextView
+        android:id="@+id/tvInfo_ILP"
+        style="@style/BaseTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tvDate_ILP"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tvTitle_ILP"
+        android:maxLines="3"
+        android:ellipsize="end"
+        android:lineSpacingMultiplier="1.2"
+        android:text="InfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfoInfo"
+        android:textColor="@color/base_text_color"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvDate_ILP"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="date"
+        android:textSize="@dimen/text_size_small" />
+
+</RelativeLayout>

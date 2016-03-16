@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <pro.theboard.custom_views.CustomTextView
+        app:custom_font="@string/font_semibold"
+        android:id="@+id/tv_ok_StarerFragment"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="30dp"
+        android:background="@drawable/background_starter_buttton_selector"
+        android:textColor="@color/start_button_font"
+        android:textSize="25sp"
+        android:padding="10dp"
+        android:text="@string/ok"  />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginTop="70dp"
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/tv_ok_StarerFragment">
+
+
+        <pro.theboard.custom_views.CustomTextView
+            app:custom_font="@string/font_regular"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:id="@+id/tvHeader_StarterFragment"
+            android:textSize="20sp"
+            android:textAllCaps="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:textColor="@color/main_font"
+            />
+
+        <pro.theboard.custom_views.CustomTextView
+            app:custom_font="@string/font_regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_top_message_StarterFragment"
+            android:layout_centerInParent="true"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:textColor="@color/main_font"
+            />
+
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

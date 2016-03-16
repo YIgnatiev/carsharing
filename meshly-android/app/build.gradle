@@ -1,0 +1,139 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.android.databinding'
+apply plugin: 'me.tatarka.retrolambda'
+
+repositories {
+
+    mavenCentral()
+
+
+    jcenter()
+    maven { url 'https://maven.fabric.io/public' }
+    maven { url 'https://oss.jfrog.org/libs-snapshot' }
+    maven { url 'http://lorenzo.villani.me/android-cropimage/' }
+    maven { url 'http://mvnrepository.com/artifact/com.facebook.fresco/' }
+
+    maven { url "https://jitpack.io" }
+}
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
+
+    defaultConfig {
+        applicationId "com.lapioworks.meshly"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 23
+        versionName "4.0.8"
+        renderscriptTargetApi 23
+        renderscriptSupportModeEnabled true
+        multiDexEnabled true
+
+    }
+
+    signingConfigs {
+        sign {
+            storeFile file("../key_store/meshly_debug.keystore")
+            keyAlias 'meshly_debug'
+            keyPassword '123456789d'
+            storePassword '123456789d'
+        }
+    }
+
+    tasks.whenTaskAdded { task ->
+        if (task.name.equals("lint")) {
+            task.enabled = false
+        }
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField("String", "SEGMENT_API_KEY", "\"K7wSEqPfZFVuBwEAFHVNvj7UEMfBahEV\"")
+            buildConfigField("String", "API_URL", "\"https://api.meshly.io/\"")
+//            buildConfigField("String", "SEGMENT_API_KEY", "\"hGtAnbKKZx2lsygaJGF6fnlbqc6ygf98\"")
+//            buildConfigField("String", "API_URL", "\"https://dev.api.meshly.io/\"")
+
+            debuggable true
+            signingConfig signingConfigs.sign
+            applicationIdSuffix ".dev"
+            setVersionNameSuffix("debug")
+        }
+
+
+
+
+
+
+        release {
+            buildConfigField("String", "SEGMENT_API_KEY", "\"K7wSEqPfZFVuBwEAFHVNvj7UEMfBahEV\"")
+            buildConfigField("String", "API_URL", "\"https://api.meshly.io/\"")
+            debuggable false
+
+            minifyEnabled false
+            signingConfig signingConfigs.sign
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    retrolambda {
+        jvmArgs '-noverify'
+    }
+
+    lintOptions {
+        abortOnError false
+        disable 'InvalidPackage'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+
+
+
+
+
+
+    compile('com.twitter.sdk.android:tweet-composer:0.7.3@aar') {
+        transitive = true;
+    }
+
+
+
+
+
+    compile 'me.villani.lorenzo.android:android-cropimage:1.1.0'
+    compile 'com.android.support:design:23.1.0'
+    compile 'com.google.android.gms:play-services-gcm:8.1.0'
+    compile 'com.google.android.gms:play-services-location:8.1.0'
+    compile 'com.bugsnag:bugsnag-android:3.1.0'
+    compile 'joda-time:joda-time:2.7'
+
+    compile 'com.github.ksoichiro:android-observablescrollview:1.6.0'
+    compile 'com.facebook.fresco:fresco:0.8.1'
+    compile 'com.squareup.retrofit:retrofit:1.9.0'
+    compile 'com.squareup.okhttp:okhttp-urlconnection:2.0.0'
+    compile 'com.squareup.okhttp:okhttp:2.0.0'
+    compile 'io.reactivex:rxandroid:0.24.0'
+    compile 'io.reactivex:rxjava:1.0.14'
+    compile 'pl.charmas.android:android-reactive-location:0.8@aar'
+    compile 'com.andkulikov:transitionseverywhere:1.6.0'
+    compile 'com.android.support:cardview-v7:23.1.0'
+    compile 'com.android.support:recyclerview-v7:23.1.0'
+    compile 'com.android.support:support-v13:23.1.0'
+    compile 'com.android.support:gridlayout-v7:23.1.0'
+    compile 'com.android.support:percent:23.1.0'
+    compile 'com.facebook.android:facebook-android-sdk:4.7.0'
+    compile 'com.github.asne:asne-twitter:0.3.3'
+}

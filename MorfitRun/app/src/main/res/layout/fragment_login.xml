@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rlContainer_FL"
+        android:layout_centerVertical="true"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp">
+
+        <com.andreabaccega.widget.FormEditText
+            android:id="@+id/etLogin_FL"
+            style="@style/AppTheme.EditText"
+            android:hint="@string/hint_email"
+            custom:testType="email"
+            android:inputType="textEmailAddress"
+            android:text="yo@yo.com"
+            android:singleLine="true"/>
+
+        <com.andreabaccega.widget.FormEditText
+            android:id="@+id/etPassword_FL"
+            style="@style/AppTheme.EditText"
+            android:hint="@string/hint_password"
+            android:layout_below="@id/etLogin_FL"
+            android:inputType="textPassword"
+            custom:customRegexp="^.{8,20}$"
+            custom:testErrorString="@string/wrong_password_length"
+            custom:testType="regexp"
+            android:text="12345678"
+            android:singleLine="true"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etPassword_FL"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvLogIn_FL"
+                style="@style/AppTheme.Button"
+                android:layout_width="0dp"
+                android:layout_marginRight="@dimen/text_small_margin"
+                android:layout_weight="1"
+                android:text="@string/log_in" />
+
+
+            <TextView
+                android:id="@+id/tvRegister_FL"
+                style="@style/AppTheme.Button"
+                android:layout_width="0dp"
+                android:layout_marginLeft="@dimen/text_small_margin"
+                android:layout_weight="1"
+                android:text="@string/sign_up" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tvForgotPassword_FL"
+        android:layout_below="@id/rlContainer_FL"
+        style="@style/AppTheme.TextView"
+        android:textSize="@dimen/text_size_small"
+        android:layout_marginTop="15dp"
+        android:text="@string/forgot_password"
+        android:layout_centerHorizontal="true"/>
+
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="150dp"
+        android:layout_above="@id/rlContainer_FL"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_logo"/>
+
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:columnCount="3"
+        android:rowCount="2">
+
+        <ImageView
+            android:id="@+id/ivFacebook_FL"
+            style="@style/AppTheme.RoundButton"
+            android:layout_column="0"
+            android:layout_row="0"
+       android:background="@drawable/background_blue_round_button_selector"
+            android:src="@drawable/google" />
+
+        <ImageView
+            android:id="@+id/ivGoogle_FL"
+            style="@style/AppTheme.RoundButton"
+            android:layout_column="2"
+            android:layout_row="0"
+            android:background="@drawable/background_red_round_button_selector"
+            android:src="@drawable/facebook" />
+
+        <TextView
+            android:id="@+id/tvPrivacyPolicy_FL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_columnSpan="3"
+            android:layout_row="1"
+            android:paddingBottom="15dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:paddingTop="15dp"
+            android:text="@string/privacy_policy"
+            android:textColor="@drawable/text_white_selector"
+            android:textSize="@dimen/text_size_small" />
+    </GridLayout>
+
+</RelativeLayout>

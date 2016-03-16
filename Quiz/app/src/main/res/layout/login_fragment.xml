@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffe7e8ea"
+    android:padding="30dp">
+    <com.andreabaccega.widget.FormEditText
+        android:id="@+id/editText_email_LoginFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:hint="@string/hint_email"
+        custom:testErrorString="@string/field_error_email_address_not_valid"
+        custom:emptyErrorString="@string/field_error_field_must_not_be_empty"
+        custom:testType="email"
+        android:gravity="center|left"
+        android:background="@drawable/login_edit_text_background_selector"
+
+
+        />
+
+    <com.andreabaccega.widget.FormEditText
+        android:id="@+id/editText_password_LoginFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center|left"
+        custom:testType="regexp"
+        custom:customRegexp="^.{8,20}$"
+        custom:testErrorString="@string/field_error_more_than_8"
+        custom:emptyErrorString="@string/field_error_field_must_not_be_empty"
+        android:background="@drawable/login_edit_text_background_selector"
+        android:hint="@string/hint_pass"
+        android:inputType="textPassword" />
+    <TextView
+        android:id="@+id/textView_submit_login_LoginFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="20dp"
+        android:padding="10dp"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:background="@drawable/log_in_background_selector"
+        android:text="@string/button_log_in" />
+    <TextView
+        android:id="@+id/textView_forgot_password_LoginFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/forgot_password"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:textColor="@drawable/text_forgot_password_selector"
+        android:layout_marginTop="30dp"
+        />
+
+</LinearLayout>

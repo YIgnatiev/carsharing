@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+
+        >
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvDetailHeader"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:padding="10dp"
+            android:textColor="#ff000000"
+            android:text="hello worldhello worldhello worldhello worldhello worldhello "
+            />
+
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:src="@drawable/ic_launcher"
+            android:id="@+id/ivDetailImage"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"/>
+
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvDetailDate"
+            android:text="вторник 16 декабря"
+            android:padding="10dp"
+            android:textSize="11sp"
+            android:textColor="#ff88b8ef"
+            android:layout_gravity="center_horizontal"/>
+
+    <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#c0c0c0"/>
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvDetailReadInBrowser"
+            android:text="Read in browser"
+            android:textStyle="bold"
+            android:textColor="#ff30a2ef"
+            android:padding="10dp"
+            android:layout_gravity="center_horizontal"/>
+
+    <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#c0c0c0"/>
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvDetailText"
+            android:padding="10dp"
+            android:textColor="#ff000000"
+            android:text="hello worldhello worldhello worldhello worldhello worldhello worldhello worldhello worldhello worldhello worldhello worldhello worldhello worldhello world"
+            />
+
+    <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#c0c0c0"/>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/share"
+            android:id="@+id/tvShare"
+            android:textColor="#c0c0c0"
+            android:padding="10dp"/>
+
+    <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#c0c0c0"/>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:gravity="right">
+
+        <ImageView
+                android:id="@+id/ivDetailFacebook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/facebook_icon"
+                android:layout_marginRight="10dp"/>
+
+        <ImageView
+
+                android:id="@+id/ivDetailVk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/vk_icon"
+                android:layout_marginRight="10dp"
+                />
+
+        <ImageView
+                android:id="@+id/ivDetailTwitter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/twitter_icon"
+                android:layout_marginRight="10dp"
+                />
+
+    </LinearLayout>
+
+</LinearLayout>
+</ScrollView>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@color/detail_item_background"
+                android:orientation="vertical"
+                tools:ignore="ContentDescription"
+                android:gravity="center">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/placeholder_CarPhoto_CarDetailFragment"
+        android:src="@drawable/download_placeholder"/>
+
+    <ImageView
+        android:id="@+id/imageview_CarPhoto_CarDetailFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"/>
+</RelativeLayout>
