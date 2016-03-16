@@ -366,5 +366,5 @@
                                             Вы можете совершать дальние поездки (<font color="#24DDAD">подробнее</font>)
                                               ]]> </string>
 
-
+<string name="registration_driver_experience_warning">ВНИМАНИЕ:  Для регистрации в сервисе ваш водительский стаж по категории «В» должен быть не менее 2-х лет.</string>
 </resources>
