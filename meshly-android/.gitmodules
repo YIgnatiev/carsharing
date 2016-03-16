@@ -1,4 +1,0 @@
-[submodule "lawis"]
-	path = lawis
-	url = git://github.com/LapioWorks/lawis.git
-	branch = master
