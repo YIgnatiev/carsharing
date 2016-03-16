@@ -323,6 +323,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                     @Override
                     public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
                         putMarker(car, BitmapDescriptorFactory.fromBitmap(resource));
+
                     }
 
                     @Override
@@ -339,7 +340,30 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 .position(new LatLng(car.getLat(), car.getLon()))
                 .title(car.getModel())
                 .icon(icon);
+
         mMarkerCar.put(mMap.addMarker(markerOptions), car);
+        if (car.getDiscount() < 15) return;
+        int resDiscount = R.drawable.ic_percent_orange;
+        if (car.getDiscount() >= 50) {
+            resDiscount = R.drawable.ic_percent_bordo;
+        } else if (car.getDiscount() >= 25) {
+            resDiscount = R.drawable.ic_percent_red;
+        } else if (car.getDiscount() >= 15) {
+            resDiscount = R.drawable.ic_percent_orange;
+        }
+        MarkerOptions markerOptionsPercent = new MarkerOptions()
+                .flat(true)
+                .position(new LatLng(car.getLat(), car.getLon()))
+                .title(car.getModel())
+                .anchor(0.5f, 0.5f)
+                .icon(BitmapDescriptorFactory.fromResource(resDiscount));
+
+        mMarkerCar.put(mMap.addMarker(markerOptionsPercent), car);
+
+
+
+
+
     }
 
 
@@ -790,6 +814,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         isShowCommandPopup = true;
         bOpenCar = DataBindingUtil.inflate(getLayoutInflater(), R.layout.popup_open_car, null, false);
+        bOpenCar.btnNavigate.setProgress(100);
         addBottomWindow(bOpenCar.getRoot());
         bOpenCar.setListener(this);
         bOpenCar.btnOpen.setIndeterminateProgressMode(true);
@@ -808,6 +833,22 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         bOpenCar.btnCancel.setProgress(50);
         mCarInteractor.complete(Command.COMPLETE, MapsActivity.this);
         bOpenCar.btnOpen.setEnabled(false);
+    }
+
+    public void onButtonNavigate(View view) {
+        Uri gmmIntentUri = Uri.parse("google.navigation:q=" + mCar.getLat() + ", " + mCar.getLon() + "&mode=w");
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        if (mapIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(mapIntent);
+        } else {
+            final String appPackageName = "com.google.android.apps.maps";
+            try {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+            } catch (android.content.ActivityNotFoundException anfe) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+            }
+        }
     }
 
     // listener
@@ -956,13 +997,14 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 return null;
             }
             MarkerInfo bMarkerInfo = DataBindingUtil.inflate(getLayoutInflater(), R.layout.marker_info, null, false);
-
+            bMarkerInfo.rlDiscount.setVisibility(mCar.getDiscount()>0 ? View.VISIBLE : View.GONE);
+            bMarkerInfo.tvDiscount.setText("-"+mCar.getDiscount()+"%");
             bMarkerInfo.txtColor.setText(mCar.getColor());
             bMarkerInfo.txtModel.setText(mCar.getModel());
             bMarkerInfo.txtNumber.setText(mCar.getNumber());
             if (BOOKING.equals(mStatus)) {
                 bMarkerInfo.txtStartUsage.setVisibility(View.VISIBLE);
-                String arendaBegining ="До начала аренды " + mBookingTimeLeft/60 + "мин";
+                String arendaBegining = "До начала аренды " + mBookingTimeLeft / 60 + "мин";
                 bMarkerInfo.txtStartUsage.setText(arendaBegining);
             }
 

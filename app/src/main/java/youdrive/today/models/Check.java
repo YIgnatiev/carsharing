@@ -28,6 +28,13 @@ public class Check implements Parcelable {
     @SerializedName("parking_cost")
     private long parkingCost;
 
+
+    @SerializedName("discount_percent")
+    private int discountPercent;
+
+    @SerializedName("discount_price")
+    private long discountPrice;
+
     public int getBookingTimeLeft() {
         return bookingTimeLeft;
     }
@@ -56,6 +63,14 @@ public class Check implements Parcelable {
         return parkingCost;
     }
 
+    public int getDiscountPercent() {
+        return discountPercent;
+    }
+
+    public long getDiscountPrice() {
+        return discountPrice;
+    }
+
     protected Check(Parcel in) {
         bookingTimeLeft = in.readInt();
         usageWorkdayTime = in.readInt();
@@ -64,6 +79,8 @@ public class Check implements Parcelable {
         usageWeekendCost = in.readLong();
         parkingTime = in.readInt();
         parkingCost = in.readLong();
+        discountPercent = in.readInt();
+        discountPrice = in.readLong();
     }
 
     @Override
@@ -80,6 +97,8 @@ public class Check implements Parcelable {
         dest.writeLong(usageWeekendCost);
         dest.writeInt(parkingTime);
         dest.writeLong(parkingCost);
+        dest.writeInt(discountPercent);
+        dest.writeLong(discountPrice);
     }
 
     @SuppressWarnings("unused")
