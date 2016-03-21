@@ -358,7 +358,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 .anchor(0.5f, 0.5f)
                 .icon(BitmapDescriptorFactory.fromResource(resDiscount));
 
-        mMarkerCar.put(mMap.addMarker(markerOptionsPercent), car);
+//        mMarkerCar.put(mMap.addMarker(markerOptionsPercent), car);
 
 
 
