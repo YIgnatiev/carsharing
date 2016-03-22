@@ -86,8 +86,7 @@
 
         <TextView
             android:id="@+id/txtTimeTo"
-
-            android:text='@{TimeUnit.SECONDS.toMinutes(car.walktime) + "мин."}'
+            android:text='@{TimeUnit.SECONDS.toMinutes(car.walktime) + " min."}'
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -148,7 +147,7 @@
 
         <TextView
             android:id="@+id/txtFuel"
-            android:text='@{car.fuel ?? "Неизвестно"}'
+            android:text='@{car.fuel ?? "unknown"}'
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"

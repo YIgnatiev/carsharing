@@ -101,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:text='@{TimeUnit.SECONDS.toMinutes(car.walktime) + " мин."}'
+                android:text='@{TimeUnit.SECONDS.toMinutes(car.walktime) + " min."}'
                 android:textColor="@color/black"
                 android:textSize="10sp" />
 
@@ -168,7 +168,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:text='@{car.number ?? "-"}'
+                android:text='@{car.number ?? "unknown"}'
                 android:textColor="@color/black"
                 android:textSize="10sp" />
 
@@ -270,7 +270,7 @@
                 android:layout_marginBottom="15dp"
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:text='@{car.fuel == null ? @string/unknown : car.fuel + " л"}'
+                android:text='@{car.fuel == null ? @string/unknown : car.fuel + " litr"}'
                 android:textColor="@color/black"
                 android:textSize="10sp" />
 
