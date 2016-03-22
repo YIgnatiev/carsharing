@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/cardNumber"
+        style="@style/NumberEdit"
+        android:layout_width="fill_parent"
+        android:hint="@string/card_number_hint"
+        android:maxLength="23"
+        android:nextFocusForward="@+id/expMonth"
+        android:nextFocusDown="@+id/expMonth" />
+
+</LinearLayout><!-- From: file:/E:/Projects/CloudPayments/cloudpayments.android/sdk/CloudPayments_AndroidSDK/res/layout/card_number_view.xml -->

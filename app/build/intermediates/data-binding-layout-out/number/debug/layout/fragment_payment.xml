@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+        
+    
+                 
+                           
+                                                                   
+           
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#6e6d6d"
+        android:gravity="center"
+        android:padding="10dp"
+        android:orientation="vertical" android:tag="layout/fragment_payment_0">
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/etCardNumber"
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="НОМЕР КАРТЫ"
+                    android:inputType="phone"
+                    android:textSize="14sp"
+                    android:maxLength="22"
+                    app:met_baseColor="@color/white"
+                    app:met_errorColor="@color/error"
+                    app:met_primaryColor="@color/main"
+                    app:met_textColorHint="@color/white" />
+
+
+
+
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/etName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/etCardNumber"
+                    android:layout_marginTop="10dp"
+                    android:hint="ИМЯ ВЛАДЕЛЬЦА"
+                    android:textAllCaps="true"
+                    android:inputType="text"
+                    android:textSize="14sp"
+                    app:met_baseColor="@color/white"
+                    app:met_errorColor="@color/error"
+                    app:met_primaryColor="@color/main"
+                    app:met_textColorHint="@color/white" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/etExpired"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="ММ/ГГ"
+                    android:layout_below="@id/etName"
+                    android:inputType="phone"
+                    android:maxLength="5"
+                    android:textSize="14sp"
+                    app:met_baseColor="@color/white"
+                    app:met_errorColor="@color/error"
+                    app:met_primaryColor="@color/main"
+                    app:met_textColorHint="@color/white" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/etCvv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/etName"
+                    android:layout_alignParentRight="true"
+                    android:hint="КОД CVV"
+                    android:inputType="numberPassword"
+                    android:gravity="center"
+                    android:maxLength="3"
+                    android:textSize="14sp"
+                    app:met_baseColor="@color/white"
+                    app:met_errorColor="@color/error"
+                    app:met_primaryColor="@color/main"
+                    app:met_textColorHint="@color/hint" />
+
+            </RelativeLayout>
+
+
+
+
+
+
+
+
+
+        <com.dd.CircularProgressButton
+            android:id="@+id/btnPay"
+            android:tag="binding_1"            
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:textAppearance="@android:style/TextAppearance.Medium"
+            android:textColor="@color/white"
+            android:layout_marginTop="15dp"
+            app:cpb_selectorIdle="@drawable/idle_state_selector"
+            app:cpb_selectorComplete="@drawable/complete_state_selector"
+            app:cpb_selectorError="@drawable/error_state_selector"
+            app:cpb_cornerRadius="5dp"
+            app:cpb_colorIndicator="@color/main"
+            app:cpb_colorProgress="@color/cpb_white"
+            app:cpb_textError="@string/error"
+            app:cpb_textIdle="Оплатить"
+            app:cpb_iconComplete="@drawable/ic_action_accept"/>
+
+    </LinearLayout>
+         

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+                                                                    
+    
+                 
+                           
+                                                                    
+           
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" android:tag="layout/fragment_register_offert_0" xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <TextView
+            style="@style/AppTheme.TextView"
+            android:layout_centerHorizontal="true"
+            android:padding="10dp"
+            android:id="@+id/tvTitle"
+            android:text="1/4: Оферта"
+            android:textSize="16sp" />
+
+        <TextView
+            android:tag="binding_1"                
+            android:id="@+id/tvForvard"
+            style="@style/AppTheme.Forvard"/>
+
+        <TextView
+            style="@style/AppTheme.Back"
+            android:tag="binding_2"             
+            android:text="@string/cancel"/>
+
+
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:id="@+id/checkbox"
+            android:text="@string/i_read_offer"
+            android:layout_above="@+id/tvForvard"
+            />
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_below="@id/tvTitle"
+            android:layout_above="@id/checkbox"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/svAgreement">
+                <TextView
+                    style="@style/AppTheme.TextView"
+                    android:gravity="left"
+                    android:id="@+id/tvDogovor"/>
+            </ScrollView>
+
+            <!--<TextView-->
+            <!--style="@style/AppTheme.TextView"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:padding="5dp"-->
+            <!--android:text="@string/set_sum"-->
+            <!--/>-->
+
+            <!--<com.rengwuxian.materialedittext.MaterialEditText-->
+
+            <!--android:id="@+id/etPrice"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:hint="@string/enter_price_check"-->
+            <!--app:met_textColorHint="@color/hint"-->
+            <!--app:met_baseColor="@color/white"-->
+            <!--app:met_primaryColor="@color/main"-->
+            <!--app:met_errorColor="@color/error"-->
+            <!--android:inputType="number"-->
+            <!--/>-->
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+         

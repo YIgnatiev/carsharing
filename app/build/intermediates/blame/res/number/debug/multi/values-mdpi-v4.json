@@ -1,0 +1,102 @@
+[
+    {
+        "outputFile": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/values-mdpi-v4/values-mdpi-v4.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 38,
+                    "endOffset": 89
+                },
+                "from": {
+                    "file": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/values-mdpi-v4/values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 203,
+                        "endColumn": 38,
+                        "endOffset": 237
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 94,
+                    "endColumn": 44,
+                    "endOffset": 134
+                },
+                "from": {
+                    "file": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/values-mdpi-v4/values.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 242,
+                        "endColumn": 44,
+                        "endOffset": 282
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 139,
+                    "endColumn": 45,
+                    "endOffset": 180
+                },
+                "from": {
+                    "file": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/values-mdpi-v4/values.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 287,
+                        "endColumn": 45,
+                        "endOffset": 328
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 185,
+                    "endColumn": 45,
+                    "endOffset": 226
+                },
+                "from": {
+                    "file": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/values-mdpi-v4/values.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 333,
+                        "endColumn": 45,
+                        "endOffset": 374
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 231,
+                    "endColumn": 43,
+                    "endOffset": 270
+                },
+                "from": {
+                    "file": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/values-mdpi-v4/values.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 379,
+                        "endColumn": 43,
+                        "endOffset": 418
+                    }
+                }
+            }
+        ]
+    }
+]

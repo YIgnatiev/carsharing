@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="2dp" />
+            <stroke
+                android:color="@color/line_gray_light"
+                android:width="2dp" />
+            <solid android:color="@color/white" />
+        </shape>
+    </item>
+</layer-list>
+<!-- From: file:/E:/Projects/CloudPayments/cloudpayments.android/sdk/CloudPayments_AndroidSDK/res/drawable/edit_bg_sltd.xml -->

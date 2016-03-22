@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/E:/Projects/CloudPayments/cloudpayments.android/sdk/CloudPayments_AndroidSDK/res/values/colors.xml -->
+    <eat-comment/>
+    <color name="black">#000000</color>
+    <color name="green">#00a651</color>
+    <color name="line_gray">#ced6e2</color>
+    <color name="line_gray_light">#dce1ea</color>
+    <color name="text_gray">#4d4d4d</color>
+    <color name="text_gray_blue">#6e7f8e</color>
+    <color name="text_gray_light">#9b333333</color>
+    <color name="title">#efefef</color>
+    <color name="white">#FFFFFF</color>
+    <!-- From: file:/E:/Projects/CloudPayments/cloudpayments.android/sdk/CloudPayments_AndroidSDK/res/values/strings.xml -->
+    <eat-comment/>
+    <integer name="current_year">2015</integer>
+    <string name="app_name">CloudPayments SDK</string>
+    <string name="cannot_found_currency">Параметр currency обязательный</string>
+    <string name="cannot_found_public_id">Параметр publicId обязательный</string>
+    <string name="card_holder_name_cannot_start_with">Имя владельца не может начинаться с пробела, точки или дефиса</string>
+    <string name="card_holder_name_message">Имя владельца может содержать только латинские буквы, включая точку, дефис и пробел</string>
+    <string name="card_number_hint">0000 0000 0000 0000</string>
+    <string name="card_number_title">Номер карты:</string>
+    <string name="card_number_wrong">Номер карты указан неверно</string>
+    <string name="cvv_desc">3 цифры\n(указаны на обратной стороне карты)</string>
+    <string name="cvv_hint">000</string>
+    <string name="cvv_title">Код CVV:</string>
+    <string name="desc_title">Назначение</string>
+    <string name="email_hint">E-mail</string>
+    <string name="enter_amount">Введите сумму</string>
+    <string name="enter_card_holder_name">Введите имя держателя карты</string>
+    <string name="enter_card_number">Введите номер карты</string>
+    <string name="enter_cvv">Введтие CVV</string>
+    <string name="enter_desc">Введите назначение</string>
+    <string name="enter_exp">Введите срок дейтсвий карты</string>
+    <string name="enter_exp_month">Выберите месяц</string>
+    <string name="enter_exp_year">Выберите год</string>
+    <string name="holder_name_hint">ИМЯ ВЛАДЕЛЬЦА</string>
+    <string name="holder_name_title">Имя владельца:</string>
+    <string name="mm_hint">Месяц</string>
+    <string name="ok">Ок</string>
+    <string name="pay">Оплатить</string>
+    <string name="payment">Оплата</string>
+    <string name="please_wait">Пожалуйста, подождите</string>
+    <string name="r">р.</string>
+    <string name="secure_connection">Безопасное соединение</string>
+    <string name="valid_date_title">Действует до:</string>
+    <string name="yy_hint">Год</string>
+    <!-- From: file:/E:/Projects/CloudPayments/cloudpayments.android/sdk/CloudPayments_AndroidSDK/res/values/styles.xml -->
+    <eat-comment/>
+    <style name="AmountInfo">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:editable">false</item>
+        <item name="android:selectable">false</item>
+        <!--<item name="android:singleLine">true</item>-->
+        <item name="android:textColor">@color/text_gray</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+    <style name="Bg">
+        <item name="android:background">@color/white</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="BgHeader">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:paddingTop">@dimen/padding_middle</item>
+        <item name="android:paddingLeft">@dimen/padding</item>
+        <item name="android:paddingRight">@dimen/padding</item>
+        <item name="android:paddingBottom">@dimen/padding_middle</item>
+    </style>
+    <style name="BgPanel" parent="BgHeader">
+        <item name="android:background">@drawable/bg_panel</item>
+    </style>
+    <style name="BgTitle">
+        <item name="android:paddingTop">@dimen/padding_small</item>
+        <item name="android:paddingBottom">@dimen/padding_middle</item>
+        <item name="android:background">@drawable/bg_title</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="Button">
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@drawable/bg_btn</item>
+        <item name="android:shadowColor">@color/black</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">1</item>
+        <item name="android:textColor">@drawable/btn_text_selector</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="DateSelector" parent="EdtText">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:inputType">number</item>
+        <item name="android:drawableRight">@drawable/bg_btn_chooser_selector</item>
+        <item name="android:drawablePadding">@dimen/padding_small</item>
+
+    </style>
+    <style name="DescInfo">
+        <item name="android:singleLine">false</item>
+        <item name="android:textColor">@color/text_gray</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="EdtText">
+        <item name="android:paddingTop">@dimen/padding_small</item>
+        <item name="android:paddingLeft">@dimen/padding_medium</item>
+        <item name="android:paddingRight">@dimen/padding_medium</item>
+        <item name="android:paddingBottom">@dimen/padding_small</item>
+        <item name="android:background">@drawable/bg_edt_selector</item>
+        <item name="android:textColor">@color/text_gray</item>
+        <item name="android:textColorHint">@color/line_gray</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+    <style name="NumberEdit" parent="EdtText">
+        <item name="android:inputType">number</item>
+    </style>
+    <style name="SecureTitle">
+        <item name="android:padding">2dp</item>
+        <item name="android:drawableLeft">@drawable/lock</item>
+        <item name="android:drawablePadding">@dimen/padding_medium</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/green</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+    <style name="TextEdit" parent="EdtText">
+        <item name="android:inputType">textCapCharacters</item>
+        <item name="android:layout_width">fill_parent</item>
+    </style>
+    <style name="TextGray">
+        <item name="android:textColor">@color/text_gray</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="TextGrayBlue">
+        <item name="android:textColor">@color/text_gray_blue</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+    <style name="TextTitle">
+        <item name="android:textColor">@color/text_gray</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+    <style name="TextWhite">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="Theme.CustomDialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowBackground">@drawable/filled_box</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+    <style name="Theme.NoTitle" parent="android:Theme">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+    <style name="spinner" parent="@android:style/Widget.ProgressBar.Small">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:indeterminate">true</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+    </style>
+</resources>

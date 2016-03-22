@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+                                                        
+
+
+    
+                 
+                           
+                                                                       
+           
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" android:tag="layout/fragment_register_documents_0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+        <TextView
+            style="@style/AppTheme.TextView"
+            android:layout_centerHorizontal="true"
+            android:padding="10dp"
+            android:text="3/4: Документы"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                style="@style/AppTheme.TextView"
+
+                android:text="@string/load_documents" />
+
+
+
+            <com.dd.CircularProgressButton
+                android:id="@+id/btnLoad"
+                android:tag="binding_1"             
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:textColor="@color/white"
+                android:layout_marginTop="15dp"
+                app:cpb_selectorIdle="@drawable/idle_state_selector"
+                app:cpb_selectorComplete="@drawable/complete_state_selector"
+                app:cpb_selectorError="@drawable/error_state_selector"
+                app:cpb_cornerRadius="5dp"
+                app:cpb_colorIndicator="@color/main"
+                app:cpb_colorProgress="@color/cpb_white"
+                app:cpb_textError="@string/error"
+                app:cpb_textIdle="Загрузить"
+                app:cpb_iconComplete="@drawable/ic_action_accept"/>
+
+
+        <GridLayout
+            android:columnCount="3"
+            android:layout_width="300dp"
+            android:id="@+id/glImages"
+            android:layout_height="wrap_content"/>
+
+
+
+
+
+
+        </LinearLayout>
+
+
+        <TextView style="@style/AppTheme.Forvard"
+            android:id="@+id/tvForvard"
+            android:tag="binding_2"                
+            />
+
+        <TextView style="@style/AppTheme.Back"
+            android:tag="binding_3"             
+
+            />
+    </RelativeLayout>
+
+         

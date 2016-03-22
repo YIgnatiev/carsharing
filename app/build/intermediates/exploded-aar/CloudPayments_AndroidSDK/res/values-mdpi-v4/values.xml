@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/E:/Projects/CloudPayments/cloudpayments.android/sdk/CloudPayments_AndroidSDK/res/values-mdpi/dimens.xml -->
+    <eat-comment/>
+    <dimen name="padding">35px</dimen>
+    <dimen name="padding_large">50px</dimen>
+    <dimen name="padding_medium">10px</dimen>
+    <dimen name="padding_middle">14px</dimen>
+    <dimen name="padding_small">7px</dimen>
+</resources>

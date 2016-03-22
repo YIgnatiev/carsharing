@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+        
+
+    
+                 
+                           
+                                                        
+           
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center|left"
+    android:orientation="vertical"
+    android:padding="20dp" android:tag="layout/fragment_about_third_0">
+
+    <TextView
+
+        style="@style/AppTheme.TextView"
+        android:layout_gravity="center_horizontal"
+
+        android:padding="10dp"
+        android:text="Основные преимущества"
+        android:textSize="18sp" />
+
+
+    <TextView
+        style="@style/AppTheme.TextView"
+        android:id="@+id/tvMinuteTarification"
+        android:drawablePadding="10dp"
+        android:gravity="center|left"
+        android:padding="10dp"
+        android:tag="binding_1"                            
+        android:drawableLeft="@drawable/ic_clock" />
+
+
+    <TextView
+        style="@style/AppTheme.TextView"
+        android:id="@+id/tvFreeParking"
+        android:drawablePadding="10dp"
+        android:gravity="center|left"
+        android:padding="10dp"
+        android:tag="binding_2"                    
+        android:drawableLeft="@drawable/ic_ruble"
+        />
+
+
+
+    <TextView
+        style="@style/AppTheme.TextView"
+        android:layout_width="wrap_content"
+        android:drawablePadding="10dp"
+        android:gravity="center|left"
+        android:padding="10dp"
+        android:tag="binding_3"                    
+        android:id="@+id/tvFreeFuel"
+        android:drawableLeft="@drawable/ic_car"
+         />
+
+
+
+    <TextView
+        style="@style/AppTheme.TextView"
+        android:id="@+id/tvFreeNight"
+        android:drawablePadding="10dp"
+        android:gravity="center|left"
+        android:padding="10dp"
+        android:drawableLeft="@drawable/ic_hotel"
+        android:tag="binding_4"                         
+       />
+
+
+    <TextView
+        style="@style/AppTheme.TextView"
+        android:drawablePadding="10dp"
+        android:gravity="center|left"
+        android:id="@+id/tvFarRides"
+        android:padding="10dp"
+        android:drawableLeft="@drawable/ic_road_sign"
+        android:tag="binding_5"                 
+        />
+
+</LinearLayout>
+
+         

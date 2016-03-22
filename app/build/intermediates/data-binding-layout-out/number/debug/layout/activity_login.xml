@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+                                                              
+                                                        
+
+    
+                 
+                           
+                                                            
+           
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg" android:tag="layout/activity_login_0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo_wg"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"/>
+
+    <TextView
+        android:id="@+id/txtEntrance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/entrance"
+        android:textAllCaps="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/ivLogo"
+        android:layout_marginTop="60dp"
+        android:textColor="@color/white"
+        android:textAppearance="@android:style/TextAppearance.Large"/>
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/etLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtEntrance"
+        android:hint="E-mail"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:inputType="textEmailAddress"
+        app:met_textColorHint="@color/hint"
+        app:met_baseColor="@color/white"
+        app:met_primaryColor="@color/main"
+        app:met_errorColor="@color/error"/>
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etLogin"
+        android:inputType="textPassword"
+        android:hint="Пароль"
+        android:layout_alignLeft="@+id/etLogin"
+        android:layout_alignRight="@+id/etLogin"
+        app:met_textColorHint="@color/hint"
+        app:met_baseColor="@color/white"
+        app:met_primaryColor="@color/main"
+        app:met_errorColor="@color/error"/>
+
+    <com.dd.CircularProgressButton
+        android:id="@+id/btnLogin"
+        android:tag="binding_1"              
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etPassword"
+        android:layout_alignRight="@+id/etPassword"
+        android:layout_alignLeft="@+id/etPassword"
+        android:textAppearance="@android:style/TextAppearance.Medium"
+        android:textColor="@color/white"
+        android:layout_marginTop="15dp"
+        app:cpb_selectorIdle="@drawable/idle_state_selector"
+        app:cpb_selectorComplete="@drawable/complete_state_selector"
+        app:cpb_selectorError="@drawable/error_state_selector"
+        app:cpb_cornerRadius="5dp"
+        app:cpb_colorIndicator="@color/main"
+        app:cpb_colorProgress="@color/cpb_white"
+        app:cpb_textError="@string/error"
+        app:cpb_textIdle="@string/login"
+        app:cpb_iconComplete="@drawable/ic_action_accept"/>
+
+    <TextView
+        android:id="@+id/txtQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lines="2"
+        android:text="@string/question_password"
+        android:layout_below="@id/btnLogin"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:tag="binding_2"                
+        android:id="@+id/txtRestore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/restore_password"
+        android:layout_below="@id/txtQuestion"
+        android:layout_centerHorizontal="true"
+        android:textAllCaps="true"
+        android:textColor="@color/main"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#50ffffff">
+
+        <TextView
+            android:id="@+id/txtAbout"
+            android:tag="binding_3"              
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about"
+            android:layout_gravity="left"
+            android:padding="20dp"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/txtRegistration"
+            android:tag="binding_4"                     
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/registration"
+            android:layout_gravity="right"
+            android:padding="20dp"
+            android:textColor="@color/white"/>
+
+    </FrameLayout>
+
+
+
+
+</RelativeLayout>
+
+         

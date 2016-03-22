@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true"
+          android:drawable="@drawable/down" /> <!-- pressed -->
+    <item android:state_pressed="true"
+        android:drawable="@drawable/bg_title" /> <!-- focused -->
+    <item android:state_focused="true"
+          android:drawable="@drawable/down" /> <!-- focused -->
+    <item android:state_focused="true"
+          android:drawable="@drawable/bg_title" /> <!-- focused -->
+    <item android:drawable="@drawable/down" /> <!-- default -->
+</selector><!-- From: file:/E:/Projects/CloudPayments/cloudpayments.android/sdk/CloudPayments_AndroidSDK/res/drawable/bg_btn_chooser_selector.xml -->
