@@ -136,6 +136,7 @@ public class CarInteractorImpl implements CarInteractor {
 
                     if (command.equals(Command.OPEN)) mListener.onOpen();
                     else if (command.equals(Command.CLOSE)) mListener.onClose();
+                    else if (command == Command.TRANSFER) mListener.onTransfer();
                     else mListener.onComplete(response.getCheck());
 
                 }

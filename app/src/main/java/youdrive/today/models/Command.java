@@ -7,7 +7,8 @@ public enum Command {
 
     OPEN("open"),
     CLOSE("close"),
-    COMPLETE("complete");
+    COMPLETE("complete"),
+    TRANSFER("transfer");
 
     private final String text;
 

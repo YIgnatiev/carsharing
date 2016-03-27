@@ -452,6 +452,16 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
     @Override
+    public void onTransfer() {
+        Timber.tag("Action").d("onTransfer ");
+        if (bCloseCar.btnCloseRent != null) {
+            bCloseCar.btnCloseOrOpen.setEnabled(true);
+            AppUtils.success(bCloseCar.btnCloseRent, getString(R.string.transfer_car));
+            bCloseCar.btnCloseRent.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
     public void onBookingTimeLeft(int bookingTimeLeft) {
         Timber.tag("Action").d("onBookingTimeLeft " + bookingTimeLeft);
         mBookingTimeLeft = bookingTimeLeft;
@@ -802,6 +812,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         if (NORMAL.equals(mStatus)) {
             popupDistance.txtDistance.setText(getString(R.string.distance_to_car, AppUtils.toTime(walktime)));
+            hideBottomWindow();
         } else {
             popupDistance.txtDistance.setText(getString(R.string.distance_to_book_car, AppUtils.toTime(walktime)));
         }
@@ -817,6 +828,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         bOpenCar.btnNavigate.setProgress(100);
         addBottomWindow(bOpenCar.getRoot());
         bOpenCar.setListener(this);
+        bOpenCar.btnCancel.setVisibility(mCar.isTransferable() ? View.GONE : View.VISIBLE);
         bOpenCar.btnOpen.setIndeterminateProgressMode(true);
         bOpenCar.btnCancel.setIndeterminateProgressMode(true);
     }
@@ -895,9 +907,34 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     public void onBookClicked(View view) {
         mDialog.getBuilder().autoDismiss(false);
-        bInfo.btnBook.setProgress(50);
         if (view.getTag() != null && mLastLocation.getLatitude() > 0.0d && mLastLocation.getLongitude() > 0.0d) {
-            mCarInteractor.booking((String) view.getTag(), mLastLocation.getLatitude(), mLastLocation.getLongitude(), MapsActivity.this);
+
+            if (mCar.isTransferable()) {
+                new MaterialDialog
+                        .Builder(MapsActivity.this)
+                        .title(R.string.transfer_book_title)
+                        .content(R.string.transfer_book_info)
+                        .widgetColorRes(R.color.white)
+                        .positiveText(R.string.ok_action)
+                        .negativeText(R.string.cancel_action)
+                        .onPositive((dialog, which) -> {
+                            bInfo.btnBook.setProgress(50);
+                            mCarInteractor.booking((String) view.getTag(), mLastLocation.getLatitude(), mLastLocation.getLongitude(), MapsActivity.this);
+
+                        })
+                        .onNegative((dialog, which) -> {
+                            mDialog.dismiss();
+                        })
+                        .positiveColor(getResources().getColor(R.color.main_dark))
+                        .negativeColor(getResources().getColor(R.color.main_dark))
+                        .autoDismiss(true)
+                        .show();
+
+            } else {
+                bInfo.btnBook.setProgress(50);
+                mCarInteractor.booking((String) view.getTag(), mLastLocation.getLatitude(), mLastLocation.getLongitude(), MapsActivity.this);
+            }
+
 
         } else {
 
@@ -924,6 +961,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             bCloseCar.btnCloseOrOpen.setIdleText(getString(R.string.open_car));
         }
 
+        bCloseCar.btnCloseRent.setText(mCar.isTransferable() ? getString(R.string.transfer_car) : getString(R.string.close_rent));
+        bCloseCar.btnCloseRent.setIdleText(mCar.isTransferable() ? getString(R.string.transfer_car) : getString(R.string.close_rent));
+
 
         if (mCheck != null) {
             updateCheck();
@@ -931,9 +971,32 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
     public void onCloseRent(View view) {
-        bCloseCar.btnCloseOrOpen.setEnabled(false);
-        bCloseCar.btnCloseRent.setProgress(50);
-        mCarInteractor.complete(Command.COMPLETE, MapsActivity.this);
+        if (mCar.isTransferable()) {
+            new MaterialDialog
+                    .Builder(MapsActivity.this)
+                    .title(R.string.transfer_finish_title)
+                    .content(R.string.transfer_finish_info)
+                    .widgetColorRes(R.color.white)
+                    .positiveText(R.string.ok_action)
+                    .negativeText(R.string.cancel_action)
+                    .onPositive((dialog, which) -> {
+                        bCloseCar.btnCloseOrOpen.setEnabled(false);
+                        bCloseCar.btnCloseRent.setProgress(50);
+                        mCarInteractor.command(Command.TRANSFER, MapsActivity.this);
+                    })
+                    .onNegative((dialog, which) -> {
+
+                    })
+                    .positiveColor(getResources().getColor(R.color.main_dark))
+                    .negativeColor(getResources().getColor(R.color.main_dark))
+                    .autoDismiss(true)
+                    .show();
+        } else {
+            bCloseCar.btnCloseOrOpen.setEnabled(false);
+            bCloseCar.btnCloseRent.setProgress(50);
+            mCarInteractor.complete(Command.COMPLETE, MapsActivity.this);
+        }
+
     }
 
     public void onCloseOrOpen(View view) {

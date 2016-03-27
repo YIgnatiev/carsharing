@@ -26,6 +26,8 @@ public class Car implements Comparable<Car>, Parcelable {
     String pointer_resource;
     int discount;
 
+    boolean transferable;
+
     public Car(String id,float lat, float lon){
         this.id = id;
         this.lat = lat;
@@ -88,6 +90,10 @@ public class Car implements Comparable<Car>, Parcelable {
         return discount;
     }
 
+    public boolean isTransferable() {
+        return transferable;
+    }
+
     @Override
     public int compareTo(Car car) {
         return walktime - car.getWalktime();
@@ -144,6 +150,9 @@ public class Car implements Comparable<Car>, Parcelable {
                 ", distance=" + distance +
                 ", tariff=" + tariff +
                 ", img='" + img + '\'' +
+                ", pointer_resource='" + pointer_resource + '\'' +
+                ", discount=" + discount +
+                ", transferable=" + transferable +
                 '}';
     }
 }

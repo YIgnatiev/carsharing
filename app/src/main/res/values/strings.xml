@@ -367,6 +367,18 @@
                                               ]]> </string>
     <string name="discount">Скидка</string>
     <string name="unknown">Неизвестно</string>
+    <string name="transfer_book_title">Вы не сможете отменить бронь данного автомобиля!</string>
+    <string name="transfer_book_info">Вы собираетесь арендовать автомобиль, который находится вне зоны завершения аренды.</string>
+    <string name="cancel_action">Отменить</string>
+    <string name="ok_action">OK</string>
+    <string name="transfer_finish_title">Ваш автомобиль станет доступен для аренды другим пользователям.</string>
+    <string name="transfer_finish_info">Пока автомобиль не будет арендован другим пользователем, вы продолжите оплачивать аренду в соответствии с тарифом Парковка.
 
-<string name="registration_driver_experience_warning">ВНИМАНИЕ:  Для регистрации в сервисе ваш водительский стаж по категории «В» должен быть не менее 2-х лет.</string>
+        При бронировании автомобиля другим пользователем, ваша аренда автоматически  завершится.
+
+        Вы можете перейти в тариф Использования в любой момент до бронирования автомобиля другим пользователем.</string>
+    <string name="transfer_car">Передать автомобиль</string>
+
+
+    <string name="registration_driver_experience_warning">ВНИМАНИЕ:  Для регистрации в сервисе ваш водительский стаж по категории «В» должен быть не менее 2-х лет.</string>
 </resources>
