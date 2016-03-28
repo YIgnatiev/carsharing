@@ -3,6 +3,8 @@
     <color name="translucent_white">#AAFFFFFF</color>
     <color name="white">#FFFFFF</color>
     <color name="main">#00DEAC</color>
+    <color name="maintransparent">#9c00deac</color>
+
     <color name="hint">#CCCCCC</color>
     <color name="error">#FF98C0</color>
     <color name="negative">#2F3C4D</color>

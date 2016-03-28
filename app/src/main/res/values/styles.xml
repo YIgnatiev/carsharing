@@ -74,7 +74,9 @@
 
 
 
-
+    <style name="CustomFloaterTextAppearance" parent="android:TextAppearance.Small">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
 
 
 

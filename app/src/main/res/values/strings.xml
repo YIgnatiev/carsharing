@@ -369,4 +369,6 @@
     <string name="unknown">Неизвестно</string>
 
 <string name="registration_driver_experience_warning">ВНИМАНИЕ:  Для регистрации в сервисе ваш водительский стаж по категории «В» должен быть не менее 2-х лет.</string>
+    <string name="searchcar">Поиск Авто</string>
+    <string name="action_search">Поиск</string>
 </resources>
