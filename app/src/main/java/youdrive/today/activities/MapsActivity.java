@@ -246,6 +246,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         items.add(new Menu(R.drawable.icon_help, getString(R.string.help)));
         items.add(new Menu(R.drawable.icon_call, getString(R.string.call)));
         items.add(new Menu(R.drawable.icon_exit, getString(R.string.exit)));
+        items.add(new Menu(R.drawable.ic_action_search, getString(R.string.searchcar)));
+
         return items;
     }
 
@@ -889,6 +891,10 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             case 5:
                 App.getInstance().getPreference().clear();
                 mProfileInteractor.logout(this);
+                break;
+            case 6:
+                startActivity(new Intent(this, SearchCarActivity.class));
+
                 break;
         }
     }
