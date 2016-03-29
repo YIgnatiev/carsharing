@@ -15,6 +15,7 @@ import youdrive.today.models.CreditCardResponse;
 import youdrive.today.models.InviteUser;
 import youdrive.today.models.LoginUser;
 import youdrive.today.models.RegistrationUser;
+import youdrive.today.models.SearchCar;
 import youdrive.today.response.BaseResponse;
 import youdrive.today.response.CarResponse;
 import youdrive.today.response.CommandResponse;
@@ -22,6 +23,7 @@ import youdrive.today.response.LoginResponse;
 import youdrive.today.response.PolygonResponse;
 import youdrive.today.response.RegionsResponse;
 import youdrive.today.response.RegistrationModel;
+import youdrive.today.response.SearchCarResponse;
 
 /**
  * Created by Oleh Makhobey
@@ -78,4 +80,13 @@ public interface CarsharingService {
 
     @POST("/cards/init")
     Observable<CreditCardResponse> initCreditCard(@Body CreditCardModel model);
+
+    @POST("/search")
+    Observable<SearchCarResponse> createSearchCar(@Body SearchCar search);
+
+    @GET("/search")
+    Observable<SearchCarResponse> getSearchCar();
+
+    @DELETE("/search")
+    Observable<SearchCarResponse> deleteSearchCar();
 }

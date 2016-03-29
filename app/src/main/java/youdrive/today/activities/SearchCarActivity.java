@@ -44,19 +44,22 @@ import youdrive.today.databinding.ActivitySearchCarBinding;
 import youdrive.today.databinding.HeaderProfileBinding;
 import youdrive.today.helpers.PreferenceHelper;
 import youdrive.today.interceptors.ProfileInteractorImpl;
+import youdrive.today.interceptors.SearchInteractorImpl;
 import youdrive.today.listeners.ProfileActionListener;
+import youdrive.today.listeners.SearchActionListener;
 import youdrive.today.models.Menu;
 import youdrive.today.models.User;
+import youdrive.today.response.SearchCarResponse;
 import youdrive.today.view.RadiusView;
 
 
-public class SearchCarActivity extends BaseActivity implements ProfileActionListener,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+public class SearchCarActivity extends BaseActivity implements ProfileActionListener,SearchActionListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
     private ActivitySearchCarBinding b;
     private GoogleApiClient mGoogleApiClient;
     private GoogleMap mMap;
     private User mUser;
     private ProfileInteractorImpl mProfileInteractor;
- //   private SearchInteractorImpl mSearchCarInteractor;
+    private SearchInteractorImpl mSearchCarInteractor;
     DiscreteSeekBar Radius;
     private float mZoomLevel;
     private Location mLastLocation;
@@ -92,7 +95,7 @@ public class SearchCarActivity extends BaseActivity implements ProfileActionList
         Radius = b.Radius;
         setRadiusSeekBar();
         radiusCircle=b.RadiusView;
-     //   mSearchCarInteractor = new SearchInteractorImpl();
+        mSearchCarInteractor = new SearchInteractorImpl();
 
 
 
@@ -194,9 +197,18 @@ public class SearchCarActivity extends BaseActivity implements ProfileActionList
         if (mMap != null) {
             int radius =Radius.getProgress();
             VisibleRegion vr = mMap.getProjection().getVisibleRegion();
-         //  mSearchCarInteractor.deleteSearchCars(this);
-         //   mSearchCarInteractor.postSearchCars(vr.latLngBounds.getCenter().latitude,vr.latLngBounds.getCenter().longitude, radius , this);
-          //  mSearchCarInteractor.getSearchCars(this);
+           mSearchCarInteractor.postSearchCars(vr.latLngBounds.getCenter().latitude,vr.latLngBounds.getCenter().longitude, radius , this);
+          }
+    }
+
+    public void onDelete(View v) {
+        if (mMap != null) {
+             mSearchCarInteractor.deleteSearchCars(this);
+             }
+    }
+    public void onGet(View v) {
+        if (mMap != null) {
+              mSearchCarInteractor.getSearchCar(this);
         }
     }
     //listener
@@ -242,6 +254,29 @@ public class SearchCarActivity extends BaseActivity implements ProfileActionList
         Timber.tag("Error").d("Internal Error");
         String text = getString(R.string.internal_error);
 
+
+    }
+
+    @Override
+    public void onSuccess(SearchCarResponse search) {
+        System.out.println(search.getText());
+
+    }
+
+    @Override
+    public void onAccessDenied(String text) {
+        System.out.println(text);
+    }
+
+    @Override
+    public void onResut(String text) {
+        System.out.println(text);
+
+    }
+
+    @Override
+    public void onCommandNotSupported(String text) {
+        System.out.println(text);
 
     }
 
