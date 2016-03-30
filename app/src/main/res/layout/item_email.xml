@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="emailContact"
@@ -42,6 +42,7 @@
             android:id="@+id/tvCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:buttonTint="@color/black"
             android:paddingRight="@dimen/default_margin"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"/>
