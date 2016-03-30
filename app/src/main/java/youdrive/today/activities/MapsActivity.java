@@ -156,7 +156,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         setSupportActionBar(b.toolbar);
         setUpMapIfNeeded();
         createLocationRequest();
-        mZoomLevel = mMap.getMinZoomLevel();
+        if(mMap!=null) mZoomLevel = mMap.getMinZoomLevel();
 
         if (App.getInstance().getPreference() != null) {
             if (App.getInstance().getPreference().getUser() != null) {
@@ -762,7 +762,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     public void onConnectionFailed(ConnectionResult result) {
         Timber.e("Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
-        animateCamera(new LatLng(55.749792, 37.632495));
+        if(mMap!=null) animateCamera(new LatLng(55.749792, 37.632495));
     }
 
     @Override

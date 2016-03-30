@@ -37,8 +37,8 @@
     <style name="AppTheme.Invite" parent="AppTheme">
         <item name="android:typeface">normal</item>
         <item name="android:windowBackground">@color/invite_back</item>
-        <item name="colorAccent">@color/green</item>
-        <item name="android:textColorSecondary">@color/green</item>
+        <item name="colorAccent">@color/main</item>
+        <item name="android:textColorSecondary">@color/main</item>
         <item name="android:popupMenuStyle">@style/PopupMenu</item>
         <item name="popupMenuStyle">@style/PopupMenu</item>
         <item name="android:textAppearanceLargePopupMenu">@style/myPopupMenuTextAppearanceLarge</item>

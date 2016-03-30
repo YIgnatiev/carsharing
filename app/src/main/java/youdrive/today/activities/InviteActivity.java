@@ -155,89 +155,101 @@ public class InviteActivity extends BaseActivity implements PhoneNumberAdapter.O
         }
     }
 
+    private static ArrayList<EmailAdapter.EmailContact> contacts=null;
     private ArrayList<EmailAdapter.EmailContact> getEmailContacts(String searchString)
     {
-        ArrayList<EmailAdapter.EmailContact> contacts = new ArrayList<>();
-        HashSet<String> emlRecsHS = new HashSet<>();
-        ContentResolver cr = getContentResolver();
-        String[] PROJECTION = new String[] { RawContacts._ID,
-                Contacts.DISPLAY_NAME,
-                Contacts.PHOTO_ID,
-                CommonDataKinds.Email.DATA,
-                CommonDataKinds.Photo.CONTACT_ID };
-        String order = "CASE WHEN "
-                + Contacts.DISPLAY_NAME
-                + " NOT LIKE '%@%' THEN 1 ELSE 2 END, "
-                + Contacts.DISPLAY_NAME
-                + ", "
-                + CommonDataKinds.Email.DATA
-                + " COLLATE NOCASE";
-        String filter = CommonDataKinds.Email.DATA + " NOT LIKE ''";
-        Cursor cur = cr.query(CommonDataKinds.Email.CONTENT_URI, PROJECTION, filter, null, order);
-        if (cur!=null)
-        {
-            if(cur.moveToFirst()) {
-                do {
-                    // names comes in hand sometimes
-                    String name = cur.getString(1);
-                    String emlAddr = cur.getString(3);
+        if(contacts==null) {
+            contacts = new ArrayList<>();
+            HashSet<String> emlRecsHS = new HashSet<>();
+            ContentResolver cr = getContentResolver();
+            String[] PROJECTION = new String[]{RawContacts._ID,
+                    Contacts.DISPLAY_NAME,
+                    Contacts.PHOTO_ID,
+                    CommonDataKinds.Email.DATA,
+                    CommonDataKinds.Photo.CONTACT_ID};
+            String order = "CASE WHEN "
+                    + Contacts.DISPLAY_NAME
+                    + " NOT LIKE '%@%' THEN 1 ELSE 2 END, "
+                    + Contacts.DISPLAY_NAME
+                    + ", "
+                    + CommonDataKinds.Email.DATA
+                    + " COLLATE NOCASE";
+            String filter = CommonDataKinds.Email.DATA + " NOT LIKE ''";
+            Cursor cur = cr.query(CommonDataKinds.Email.CONTENT_URI, PROJECTION, filter, null, order);
+            if (cur != null) {
+                if (cur.moveToFirst()) {
+                    do {
+                        // names comes in hand sometimes
+                        String name = cur.getString(1);
+                        String emlAddr = cur.getString(3);
 
-                    if (TextUtils.isEmpty(searchString))// Для случая без поисковой фразы
-                    {
                         // keep unique only
-                        if(emlRecsHS.add(emlAddr.toLowerCase()))
+                        if (emlRecsHS.add(emlAddr.toLowerCase()))
                             contacts.add(new EmailAdapter.EmailContact(name, emlAddr));
-                    }
-                    else if(name.toLowerCase().contains(searchString)||emlAddr.toLowerCase().contains(searchString))
-                        contacts.add(new EmailAdapter.EmailContact(name, emlAddr));
-                } while (cur.moveToNext());
+                    } while (cur.moveToNext());
+                }
+                cur.close();
             }
-            cur.close();
         }
-        return contacts;
+
+        if(TextUtils.isEmpty(searchString)||contacts==null) return contacts;
+        else
+        {
+            ArrayList<EmailAdapter.EmailContact> filteredContacts=new ArrayList<>();
+            final int size=contacts.size();
+            for(int i=0;i<size;++i) {
+                EmailAdapter.EmailContact emailContact=contacts.get(i);
+                if (emailContact.name.toLowerCase().contains(searchString) || emailContact.email.toLowerCase().contains(searchString))
+                    filteredContacts.add(emailContact);
+            }
+            return filteredContacts;
+        }
     }
 
+    private ArrayList<PhoneNumberAdapter.PhoneContact> phoneContacts=null;
     private ArrayList<PhoneNumberAdapter.PhoneContact> getPhones(String searchString)
     {
-        ArrayList<PhoneNumberAdapter.PhoneContact> phoneContacts = new ArrayList<>();
-        HashSet<String> emlRecsHS = new HashSet<>();
-        Cursor cursor = getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, null, null, null, ContactsContract.Contacts.DISPLAY_NAME);
-        if (cursor!=null)
-        {
-            if(cursor.moveToFirst()) {
+        if(phoneContacts==null) {
+            phoneContacts = new ArrayList<>();
+            HashSet<String> emlRecsHS = new HashSet<>();
+            Cursor cursor = getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, null, null, null, ContactsContract.Contacts.DISPLAY_NAME);
+            if (cursor != null) {
+                if (cursor.moveToFirst()) {
 
-                do
-                {
-                    String id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
-                    String name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-                    if(Integer.parseInt(cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0)
-                    {
-                        Cursor pCur = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                                null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = ?",new String[]{ id }, null);
-                        if(pCur!=null) {
-                            while (pCur.moveToNext())
-                            {
-                                String contactNumber = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                                if (TextUtils.isEmpty(searchString))// Для случая без поисковой фразы
-                                {
-                                    // keep unique only
-                                    if(emlRecsHS.add(contactNumber))
+                    do {
+                        String id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
+                        String name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                        if (Integer.parseInt(cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0) {
+                            Cursor pCur = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                                    null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?", new String[]{id}, null);
+                            if (pCur != null) {
+                                while (pCur.moveToNext()) {
+                                    String contactNumber = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                                    if (emlRecsHS.add(contactNumber))
                                         phoneContacts.add(new PhoneNumberAdapter.PhoneContact(name, contactNumber));
+                                    break;
                                 }
-                                else if(name.toLowerCase().contains(searchString)||contactNumber.contains(searchString))
-                                    phoneContacts.add(new PhoneNumberAdapter.PhoneContact(name, contactNumber));
-
-                                break;
+                                pCur.close();
                             }
-                            pCur.close();
                         }
-                    }
 
-                } while (cursor.moveToNext()) ;
+                    } while (cursor.moveToNext());
+                }
+                cursor.close();
             }
-            cursor.close();
         }
-        return phoneContacts;
+        if(TextUtils.isEmpty(searchString)||phoneContacts==null) return phoneContacts;
+        else
+        {
+            ArrayList<PhoneNumberAdapter.PhoneContact> filteredPhoneContacts=new ArrayList<>();
+            final int size=phoneContacts.size();
+            for(int i=0;i<size;++i) {
+                PhoneNumberAdapter.PhoneContact phoneContact=phoneContacts.get(i);
+                if (phoneContact.name.toLowerCase().contains(searchString) || phoneContact.phone.contains(searchString))
+                    filteredPhoneContacts.add(phoneContact);
+            }
+            return filteredPhoneContacts;
+        }
     }
 
     public void onSearchClear(View view)

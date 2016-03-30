@@ -44,7 +44,7 @@ public class AppUtils {
         return cntx.getString(R.string.referral_sms_text,
                 referralRules.referral_code,
                 referralRules.invitee_bonus_part,
-                referralRules.max_invitee_bonus,
+                referralRules.max_invitee_bonus/100,
                 referralRules.registration_link);
     }
 

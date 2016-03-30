@@ -65,9 +65,9 @@ public class ReferalFragment extends BaseFragment<BaseActivity> {
     public void onMore(View view){
         String referralDescription=getString(R.string.referral_dialog_description,
                 referralRules.invitee_bonus_part,
-                referralRules.max_invitee_bonus,
+                referralRules.max_invitee_bonus/100,
                 referralRules.inviter_bonus_part,
-                referralRules.max_inviter_bonus);
+                referralRules.max_inviter_bonus/100);
 
         AlertDialog dialog = new AlertDialog.Builder(mActivity, R.style.ReferralDialog)
                 .setMessage(referralDescription)
@@ -77,7 +77,7 @@ public class ReferalFragment extends BaseFragment<BaseActivity> {
         dialog.show();
     }
     public void onCodeClick(View view){
-        View popupView=LayoutInflater.from(getActivity()).inflate(R.layout.popup_copy, null, false);
+        View popupView=LayoutInflater.from(getActivity()).inflate(R.layout.popup_copy, (ViewGroup)view.getParent(), false);
         popupView.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
                 View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
         PopupWindow popupWindow=new PopupWindow(popupView, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
