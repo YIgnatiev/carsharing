@@ -72,11 +72,13 @@ import youdrive.today.listeners.CarActionListener;
 import youdrive.today.listeners.MapsActionListener;
 import youdrive.today.listeners.PolygonListener;
 import youdrive.today.listeners.ProfileActionListener;
+import youdrive.today.listeners.ValueFunction;
 import youdrive.today.models.Car;
 import youdrive.today.models.Check;
 import youdrive.today.models.Command;
 import youdrive.today.models.Coord;
 import youdrive.today.models.Menu;
+import youdrive.today.models.ReferralRules;
 import youdrive.today.models.Status;
 import youdrive.today.models.User;
 import youdrive.today.response.PolygonResponse;
@@ -241,11 +243,12 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     private List<Menu> getMenu() {
         List<Menu> items = new ArrayList<>();
-        items.add(new Menu(R.drawable.icon_help, getString(R.string.profile)));
-        items.add(new Menu(R.drawable.icon_tariff, getString(R.string.tariff)));
-        items.add(new Menu(R.drawable.icon_help, getString(R.string.help)));
-        items.add(new Menu(R.drawable.icon_call, getString(R.string.call)));
-        items.add(new Menu(R.drawable.icon_exit, getString(R.string.exit)));
+        items.add(new Menu(getString(R.string.profile)));
+        items.add(new Menu(getString(R.string.tariff)));
+        items.add(new Menu(getString(R.string.help)));
+        items.add(new Menu(getString(R.string.call)));
+        items.add(new Menu(getString(R.string.free_drive)));
+        items.add(new Menu(getString(R.string.exit)));
         return items;
     }
 
@@ -886,7 +889,22 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             case 4:
                 call();
                 break;
-            case 5:
+            case 5: {
+                if (isNetworkConnected()) {
+                    mMapsInteractor.getReferralData(referralRules -> {
+                        Intent intent = new Intent(this, ReferralActivity.class);
+                        intent.putExtra("referralData", referralRules);
+                        startActivity(intent);
+                    }, throwable -> {
+                        showToast(getString(R.string.referral_data_fail));
+                    });
+                } else {
+                    showToast(getString(R.string.no_internet));
+                }
+
+                break;
+            }
+            case 6:
                 App.getInstance().getPreference().clear();
                 mProfileInteractor.logout(this);
                 break;

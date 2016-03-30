@@ -11,6 +11,7 @@ import youdrive.today.listeners.MapsActionListener;
 import youdrive.today.listeners.PolygonListener;
 import youdrive.today.listeners.ValueFunction;
 import youdrive.today.models.ApiError;
+import youdrive.today.models.ReferralRules;
 import youdrive.today.models.Status;
 import youdrive.today.network.ApiClient;
 import youdrive.today.response.CarResponse;
@@ -102,6 +103,13 @@ public class MapsInteractorImpl implements MapsInteractor {
                 .timeout(5, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(successFunc::apply, errorFunc::apply);
+        subscriptions.add(subscription);
+
+    }
+
+    public void getReferralData(ValueFunction<ReferralRules> successFunc, ValueFunction<Throwable> errorFunc) {
+        Subscription subscription = mApiClient.getReferralRules()
                 .subscribe(successFunc::apply, errorFunc::apply);
         subscriptions.add(subscription);
 

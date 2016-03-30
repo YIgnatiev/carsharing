@@ -8,6 +8,9 @@ import android.widget.Toast;
 
 import com.dd.CircularProgressButton;
 
+import youdrive.today.R;
+import youdrive.today.models.ReferralRules;
+
 /**
  * Created by psuhoterin on 20.05.15.
  */
@@ -33,6 +36,16 @@ public class AppUtils {
             button.setProgress(0);
             button.setIdleText(string);
         }, 1500);
+    }
+
+    /*** Текст для шаринга */
+    public static String getShareText(Context cntx, ReferralRules referralRules)
+    {
+        return cntx.getString(R.string.referral_sms_text,
+                referralRules.referral_code,
+                referralRules.invitee_bonus_part,
+                referralRules.max_invitee_bonus,
+                referralRules.registration_link);
     }
 
 

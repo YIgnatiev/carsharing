@@ -11,6 +11,10 @@
     <color name="main_dark">#189c7a</color>
     <color name="disable">#7f7f7f</color>
 
+    <color name="dark_toolbar">#363e4e</color>
+    <color name="green_pressed">#ae00deac</color>
+    <color name="invite_back">#d5d5d5</color>
+
     <color name="error_dark">#ff65a1</color>
     <color name="negative_dark">#1c232d</color>
     <color name="polygonColor">#2823deb0</color>

@@ -19,7 +19,9 @@ import youdrive.today.models.Command;
 import youdrive.today.models.CreditCardModel;
 import youdrive.today.models.CreditCardResponse;
 import youdrive.today.models.InviteUser;
+import youdrive.today.models.Invites;
 import youdrive.today.models.LoginUser;
+import youdrive.today.models.ReferralRules;
 import youdrive.today.models.RegistrationUser;
 import youdrive.today.response.BaseResponse;
 import youdrive.today.response.CarResponse;
@@ -139,6 +141,22 @@ public class ApiClient {
         return mService.initCreditCard(model)
                 .timeout(5,TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<BaseResponse> inviteUsersEmail(Invites inviteList){
+        return mService.inviteUsersEmail(inviteList)
+                .retry(3)
+                .timeout(5, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<ReferralRules> getReferralRules(){
+        return mService.getReferralRules()
+                .retry(3)
+                .timeout(5, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 

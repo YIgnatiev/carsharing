@@ -20,10 +20,12 @@ import youdrive.today.listeners.Function;
  * Created by psuhoterin on 15.04.15.
  */
 public abstract class BaseActivity extends AppCompatActivity {
+    private final int READ_CONTACTS_PERMISSION = 11;
     private final int LOCATION_PERMISSION = 10;
     private final int WRITE_PERMISSION = 9;
     private final int PHONE = 8;
     private Function mLocationFunction;
+    private Function mReadContactsFunction;
     private Function mWritePermission;
     private Function mPhonePemission;
 
@@ -81,6 +83,17 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+    public void getReadContactsPermission(Function function) {
+        mReadContactsFunction = function;
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, READ_CONTACTS_PERMISSION);
+
+        } else {
+            mReadContactsFunction.apply();
+        }
+    }
+
 
     public void checkPhonePermission(Function phonePemission){
         mPhonePemission = phonePemission;
@@ -131,6 +144,14 @@ public abstract class BaseActivity extends AppCompatActivity {
                     Toast.makeText(this, "You did not allow to choose picture`", Toast.LENGTH_LONG).show();
                 }
 
+            break;
+            case READ_CONTACTS_PERMISSION: {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (mReadContactsFunction != null) mReadContactsFunction.apply();
+                } else {
+                    Toast.makeText(this, R.string.no_contacts_permissions, Toast.LENGTH_LONG).show();
+                }
+            }
             break;
 
             case PHONE:

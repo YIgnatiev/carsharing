@@ -33,7 +33,31 @@
     </style>
     <style name="AppTheme.Splash" parent="AppTheme">
         <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
+    <style name="AppTheme.Invite" parent="AppTheme">
+        <item name="android:typeface">normal</item>
+        <item name="android:windowBackground">@color/invite_back</item>
+        <item name="colorAccent">@color/green</item>
+        <item name="android:textColorSecondary">@color/green</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
+        <item name="popupMenuStyle">@style/PopupMenu</item>
+        <item name="android:textAppearanceLargePopupMenu">@style/myPopupMenuTextAppearanceLarge</item>
+        <item name="android:textAppearanceSmallPopupMenu">@style/myPopupMenuTextAppearanceSmall</item>
 
+    </style>
+
+    <style name="PopupMenu" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:popupBackground">@color/white</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="myPopupMenuTextAppearanceSmall" parent="@android:style/TextAppearance.DeviceDefault.Widget.PopupMenu.Small">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+    <style name="myPopupMenuTextAppearanceLarge" parent="@android:style/TextAppearance.DeviceDefault.Widget.PopupMenu.Large">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="AppTheme.TextView" parent="AppTheme">
@@ -45,6 +69,27 @@
 
     </style>
 
+    <style name="AppTheme.ReferalButton" parent="AppTheme">
+        <item name="android:background">@drawable/btn_green_border</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="AppTheme.InviteSMS" parent="AppTheme">
+        <item name="android:background">@drawable/btn_black_border</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/dark_toolbar</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="ReferralDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!-- Used for the buttons -->
+        <item name="colorAccent">@android:color/black</item>
+        <!-- Used for the title and text -->
+        <item name="android:textColorPrimary">@color/dark_toolbar</item>
+        <!-- Used for the background -->
+        <item name="android:background">@android:color/white</item>
+    </style>
 
     <style name="AppTheme.Back" parent="AppTheme">
         <item name="android:layout_width">100dp</item>

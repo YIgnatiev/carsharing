@@ -50,7 +50,6 @@ public class ProfileAdapter extends ArrayAdapter<Menu> {
 
         Menu item = mObjects.get(position);
         holder.binding.txtTitle.setText(item.title);
-        holder.binding.ivIcon.setImageResource(item.icon);
 
         return row;
     }

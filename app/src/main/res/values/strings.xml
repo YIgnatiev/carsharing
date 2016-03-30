@@ -49,6 +49,24 @@
     <string name="enter_price">Вы должны ввести сумму</string>
     <string name="summ_bigger_than_3000">Сумма должна быть не менее 3000 рублей</string>
 
+    <string name="get_free_drives">Получить бесплатные поездки</string>
+    <string name="referal_description">Подарите скидку на первую поездку друзьям и также получите до 500 рублей на ваш счет.</string>
+    <string name="more">Подробнее</string>
+    <string name="copy">Копировать</string>
+    <string name="give_promo_title">Поделитесь своим промо-кодом</string>
+    <string name="no_social_detected">Для того чтобы воспользоваться функцией \"Поделиться в соцсетях\" установите одно из приложений FB, Twitter или ВКонтакте</string>
+    <string name="share_social">Поделиться в соцсетях</string>
+    <string name="invite">Пригласить</string>
+    <string name="invite_email">Пригласить по эл. почте</string>
+    <string name="invite_sms">Пригласить по SMS</string>
+    <string name="search">Поиск</string>
+    <string name="send">Отправить</string>
+    <string name="invitation_send_success">Приглашения успешно отправлены</string>
+    <string name="invitation_send_fail">Ошибка при отправке приглашения, попробуйте позже</string>
+    <string name="referral_data_fail">Ошибка при получении данных о бесплатных поездках, попробуйте позже</string>
+    <string name="referral_sms_text">Воспользуйтесь моим пригласительным кодом %1$s и получите скидку %2$d%% на первую поездку (не более %3$d руб.). %4$s</string>
+    <string name="referral_dialog_description">Каждый раз, когда ваши друзья регистрируются по вашему пригласительному коду, они получают скидку %1$d%% на первую поездку(но не более %2$d руб). Вы также получите %3$d%% от стоимости первой поездки вашего друга(но не более %4$d руб) на свой счет.</string>
+
 
     <string name="email_not_valid">Email введен не корректно</string>
     <string name="internal_error">Внутренняя ошибка</string>
@@ -56,6 +74,7 @@
     <string name="book">Забронировать</string>
     <string name="region_not_selected">Регион не выбран</string>
     <string name="call">Позвонить оператору</string>
+    <string name="free_drive">Бесплатные поездки</string>
     <string name="exit">Выход</string>
     <string name="tariff">Тарифы</string>
     <string name="help">Помощь</string>
@@ -367,6 +386,9 @@
                                               ]]> </string>
     <string name="discount">Скидка</string>
     <string name="unknown">Неизвестно</string>
+
+    <!-- Ошибки -->
+    <string name="no_contacts_permissions">Разрешите доступ к контактам для возможности отправки приглашений</string>
 
 <string name="registration_driver_experience_warning">ВНИМАНИЕ:  Для регистрации в сервисе ваш водительский стаж по категории «В» должен быть не менее 2-х лет.</string>
 </resources>

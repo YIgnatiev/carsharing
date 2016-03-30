@@ -13,7 +13,9 @@ import youdrive.today.models.Car;
 import youdrive.today.models.CreditCardModel;
 import youdrive.today.models.CreditCardResponse;
 import youdrive.today.models.InviteUser;
+import youdrive.today.models.Invites;
 import youdrive.today.models.LoginUser;
+import youdrive.today.models.ReferralRules;
 import youdrive.today.models.RegistrationUser;
 import youdrive.today.response.BaseResponse;
 import youdrive.today.response.CarResponse;
@@ -78,4 +80,10 @@ public interface CarsharingService {
 
     @POST("/cards/init")
     Observable<CreditCardResponse> initCreditCard(@Body CreditCardModel model);
+
+    @GET("/referral/rules")
+    Observable<ReferralRules> getReferralRules();
+
+    @POST("/referral/invites")
+    Observable<BaseResponse> inviteUsersEmail(@Body Invites invites);
 }
