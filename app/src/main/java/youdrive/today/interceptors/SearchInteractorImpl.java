@@ -9,6 +9,7 @@ import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 import youdrive.today.App;
 import youdrive.today.listeners.SearchActionListener;
+import youdrive.today.models.ApiError;
 import youdrive.today.network.ApiClient;
 import youdrive.today.response.SearchCarResponse;
 
@@ -30,11 +31,18 @@ public class SearchInteractorImpl  implements SearchInteractor  {
                 .timeout(5, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response -> onGetInfoSuccess(response, listener),
+                .subscribe(response -> onPostSearchSuccess(response, listener),
                         error -> handleNetworkError(error, listener));
         subscriptions.add(subscription);
     }
+    private void onPostSearchSuccess(SearchCarResponse response, SearchActionListener listener) {
+        if (response.isSuccess()) {
+            listener.onSuccess(response,1);
+        } else {
+            handlingError(new ApiError(response.getCode(), response.getText()), mListener);
 
+        }
+    }
     public void getSearchCar( SearchActionListener listener) {
         mListener = listener;
         Subscription subscription = mApiClient
@@ -50,34 +58,14 @@ public class SearchInteractorImpl  implements SearchInteractor  {
 
     private void onGetSearchSuccess(SearchCarResponse response, SearchActionListener listener) {
         if (response.isSuccess()) {
-            listener.onSuccess(response);
-            System.out.println("ssss"+response.getText());
-            System.out.println("ssss"+response.toString());
+            listener.onSuccess(response,2);
 
         } else {
+            handlingError(new ApiError(response.getCode(), response.getText()), mListener);
 
         }
     }
 
-    private void handleNetworkError(Throwable error, SearchActionListener listener) {
-    }
-
-    private void onGetInfoSuccess(SearchCarResponse response, SearchActionListener listener) {
-        if (response.isSuccess()) {
-            listener.onSuccess(response);
-            System.out.println("ssss"+response.getText());
-            System.out.println("ssss"+response.toString());
-
-        } else {
-
-        }
-    }
-
-
-    @Override
-    public void getSearchCars(SearchActionListener listener) {
-
-    }
 
     @Override
     public void deleteSearchCars(SearchActionListener listener) {
@@ -96,12 +84,37 @@ public class SearchInteractorImpl  implements SearchInteractor  {
 
     private void onDeleteSearchSuccess(SearchCarResponse response, SearchActionListener listener) {
         if (response.isSuccess()) {
-            System.out.println("ssss"+response.getText());
-            mListener.onSuccess(response);
-            subscriptions.clear();
+            listener.onSuccess(response,3);
+        }
+        else {
+            handlingError(new ApiError(response.getCode(), response.getText()), mListener);
 
         }
     }
+    private void handlingError(ApiError error, SearchActionListener listener) {
+        if (error.getCode() == ApiError.ACCESS_DENIED) {
+            listener.onAccessDenied(error.getText());
+        } else if (error.getCode() == ApiError.COMMAND_NOT_SUPPORTED) {
+            listener.onCommandNotSupported(error.getText());
+        } else if (error.getCode() == ApiError.SESSION_NOT_FOUND) {
+            listener.onSessionNotFound(error.getText());
+        } else if (error.getText() != null) {
+            listener.onUnknownError(error.getText());
+        } else {
+            listener.onError();
+        }
+    }
+
+    private void handleNetworkError(Throwable error, SearchActionListener listener) {
+        listener.onError();
+
+    }
+
+
+
+
+
+
 
 
     public Subscription getSubscription() {

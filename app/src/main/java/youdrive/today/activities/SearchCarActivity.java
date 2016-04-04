@@ -1,10 +1,12 @@
 package youdrive.today.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -97,7 +99,7 @@ public class SearchCarActivity extends BaseActivity implements ProfileActionList
         radiusCircle=b.RadiusView;
         mSearchCarInteractor = new SearchInteractorImpl();
 
-
+b.btnDelete.setVisibility(View.GONE);
 
     }
 
@@ -198,19 +200,20 @@ public class SearchCarActivity extends BaseActivity implements ProfileActionList
             int radius =Radius.getProgress();
             VisibleRegion vr = mMap.getProjection().getVisibleRegion();
            mSearchCarInteractor.postSearchCars(vr.latLngBounds.getCenter().latitude,vr.latLngBounds.getCenter().longitude, radius , this);
-          }
+            b.btnSearch.setEnabled(false);
+
+        }
     }
 
     public void onDelete(View v) {
         if (mMap != null) {
              mSearchCarInteractor.deleteSearchCars(this);
+            b.btnDelete.setEnabled(false);
+
+           // mSearchCarInteractor.getSearchCar(this);
              }
     }
-    public void onGet(View v) {
-        if (mMap != null) {
-              mSearchCarInteractor.getSearchCar(this);
-        }
-    }
+
     //listener
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -258,25 +261,55 @@ public class SearchCarActivity extends BaseActivity implements ProfileActionList
     }
 
     @Override
-    public void onSuccess(SearchCarResponse search) {
-        System.out.println(search.getText());
+    public void onSuccess(SearchCarResponse search, int type) {
+        switch (type) {
+            case 1:
+                b.btnSearch.setEnabled(true);
+                b.btnSearch.setVisibility(View.GONE);
+                b.btnDelete.setVisibility(View.VISIBLE);
+                String text="Message from API";
+                showalert(text);
+                break;
+            case 2:
+                break;
+            case 3:
+                b.btnDelete.setEnabled(true);
+                b.btnSearch.setVisibility(View.VISIBLE);
+                b.btnDelete.setVisibility(View.GONE);
+                break;
 
+        }
     }
+
+    private void showalert(String text) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(SearchCarActivity.this);
+        builder.setTitle(text)
+                .setCancelable(false)
+                .setNegativeButton("ОК",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
 
     @Override
     public void onAccessDenied(String text) {
-        System.out.println(text);
-    }
-
-    @Override
-    public void onResut(String text) {
-        System.out.println(text);
-
+        Timber.tag("Error").e("onAccessDenied");
     }
 
     @Override
     public void onCommandNotSupported(String text) {
-        System.out.println(text);
+        Timber.tag("Error").e("onCommandNotSupported");
+    }
+
+    @Override
+    public void onSessionNotFound(String text) {
+        Timber.tag("Error").e("onSessionNotFound");
+
 
     }
 
