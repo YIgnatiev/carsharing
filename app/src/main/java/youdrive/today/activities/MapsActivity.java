@@ -241,12 +241,12 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     private List<Menu> getMenu() {
         List<Menu> items = new ArrayList<>();
+        items.add(new Menu(R.drawable.icon_search, getString(R.string.searchcar)));
         items.add(new Menu(R.drawable.icon_help, getString(R.string.profile)));
         items.add(new Menu(R.drawable.icon_tariff, getString(R.string.tariff)));
         items.add(new Menu(R.drawable.icon_help, getString(R.string.help)));
         items.add(new Menu(R.drawable.icon_call, getString(R.string.call)));
         items.add(new Menu(R.drawable.icon_exit, getString(R.string.exit)));
-        items.add(new Menu(R.drawable.ic_action_search, getString(R.string.searchcar)));
 
         return items;
     }
@@ -877,25 +877,25 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         switch (position) {
             case 1:
-                openUrl("https://youdrive.today/profile.html");
+                startActivity(new Intent(this, SearchCarActivity.class));
                 break;
             case 2:
-                openUrl("http://youdrive.today/tariffs-regulations.html");
+                openUrl("https://youdrive.today/profile.html");
                 break;
             case 3:
-                openUrl("http://youdrive.copiny.com/");
+                openUrl("http://youdrive.today/tariffs-regulations.html");
                 break;
             case 4:
-                call();
+                openUrl("http://youdrive.copiny.com/");
                 break;
             case 5:
+                call();
+                break;
+            case 6:
                 App.getInstance().getPreference().clear();
                 mProfileInteractor.logout(this);
                 break;
-            case 6:
-                startActivity(new Intent(this, SearchCarActivity.class));
 
-                break;
         }
     }
 
