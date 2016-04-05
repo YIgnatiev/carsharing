@@ -28,6 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/main">
+
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
@@ -150,13 +151,7 @@
           </LinearLayout>
         </RelativeLayout>
 
-        <ListView
-            android:id="@+id/lvProfile"
-            android:onItemClick="@{listener.onItemSelected}"
-            android:layout_width="260dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:background="@android:color/white" />
+
 
     </android.support.v4.widget.DrawerLayout>
 

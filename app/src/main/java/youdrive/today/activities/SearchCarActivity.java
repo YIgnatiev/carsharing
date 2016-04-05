@@ -1,16 +1,11 @@
 package youdrive.today.activities;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.location.Location;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.view.Gravity;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.common.ConnectionResult;
@@ -28,39 +23,26 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.VisibleRegion;
-import com.google.gson.Gson;
 import com.yandex.metrica.YandexMetrica;
 
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar.OnProgressChangeListener;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import timber.log.Timber;
 import youdrive.today.App;
 import youdrive.today.BaseActivity;
 import youdrive.today.R;
-import youdrive.today.adapters.ProfileAdapter;
 import youdrive.today.databinding.ActivitySearchCarBinding;
-import youdrive.today.databinding.HeaderProfileBinding;
-import youdrive.today.helpers.PreferenceHelper;
-import youdrive.today.interceptors.ProfileInteractorImpl;
 import youdrive.today.interceptors.SearchInteractorImpl;
-import youdrive.today.listeners.ProfileActionListener;
 import youdrive.today.listeners.SearchActionListener;
-import youdrive.today.models.Menu;
-import youdrive.today.models.User;
 import youdrive.today.response.SearchCarResponse;
 import youdrive.today.view.RadiusView;
 
 
-public class SearchCarActivity extends BaseActivity implements ProfileActionListener,SearchActionListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+public class SearchCarActivity extends BaseActivity implements SearchActionListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
     private ActivitySearchCarBinding b;
     private GoogleApiClient mGoogleApiClient;
     private GoogleMap mMap;
-    private User mUser;
-    private ProfileInteractorImpl mProfileInteractor;
     private SearchInteractorImpl mSearchCarInteractor;
     DiscreteSeekBar Radius;
     private float mZoomLevel;
@@ -73,36 +55,32 @@ public class SearchCarActivity extends BaseActivity implements ProfileActionList
     public void bindActivity() {
         b = DataBindingUtil.setContentView(this, R.layout.activity_search_car);
         b.setListener(this);
-        b.toolbar.setNavigationIcon(R.drawable.ic_ab_drawer);
         setSupportActionBar(b.toolbar);
+        b.toolbar.setNavigationIcon(R.drawable.ic_back);
+        b.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         setUpMapIfNeeded();
         createLocationRequest();
         mZoomLevel = mMap.getMinZoomLevel();
-        if (App.getInstance().getPreference() != null) {
-            if (App.getInstance().getPreference().getUser() != null) {
-                mUser = new Gson().fromJson(App.getInstance().getPreference().getUser(), User.class);
-            }
-        }
-        HeaderProfileBinding headerBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.header_profile, null, false);
-        if (mUser != null) {
-            headerBinding.txtName.setText(mUser.getName());
-        }
-        b.lvProfile.addHeaderView(headerBinding.getRoot());
-        b.lvProfile.setAdapter(new ProfileAdapter(this, R.layout.item_profile, getMenu()));
-
-        b.drawer.setDrawerShadow(R.drawable.drawer_shadow, Gravity.LEFT);
-        mProfileInteractor = new ProfileInteractorImpl();
         buildGoogleApiClient();
         checkInternet();
         Radius = b.Radius;
         setRadiusSeekBar();
         radiusCircle=b.RadiusView;
         mSearchCarInteractor = new SearchInteractorImpl();
-
-b.btnDelete.setVisibility(View.GONE);
-
+        mSearchCarInteractor.getSearchCar(this);
+        b.btnDelete.setVisibility(View.GONE);
+        b.btnSearch.setVisibility(View.GONE);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 
     private void set_radius(int value){
         VisibleRegion vr = mMap.getProjection().getVisibleRegion();
@@ -118,10 +96,6 @@ b.btnDelete.setVisibility(View.GONE);
         float mapWidthpixel =  mMapn.getView().getWidth()/2;
         float pixelonmeter=mapWidthpixel/mapWidthmeter;
         radiusCircle.setCircleRadius(Math.round((value*pixelonmeter)/2));
-        System.out.println(mapWidthpixel);
-        System.out.println(mapWidthmeter);
-        System.out.println(pixelonmeter);
-        System.out.println(value*pixelonmeter);
 
 
     }
@@ -148,7 +122,6 @@ b.btnDelete.setVisibility(View.GONE);
 
         });
         mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
-
             @Override
             public void onCameraChange(CameraPosition arg0) {
                 mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
@@ -169,7 +142,6 @@ b.btnDelete.setVisibility(View.GONE);
         }
     }
     private void animateCamera(LatLng position) {
-
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(position, 11);
         mMap.animateCamera(cameraUpdate);
     }
@@ -209,78 +181,61 @@ b.btnDelete.setVisibility(View.GONE);
         if (mMap != null) {
              mSearchCarInteractor.deleteSearchCars(this);
             b.btnDelete.setEnabled(false);
-
-           // mSearchCarInteractor.getSearchCar(this);
-             }
-    }
-
-    //listener
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-        switch (position) {
-            case 1:
-                openUrl("https://youdrive.today/profile.html");
-                break;
-            case 2:
-                openUrl("http://youdrive.today/tariffs-regulations.html");
-                break;
-            case 3:
-                openUrl("http://youdrive.copiny.com/");
-                break;
-            case 4:
-                call();
-                break;
-            case 5:
-                App.getInstance().getPreference().clear();
-                mProfileInteractor.logout(this);
-                break;
         }
     }
-    private void openUrl(String url) {
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+
+    public void onBack(View v){
+
     }
-    private void call() {
-        checkPhonePermission(() -> startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:+74993223875"))));
-    }
-    @Override
-    public void onLogout() {
-        Timber.tag("Action").d("Logout");
-        startActivity(new Intent(this, LoginActivity.class));
-        new PreferenceHelper(this).clear();
-    }
+
+
+
 
 
     @Override
     public void onError() {
         animateCamera(new LatLng(55.749792, 37.632495));
-
         Timber.tag("Error").d("Internal Error");
-        String text = getString(R.string.internal_error);
-
-
     }
 
     @Override
     public void onSuccess(SearchCarResponse search, int type) {
         switch (type) {
             case 1:
-                b.btnSearch.setEnabled(true);
-                b.btnSearch.setVisibility(View.GONE);
-                b.btnDelete.setVisibility(View.VISIBLE);
+                enableDeleteButton();
                 String text="Message from API";
                 showalert(text);
                 break;
             case 2:
+                Float lat = search.getLatResponse();
+                Float lon = search.getLonResponse();
+                int rad= search.getRadiusResponse();
+                if (lat!=null&&lon!=null&&rad!=0) {
+                    enableDeleteButton();
+                }
+                else
+                {
+                    enableSearchButton();
+                }
                 break;
             case 3:
-                b.btnDelete.setEnabled(true);
-                b.btnSearch.setVisibility(View.VISIBLE);
-                b.btnDelete.setVisibility(View.GONE);
+                enableSearchButton();
                 break;
 
         }
     }
-
+    public void enableDeleteButton()
+    {
+        b.btnDelete.setEnabled(true);
+        b.btnDelete.setVisibility(View.VISIBLE);
+        b.btnSearch.setVisibility(View.GONE);
+    }
+    public void enableSearchButton()
+    {
+        b.btnSearch.setEnabled(true);
+        b.btnSearch.setVisibility(View.VISIBLE);
+        b.btnDelete.setVisibility(View.GONE);
+    }
     private void showalert(String text) {
         AlertDialog.Builder builder = new AlertDialog.Builder(SearchCarActivity.this);
         builder.setTitle(text)
@@ -313,15 +268,6 @@ b.btnDelete.setVisibility(View.GONE);
 
     }
 
-    @Override
-    public void onSessionNotFound() {
-        mProfileInteractor.logout(this);
-    }
-
-    @Override
-    public void onInvalidRequest() {
-//TODO Что делать при этой ошибке
-    }
 
     @Override
     public void onUnknownError(String text) {
@@ -335,27 +281,9 @@ b.btnDelete.setVisibility(View.GONE);
                 .build();
     }
 
-    private List<Menu> getMenu() {
-        List<Menu> items = new ArrayList<>();
-        items.add(new Menu(R.drawable.icon_help, getString(R.string.profile)));
-        items.add(new Menu(R.drawable.icon_tariff, getString(R.string.tariff)));
-        items.add(new Menu(R.drawable.icon_help, getString(R.string.help)));
-        items.add(new Menu(R.drawable.icon_call, getString(R.string.call)));
-        items.add(new Menu(R.drawable.icon_exit, getString(R.string.exit)));
 
-        return items;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                b.drawer.openDrawer(Gravity.LEFT);
-                return true;
-        }
 
-        return super.onOptionsItemSelected(item);
-    }
     protected void createLocationRequest() {
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(10000);
@@ -376,8 +304,8 @@ b.btnDelete.setVisibility(View.GONE);
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.user_location));
         mMarker = mMap.addMarker(options);
         if (isFake) mMarker.setVisible(false);
-//        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(myPosition, 15);
-//        mMap.animateCamera(cameraUpdate);
+      CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(myPosition, 15);
+      mMap.animateCamera(cameraUpdate);
 
     }
     void updateLocation(Location location) {
@@ -385,8 +313,8 @@ b.btnDelete.setVisibility(View.GONE);
             buildUserLocation(location);
         } else {
             mMarker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
-//            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),location.getLongitude()), 15);
-//            mMap.animateCamera(cameraUpdate);
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),location.getLongitude()), 15);
+            mMap.animateCamera(cameraUpdate);
         }
     }
     private void setUpMapIfNeeded() {
