@@ -54,7 +54,8 @@ public class RegisterPaymentsFragment extends BaseFragment<RegistrationActivity>
     public void onStart() {
         super.onStart();
         YandexMetrica.reportEvent("registration_4_0");
-
+        App.tracker().setScreenName("registration_4_0");
+        App.tracker().send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override

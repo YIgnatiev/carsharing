@@ -104,7 +104,7 @@ public class RegisterDocumentsFragment extends BaseFragment<RegistrationActivity
     public void onStart() {
         super.onStart();
         YandexMetrica.reportEvent("registration_3_0");
-        App.tracker().setScreenName("registration_0_3");
+        App.tracker().setScreenName("registration_3_0");
         App.tracker().send(new HitBuilders.ScreenViewBuilder().build());
 
     }
