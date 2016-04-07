@@ -874,9 +874,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     //listener
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
         switch (position) {
             case 1:
+                b.drawer.closeDrawers();
                 startActivity(new Intent(this, SearchCarActivity.class));
                 break;
             case 2:
