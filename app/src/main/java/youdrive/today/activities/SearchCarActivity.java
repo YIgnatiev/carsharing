@@ -19,6 +19,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -51,6 +53,8 @@ public class SearchCarActivity extends BaseActivity implements SearchActionListe
     private Marker mMarker;
     private boolean isFake = false;
     private RadiusView radiusCircle;
+    private Circle mCircle;
+
     @Override
     public void bindActivity() {
         b = DataBindingUtil.setContentView(this, R.layout.activity_search_car);
@@ -75,6 +79,8 @@ public class SearchCarActivity extends BaseActivity implements SearchActionListe
         mSearchCarInteractor.getSearchCar(this);
         b.btnDelete.setVisibility(View.GONE);
         b.btnSearch.setVisibility(View.GONE);
+        radiusCircle.setVisibility(View.GONE);
+        Radius.setVisibility(View.GONE);
     }
 
     @Override
@@ -171,8 +177,13 @@ public class SearchCarActivity extends BaseActivity implements SearchActionListe
         if (mMap != null) {
             int radius =Radius.getProgress();
             VisibleRegion vr = mMap.getProjection().getVisibleRegion();
-           mSearchCarInteractor.postSearchCars(vr.latLngBounds.getCenter().latitude,vr.latLngBounds.getCenter().longitude, radius , this);
+            double lat=vr.latLngBounds.getCenter().latitude;
+            double lon=vr.latLngBounds.getCenter().longitude;
+            mSearchCarInteractor.postSearchCars(lat, lon, radius , this);
             b.btnSearch.setEnabled(false);
+            radiusCircle.setVisibility(View.GONE);
+            Radius.setVisibility(View.GONE);
+            drawSearchCircle(new LatLng(lat,lon),radius);
 
         }
     }
@@ -212,6 +223,9 @@ public class SearchCarActivity extends BaseActivity implements SearchActionListe
                 int rad= search.getRadiusResponse();
                 if (lat!=null&&lon!=null&&rad!=0) {
                     enableDeleteButton();
+                    drawSearchCircle(new LatLng(lat,lon),rad);
+                    b.tvRadius.setText(String.valueOf(rad)+" м");
+
                 }
                 else
                 {
@@ -229,14 +243,27 @@ public class SearchCarActivity extends BaseActivity implements SearchActionListe
         b.btnDelete.setEnabled(true);
         b.btnDelete.setVisibility(View.VISIBLE);
         b.btnSearch.setVisibility(View.GONE);
+        radiusCircle.setVisibility(View.GONE);
+        Radius.setVisibility(View.GONE);
     }
     public void enableSearchButton()
     {
         b.btnSearch.setEnabled(true);
+        radiusCircle.setVisibility(View.VISIBLE);
+        Radius.setVisibility(View.VISIBLE);
         b.btnSearch.setVisibility(View.VISIBLE);
         b.btnDelete.setVisibility(View.GONE);
+        if(mCircle!=null){
+            mCircle.remove();
+        }
     }
-    private void showalert(String text) {
+    private void drawSearchCircle(LatLng position, double  radius) {
+        CircleOptions circleOptions = new CircleOptions().center(position).radius(radius/2).fillColor(getResources().getColor(R.color.maintransparent)).strokeColor(getResources().getColor(R.color.maintransparent)).strokeWidth(1);
+        mCircle = mMap.addCircle(circleOptions);
+System.out.println(position+" "+radius);
+    }
+
+        private void showalert(String text) {
         AlertDialog.Builder builder = new AlertDialog.Builder(SearchCarActivity.this);
         builder.setTitle(text)
                 .setCancelable(false)

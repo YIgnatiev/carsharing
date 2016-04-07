@@ -6,10 +6,10 @@ public class SearchCarResponse extends BaseResponse {
     private float lon;
     private int radius;
     public float getLonResponse() {
-        return lat;
+        return lon;
     }
     public float getLatResponse() {
-        return lon;
+        return lat;
     }
     public int getRadiusResponse() {
         return radius;
