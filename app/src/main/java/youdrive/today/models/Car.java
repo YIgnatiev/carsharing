@@ -25,8 +25,9 @@ public class Car implements Comparable<Car>, Parcelable {
     String img;
     String pointer_resource;
     int discount;
-
     boolean transferable;
+    @SerializedName("in_transfer")
+    boolean inTransfer;
 
     public Car(String id,float lat, float lon){
         this.id = id;
@@ -94,6 +95,10 @@ public class Car implements Comparable<Car>, Parcelable {
         return transferable;
     }
 
+    public boolean isInTransfer() {
+        return inTransfer;
+    }
+
     @Override
     public int compareTo(Car car) {
         return walktime - car.getWalktime();
@@ -153,6 +158,7 @@ public class Car implements Comparable<Car>, Parcelable {
                 ", pointer_resource='" + pointer_resource + '\'' +
                 ", discount=" + discount +
                 ", transferable=" + transferable +
+                ", inTransfer=" + inTransfer +
                 '}';
     }
 }
