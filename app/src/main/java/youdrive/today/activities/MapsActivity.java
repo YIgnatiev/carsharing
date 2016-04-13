@@ -114,7 +114,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private MaterialDialog mDialog;
     private User mUser;
     private Subscription timerSubscription;
-    private Subscription delaySubscription;
     private boolean isShowCommandPopup = false;
     private boolean isShowClosePopup = false;
     private boolean isInfoPopup = false;
@@ -216,7 +215,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         }
 
         if (timerSubscription != null) timerSubscription.unsubscribe();
-        if (delaySubscription != null) delaySubscription.unsubscribe();
     }
 
 
@@ -456,19 +454,12 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     public void onTransfer() {
         Timber.tag("Action").d("onTransfer ");
-        if (bCloseCar.btnCloseRent != null) {
+        if (bCloseCar != null) {
             bCloseCar.btnCloseOrOpen.setEnabled(true);
             AppUtils.success(bCloseCar.btnCloseRent, getString(R.string.transfer_car));
             bCloseCar.btnCloseRent.setVisibility(View.GONE);
         }
-        if (delaySubscription != null && !delaySubscription.isUnsubscribed()){
-            delaySubscription.unsubscribe();
-        }
-
-        delaySubscription = Observable.timer(1 , TimeUnit.SECONDS).subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::loadCars, (error) -> {
-                });
+        mCarInteractor.command(Command.CLOSE, MapsActivity.this);
 
     }
 
@@ -573,6 +564,13 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         }
 
         mCar = car;
+
+        if (mCar.isInTransfer()){
+            if (bCloseCar != null){
+                bCloseCar.btnCloseRent.setVisibility(View.GONE);
+            }
+        }
+
 
         clear();
         if (mPolygons != null)
