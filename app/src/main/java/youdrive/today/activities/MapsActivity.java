@@ -455,11 +455,19 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     public void onTransfer() {
         Timber.tag("Action").d("onTransfer ");
         if (bCloseCar != null) {
-            bCloseCar.btnCloseOrOpen.setEnabled(true);
+            bCloseCar.btnCloseRent.setEnabled(true);
             AppUtils.success(bCloseCar.btnCloseRent, getString(R.string.transfer_car));
             bCloseCar.btnCloseRent.setVisibility(View.GONE);
+            bCloseCar.btnCloseOrOpen.setProgress(50);
+            bCloseCar.btnCloseOrOpen.setEnabled(true);
+            mCarInteractor.command(Command.CLOSE, MapsActivity.this);
         }
-        mCarInteractor.command(Command.CLOSE, MapsActivity.this);
+
+        if(bOpenCar != null){
+            bOpenCar.btnCancel.setEnabled(true);
+            AppUtils.success(bOpenCar.btnCancel, getString(R.string.transfer_car));
+            bOpenCar.btnCancel.setVisibility(View.GONE);
+        }
 
     }
 
@@ -615,9 +623,14 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 mMap.setInfoWindowAdapter(new CustomWindowAdapter());
                 break;
             case PARKING:
+                updateStateClosePopup();
             case USAGE:
                 hideTopWindow();
-                if (!isShowClosePopup) showClosePopup();
+                if (isShowClosePopup) {
+                    updateStateClosePopup();
+                } else {
+                    showClosePopup();
+                }
                 mMap.setInfoWindowAdapter(new CustomWindowAdapter());
                 break;
             default:
@@ -837,7 +850,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         bOpenCar.btnNavigate.setProgress(100);
         addBottomWindow(bOpenCar.getRoot());
         bOpenCar.setListener(this);
-        bOpenCar.btnCancel.setVisibility(mCar.isTransferable() ? View.GONE : View.VISIBLE);
+        bOpenCar.btnCancel.setVisibility(mCar.isInTransfer() ? View.GONE : View.VISIBLE);
+        bOpenCar.btnCancel.setText(getString(mCar.isTransferable() ? R.string.transfer_car : R.string.cancel_reserve));
         bOpenCar.btnOpen.setIndeterminateProgressMode(true);
         bOpenCar.btnCancel.setIndeterminateProgressMode(true);
     }
@@ -851,9 +865,31 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
     public void onButtonCancel(View view) {
-        bOpenCar.btnCancel.setProgress(50);
-        mCarInteractor.complete(Command.COMPLETE, MapsActivity.this);
-        bOpenCar.btnOpen.setEnabled(false);
+        if (mCar.isTransferable()) {
+            new MaterialDialog
+                    .Builder(MapsActivity.this)
+                    .title(R.string.transfer_finish_title)
+                    .content(R.string.transfer_finish_info)
+                    .widgetColorRes(R.color.white)
+                    .positiveText(R.string.ok_action)
+                    .negativeText(R.string.cancel_action)
+                    .onPositive((dialog, which) -> {
+                        bOpenCar.btnCancel.setEnabled(false);
+                        bOpenCar.btnCancel.setProgress(50);
+                        mCarInteractor.command(Command.TRANSFER, MapsActivity.this);
+                    })
+                    .onNegative((dialog, which) -> {
+
+                    })
+                    .positiveColor(getResources().getColor(R.color.main_dark))
+                    .negativeColor(getResources().getColor(R.color.main_dark))
+                    .autoDismiss(true)
+                    .show();
+        } else {
+            bOpenCar.btnCancel.setProgress(50);
+            mCarInteractor.complete(Command.COMPLETE, MapsActivity.this);
+            bOpenCar.btnOpen.setEnabled(false);
+        }
     }
 
     public void onButtonNavigate(View view) {

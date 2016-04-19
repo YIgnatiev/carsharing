@@ -46,10 +46,11 @@ public class MapsInteractorImpl implements MapsInteractor {
 
         if (response.isSuccess()) {
 
+            listener.onStatus(Status.fromString(response.getStatus()));
+
             if (response.getCars() != null) listener.onCars(response.getCars());
             else if (response.getCar() != null) listener.onCar(response.getCar());
 
-            listener.onStatus(Status.fromString(response.getStatus()));
 
             if (response.getCheck() != null) listener.onCheck(response.getCheck());
 
