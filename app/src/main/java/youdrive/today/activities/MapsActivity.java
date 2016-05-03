@@ -434,13 +434,13 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onClose() {
-        Timber.tag("Action").d("onClose");
+        mMapsInteractor.getStatusCar(this);
         onStatus(PARKING);
+        Timber.tag("Action").d("onClose");
         if (bCloseCar.btnCloseOrOpen != null) {
             bCloseCar.btnCloseRent.setEnabled(true);
             AppUtils.success(bCloseCar.btnCloseOrOpen, getString(R.string.open_car));
         }
-        mMapsInteractor.getStatusCar(this);
     }
 
     @Override
@@ -455,12 +455,10 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     public void onTransfer() {
         Timber.tag("Action").d("onTransfer ");
         if (bCloseCar != null) {
-            bCloseCar.btnCloseRent.setEnabled(true);
-            AppUtils.success(bCloseCar.btnCloseRent, getString(R.string.transfer_car));
-            bCloseCar.btnCloseRent.setVisibility(View.GONE);
-            bCloseCar.btnCloseOrOpen.setProgress(50);
-            bCloseCar.btnCloseOrOpen.setEnabled(true);
-            mCarInteractor.command(Command.CLOSE, MapsActivity.this);
+            if (mStatus == USAGE) {
+                bCloseCar.btnCloseOrOpen.setEnabled(false);
+                mCarInteractor.command(Command.CLOSE, MapsActivity.this);
+            }
         }
 
         if(bOpenCar != null){
@@ -621,16 +619,13 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 if (!isInfoPopup) showDistancePopup(mCar.getWalktime());
                 if (!isShowCommandPopup) showCommandPopup();
                 mMap.setInfoWindowAdapter(new CustomWindowAdapter());
+                mMap.getUiSettings().setMapToolbarEnabled(false);
                 break;
             case PARKING:
-                updateStateClosePopup();
+                showClosePopup();
             case USAGE:
                 hideTopWindow();
-                if (isShowClosePopup) {
-                    updateStateClosePopup();
-                } else {
-                    showClosePopup();
-                }
+                showClosePopup();
                 mMap.setInfoWindowAdapter(new CustomWindowAdapter());
                 break;
             default:
@@ -639,6 +634,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                     showCarsDialog(mMarkerCar.get(marker));
                     return false;
                 });
+                mMap.getUiSettings().setMapToolbarEnabled(true);
         }
 
     }
@@ -682,7 +678,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     public void onCheck(Check check) {
         onBookingTimeLeft(check.getBookingTimeLeft());
         mCheck = check;
-        updateStateClosePopup();
+        if (isShowClosePopup) {
+            showClosePopup();
+        }
     }
 
     @Override
@@ -732,6 +730,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onOpen() {
+        mMapsInteractor.getStatusCar(this);/*onStatus(Status.USAGE);*/
+        onStatus(USAGE);
         if (bOpenCar != null && bOpenCar.btnOpen != null) {
             AppUtils.success(bOpenCar.btnOpen);
         }
@@ -741,7 +741,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             AppUtils.success(bCloseCar.btnCloseOrOpen, getString(R.string.close_car));
         }
 
-        mMapsInteractor.getStatusCar(this);/*onStatus(Status.USAGE);*/
     }
 
     @Override
@@ -801,9 +800,10 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
     private void addBottomWindow(View view) {
-        Animation anim = AnimationUtils.loadAnimation(MapsActivity.this, R.anim.bottom_up);
-
-        b.ltContainer.setAnimation(anim);
+        /*if (mCar == null || !mCar.isTransferable()) {
+            Animation anim = AnimationUtils.loadAnimation(MapsActivity.this, R.anim.bottom_up);
+            b.ltContainer.setAnimation(anim);
+        }*/
         b.ltContainer.addView(view);
     }
 
@@ -995,30 +995,38 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         bCloseCar = DataBindingUtil.inflate(getLayoutInflater(), R.layout.popup_close_car, null, false);
         addBottomWindow(bCloseCar.getRoot());
         bCloseCar.setListener(this);
-        bCloseCar.btnCloseOrOpen.setIndeterminateProgressMode(true);
-        bCloseCar.btnCloseRent.setIndeterminateProgressMode(true);
-        bCloseCar.btnCloseRent.setVisibility(View.VISIBLE);
-        if (PARKING.equals(mStatus)) {
-            bCloseCar.btnCloseOrOpen.setText(getString(R.string.open_car));
-            bCloseCar.btnCloseOrOpen.setIdleText(getString(R.string.open_car));
-            if (mCar.isInTransfer()) {
-                bCloseCar.btnCloseRent.setVisibility(View.GONE);
-            }
-            bCloseCar.btnNavigate.setVisibility(View.VISIBLE);
-            bCloseCar.btnNavigate.setProgress(100);
-        } else {
-            bCloseCar.btnCloseOrOpen.setText(getString(R.string.close_car));
-            bCloseCar.btnCloseOrOpen.setIdleText(getString(R.string.open_car));
-            bCloseCar.btnNavigate.setVisibility(View.GONE);
-        }
 
+        bCloseCar.btnCloseRent.setVisibility(mCar.isInTransfer() ? View.GONE : View.VISIBLE);
         bCloseCar.btnCloseRent.setText(mCar.isTransferable() && !mCar.isInTransfer()  ? getString(R.string.transfer_car) : getString(R.string.close_rent));
         bCloseCar.btnCloseRent.setIdleText(mCar.isTransferable() && !mCar.isInTransfer() ? getString(R.string.transfer_car) : getString(R.string.close_rent));
 
-
-        if (mCheck != null) {
-            updateStateClosePopup();
+        bCloseCar.btnCloseOrOpen.setIndeterminateProgressMode(true);
+        bCloseCar.btnCloseRent.setIndeterminateProgressMode(true);
+        if (PARKING.equals(mStatus) || BOOKING.equals(mStatus)) {
+            bCloseCar.btnNavigate.setVisibility(View.VISIBLE);
+            bCloseCar.btnCloseOrOpen.setText(getString(R.string.open_car));
+            bCloseCar.btnCloseOrOpen.setIdleText(getString(R.string.open_car));
+            bCloseCar.btnNavigate.setProgress(100);
+        } else {
+            bCloseCar.btnNavigate.setVisibility(View.GONE);
+            bCloseCar.btnCloseOrOpen.setText(getString(R.string.close_car));
+            bCloseCar.btnCloseOrOpen.setIdleText(getString(R.string.close_car));
         }
+
+
+        if (PARKING.equals(mStatus)) {
+            bCloseCar.txtTariff.setText("Парковка");
+            bCloseCar.txtPerMin.setText(convertRub(mCar.getTariff().getParking()));
+        } else if (USAGE.equals(mStatus)) {
+            bCloseCar.txtTariff.setText("Использование");
+            bCloseCar.txtPerMin.setText(convertRub(mCar.getTariff().getUsage()));
+        }
+
+        if (mCheck == null) return;
+
+        bCloseCar.txtTotalUsage.setText(convertRub(mCheck.getUsageWeekendCost() + mCheck.getUsageWorkdayCost()));
+        bCloseCar.txtParking.setText(convertRub(mCheck.getParkingCost()));
+        bCloseCar.txtTotal.setText(convertRub(mCheck.getParkingCost() + mCheck.getUsageWorkdayCost() + mCheck.getUsageWeekendCost()));
     }
 
     public void onCloseRent(View view) {
@@ -1054,47 +1062,12 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         bCloseCar.btnCloseRent.setEnabled(false);
         bCloseCar.btnCloseOrOpen.setProgress(50);
 
-        if (PARKING.equals(mStatus)) mCarInteractor.command(Command.OPEN, MapsActivity.this);
+        if (!USAGE.equals(mStatus)) mCarInteractor.command(Command.OPEN, MapsActivity.this);
         else mCarInteractor.command(Command.CLOSE, MapsActivity.this);
 
     }
 
 
-    private void updateStateClosePopup() {
-        if (bCloseCar != null) {
-
-            bCloseCar.btnCloseRent.setVisibility(View.VISIBLE);
-            if (PARKING.equals(mStatus)) {
-                bCloseCar.btnCloseOrOpen.setText(getString(R.string.open_car));
-                bCloseCar.btnCloseOrOpen.setIdleText(getString(R.string.open_car));
-                if (mCar.isInTransfer()) {
-                    bCloseCar.btnCloseRent.setVisibility(View.GONE);
-                }
-                bCloseCar.btnNavigate.setVisibility(View.VISIBLE);
-                bCloseCar.btnNavigate.setProgress(100);
-            } else {
-                bCloseCar.btnCloseOrOpen.setText(getString(R.string.close_car));
-                bCloseCar.btnCloseOrOpen.setIdleText(getString(R.string.open_car));
-                bCloseCar.btnNavigate.setVisibility(View.GONE);
-            }
-
-            bCloseCar.btnCloseRent.setText(mCar.isTransferable() && !mCar.isInTransfer()  ? getString(R.string.transfer_car) : getString(R.string.close_rent));
-            bCloseCar.btnCloseRent.setIdleText(mCar.isTransferable() && !mCar.isInTransfer() ? getString(R.string.transfer_car) : getString(R.string.close_rent));
-
-
-            if (PARKING.equals(mStatus)) {
-                bCloseCar.txtTariff.setText("Парковка");
-                bCloseCar.txtPerMin.setText(convertRub(mCar.getTariff().getParking()));
-            } else if (USAGE.equals(mStatus)) {
-                bCloseCar.txtTariff.setText("Использование");
-                bCloseCar.txtPerMin.setText(convertRub(mCar.getTariff().getUsage()));
-            }
-
-            bCloseCar.txtTotalUsage.setText(convertRub(mCheck.getUsageWeekendCost() + mCheck.getUsageWorkdayCost()));
-            bCloseCar.txtParking.setText(convertRub(mCheck.getParkingCost()));
-            bCloseCar.txtTotal.setText(convertRub(mCheck.getParkingCost() + mCheck.getUsageWorkdayCost() + mCheck.getUsageWeekendCost()));
-        }
-    }
 
     public String convertRub(long kopeck) {
         return String.format("%.2f", (float) kopeck / 100) + " руб.";
