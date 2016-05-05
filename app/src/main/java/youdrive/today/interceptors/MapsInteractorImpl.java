@@ -147,4 +147,9 @@ public class MapsInteractorImpl implements MapsInteractor {
     public Subscription getSubscription() {
         return subscriptions;
     }
+
+    public void clearSubscriptions() {
+        subscriptions.unsubscribe();
+        subscriptions = new CompositeSubscription();
+    }
 }

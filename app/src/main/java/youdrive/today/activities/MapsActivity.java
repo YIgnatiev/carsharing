@@ -134,6 +134,11 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
 
     private void loadCars(long seconds) {
+        if (isProcessing()) {
+            mMapsInteractor.clearSubscriptions();
+            return;
+        }
+
         if (mStatus != null && mLastLocation != null) {
             if (NORMAL.equals(mStatus) || BOOKING.equals(mStatus)) {
                 if (isNetworkConnected())
@@ -458,6 +463,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             if (mStatus == USAGE) {
                 bCloseCar.btnCloseOrOpen.setEnabled(false);
                 mCarInteractor.command(Command.CLOSE, MapsActivity.this);
+            } else {
+                bCloseCar.btnCloseRent.setVisibility(View.GONE);
+                mMapsInteractor.getStatusCar(this);
             }
         }
 
@@ -622,7 +630,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 mMap.getUiSettings().setMapToolbarEnabled(false);
                 break;
             case PARKING:
-                showClosePopup();
             case USAGE:
                 hideTopWindow();
                 showClosePopup();
@@ -636,6 +643,30 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 });
                 mMap.getUiSettings().setMapToolbarEnabled(true);
         }
+
+    }
+
+    private boolean isProcessing() {
+        if (isShowClosePopup && bCloseCar != null) {
+            if (bCloseCar.btnCloseOrOpen != null && bCloseCar.btnCloseOrOpen.getProgress() == 50) {
+                return true;
+            }
+            if (bCloseCar.btnCloseRent != null && bCloseCar.btnCloseRent.getProgress() == 50) {
+                return true;
+            }
+
+        }
+
+        if (isShowCommandPopup && bOpenCar != null) {
+            if (bOpenCar.btnOpen != null && bOpenCar.btnOpen.getProgress() == 50) {
+                return true;
+            }
+            if (bOpenCar.btnCancel != null && bOpenCar.btnCancel.getProgress() == 50) {
+                return true;
+            }
+        }
+
+        return false;
 
     }
 
@@ -858,6 +889,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
 
     public void onButtonOpen(View view) {
+        mMapsInteractor.clearSubscriptions();
         bOpenCar.btnOpen.setProgress(50);
         bOpenCar.btnCancel.setEnabled(false);
 
@@ -874,6 +906,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                     .positiveText(R.string.ok_action)
                     .negativeText(R.string.cancel_action)
                     .onPositive((dialog, which) -> {
+                        mMapsInteractor.clearSubscriptions();
                         bOpenCar.btnCancel.setEnabled(false);
                         bOpenCar.btnCancel.setProgress(50);
                         mCarInteractor.command(Command.TRANSFER, MapsActivity.this);
@@ -886,6 +919,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                     .autoDismiss(true)
                     .show();
         } else {
+            mMapsInteractor.clearSubscriptions();
             bOpenCar.btnCancel.setProgress(50);
             mCarInteractor.complete(Command.COMPLETE, MapsActivity.this);
             bOpenCar.btnOpen.setEnabled(false);
@@ -963,6 +997,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                         .positiveText(R.string.ok_action)
                         .negativeText(R.string.cancel_action)
                         .onPositive((dialog, which) -> {
+                            mMapsInteractor.clearSubscriptions();
                             bInfo.btnBook.setProgress(50);
                             mCarInteractor.booking((String) view.getTag(), mLastLocation.getLatitude(), mLastLocation.getLongitude(), MapsActivity.this);
 
@@ -976,6 +1011,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                         .show();
 
             } else {
+                mMapsInteractor.clearSubscriptions();
                 bInfo.btnBook.setProgress(50);
                 mCarInteractor.booking((String) view.getTag(), mLastLocation.getLatitude(), mLastLocation.getLongitude(), MapsActivity.this);
             }
@@ -1039,6 +1075,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                     .positiveText(R.string.ok_action)
                     .negativeText(R.string.cancel_action)
                     .onPositive((dialog, which) -> {
+                        mMapsInteractor.clearSubscriptions();
                         bCloseCar.btnCloseOrOpen.setEnabled(false);
                         bCloseCar.btnCloseRent.setProgress(50);
                         mCarInteractor.command(Command.TRANSFER, MapsActivity.this);
@@ -1051,6 +1088,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                     .autoDismiss(true)
                     .show();
         } else {
+            mMapsInteractor.clearSubscriptions();
             bCloseCar.btnCloseOrOpen.setEnabled(false);
             bCloseCar.btnCloseRent.setProgress(50);
             mCarInteractor.complete(Command.COMPLETE, MapsActivity.this);
@@ -1059,6 +1097,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
     public void onCloseOrOpen(View view) {
+        mMapsInteractor.clearSubscriptions();
         bCloseCar.btnCloseRent.setEnabled(false);
         bCloseCar.btnCloseOrOpen.setProgress(50);
 
