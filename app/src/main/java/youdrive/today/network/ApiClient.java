@@ -36,8 +36,8 @@ import youdrive.today.response.UploadGroupResponse;
  */
 public class ApiClient {
 
-	//private static String HOST = "https://youdrive.today";
-    private static String HOST = "http://188.166.36.215:3000";
+	private static String HOST = "https://youdrive.today";
+//    private static String HOST = "http://188.166.36.215:3000";
     private static String UPLOADCARE_KEY = "507278759b3577e5f137";
     private static final boolean enableLog = BuildConfig.DEBUG;
     private CarsharingService mService;
