@@ -49,6 +49,11 @@
     <string name="enter_price">Вы должны ввести сумму</string>
     <string name="summ_bigger_than_3000">Сумма должна быть не менее 3000 рублей</string>
 
+    <!-- Кнопки -->
+    <string name="accept">Разрешить</string>
+    <!-- Сообщения -->
+    <string name="need_location_permissions">Для работы приложения необходим доступ к Вашему положению.</string>
+
 
     <string name="email_not_valid">Email введен не корректно</string>
     <string name="internal_error">Внутренняя ошибка</string>

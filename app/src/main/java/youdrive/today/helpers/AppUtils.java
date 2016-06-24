@@ -18,12 +18,7 @@ public class AppUtils {
 
         button.setProgress(-1);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                button.setProgress(0);
-            }
-        }, 1500);
+        new Handler().postDelayed(() -> button.setProgress(0), 1500);
     }
 
     public static void success(final CircularProgressButton button, final String string) {

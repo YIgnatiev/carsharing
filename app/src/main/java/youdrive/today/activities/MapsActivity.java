@@ -1,6 +1,9 @@
 package youdrive.today.activities;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -8,6 +11,9 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -15,6 +21,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
@@ -122,6 +129,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     private boolean isFake = false;
 
+    private static final int REQUEST_CODE_FINE_LOCATION=222;
+
 
     private void startUpdates() {
         timerSubscription = Observable
@@ -159,7 +168,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         setSupportActionBar(b.toolbar);
         setUpMapIfNeeded();
         createLocationRequest();
-        mZoomLevel = mMap.getMinZoomLevel();
+        if(mMap!=null) mZoomLevel = mMap.getMinZoomLevel();
 
         if (App.getInstance().getPreference() != null) {
             if (App.getInstance().getPreference().getUser() != null) {
@@ -197,7 +206,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     protected void onResume() {
         super.onResume();
         setUpMapIfNeeded();
-        if (mGoogleApiClient.isConnected()) startLocationUpdates();
+        if (mGoogleApiClient.isConnected()) startLocationWithCheckPermissions();
 
         startUpdates();
     }
@@ -222,6 +231,33 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         if (timerSubscription != null) timerSubscription.unsubscribe();
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST_CODE_FINE_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    startLocationWithCheckPermissions();
+                }/* else {
+
+                    new AlertDialog.Builder(this)
+                            .setMessage(R.string.need_location_permissions)
+                            .setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> {
+                                finish();
+                            })
+                            .setPositiveButton(R.string.accept, (dialogInterface, i) -> {
+                                startLocationWithCheckPermissions();
+                            }).show();
+                }*/
+                break;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+
+    }
 
     private void checkInternet() {
         if (!isNetworkConnected()) {
@@ -279,9 +315,20 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
 
-    protected void startLocationUpdates() {
-        LocationServices.FusedLocationApi.requestLocationUpdates(
-                mGoogleApiClient, mLocationRequest, this);
+    private void startLocationWithCheckPermissions()
+    {
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_CODE_FINE_LOCATION);
+        }
+        else
+        {
+            LocationServices.FusedLocationApi.requestLocationUpdates(
+                    mGoogleApiClient, mLocationRequest, this);
+        }
     }
 
     protected void stopLocationUpdates() {
@@ -385,6 +432,16 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         Timber.tag("Error").d("Internal Error");
         String text = getString(R.string.internal_error);
+        unlock(text);
+    }
+
+    @Override
+    public void onAccessDenied(String text) {
+        Timber.tag("Error").e("onAccessDenied");
+        unlock(text);
+    }
+
+    private void unlock(String text) {
         if (bOpenCar != null && bOpenCar.btnCancel != null && bOpenCar.btnCancel.getProgress() == 50) {
             AppUtils.error(text, bOpenCar.btnCancel);
             bOpenCar.btnOpen.setEnabled(true);
@@ -403,31 +460,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         } else if (bInfo != null && bInfo.btnBook != null && bInfo.btnBook.getProgress() == 50) {
             AppUtils.error(text, bInfo.btnBook);
-        }
-    }
-
-    @Override
-    public void onAccessDenied(String text) {
-        Timber.tag("Error").e("onAccessDenied");
-        unlock(text);
-    }
-
-    private void unlock(String text) {
-        if (bOpenCar.btnCancel != null && bOpenCar.btnCancel.getProgress() == 50) {
-            AppUtils.error(text, bOpenCar.btnCancel);
-            bOpenCar.btnOpen.setEnabled(true);
-
-        } else if (bCloseCar.btnCloseRent != null && bCloseCar.btnCloseRent.getProgress() == 50) {
-            AppUtils.error(text, bCloseCar.btnCloseRent);
-            bCloseCar.btnCloseOrOpen.setEnabled(true);
-
-        } else if (bOpenCar.btnOpen != null && bOpenCar.btnOpen.getProgress() == 50) {
-            AppUtils.error(text, bOpenCar.btnOpen);
-            bOpenCar.btnCancel.setEnabled(true);
-
-        } else if (bCloseCar.btnCloseOrOpen != null && bCloseCar.btnCloseOrOpen.getProgress() == 50) {
-            AppUtils.error(text, bCloseCar.btnCloseOrOpen);
-            bCloseCar.btnCloseRent.setEnabled(true);
         }
     }
 
@@ -787,7 +819,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     public void onConnected(Bundle bundle) {
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        startLocationUpdates();
+        startLocationWithCheckPermissions();
         if (mLastLocation != null) {
             updateLocation(mLastLocation);
             if (mMarkerCar.isEmpty()) {
