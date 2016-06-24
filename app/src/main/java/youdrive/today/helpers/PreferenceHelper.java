@@ -18,6 +18,7 @@ public class PreferenceHelper {
 
     /// Координаты центра Москвы
     public static final LatLng MOSCOW_CENTER=new LatLng(55.749792, 37.632495);
+    public static final String EULA_URL="https://youdrive.today/static/text/eula/eula.html";
 
     private final SharedPreferences mHelper;
 

@@ -2,12 +2,21 @@ package youdrive.today.fragments;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.yandex.metrica.YandexMetrica;
@@ -18,6 +27,7 @@ import youdrive.today.R;
 import youdrive.today.activities.RegistrationActivity;
 import youdrive.today.activities.WellcomeActivity;
 import youdrive.today.databinding.FragmentRegisterOffertBinding;
+import youdrive.today.helpers.PreferenceHelper;
 import youdrive.today.response.RegistrationModel;
 
 /**
@@ -39,10 +49,31 @@ public class RegisterOffertFragment extends BaseFragment<RegistrationActivity> i
     }
 
     private void setData(){
-        b.tvDogovor.setText(Html.fromHtml(getString(R.string.dogovor)));
+        initWebView();
         b.checkbox.setOnCheckedChangeListener(this);
         b.tvForvard.setEnabled(false);
     }
+    private void initWebView() {
+
+        b.webView.getSettings().setJavaScriptEnabled(true);
+        b.webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return false;
+            }
+
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                Toast.makeText(getActivity(), R.string.need_internet_for_registration, Toast.LENGTH_LONG).show();
+                onBack(null);
+            }
+        });
+
+        b.webView.loadUrl(PreferenceHelper.EULA_URL);
+        b.webView.setBackgroundColor(Color.TRANSPARENT);
+    }
+
 
     public void onBack(View view){
         startActivity(new Intent(mActivity, WellcomeActivity.class));
