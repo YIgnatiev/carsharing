@@ -353,22 +353,22 @@
 
 <string name="minute_tarrif_text" formatted="false"><![CDATA[
 
-                                             Поминутная тарификация (<font color="#24DDAD">подробнее</font>)
+                                             Поминутная тарификация (<font color="#00b764">подробнее</font>)
                                               ]]> </string>
 <string name="free_parking_text" formatted="false"><![CDATA[
-                            Бесплатная парковка на  местах Московского паркинга (<font color="#24DDAD">подробнее</font>)
+                            Бесплатная парковка на  местах Московского паркинга (<font color="#00b764">подробнее</font>)
                                               ]]> </string>
 <string name="free_fuel_text" formatted="false"><![CDATA[
 
-                                             Бензин включен в стоимость (<font color="#24DDAD">подробнее</font>)
+                                             Бензин включен в стоимость (<font color="#00b764">подробнее</font>)
                                               ]]> </string>
 <string name="free_night_text" formatted="false"><![CDATA[
 
-                                             Бесплатный ночной тариф (<font color="#24DDAD">подробнее</font>)
+                                             Бесплатный ночной тариф (<font color="#00b764">подробнее</font>)
                                               ]]> </string>
 <string name="far_rides_text" formatted="false"><![CDATA[
 
-                                            Вы можете совершать дальние поездки (<font color="#24DDAD">подробнее</font>)
+                                            Вы можете совершать дальние поездки (<font color="#00b764">подробнее</font>)
                                               ]]> </string>
     <string name="discount">Скидка</string>
     <string name="unknown">Неизвестно</string>

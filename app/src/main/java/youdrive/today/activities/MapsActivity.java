@@ -1,7 +1,6 @@
 package youdrive.today.activities;
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
@@ -13,7 +12,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -21,7 +19,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
@@ -117,7 +114,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
     private int mBookingTimeLeft;
-    private Status mStatus;
+    private Status mStatus=NORMAL;
     private MaterialDialog mDialog;
     private User mUser;
     private Subscription timerSubscription;
@@ -262,7 +259,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private void checkInternet() {
         if (!isNetworkConnected()) {
             showToast("Нет подключения к интернету");
-            animateCamera(new LatLng(55.749792, 37.632495));
+            animateCamera(PreferenceHelper.MOSCOW_CENTER);
         }
     }
 
@@ -428,7 +425,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onError() {
-        animateCamera(new LatLng(55.749792, 37.632495));
+        animateCamera(PreferenceHelper.MOSCOW_CENTER);
 
         Timber.tag("Error").d("Internal Error");
         String text = getString(R.string.internal_error);
@@ -832,7 +829,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             mLastLocation = new Location("");
             mLastLocation.setLatitude(55.749792);
             mLastLocation.setLongitude(37.632495);// Create moscow coordinates;
-            animateCamera(new LatLng(55.749792, 37.632495));
+            animateCamera(PreferenceHelper.MOSCOW_CENTER);
             isFake = true;
             updateLocation(mLastLocation);
 
@@ -853,7 +850,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     public void onConnectionFailed(ConnectionResult result) {
         Timber.e("Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
-        animateCamera(new LatLng(55.749792, 37.632495));
+        animateCamera(PreferenceHelper.MOSCOW_CENTER);
     }
 
     @Override
