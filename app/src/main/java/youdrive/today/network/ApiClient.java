@@ -25,11 +25,13 @@ import youdrive.today.response.BaseResponse;
 import youdrive.today.response.CarResponse;
 import youdrive.today.response.CommandResponse;
 import youdrive.today.response.LoginResponse;
+import youdrive.today.response.PayoffResponse;
 import youdrive.today.response.PolygonResponse;
 import youdrive.today.response.RegionsResponse;
 import youdrive.today.response.RegistrationModel;
 import youdrive.today.response.UploadCareResponse;
 import youdrive.today.response.UploadGroupResponse;
+import youdrive.today.response.UserProfileResponse;
 
 /**
  * Created by psuhoterin on 21.04.15.
@@ -70,6 +72,13 @@ public class ApiClient {
 
     public Observable<BaseResponse> logout() {
         return mService.logout();
+    }
+
+    public Observable<UserProfileResponse> getUserProfile() {
+        return mService.getUser();
+    }
+    public Observable<PayoffResponse> payoff() {
+        return mService.payoff(new Object());
     }
 
     public Observable<CarResponse> getStatusCars(double lat, double lon) {

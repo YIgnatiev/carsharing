@@ -19,9 +19,11 @@ import youdrive.today.response.BaseResponse;
 import youdrive.today.response.CarResponse;
 import youdrive.today.response.CommandResponse;
 import youdrive.today.response.LoginResponse;
+import youdrive.today.response.PayoffResponse;
 import youdrive.today.response.PolygonResponse;
 import youdrive.today.response.RegionsResponse;
 import youdrive.today.response.RegistrationModel;
+import youdrive.today.response.UserProfileResponse;
 
 /**
  * Created by Oleh Makhobey
@@ -35,6 +37,12 @@ public interface CarsharingService {
 
     @DELETE("/session")
     Observable<BaseResponse> logout();
+
+    @GET("/user")
+    Observable<UserProfileResponse> getUser();
+
+    @POST("/payoff")
+    Observable<PayoffResponse> payoff(@Body Object emptyBody);
 
     @GET("/status")
     Observable<CarResponse> getStatusCars(@Query("lat")double lat,@Query("lon")double lon);

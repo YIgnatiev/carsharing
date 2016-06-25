@@ -11,4 +11,6 @@ public interface MapsInteractor {
     void getStatusCars(double lat, double lon, MapsActionListener listener);
     void getStatusCar(MapsActionListener listener);
     void getInfo(PolygonListener listener);
+    void getUserProfile(MapsActionListener listener);
+    void payoff(MapsActionListener listener);
 }

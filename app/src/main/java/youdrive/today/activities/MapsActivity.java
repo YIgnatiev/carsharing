@@ -83,7 +83,9 @@ import youdrive.today.models.Coord;
 import youdrive.today.models.Menu;
 import youdrive.today.models.Status;
 import youdrive.today.models.User;
+import youdrive.today.response.PayoffResponse;
 import youdrive.today.response.PolygonResponse;
+import youdrive.today.response.UserProfileResponse;
 
 import static youdrive.today.models.Status.BOOKING;
 import static youdrive.today.models.Status.NORMAL;
@@ -96,6 +98,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private static final int RC_BOOK = 0;
     private static final int RC_CHECK = 1;
     private ActivityMapsBinding b;
+    private HeaderProfileBinding headerBinding;
     private DialogInfo bInfo;
     private OpenCarDialog bOpenCar;
     private DialogCloseCar bCloseCar;
@@ -105,6 +108,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private Command mCommand;
     private GoogleMap mMap;
     private List<PolygonOptions> mPolygons;
+    private UserProfileResponse userProfile;
     private ProfileInteractorImpl mProfileInteractor;
     private CarInteractorImpl mCarInteractor;
     private MapsInteractorImpl mMapsInteractor;
@@ -172,7 +176,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 mUser = new Gson().fromJson(App.getInstance().getPreference().getUser(), User.class);
             }
         }
-        HeaderProfileBinding headerBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.header_profile, null, false);
+        headerBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.header_profile, null, false);
+        headerBinding.setListener(this);
 
         if (mUser != null) {
             headerBinding.txtName.setText(mUser.getName());
@@ -206,6 +211,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         if (mGoogleApiClient.isConnected()) startLocationWithCheckPermissions();
 
         startUpdates();
+        updateHeader();
+        //Получаем профиль
+        mMapsInteractor.getUserProfile(this);
     }
 
 
@@ -425,7 +433,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onError() {
-        animateCamera(PreferenceHelper.MOSCOW_CENTER);
+        //animateCamera(PreferenceHelper.MOSCOW_CENTER);
 
         Timber.tag("Error").d("Internal Error");
         String text = getString(R.string.internal_error);
@@ -457,6 +465,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         } else if (bInfo != null && bInfo.btnBook != null && bInfo.btnBook.getProgress() == 50) {
             AppUtils.error(text, bInfo.btnBook);
+        }
+        else if (headerBinding != null && headerBinding.bPayoff.getProgress() == 50) {
+            AppUtils.error(text, headerBinding.bPayoff);
         }
     }
 
@@ -743,10 +754,64 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         }
     }
 
+    /*** Обновить хедер с балансом */
+    private void updateHeader()
+    {
+        if(userProfile==null)
+        {
+            headerBinding.bPayoff.setVisibility(View.GONE);
+            headerBinding.tvBalance.setVisibility(View.GONE);
+        }
+        else if(userProfile.debt>0)
+        {
+            headerBinding.bPayoff.setVisibility(View.VISIBLE);
+            headerBinding.tvBalance.setVisibility(View.VISIBLE);
+            headerBinding.tvBalance.setText(getString(R.string.debts, userProfile.debt));
+        }
+        else
+        {
+            headerBinding.bPayoff.setVisibility(View.GONE);
+            headerBinding.tvBalance.setVisibility(View.VISIBLE);
+            headerBinding.tvBalance.setText(getString(R.string.balance, userProfile.bonus));
+        }
+    }
+
+    public void onPayoffClick(View view)
+    {
+        if (headerBinding.bPayoff.getProgress() == 0 && isConnected()) {
+            headerBinding.bPayoff.setIndeterminateProgressMode(true);
+            headerBinding.bPayoff.setProgress(50);
+            mMapsInteractor.payoff(this);
+        }
+    }
+
+    @Override
+    public void onPayoffSuccess(PayoffResponse payoffResponse) {
+        AppUtils.success(headerBinding.bPayoff, getString(R.string.payoff));
+        mMapsInteractor.getUserProfile(this);
+    }
+
+
+    private boolean isConnected() {
+        boolean isConnected = isNetworkConnected();
+        if (!isConnected) {
+            showToast(getString(R.string.no_internet));
+        }
+        return isConnected;
+    }
+
     @Override
     public void onUnknownError(String text) {
         unlock(text);
     }
+
+    @Override
+    public void onUserProfileSuccess(UserProfileResponse userProfile) {
+        this.userProfile=userProfile;
+        updateHeader();
+    }
+
+
 
     @Override
     public void onCarNotFound(String text) {
@@ -987,6 +1052,12 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             if (mZoomLevel > mMap.getMinZoomLevel()) {
                 mMap.animateCamera(CameraUpdateFactory.zoomTo(--mZoomLevel));
             }
+        }
+    }
+
+    public void onMyLocation(View v) {
+        if (mMap != null && mMarker!=null) {
+            animateCamera(mMarker.getPosition());
         }
     }
 
