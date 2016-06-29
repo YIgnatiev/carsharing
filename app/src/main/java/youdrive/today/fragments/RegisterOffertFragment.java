@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.CompoundButton;
@@ -59,8 +62,26 @@ public class RegisterOffertFragment extends BaseFragment<RegistrationActivity> i
         b.webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
+                //view.loadUrl(url);
                 return false;
+            }
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    b.webView.evaluateJavascript("javascript:window.document.getElementsByTagName('body')[0].style.color='white';", null);
+                }
+                else
+                {
+                    b.webView.loadUrl("javascript:window.document.getElementsByTagName('body')[0].style.color='white';");
+                }
+                b.webView.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -70,7 +91,12 @@ public class RegisterOffertFragment extends BaseFragment<RegistrationActivity> i
             }
         });
 
+        b.webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        b.webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+
+        b.webView.setVisibility(View.INVISIBLE);
         b.webView.loadUrl(PreferenceHelper.EULA_URL);
+
         b.webView.setBackgroundColor(Color.TRANSPARENT);
     }
 
@@ -118,6 +144,6 @@ public class RegisterOffertFragment extends BaseFragment<RegistrationActivity> i
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-       b.tvForvard.setEnabled(isChecked);
+        b.tvForvard.setEnabled(isChecked);
     }
 }

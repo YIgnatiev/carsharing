@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.widget.Toast;
 
 import com.dd.CircularProgressButton;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.PolygonOptions;
 
 /**
  * Created by psuhoterin on 20.05.15.
@@ -54,6 +56,39 @@ public class AppUtils {
 
     public static void success(CircularProgressButton button) {
         button.setProgress(100);
+    }
+
+    /*** Входит ли точка в область */
+    public static boolean isPointInPolygon(double latitude, double longitude, PolygonOptions polygonOptions) {
+        int intersectCount = 0;
+        int size=polygonOptions.getPoints().size();
+        for (int i = 0; i < size-1; i++) {
+            if( rayCastIntersect(latitude, longitude, polygonOptions.getPoints().get(i), polygonOptions.getPoints().get(i+1)) ) {
+                intersectCount++;
+            }
+        }
+
+        return (intersectCount%2) == 1; // odd = inside, even = outside;
+    }
+
+    private static boolean rayCastIntersect(double latitude, double longitude, LatLng vertA, LatLng vertB) {
+
+        double aY = vertA.latitude;
+        double bY = vertB.latitude;
+        double aX = vertA.longitude;
+        double bX = vertB.longitude;
+        double pY = latitude;
+        double pX = longitude;
+
+        if ( (aY>pY && bY>pY) || (aY<pY && bY<pY) || (aX<pX && bX<pX) ) {
+            return false; // a and b can't both be above or below pt.y, and a or b must be east of pt.x
+        }
+
+        double m = (aY-bY) / (aX-bX);               // Rise over run
+        double bee = (-aX) * m + aY;                // y = mx + b
+        double x = (pY - bee) / m;                  // algebra is neat!
+
+        return x > pX;
     }
 }
 

@@ -75,7 +75,7 @@
     <string name="phone_not_valid">Телефон введен не корректно</string>
     <string name="phone_format">Формат телефона не 7 (###) ### ## ##</string>
     <string name="time_start_rent">До начала аренды %1$s мин.</string>
-    <string name="distance_to_car">До ближайшей машины %1$s мин. пешком</string>
+    <string name="distance_to_car">До ближайшей машины %1$s пешком</string>
     <string name="distance_to_book_car">До забронированной машины %1$s пешком</string>
     <string name="profile">Личный кабинет</string>
     <string name="no_internet">Отсутствует подключение к интернету</string>

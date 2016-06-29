@@ -429,6 +429,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         Timber.tag("Action").d("Logout");
         startActivity(new Intent(this, LoginActivity.class));
         new PreferenceHelper(this).clear();
+        finish();
     }
 
     @Override
@@ -766,7 +767,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         {
             headerBinding.bPayoff.setVisibility(View.VISIBLE);
             headerBinding.tvBalance.setVisibility(View.VISIBLE);
-            headerBinding.tvBalance.setText(getString(R.string.debts, userProfile.debt));
+            headerBinding.tvBalance.setText(getString(R.string.debts, userProfile.debt/100));
         }
         else
         {
@@ -1084,11 +1085,18 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         }
     }
 
+    private boolean isInsideGreenZone(Car car)
+    {
+        for (PolygonOptions mPolygon : mPolygons)
+            if(AppUtils.isPointInPolygon(car.getLat(), car.getLon(), mPolygon)) return true;
+        return false;
+    }
+
     public void onBookClicked(View view) {
         mDialog.getBuilder().autoDismiss(false);
         if (view.getTag() != null && mLastLocation.getLatitude() > 0.0d && mLastLocation.getLongitude() > 0.0d) {
 
-            if (mCar.isTransferable()) {
+            if (!isInsideGreenZone(mCar)||mCar.isTransferable()) {
                 new MaterialDialog
                         .Builder(MapsActivity.this)
                         .title(R.string.transfer_book_title)
