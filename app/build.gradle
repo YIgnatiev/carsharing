@@ -3,7 +3,7 @@ apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 24
     buildToolsVersion "23.0.2"
 
     dataBinding {
@@ -13,7 +13,7 @@ android {
     defaultConfig {
         applicationId "youdrive.today"
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 24
         versionCode 7
         versionName "1.4.2"
 
@@ -69,15 +69,15 @@ dependencies {
 //    compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.11'
 
     /*System*/
-    compile 'com.android.support:appcompat-v7:23.2.0'
+    compile 'com.android.support:appcompat-v7:24.1.1'
     compile 'com.google.android.gms:play-services-location:8.1.0'
     compile 'com.google.android.gms:play-services-analytics:8.1.0'
     compile 'com.google.android.gms:play-services-maps:8.1.0'
-    compile 'com.android.support:support-v13:23.2.0'
+    compile 'com.android.support:support-v13:24.1.1'
     compile 'com.yandex.android:mobmetricalib:2.30'
     /*Code*/
     /*Дизайн*/
-    compile 'com.android.support:design:23.2.0'
+    compile 'com.android.support:design:24.1.1'
 
     compile('com.github.afollestad.material-dialogs:core:0.8.5.3@aar') {
         transitive = true
@@ -94,7 +94,7 @@ dependencies {
     /*Картинки*/
     compile 'com.github.bumptech.glide:glide:3.6.0'
     /*Тестирование*/
-    androidTestCompile 'com.android.support:support-annotations:23.2.0'
+    androidTestCompile 'com.android.support:support-annotations:24.1.1'
     androidTestCompile 'com.android.support.test:runner:0.2'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.1'
 }
