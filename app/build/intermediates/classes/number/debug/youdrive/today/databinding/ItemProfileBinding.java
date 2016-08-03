@@ -9,11 +9,9 @@ public class ItemProfileBinding extends android.databinding.ViewDataBinding {
     static {
         sIncludes = null;
         sViewsWithIds = new android.util.SparseIntArray();
-        sViewsWithIds.put(R.id.ivIcon, 1);
-        sViewsWithIds.put(R.id.txtTitle, 2);
+        sViewsWithIds.put(R.id.txtTitle, 1);
     }
     // views
-    public final android.widget.ImageView ivIcon;
     private final android.widget.LinearLayout mboundView0;
     public final android.widget.TextView txtTitle;
     // variables
@@ -22,11 +20,10 @@ public class ItemProfileBinding extends android.databinding.ViewDataBinding {
     
     public ItemProfileBinding(android.databinding.DataBindingComponent bindingComponent, View root) {
         super(bindingComponent, root, 0);
-        final Object[] bindings = mapBindings(bindingComponent, root, 3, sIncludes, sViewsWithIds);
-        this.ivIcon = (android.widget.ImageView) bindings[1];
+        final Object[] bindings = mapBindings(bindingComponent, root, 2, sIncludes, sViewsWithIds);
         this.mboundView0 = (android.widget.LinearLayout) bindings[0];
         this.mboundView0.setTag(null);
-        this.txtTitle = (android.widget.TextView) bindings[2];
+        this.txtTitle = (android.widget.TextView) bindings[1];
         setRootTag(root);
         invalidateAll();
     }

@@ -1,5 +1,9 @@
 [
     {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/mipmap-xxhdpi-v4/ic_launcher.png",
+        "source": "/Users/Sergio/carsharing-android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
         "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/mipmap-xxhdpi-v4/ic_launcher.png",
         "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
     }

@@ -1,5 +1,105 @@
 [
     {
+        "outputFile": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/values-ldpi-v4/values-ldpi-v4.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 38,
+                    "endOffset": 89
+                },
+                "from": {
+                    "file": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/values-ldpi-v4/values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 203,
+                        "endColumn": 38,
+                        "endOffset": 237
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 94,
+                    "endColumn": 44,
+                    "endOffset": 134
+                },
+                "from": {
+                    "file": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/values-ldpi-v4/values.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 242,
+                        "endColumn": 44,
+                        "endOffset": 282
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 139,
+                    "endColumn": 44,
+                    "endOffset": 179
+                },
+                "from": {
+                    "file": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/values-ldpi-v4/values.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 287,
+                        "endColumn": 44,
+                        "endOffset": 327
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 184,
+                    "endColumn": 44,
+                    "endOffset": 224
+                },
+                "from": {
+                    "file": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/values-ldpi-v4/values.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 332,
+                        "endColumn": 44,
+                        "endOffset": 372
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 229,
+                    "endColumn": 43,
+                    "endOffset": 268
+                },
+                "from": {
+                    "file": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/values-ldpi-v4/values.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 377,
+                        "endColumn": 43,
+                        "endOffset": 416
+                    }
+                }
+            }
+        ]
+    },
+    {
         "outputFile": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/values-ldpi-v4/values-ldpi-v4.xml",
         "map": [
             {

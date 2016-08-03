@@ -4,11 +4,23 @@
         "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout-v14/md_stub_progress_indeterminate.xml"
     },
     {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout-v14/md_stub_progress.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout-v14/md_stub_progress.xml"
+    },
+    {
         "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout-v14/md_stub_progress_indeterminate_horizontal.xml",
         "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout-v14/md_stub_progress_indeterminate_horizontal.xml"
     },
     {
         "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout-v14/md_stub_progress.xml",
         "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout-v14/md_stub_progress.xml"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout-v14/md_stub_progress_indeterminate.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout-v14/md_stub_progress_indeterminate.xml"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout-v14/md_stub_progress_indeterminate_horizontal.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout-v14/md_stub_progress_indeterminate_horizontal.xml"
     }
 ]

@@ -31,6 +31,10 @@ class DataBinderMapper {
                 return youdrive.today.databinding.ActivityWellcomeBinding.bind(view, bindingComponent);
             case youdrive.today.R.layout.fragment_about_first:
                 return youdrive.today.databinding.FragmentAboutFirstBinding.bind(view, bindingComponent);
+            case youdrive.today.R.layout.item_phone_invite:
+                return youdrive.today.databinding.ItemPhoneInviteBinding.bind(view, bindingComponent);
+            case youdrive.today.R.layout.activity_referal:
+                return youdrive.today.databinding.ActivityReferalBinding.bind(view, bindingComponent);
             case youdrive.today.R.layout.fragment_about_third:
                 return youdrive.today.databinding.FragmentAboutThirdBinding.bind(view, bindingComponent);
             case youdrive.today.R.layout.activity_thanks:
@@ -45,6 +49,10 @@ class DataBinderMapper {
                 return youdrive.today.databinding.DialogInfo.bind(view, bindingComponent);
             case youdrive.today.R.layout.fragment_register_documents:
                 return youdrive.today.databinding.FragmentRegisterDocumentsBinding.bind(view, bindingComponent);
+            case youdrive.today.R.layout.activity_search_car:
+                return youdrive.today.databinding.ActivitySearchCarBinding.bind(view, bindingComponent);
+            case youdrive.today.R.layout.item_email:
+                return youdrive.today.databinding.ItemEmailBinding.bind(view, bindingComponent);
             case youdrive.today.R.layout.activity_registration:
                 return youdrive.today.databinding.ActivityRegistrationBinding.bind(view, bindingComponent);
             case youdrive.today.R.layout.activity_login:
@@ -53,10 +61,14 @@ class DataBinderMapper {
                 return youdrive.today.databinding.HeaderProfileBinding.bind(view, bindingComponent);
             case youdrive.today.R.layout.fragment_payment:
                 return youdrive.today.databinding.FragmentPaymentBinding.bind(view, bindingComponent);
+            case youdrive.today.R.layout.activity_invite:
+                return youdrive.today.databinding.ActivityInviteBinding.bind(view, bindingComponent);
             case youdrive.today.R.layout.item_image:
                 return youdrive.today.databinding.ItemImageBinding.bind(view, bindingComponent);
             case youdrive.today.R.layout.item_popup:
                 return youdrive.today.databinding.ItemPopupBinding.bind(view, bindingComponent);
+            case youdrive.today.R.layout.fragment_referal:
+                return youdrive.today.databinding.FragmentReferalBinding.bind(view, bindingComponent);
             case youdrive.today.R.layout.activity_maps:
                 return youdrive.today.databinding.ActivityMapsBinding.bind(view, bindingComponent);
             case youdrive.today.R.layout.activity_order_car:
@@ -123,6 +135,14 @@ class DataBinderMapper {
                 if(tag.equals("layout/fragment_about_first_0"))
                     return youdrive.today.R.layout.fragment_about_first;
                 break;
+            case 326562930:
+                if(tag.equals("layout/item_phone_invite_0"))
+                    return youdrive.today.R.layout.item_phone_invite;
+                break;
+            case 446910321:
+                if(tag.equals("layout/activity_referal_0"))
+                    return youdrive.today.R.layout.activity_referal;
+                break;
             case 1893753212:
                 if(tag.equals("layout/fragment_about_third_0"))
                     return youdrive.today.R.layout.fragment_about_third;
@@ -151,6 +171,14 @@ class DataBinderMapper {
                 if(tag.equals("layout/fragment_register_documents_0"))
                     return youdrive.today.R.layout.fragment_register_documents;
                 break;
+            case -225371335:
+                if(tag.equals("layout/activity_search_car_0"))
+                    return youdrive.today.R.layout.activity_search_car;
+                break;
+            case -1374787098:
+                if(tag.equals("layout/item_email_0"))
+                    return youdrive.today.R.layout.item_email;
+                break;
             case 1185193333:
                 if(tag.equals("layout/activity_registration_0"))
                     return youdrive.today.R.layout.activity_registration;
@@ -167,6 +195,10 @@ class DataBinderMapper {
                 if(tag.equals("layout/fragment_payment_0"))
                     return youdrive.today.R.layout.fragment_payment;
                 break;
+            case -155606011:
+                if(tag.equals("layout/activity_invite_0"))
+                    return youdrive.today.R.layout.activity_invite;
+                break;
             case -2119805979:
                 if(tag.equals("layout/item_image_0"))
                     return youdrive.today.R.layout.item_image;
@@ -174,6 +206,10 @@ class DataBinderMapper {
             case -130708746:
                 if(tag.equals("layout/item_popup_0"))
                     return youdrive.today.R.layout.item_popup;
+                break;
+            case 2020401522:
+                if(tag.equals("layout/fragment_referal_0"))
+                    return youdrive.today.R.layout.fragment_referal;
                 break;
             case 423966419:
                 if(tag.equals("layout/activity_maps_0"))
@@ -197,6 +233,8 @@ class DataBinderMapper {
             "_all"
             ,"activity"
             ,"car"
-            ,"listener"};
+            ,"emailContact"
+            ,"listener"
+            ,"phoneContact"};
     }
 }

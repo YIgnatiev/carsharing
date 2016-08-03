@@ -127,33 +127,33 @@ public class DialogInfo extends android.databinding.ViewDataBinding {
             mDirtyFlags = 0;
         }
         youdrive.today.models.Car car = mCar;
-        java.lang.String SECONDSTimeUnitToMin = null;
         int parkingTariffCar = 0;
         int carGetDiscountCar = 0;
-        long SECONDSTimeUnitToMin1 = 0L;
+        long SECONDSTimeUnitToMin = 0L;
+        java.lang.String FuelCarObjectnullAnd = null;
         youdrive.today.models.Tariff tariffCar = null;
         java.lang.String transmissionCar = null;
-        java.lang.String FuelCarObjectnullAnd = null;
         boolean NumberCarObjectnull = false;
         int usageTariffCar = 0;
         boolean CarGetDiscountCarInt = false;
         java.lang.String idCar = null;
+        java.lang.String SECONDSTimeUnitToMin1 = null;
         java.lang.String AppUtilsToKmAppUtils = null;
         int walktimeCar = 0;
         java.lang.Integer fuelCar = null;
         android.view.View.OnClickListener androidViewViewOnCli = null;
         java.lang.String activityConvertRubPe = null;
+        java.lang.String fuelCarStringLitr = null;
         youdrive.today.activities.MapsActivity activity = mActivity;
         java.lang.String modelCar = null;
         java.lang.String activityConvertRubPe1 = null;
         java.lang.String StringCarGetDiscount = null;
-        java.lang.String NumberCarObjectnullS = null;
         int CarGetDiscountCarInt1 = 0;
         boolean FuelCarObjectnull = false;
         java.lang.String StringCarGetDiscount1 = null;
         int distanceCar = 0;
         java.lang.String numberCar = null;
-        java.lang.String fuelCarString = null;
+        java.lang.String NumberCarObjectnullS = null;
     
         if ((dirtyFlags & 0x7L) != 0) {
             // read car~
@@ -186,7 +186,7 @@ public class DialogInfo extends android.databinding.ViewDataBinding {
                 // read String"-"~+~car~~getDiscount~car~
                 StringCarGetDiscount1 = "-"+carGetDiscountCar;
                 // read SECONDS~.~TimeUnit~~toMinutes~SECONDS~.~TimeUnit~~walktime~.~car~
-                SECONDSTimeUnitToMin1 = java.util.concurrent.TimeUnit.SECONDS.toMinutes(walktimeCar);
+                SECONDSTimeUnitToMin = java.util.concurrent.TimeUnit.SECONDS.toMinutes(walktimeCar);
                 // read ==~fuel~.~car~~Objectnull
                 FuelCarObjectnull = fuelCar==null;
                 // read AppUtils~~toKm~AppUtils~~distance~.~car~
@@ -195,9 +195,9 @@ public class DialogInfo extends android.databinding.ViewDataBinding {
                 NumberCarObjectnull = numberCar==null;
                 if((dirtyFlags & 0x5L) != 0) {
                     if (CarGetDiscountCarInt) {
-                        dirtyFlags |= 0x100L;
+                        dirtyFlags |= 0x40L;
                     } else {
-                        dirtyFlags |= 0x80L;
+                        dirtyFlags |= 0x20L;
                     }}
                 if((dirtyFlags & 0x5L) != 0) {
                     if (FuelCarObjectnull) {
@@ -207,17 +207,17 @@ public class DialogInfo extends android.databinding.ViewDataBinding {
                     }}
                 if((dirtyFlags & 0x5L) != 0) {
                     if (NumberCarObjectnull) {
-                        dirtyFlags |= 0x40L;
+                        dirtyFlags |= 0x100L;
                     } else {
-                        dirtyFlags |= 0x20L;
+                        dirtyFlags |= 0x80L;
                     }}
             
                 // read ?:==~car~~getDiscount~car~~int0~GONE~.~View~~VISIBLE~.~View~
                 CarGetDiscountCarInt1 = CarGetDiscountCarInt ? android.view.View.GONE : android.view.View.VISIBLE;
                 // read String"-"~+~car~~getDiscount~car~~+~String"%"
                 StringCarGetDiscount = StringCarGetDiscount1+"%";
-                // read SECONDS~.~TimeUnit~~toMinutes~SECONDS~.~TimeUnit~~walktime~.~car~~+~String" мин."
-                SECONDSTimeUnitToMin = SECONDSTimeUnitToMin1+" мин.";
+                // read SECONDS~.~TimeUnit~~toMinutes~SECONDS~.~TimeUnit~~walktime~.~car~~+~String" min."
+                SECONDSTimeUnitToMin1 = SECONDSTimeUnitToMin+" min.";
             }
             if (car != null) {
                 // read tariff~.~car~
@@ -246,18 +246,18 @@ public class DialogInfo extends android.databinding.ViewDataBinding {
         }
         // batch finished
     
-        if ((dirtyFlags & 0x5L) != 0) {
-            // read ?:==~number~.~car~~Objectnull~String"-"~number~.~car~
-            NumberCarObjectnullS = NumberCarObjectnull ? "-" : numberCar;
-        }
         if ((dirtyFlags & 0x8L) != 0) {
-            // read fuel~.~car~~+~String" л"
-            fuelCarString = fuelCar+" л";
+            // read fuel~.~car~~+~String" litr"
+            fuelCarStringLitr = fuelCar+" litr";
+        }
+        if ((dirtyFlags & 0x5L) != 0) {
+            // read ?:==~number~.~car~~Objectnull~String"unknown"~number~.~car~
+            NumberCarObjectnullS = NumberCarObjectnull ? "unknown" : numberCar;
         }
     
         if ((dirtyFlags & 0x5L) != 0) {
-            // read ?:==~fuel~.~car~~Objectnull~@android:string/unknown~~fuel~.~car~~+~String" л"
-            FuelCarObjectnullAnd = FuelCarObjectnull ? getRoot().getResources().getString(R.string.unknown) : fuelCarString;
+            // read ?:==~fuel~.~car~~Objectnull~@android:string/unknown~~fuel~.~car~~+~String" litr"
+            FuelCarObjectnullAnd = FuelCarObjectnull ? getRoot().getResources().getString(R.string.unknown) : fuelCarStringLitr;
         }
         // batch finished
         if ((dirtyFlags & 0x6L) != 0) {
@@ -273,7 +273,7 @@ public class DialogInfo extends android.databinding.ViewDataBinding {
             this.txtFuel.setText(FuelCarObjectnullAnd);
             this.txtModel.setText(modelCar);
             this.txtNumber.setText(NumberCarObjectnullS);
-            this.txtTimeTo.setText(SECONDSTimeUnitToMin);
+            this.txtTimeTo.setText(SECONDSTimeUnitToMin1);
             this.txtType.setText(transmissionCar);
         }
         if ((dirtyFlags & 0x7L) != 0) {
@@ -323,11 +323,11 @@ public class DialogInfo extends android.databinding.ViewDataBinding {
         flag 0: car~
         flag 1: activity~
         flag 2: INVALIDATE ANY
-        flag 3: ?:==~fuel~.~car~~Objectnull~@android:string/unknown~~fuel~.~car~~+~String" л"== false
-        flag 4: ?:==~fuel~.~car~~Objectnull~@android:string/unknown~~fuel~.~car~~+~String" л"== true
-        flag 5: ?:==~number~.~car~~Objectnull~String"-"~number~.~car~== false
-        flag 6: ?:==~number~.~car~~Objectnull~String"-"~number~.~car~== true
-        flag 7: ?:==~car~~getDiscount~car~~int0~GONE~.~View~~VISIBLE~.~View~== false
-        flag 8: ?:==~car~~getDiscount~car~~int0~GONE~.~View~~VISIBLE~.~View~== true
+        flag 3: ?:==~fuel~.~car~~Objectnull~@android:string/unknown~~fuel~.~car~~+~String" litr"== false
+        flag 4: ?:==~fuel~.~car~~Objectnull~@android:string/unknown~~fuel~.~car~~+~String" litr"== true
+        flag 5: ?:==~car~~getDiscount~car~~int0~GONE~.~View~~VISIBLE~.~View~== false
+        flag 6: ?:==~car~~getDiscount~car~~int0~GONE~.~View~~VISIBLE~.~View~== true
+        flag 7: ?:==~number~.~car~~Objectnull~String"unknown"~number~.~car~== false
+        flag 8: ?:==~number~.~car~~Objectnull~String"unknown"~number~.~car~== true
     flag mapping end*/
     //end

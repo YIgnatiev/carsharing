@@ -4,28 +4,56 @@
         "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_car.png"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_navigate.png",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_navigate.png"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_percent_white.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_percent_white.png"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/down.png",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/drawable-ldpi-v4/down.png"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/abc_ic_ab_back_material.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/abc_ic_ab_back_material.png"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/abc_btn_checkbox_checked_mtrl.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/abc_btn_checkbox_checked_mtrl.png"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/abc_ic_clear_material.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/abc_ic_clear_material.png"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_visa.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_visa.png"
     },
     {
         "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/bg_btn.9.png",
         "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/drawable-ldpi-v4/bg_btn.9.png"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_question_mark.png",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_question_mark.png"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/abc_btn_radio_on_mtrl.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/abc_btn_radio_on_mtrl.png"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_cancel.png",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_cancel.png"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/abc_ic_menu_selectall_material.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/abc_ic_menu_selectall_material.png"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_check.png",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_check.png"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/abc_ic_go_search_api_material.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/abc_ic_go_search_api_material.png"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_clock.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_clock.png"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_lock.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_lock.png"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_percent_bordo.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_percent_bordo.png"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_percent_black.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_percent_black.png"
     },
     {
         "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_back.png",
@@ -40,8 +68,12 @@
         "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/bg_discount_red_rounded.png"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_lock.png",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_lock.png"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/abc_ic_voice_search_api_material.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/abc_ic_voice_search_api_material.png"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_car.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_car.png"
     },
     {
         "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_phone.png",
@@ -52,20 +84,28 @@
         "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_road_sign.png"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_percent_orange.png",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_percent_orange.png"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_percent_red.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_percent_red.png"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_check.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_check.png"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/abc_ic_menu_paste_material.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/abc_ic_menu_paste_material.png"
     },
     {
         "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_ruble.png",
         "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_ruble.png"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/logo.png",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/drawable-ldpi-v4/logo.png"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_forvard.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_forvard.png"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_clock.png",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_clock.png"
+        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/logo.png",
+        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/drawable-ldpi-v4/logo.png"
     },
     {
         "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_percent_red.png",
@@ -80,16 +120,132 @@
         "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_percent_white.png"
     },
     {
+        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/lock.png",
+        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/drawable-ldpi-v4/lock.png"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_navigate.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_navigate.png"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_phone.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_phone.png"
+    },
+    {
+        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_navigate.png",
+        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_navigate.png"
+    },
+    {
+        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/down.png",
+        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/drawable-ldpi-v4/down.png"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/down.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/drawable-ldpi-v4/down.png"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/abc_ic_menu_share_material.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/abc_ic_menu_share_material.png"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/abc_btn_checkbox_unchecked_mtrl.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/abc_btn_checkbox_unchecked_mtrl.png"
+    },
+    {
+        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_cancel.png",
+        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_cancel.png"
+    },
+    {
+        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_question_mark.png",
+        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_question_mark.png"
+    },
+    {
+        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_check.png",
+        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_check.png"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_road_sign.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_road_sign.png"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_back.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_back.png"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/abc_ic_menu_copy_material.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/abc_ic_menu_copy_material.png"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/bg_discount_red_rounded.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/bg_discount_red_rounded.png"
+    },
+    {
+        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_lock.png",
+        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_lock.png"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/abc_ic_menu_overflow_material.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/abc_ic_menu_overflow_material.png"
+    },
+    {
+        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_percent_orange.png",
+        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_percent_orange.png"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_percent_orange.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_percent_orange.png"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/logo.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/drawable-ldpi-v4/logo.png"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/md_nav_back.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/drawable-ldpi-v4/md_nav_back.png"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/abc_btn_radio_off_mtrl.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/abc_btn_radio_off_mtrl.png"
+    },
+    {
+        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_clock.png",
+        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_clock.png"
+    },
+    {
         "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_percent_black.png",
         "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_percent_black.png"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_ruble.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_ruble.png"
     },
     {
         "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_forvard.png",
         "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_forvard.png"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/lock.png",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/drawable-ldpi-v4/lock.png"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_hotel.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_hotel.png"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/abc_ic_menu_cut_material.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/abc_ic_menu_cut_material.png"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/bg_btn.9.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/drawable-ldpi-v4/bg_btn.9.png"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_question_mark.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_question_mark.png"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/lock.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/drawable-ldpi-v4/lock.png"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_cancel.png",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/pngs/number/debug/drawable-ldpi/ic_cancel.png"
     },
     {
         "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/drawable-ldpi-v4/ic_visa.png",

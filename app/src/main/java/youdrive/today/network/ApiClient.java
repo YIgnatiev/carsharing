@@ -23,6 +23,7 @@ import youdrive.today.models.Invites;
 import youdrive.today.models.LoginUser;
 import youdrive.today.models.ReferralRules;
 import youdrive.today.models.RegistrationUser;
+import youdrive.today.models.SearchCar;
 import youdrive.today.response.BaseResponse;
 import youdrive.today.response.CarResponse;
 import youdrive.today.response.CommandResponse;
@@ -30,6 +31,7 @@ import youdrive.today.response.LoginResponse;
 import youdrive.today.response.PolygonResponse;
 import youdrive.today.response.RegionsResponse;
 import youdrive.today.response.RegistrationModel;
+import youdrive.today.response.SearchCarResponse;
 import youdrive.today.response.UploadCareResponse;
 import youdrive.today.response.UploadGroupResponse;
 
@@ -38,8 +40,8 @@ import youdrive.today.response.UploadGroupResponse;
  */
 public class ApiClient {
 
-	//private static String HOST = "https://youdrive.today";
-    private static String HOST = "http://188.166.36.215:3000";
+	private static String HOST = "https://youdrive.today";
+//    private static String HOST = "http://188.166.36.215";
     private static String UPLOADCARE_KEY = "507278759b3577e5f137";
     private static final boolean enableLog = BuildConfig.DEBUG;
     private CarsharingService mService;
@@ -167,5 +169,16 @@ public class ApiClient {
 
     public Observable<UploadGroupResponse> uploadGroup(Map<String ,String>params){
         return mUploadService.uploadGroup(UPLOADCARE_KEY,params);
+    }
+
+    public Observable<SearchCarResponse> postSearchCar(double lat, double lon, double radius) {
+        return mService.createSearchCar(new SearchCar((float)lat,(float)lon, (int)radius));
+    }
+
+    public Observable<SearchCarResponse> getSearchCar() {
+        return mService.getSearchCar();
+    }
+    public Observable<SearchCarResponse> deleteSearchCar() {
+        return mService.deleteSearchCar();
     }
 }

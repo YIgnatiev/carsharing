@@ -1,5 +1,9 @@
 [
     {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/xml/global_tracker.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/generated/res/google-services/number/debug/xml/global_tracker.xml"
+    },
+    {
         "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/xml/global_tracker.xml",
         "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/generated/res/google-services/number/debug/xml/global_tracker.xml"
     }
