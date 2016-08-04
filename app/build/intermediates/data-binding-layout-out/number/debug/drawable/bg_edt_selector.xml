@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_pressed="true"
-          android:drawable="@drawable/edit_bg_sltd" /> <!-- pressed -->
-    <item android:state_focused="true"
-          android:drawable="@drawable/edit_bg_sltd" /> <!-- focused -->
-    <item android:drawable="@drawable/edit_bg" /> <!-- default -->
-</selector><!-- From: file:/E:/Projects/CloudPayments/cloudpayments.android.release/sdk/CloudPayments_AndroidSDK/res/drawable/bg_edt_selector.xml -->

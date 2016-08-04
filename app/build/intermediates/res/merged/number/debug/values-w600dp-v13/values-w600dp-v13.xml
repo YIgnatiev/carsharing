@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="padding">45px</dimen>
-    <dimen name="padding_large">65px</dimen>
-    <dimen name="padding_medium">15px</dimen>
-    <dimen name="padding_middle">18px</dimen>
-    <dimen name="padding_small">10px</dimen>
-</resources>
