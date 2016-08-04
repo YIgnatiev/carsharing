@@ -2,8 +2,8 @@ package youdrive.today.databinding;
 import youdrive.today.R;
 import youdrive.today.BR;
 import android.view.View;
-public class ActivityConfirmationBinding extends android.databinding.ViewDataBinding {
-    
+public class ActivityConfirmationBinding extends android.databinding.ViewDataBinding  {
+
     private static final android.databinding.ViewDataBinding.IncludedLayouts sIncludes;
     private static final android.util.SparseIntArray sViewsWithIds;
     static {
@@ -26,7 +26,8 @@ public class ActivityConfirmationBinding extends android.databinding.ViewDataBin
     // listeners
     private OnClickListenerImpl mAndroidViewViewOnCl;
     private OnClickListenerImpl1 mAndroidViewViewOnCl1;
-    
+    // Inverse Binding Event Handlers
+
     public ActivityConfirmationBinding(android.databinding.DataBindingComponent bindingComponent, View root) {
         super(bindingComponent, root, 0);
         final Object[] bindings = mapBindings(bindingComponent, root, 6, sIncludes, sViewsWithIds);
@@ -40,17 +41,18 @@ public class ActivityConfirmationBinding extends android.databinding.ViewDataBin
         this.txtAlarm = (android.widget.TextView) bindings[4];
         this.txtLocationService = (android.widget.TextView) bindings[5];
         setRootTag(root);
+        // listeners
         invalidateAll();
     }
-    
+
     @Override
     public void invalidateAll() {
         synchronized(this) {
-            mDirtyFlags = 0x2L;
+                mDirtyFlags = 0x2L;
         }
         requestRebind();
     }
-    
+
     @Override
     public boolean hasPendingBindings() {
         synchronized(this) {
@@ -60,7 +62,7 @@ public class ActivityConfirmationBinding extends android.databinding.ViewDataBin
         }
         return false;
     }
-    
+
     public boolean setVariable(int variableId, Object variable) {
         switch(variableId) {
             case BR.listener :
@@ -69,25 +71,26 @@ public class ActivityConfirmationBinding extends android.databinding.ViewDataBin
         }
         return false;
     }
-    
+
     public void setListener(youdrive.today.activities.ConfirmationActivity listener) {
         this.mListener = listener;
         synchronized(this) {
             mDirtyFlags |= 0x1L;
         }
+        notifyPropertyChanged(BR.listener);
         super.requestRebind();
     }
     public youdrive.today.activities.ConfirmationActivity getListener() {
         return mListener;
     }
-    
+
     @Override
     protected boolean onFieldChange(int localFieldId, Object object, int fieldId) {
         switch (localFieldId) {
         }
         return false;
     }
-    
+
     @Override
     protected void executeBindings() {
         long dirtyFlags = 0;
@@ -98,21 +101,22 @@ public class ActivityConfirmationBinding extends android.databinding.ViewDataBin
         youdrive.today.activities.ConfirmationActivity listener = mListener;
         android.view.View.OnClickListener androidViewViewOnCli = null;
         android.view.View.OnClickListener androidViewViewOnCli1 = null;
-    
+
         if ((dirtyFlags & 0x3L) != 0) {
-            // read listener~
-            listener = listener;
-        
-            if (listener != null) {
-                // read android.view.View.OnClickListener~listener~~onCancel
-                androidViewViewOnCli = (((mAndroidViewViewOnCl == null) ? (mAndroidViewViewOnCl = new OnClickListenerImpl()) : mAndroidViewViewOnCl).setValue(listener));
-                // read android.view.View.OnClickListener~listener~~onOk
-                androidViewViewOnCli1 = (((mAndroidViewViewOnCl1 == null) ? (mAndroidViewViewOnCl1 = new OnClickListenerImpl1()) : mAndroidViewViewOnCl1).setValue(listener));
-            }
+
+
+
+                if (listener != null) {
+                    // read listener::onCancel
+                    androidViewViewOnCli = (((mAndroidViewViewOnCl == null) ? (mAndroidViewViewOnCl = new OnClickListenerImpl()) : mAndroidViewViewOnCl).setValue(listener));
+                    // read listener::onOk
+                    androidViewViewOnCli1 = (((mAndroidViewViewOnCl1 == null) ? (mAndroidViewViewOnCl1 = new OnClickListenerImpl1()) : mAndroidViewViewOnCl1).setValue(listener));
+                }
         }
         // batch finished
         if ((dirtyFlags & 0x3L) != 0) {
             // api target 1
+
             this.btnCancel.setOnClickListener(androidViewViewOnCli);
             this.btnOk.setOnClickListener(androidViewViewOnCli1);
         }
@@ -140,9 +144,10 @@ public class ActivityConfirmationBinding extends android.databinding.ViewDataBin
             this.value.onOk(arg0);
         }
     }
+    // callback impls
     // dirty flag
     private  long mDirtyFlags = 0xffffffffffffffffL;
-    
+
     public static ActivityConfirmationBinding inflate(android.view.LayoutInflater inflater, android.view.ViewGroup root, boolean attachToRoot) {
         return inflate(inflater, root, attachToRoot, android.databinding.DataBindingUtil.getDefaultComponent());
     }
@@ -164,9 +169,9 @@ public class ActivityConfirmationBinding extends android.databinding.ViewDataBin
         }
         return new ActivityConfirmationBinding(bindingComponent, view);
     }
-}
     /* flag mapping
-        flag 0: listener~
-        flag 1: INVALIDATE ANY
+        flag 0 (0x1L): listener
+        flag 1 (0x2L): null
     flag mapping end*/
     //end
+}

@@ -13,4 +13,4 @@
         android:nextFocusForward="@+id/expMonth"
         android:nextFocusDown="@+id/expMonth" />
 
-</LinearLayout><!-- From: file:/E:/Projects/CloudPayments/cloudpayments.android/sdk/CloudPayments_AndroidSDK/res/layout/card_number_view.xml -->
+</LinearLayout><!-- From: file:/E:/Projects/CloudPayments/cloudpayments.android.release/sdk/CloudPayments_AndroidSDK/res/layout/card_number_view.xml -->

@@ -270,7 +270,8 @@
                 android:layout_marginBottom="15dp"
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:text='@{car.fuel == null ? @string/unknown : car.fuel + " litr"}'
+
+                android:text='@{car.fuel == null ? @string/unknown : car.fuel + " %"}'
                 android:textColor="@color/black"
                 android:textSize="10sp" />
 

@@ -4,20 +4,8 @@
         "source": "/Users/Sergio/carsharing-android/app/src/main/res/animator/move_left_out.xml"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/animator/move_right_out.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/animator/move_right_out.xml"
-    },
-    {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/animator/move_left_in.xml",
         "source": "/Users/Sergio/carsharing-android/app/src/main/res/animator/move_left_in.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/animator/move_left_in.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/animator/move_left_in.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/animator/move_left_out.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/animator/move_left_out.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/animator/move_right_in.xml",
@@ -26,9 +14,5 @@
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/animator/move_right_out.xml",
         "source": "/Users/Sergio/carsharing-android/app/src/main/res/animator/move_right_out.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/animator/move_right_in.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/animator/move_right_in.xml"
     }
 ]

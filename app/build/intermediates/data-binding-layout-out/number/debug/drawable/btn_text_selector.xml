@@ -5,4 +5,4 @@
     <item android:state_pressed="true" android:color="@color/text_gray"/>
     <item android:color="@color/white"/>
 </selector>
-<!-- From: file:/E:/Projects/CloudPayments/cloudpayments.android/sdk/CloudPayments_AndroidSDK/res/drawable/btn_text_selector.xml -->
+<!-- From: file:/E:/Projects/CloudPayments/cloudpayments.android.release/sdk/CloudPayments_AndroidSDK/res/drawable/btn_text_selector.xml -->

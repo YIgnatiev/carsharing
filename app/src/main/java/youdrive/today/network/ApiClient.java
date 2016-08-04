@@ -28,12 +28,14 @@ import youdrive.today.response.BaseResponse;
 import youdrive.today.response.CarResponse;
 import youdrive.today.response.CommandResponse;
 import youdrive.today.response.LoginResponse;
+import youdrive.today.response.PayoffResponse;
 import youdrive.today.response.PolygonResponse;
 import youdrive.today.response.RegionsResponse;
 import youdrive.today.response.RegistrationModel;
 import youdrive.today.response.SearchCarResponse;
 import youdrive.today.response.UploadCareResponse;
 import youdrive.today.response.UploadGroupResponse;
+import youdrive.today.response.UserProfileResponse;
 
 /**
  * Created by psuhoterin on 21.04.15.
@@ -41,7 +43,9 @@ import youdrive.today.response.UploadGroupResponse;
 public class ApiClient {
 
 	private static String HOST = "https://youdrive.today";
-//    private static String HOST = "http://188.166.36.215";
+
+//    private static String HOST = "http://188.166.36.215:3000";
+
     private static String UPLOADCARE_KEY = "507278759b3577e5f137";
     private static final boolean enableLog = BuildConfig.DEBUG;
     private CarsharingService mService;
@@ -74,6 +78,13 @@ public class ApiClient {
 
     public Observable<BaseResponse> logout() {
         return mService.logout();
+    }
+
+    public Observable<UserProfileResponse> getUserProfile() {
+        return mService.getUser();
+    }
+    public Observable<PayoffResponse> payoff() {
+        return mService.payoff(new Object());
     }
 
     public Observable<CarResponse> getStatusCars(double lat, double lon) {

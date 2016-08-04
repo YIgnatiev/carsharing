@@ -9,4 +9,4 @@
         android:layout_height="wrap_content"
         android:text="@string/payment"/>
 
-</LinearLayout><!-- From: file:/E:/Projects/CloudPayments/cloudpayments.android/sdk/CloudPayments_AndroidSDK/res/layout/title_bar.xml -->
+</LinearLayout><!-- From: file:/E:/Projects/CloudPayments/cloudpayments.android.release/sdk/CloudPayments_AndroidSDK/res/layout/title_bar.xml -->

@@ -2,8 +2,8 @@ package youdrive.today.databinding;
 import youdrive.today.R;
 import youdrive.today.BR;
 import android.view.View;
-public class FragmentAboutThirdBinding extends android.databinding.ViewDataBinding {
-    
+public class FragmentAboutThirdBinding extends android.databinding.ViewDataBinding  {
+
     private static final android.databinding.ViewDataBinding.IncludedLayouts sIncludes;
     private static final android.util.SparseIntArray sViewsWithIds;
     static {
@@ -26,7 +26,8 @@ public class FragmentAboutThirdBinding extends android.databinding.ViewDataBindi
     private OnClickListenerImpl2 mAndroidViewViewOnCl2;
     private OnClickListenerImpl3 mAndroidViewViewOnCl3;
     private OnClickListenerImpl4 mAndroidViewViewOnCl4;
-    
+    // Inverse Binding Event Handlers
+
     public FragmentAboutThirdBinding(android.databinding.DataBindingComponent bindingComponent, View root) {
         super(bindingComponent, root, 0);
         final Object[] bindings = mapBindings(bindingComponent, root, 6, sIncludes, sViewsWithIds);
@@ -43,17 +44,18 @@ public class FragmentAboutThirdBinding extends android.databinding.ViewDataBindi
         this.tvMinuteTarification = (android.widget.TextView) bindings[1];
         this.tvMinuteTarification.setTag(null);
         setRootTag(root);
+        // listeners
         invalidateAll();
     }
-    
+
     @Override
     public void invalidateAll() {
         synchronized(this) {
-            mDirtyFlags = 0x2L;
+                mDirtyFlags = 0x2L;
         }
         requestRebind();
     }
-    
+
     @Override
     public boolean hasPendingBindings() {
         synchronized(this) {
@@ -63,7 +65,7 @@ public class FragmentAboutThirdBinding extends android.databinding.ViewDataBindi
         }
         return false;
     }
-    
+
     public boolean setVariable(int variableId, Object variable) {
         switch(variableId) {
             case BR.listener :
@@ -72,25 +74,26 @@ public class FragmentAboutThirdBinding extends android.databinding.ViewDataBindi
         }
         return false;
     }
-    
+
     public void setListener(youdrive.today.fragments.AboutThird listener) {
         this.mListener = listener;
         synchronized(this) {
             mDirtyFlags |= 0x1L;
         }
+        notifyPropertyChanged(BR.listener);
         super.requestRebind();
     }
     public youdrive.today.fragments.AboutThird getListener() {
         return mListener;
     }
-    
+
     @Override
     protected boolean onFieldChange(int localFieldId, Object object, int fieldId) {
         switch (localFieldId) {
         }
         return false;
     }
-    
+
     @Override
     protected void executeBindings() {
         long dirtyFlags = 0;
@@ -104,27 +107,28 @@ public class FragmentAboutThirdBinding extends android.databinding.ViewDataBindi
         android.view.View.OnClickListener androidViewViewOnCli2 = null;
         android.view.View.OnClickListener androidViewViewOnCli3 = null;
         android.view.View.OnClickListener androidViewViewOnCli4 = null;
-    
+
         if ((dirtyFlags & 0x3L) != 0) {
-            // read listener~
-            listener = listener;
-        
-            if (listener != null) {
-                // read android.view.View.OnClickListener~listener~~onFuelIsPayed
-                androidViewViewOnCli = (((mAndroidViewViewOnCl == null) ? (mAndroidViewViewOnCl = new OnClickListenerImpl()) : mAndroidViewViewOnCl).setValue(listener));
-                // read android.view.View.OnClickListener~listener~~onFreeNightParking
-                androidViewViewOnCli1 = (((mAndroidViewViewOnCl1 == null) ? (mAndroidViewViewOnCl1 = new OnClickListenerImpl1()) : mAndroidViewViewOnCl1).setValue(listener));
-                // read android.view.View.OnClickListener~listener~~onMinuteTarrification
-                androidViewViewOnCli2 = (((mAndroidViewViewOnCl2 == null) ? (mAndroidViewViewOnCl2 = new OnClickListenerImpl2()) : mAndroidViewViewOnCl2).setValue(listener));
-                // read android.view.View.OnClickListener~listener~~onFarRides
-                androidViewViewOnCli3 = (((mAndroidViewViewOnCl3 == null) ? (mAndroidViewViewOnCl3 = new OnClickListenerImpl3()) : mAndroidViewViewOnCl3).setValue(listener));
-                // read android.view.View.OnClickListener~listener~~onFreeParking
-                androidViewViewOnCli4 = (((mAndroidViewViewOnCl4 == null) ? (mAndroidViewViewOnCl4 = new OnClickListenerImpl4()) : mAndroidViewViewOnCl4).setValue(listener));
-            }
+
+
+
+                if (listener != null) {
+                    // read listener::onFuelIsPayed
+                    androidViewViewOnCli = (((mAndroidViewViewOnCl == null) ? (mAndroidViewViewOnCl = new OnClickListenerImpl()) : mAndroidViewViewOnCl).setValue(listener));
+                    // read listener::onFreeNightParking
+                    androidViewViewOnCli1 = (((mAndroidViewViewOnCl1 == null) ? (mAndroidViewViewOnCl1 = new OnClickListenerImpl1()) : mAndroidViewViewOnCl1).setValue(listener));
+                    // read listener::onMinuteTarrification
+                    androidViewViewOnCli2 = (((mAndroidViewViewOnCl2 == null) ? (mAndroidViewViewOnCl2 = new OnClickListenerImpl2()) : mAndroidViewViewOnCl2).setValue(listener));
+                    // read listener::onFarRides
+                    androidViewViewOnCli3 = (((mAndroidViewViewOnCl3 == null) ? (mAndroidViewViewOnCl3 = new OnClickListenerImpl3()) : mAndroidViewViewOnCl3).setValue(listener));
+                    // read listener::onFreeParking
+                    androidViewViewOnCli4 = (((mAndroidViewViewOnCl4 == null) ? (mAndroidViewViewOnCl4 = new OnClickListenerImpl4()) : mAndroidViewViewOnCl4).setValue(listener));
+                }
         }
         // batch finished
         if ((dirtyFlags & 0x3L) != 0) {
             // api target 1
+
             this.tvFarRides.setOnClickListener(androidViewViewOnCli3);
             this.tvFreeFuel.setOnClickListener(androidViewViewOnCli);
             this.tvFreeNight.setOnClickListener(androidViewViewOnCli1);
@@ -188,9 +192,10 @@ public class FragmentAboutThirdBinding extends android.databinding.ViewDataBindi
             this.value.onFreeParking(arg0);
         }
     }
+    // callback impls
     // dirty flag
     private  long mDirtyFlags = 0xffffffffffffffffL;
-    
+
     public static FragmentAboutThirdBinding inflate(android.view.LayoutInflater inflater, android.view.ViewGroup root, boolean attachToRoot) {
         return inflate(inflater, root, attachToRoot, android.databinding.DataBindingUtil.getDefaultComponent());
     }
@@ -212,9 +217,9 @@ public class FragmentAboutThirdBinding extends android.databinding.ViewDataBindi
         }
         return new FragmentAboutThirdBinding(bindingComponent, view);
     }
-}
     /* flag mapping
-        flag 0: listener~
-        flag 1: INVALIDATE ANY
+        flag 0 (0x1L): listener
+        flag 1 (0x2L): null
     flag mapping end*/
     //end
+}

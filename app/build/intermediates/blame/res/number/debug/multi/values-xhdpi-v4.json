@@ -11,13 +11,13 @@
                     "endOffset": 89
                 },
                 "from": {
-                    "file": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/values-xhdpi-v4/values.xml",
+                    "file": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/values-xhdpi/values-xhdpi.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
-                        "startOffset": 204,
+                        "startOffset": 212,
                         "endColumn": 38,
-                        "endOffset": 238
+                        "endOffset": 246
                     }
                 }
             },
@@ -30,13 +30,13 @@
                     "endOffset": 135
                 },
                 "from": {
-                    "file": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/values-xhdpi-v4/values.xml",
+                    "file": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/values-xhdpi/values-xhdpi.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
-                        "startOffset": 243,
+                        "startOffset": 251,
                         "endColumn": 45,
-                        "endOffset": 284
+                        "endOffset": 292
                     }
                 }
             },
@@ -49,13 +49,13 @@
                     "endOffset": 181
                 },
                 "from": {
-                    "file": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/values-xhdpi-v4/values.xml",
+                    "file": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/values-xhdpi/values-xhdpi.xml",
                     "position": {
                         "startLine": 6,
                         "startColumn": 4,
-                        "startOffset": 289,
+                        "startOffset": 297,
                         "endColumn": 45,
-                        "endOffset": 330
+                        "endOffset": 338
                     }
                 }
             },
@@ -68,13 +68,13 @@
                     "endOffset": 227
                 },
                 "from": {
-                    "file": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/values-xhdpi-v4/values.xml",
+                    "file": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/values-xhdpi/values-xhdpi.xml",
                     "position": {
                         "startLine": 7,
                         "startColumn": 4,
-                        "startOffset": 335,
+                        "startOffset": 343,
                         "endColumn": 45,
-                        "endOffset": 376
+                        "endOffset": 384
                     }
                 }
             },
@@ -87,113 +87,13 @@
                     "endOffset": 272
                 },
                 "from": {
-                    "file": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/values-xhdpi-v4/values.xml",
+                    "file": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/values-xhdpi/values-xhdpi.xml",
                     "position": {
                         "startLine": 8,
                         "startColumn": 4,
-                        "startOffset": 381,
+                        "startOffset": 389,
                         "endColumn": 44,
-                        "endOffset": 421
-                    }
-                }
-            }
-        ]
-    },
-    {
-        "outputFile": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/values-xhdpi-v4/values-xhdpi-v4.xml",
-        "map": [
-            {
-                "to": {
-                    "startLine": 2,
-                    "startColumn": 4,
-                    "startOffset": 55,
-                    "endColumn": 38,
-                    "endOffset": 89
-                },
-                "from": {
-                    "file": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/values-xhdpi-v4/values.xml",
-                    "position": {
-                        "startLine": 4,
-                        "startColumn": 4,
-                        "startOffset": 204,
-                        "endColumn": 38,
-                        "endOffset": 238
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 3,
-                    "startColumn": 4,
-                    "startOffset": 94,
-                    "endColumn": 45,
-                    "endOffset": 135
-                },
-                "from": {
-                    "file": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/values-xhdpi-v4/values.xml",
-                    "position": {
-                        "startLine": 5,
-                        "startColumn": 4,
-                        "startOffset": 243,
-                        "endColumn": 45,
-                        "endOffset": 284
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 4,
-                    "startColumn": 4,
-                    "startOffset": 140,
-                    "endColumn": 45,
-                    "endOffset": 181
-                },
-                "from": {
-                    "file": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/values-xhdpi-v4/values.xml",
-                    "position": {
-                        "startLine": 6,
-                        "startColumn": 4,
-                        "startOffset": 289,
-                        "endColumn": 45,
-                        "endOffset": 330
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 5,
-                    "startColumn": 4,
-                    "startOffset": 186,
-                    "endColumn": 45,
-                    "endOffset": 227
-                },
-                "from": {
-                    "file": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/values-xhdpi-v4/values.xml",
-                    "position": {
-                        "startLine": 7,
-                        "startColumn": 4,
-                        "startOffset": 335,
-                        "endColumn": 45,
-                        "endOffset": 376
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 6,
-                    "startColumn": 4,
-                    "startOffset": 232,
-                    "endColumn": 44,
-                    "endOffset": 272
-                },
-                "from": {
-                    "file": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/values-xhdpi-v4/values.xml",
-                    "position": {
-                        "startLine": 8,
-                        "startColumn": 4,
-                        "startOffset": 381,
-                        "endColumn": 44,
-                        "endOffset": 421
+                        "endOffset": 429
                     }
                 }
             }

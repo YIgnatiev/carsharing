@@ -3,6 +3,8 @@ package youdrive.today.helpers;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.Set;
 
 import youdrive.today.R;
@@ -13,6 +15,11 @@ public class PreferenceHelper {
     protected static final String SESSION_ID = "youdrive.today.data.SESSION_ID";
     protected static final String INVITE = "youdrive.today.data.INVITE";
     protected static final String IS_FIRST = "youdrive.today.data.ISFIRST";
+
+    /// Координаты центра Москвы
+    public static final LatLng MOSCOW_CENTER=new LatLng(55.749792, 37.632495);
+    public static final String EULA_URL="https://youdrive.today/static/text/eula/eula.html";
+    //public static final String EULA_URL="https://youdrive.today/static/text/eula/eula.txt";
 
     private final SharedPreferences mHelper;
 

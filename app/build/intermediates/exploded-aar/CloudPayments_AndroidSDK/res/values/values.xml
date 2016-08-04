@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/E:/Projects/CloudPayments/cloudpayments.android/sdk/CloudPayments_AndroidSDK/res/values/colors.xml -->
+    <!-- From: file:/E:/Projects/CloudPayments/cloudpayments.android.release/sdk/CloudPayments_AndroidSDK/res/values/colors.xml -->
     <eat-comment/>
     <color name="black">#000000</color>
     <color name="green">#00a651</color>
@@ -11,7 +11,7 @@
     <color name="text_gray_light">#9b333333</color>
     <color name="title">#efefef</color>
     <color name="white">#FFFFFF</color>
-    <!-- From: file:/E:/Projects/CloudPayments/cloudpayments.android/sdk/CloudPayments_AndroidSDK/res/values/strings.xml -->
+    <!-- From: file:/E:/Projects/CloudPayments/cloudpayments.android.release/sdk/CloudPayments_AndroidSDK/res/values/strings.xml -->
     <eat-comment/>
     <integer name="current_year">2015</integer>
     <string name="app_name">CloudPayments SDK</string>
@@ -46,7 +46,7 @@
     <string name="secure_connection">Безопасное соединение</string>
     <string name="valid_date_title">Действует до:</string>
     <string name="yy_hint">Год</string>
-    <!-- From: file:/E:/Projects/CloudPayments/cloudpayments.android/sdk/CloudPayments_AndroidSDK/res/values/styles.xml -->
+    <!-- From: file:/E:/Projects/CloudPayments/cloudpayments.android.release/sdk/CloudPayments_AndroidSDK/res/values/styles.xml -->
     <eat-comment/>
     <style name="AmountInfo">
         <item name="android:background">@android:color/transparent</item>

@@ -2,8 +2,8 @@ package youdrive.today.databinding;
 import youdrive.today.R;
 import youdrive.today.BR;
 import android.view.View;
-public class FragmentRegisterProfileBinding extends android.databinding.ViewDataBinding {
-    
+public class FragmentRegisterProfileBinding extends android.databinding.ViewDataBinding  {
+
     private static final android.databinding.ViewDataBinding.IncludedLayouts sIncludes;
     private static final android.util.SparseIntArray sViewsWithIds;
     static {
@@ -54,7 +54,8 @@ public class FragmentRegisterProfileBinding extends android.databinding.ViewData
     private OnClickListenerImpl6 mAndroidViewViewOnCl6;
     private OnClickListenerImpl7 mAndroidViewViewOnCl7;
     private OnClickListenerImpl8 mAndroidViewViewOnCl8;
-    
+    // Inverse Binding Event Handlers
+
     public FragmentRegisterProfileBinding(android.databinding.DataBindingComponent bindingComponent, View root) {
         super(bindingComponent, root, 0);
         final Object[] bindings = mapBindings(bindingComponent, root, 20, sIncludes, sViewsWithIds);
@@ -89,17 +90,18 @@ public class FragmentRegisterProfileBinding extends android.databinding.ViewData
         this.tvForvard.setTag(null);
         this.tvTitle = (android.widget.TextView) bindings[10];
         setRootTag(root);
+        // listeners
         invalidateAll();
     }
-    
+
     @Override
     public void invalidateAll() {
         synchronized(this) {
-            mDirtyFlags = 0x2L;
+                mDirtyFlags = 0x2L;
         }
         requestRebind();
     }
-    
+
     @Override
     public boolean hasPendingBindings() {
         synchronized(this) {
@@ -109,7 +111,7 @@ public class FragmentRegisterProfileBinding extends android.databinding.ViewData
         }
         return false;
     }
-    
+
     public boolean setVariable(int variableId, Object variable) {
         switch(variableId) {
             case BR.listener :
@@ -118,25 +120,26 @@ public class FragmentRegisterProfileBinding extends android.databinding.ViewData
         }
         return false;
     }
-    
+
     public void setListener(youdrive.today.fragments.RegisterProfileFragment listener) {
         this.mListener = listener;
         synchronized(this) {
             mDirtyFlags |= 0x1L;
         }
+        notifyPropertyChanged(BR.listener);
         super.requestRebind();
     }
     public youdrive.today.fragments.RegisterProfileFragment getListener() {
         return mListener;
     }
-    
+
     @Override
     protected boolean onFieldChange(int localFieldId, Object object, int fieldId) {
         switch (localFieldId) {
         }
         return false;
     }
-    
+
     @Override
     protected void executeBindings() {
         long dirtyFlags = 0;
@@ -154,35 +157,36 @@ public class FragmentRegisterProfileBinding extends android.databinding.ViewData
         android.view.View.OnClickListener androidViewViewOnCli6 = null;
         android.view.View.OnClickListener androidViewViewOnCli7 = null;
         android.view.View.OnClickListener androidViewViewOnCli8 = null;
-    
+
         if ((dirtyFlags & 0x3L) != 0) {
-            // read listener~
-            listener = listener;
-        
-            if (listener != null) {
-                // read android.view.View.OnClickListener~listener~~onMiddleName
-                androidViewViewOnCli = (((mAndroidViewViewOnCl == null) ? (mAndroidViewViewOnCl = new OnClickListenerImpl()) : mAndroidViewViewOnCl).setValue(listener));
-                // read android.view.View.OnClickListener~listener~~onBack
-                androidViewViewOnCli1 = (((mAndroidViewViewOnCl1 == null) ? (mAndroidViewViewOnCl1 = new OnClickListenerImpl1()) : mAndroidViewViewOnCl1).setValue(listener));
-                // read android.view.View.OnClickListener~listener~~onPassword
-                androidViewViewOnCli2 = (((mAndroidViewViewOnCl2 == null) ? (mAndroidViewViewOnCl2 = new OnClickListenerImpl2()) : mAndroidViewViewOnCl2).setValue(listener));
-                // read android.view.View.OnClickListener~listener~~onEmail
-                androidViewViewOnCli3 = (((mAndroidViewViewOnCl3 == null) ? (mAndroidViewViewOnCl3 = new OnClickListenerImpl3()) : mAndroidViewViewOnCl3).setValue(listener));
-                // read android.view.View.OnClickListener~listener~~onSurName
-                androidViewViewOnCli4 = (((mAndroidViewViewOnCl4 == null) ? (mAndroidViewViewOnCl4 = new OnClickListenerImpl4()) : mAndroidViewViewOnCl4).setValue(listener));
-                // read android.view.View.OnClickListener~listener~~onPromo
-                androidViewViewOnCli5 = (((mAndroidViewViewOnCl5 == null) ? (mAndroidViewViewOnCl5 = new OnClickListenerImpl5()) : mAndroidViewViewOnCl5).setValue(listener));
-                // read android.view.View.OnClickListener~listener~~onName
-                androidViewViewOnCli6 = (((mAndroidViewViewOnCl6 == null) ? (mAndroidViewViewOnCl6 = new OnClickListenerImpl6()) : mAndroidViewViewOnCl6).setValue(listener));
-                // read android.view.View.OnClickListener~listener~~onForvard
-                androidViewViewOnCli7 = (((mAndroidViewViewOnCl7 == null) ? (mAndroidViewViewOnCl7 = new OnClickListenerImpl7()) : mAndroidViewViewOnCl7).setValue(listener));
-                // read android.view.View.OnClickListener~listener~~onPhone
-                androidViewViewOnCli8 = (((mAndroidViewViewOnCl8 == null) ? (mAndroidViewViewOnCl8 = new OnClickListenerImpl8()) : mAndroidViewViewOnCl8).setValue(listener));
-            }
+
+
+
+                if (listener != null) {
+                    // read listener::onMiddleName
+                    androidViewViewOnCli = (((mAndroidViewViewOnCl == null) ? (mAndroidViewViewOnCl = new OnClickListenerImpl()) : mAndroidViewViewOnCl).setValue(listener));
+                    // read listener::onBack
+                    androidViewViewOnCli1 = (((mAndroidViewViewOnCl1 == null) ? (mAndroidViewViewOnCl1 = new OnClickListenerImpl1()) : mAndroidViewViewOnCl1).setValue(listener));
+                    // read listener::onPassword
+                    androidViewViewOnCli2 = (((mAndroidViewViewOnCl2 == null) ? (mAndroidViewViewOnCl2 = new OnClickListenerImpl2()) : mAndroidViewViewOnCl2).setValue(listener));
+                    // read listener::onEmail
+                    androidViewViewOnCli3 = (((mAndroidViewViewOnCl3 == null) ? (mAndroidViewViewOnCl3 = new OnClickListenerImpl3()) : mAndroidViewViewOnCl3).setValue(listener));
+                    // read listener::onSurName
+                    androidViewViewOnCli4 = (((mAndroidViewViewOnCl4 == null) ? (mAndroidViewViewOnCl4 = new OnClickListenerImpl4()) : mAndroidViewViewOnCl4).setValue(listener));
+                    // read listener::onPromo
+                    androidViewViewOnCli5 = (((mAndroidViewViewOnCl5 == null) ? (mAndroidViewViewOnCl5 = new OnClickListenerImpl5()) : mAndroidViewViewOnCl5).setValue(listener));
+                    // read listener::onName
+                    androidViewViewOnCli6 = (((mAndroidViewViewOnCl6 == null) ? (mAndroidViewViewOnCl6 = new OnClickListenerImpl6()) : mAndroidViewViewOnCl6).setValue(listener));
+                    // read listener::onForvard
+                    androidViewViewOnCli7 = (((mAndroidViewViewOnCl7 == null) ? (mAndroidViewViewOnCl7 = new OnClickListenerImpl7()) : mAndroidViewViewOnCl7).setValue(listener));
+                    // read listener::onPhone
+                    androidViewViewOnCli8 = (((mAndroidViewViewOnCl8 == null) ? (mAndroidViewViewOnCl8 = new OnClickListenerImpl8()) : mAndroidViewViewOnCl8).setValue(listener));
+                }
         }
         // batch finished
         if ((dirtyFlags & 0x3L) != 0) {
             // api target 1
+
             this.ivEmailHint.setOnClickListener(androidViewViewOnCli3);
             this.ivMidleNameHint.setOnClickListener(androidViewViewOnCli);
             this.ivNameHint.setOnClickListener(androidViewViewOnCli6);
@@ -294,9 +298,10 @@ public class FragmentRegisterProfileBinding extends android.databinding.ViewData
             this.value.onPhone(arg0);
         }
     }
+    // callback impls
     // dirty flag
     private  long mDirtyFlags = 0xffffffffffffffffL;
-    
+
     public static FragmentRegisterProfileBinding inflate(android.view.LayoutInflater inflater, android.view.ViewGroup root, boolean attachToRoot) {
         return inflate(inflater, root, attachToRoot, android.databinding.DataBindingUtil.getDefaultComponent());
     }
@@ -318,9 +323,9 @@ public class FragmentRegisterProfileBinding extends android.databinding.ViewData
         }
         return new FragmentRegisterProfileBinding(bindingComponent, view);
     }
-}
     /* flag mapping
-        flag 0: listener~
-        flag 1: INVALIDATE ANY
+        flag 0 (0x1L): listener
+        flag 1 (0x2L): null
     flag mapping end*/
     //end
+}

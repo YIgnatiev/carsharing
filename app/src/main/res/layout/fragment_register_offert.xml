@@ -40,45 +40,13 @@
             />
 
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_below="@id/tvTitle"
-            android:layout_above="@id/checkbox"
+        <WebView
+            android:id="@+id/webView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="20dp">
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/svAgreement">
-                <TextView
-                    style="@style/AppTheme.TextView"
-                    android:gravity="left"
-                    android:id="@+id/tvDogovor"/>
-            </ScrollView>
-
-            <!--<TextView-->
-            <!--style="@style/AppTheme.TextView"-->
-            <!--android:layout_marginTop="20dp"-->
-            <!--android:padding="5dp"-->
-            <!--android:text="@string/set_sum"-->
-            <!--/>-->
-
-            <!--<com.rengwuxian.materialedittext.MaterialEditText-->
-
-            <!--android:id="@+id/etPrice"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:hint="@string/enter_price_check"-->
-            <!--app:met_textColorHint="@color/hint"-->
-            <!--app:met_baseColor="@color/white"-->
-            <!--app:met_primaryColor="@color/main"-->
-            <!--app:met_errorColor="@color/error"-->
-            <!--android:inputType="number"-->
-            <!--/>-->
-
-        </LinearLayout>
+            android:layout_below="@id/tvTitle"
+            android:layout_above="@id/checkbox"
+            android:layout_margin="10dp"/>
 
     </RelativeLayout>
 

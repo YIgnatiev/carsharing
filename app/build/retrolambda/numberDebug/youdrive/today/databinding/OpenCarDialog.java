@@ -2,8 +2,8 @@ package youdrive.today.databinding;
 import youdrive.today.R;
 import youdrive.today.BR;
 import android.view.View;
-public class OpenCarDialog extends android.databinding.ViewDataBinding {
-    
+public class OpenCarDialog extends android.databinding.ViewDataBinding  {
+
     private static final android.databinding.ViewDataBinding.IncludedLayouts sIncludes;
     private static final android.util.SparseIntArray sViewsWithIds;
     static {
@@ -22,7 +22,8 @@ public class OpenCarDialog extends android.databinding.ViewDataBinding {
     private OnClickListenerImpl mAndroidViewViewOnCl;
     private OnClickListenerImpl1 mAndroidViewViewOnCl1;
     private OnClickListenerImpl2 mAndroidViewViewOnCl2;
-    
+    // Inverse Binding Event Handlers
+
     public OpenCarDialog(android.databinding.DataBindingComponent bindingComponent, View root) {
         super(bindingComponent, root, 0);
         final Object[] bindings = mapBindings(bindingComponent, root, 4, sIncludes, sViewsWithIds);
@@ -35,17 +36,18 @@ public class OpenCarDialog extends android.databinding.ViewDataBinding {
         this.mboundView0 = (android.widget.LinearLayout) bindings[0];
         this.mboundView0.setTag(null);
         setRootTag(root);
+        // listeners
         invalidateAll();
     }
-    
+
     @Override
     public void invalidateAll() {
         synchronized(this) {
-            mDirtyFlags = 0x2L;
+                mDirtyFlags = 0x2L;
         }
         requestRebind();
     }
-    
+
     @Override
     public boolean hasPendingBindings() {
         synchronized(this) {
@@ -55,7 +57,7 @@ public class OpenCarDialog extends android.databinding.ViewDataBinding {
         }
         return false;
     }
-    
+
     public boolean setVariable(int variableId, Object variable) {
         switch(variableId) {
             case BR.listener :
@@ -64,25 +66,26 @@ public class OpenCarDialog extends android.databinding.ViewDataBinding {
         }
         return false;
     }
-    
+
     public void setListener(youdrive.today.activities.MapsActivity listener) {
         this.mListener = listener;
         synchronized(this) {
             mDirtyFlags |= 0x1L;
         }
+        notifyPropertyChanged(BR.listener);
         super.requestRebind();
     }
     public youdrive.today.activities.MapsActivity getListener() {
         return mListener;
     }
-    
+
     @Override
     protected boolean onFieldChange(int localFieldId, Object object, int fieldId) {
         switch (localFieldId) {
         }
         return false;
     }
-    
+
     @Override
     protected void executeBindings() {
         long dirtyFlags = 0;
@@ -94,23 +97,24 @@ public class OpenCarDialog extends android.databinding.ViewDataBinding {
         android.view.View.OnClickListener androidViewViewOnCli = null;
         android.view.View.OnClickListener androidViewViewOnCli1 = null;
         android.view.View.OnClickListener androidViewViewOnCli2 = null;
-    
+
         if ((dirtyFlags & 0x3L) != 0) {
-            // read listener~
-            listener = listener;
-        
-            if (listener != null) {
-                // read android.view.View.OnClickListener~listener~~onButtonNavigate
-                androidViewViewOnCli = (((mAndroidViewViewOnCl == null) ? (mAndroidViewViewOnCl = new OnClickListenerImpl()) : mAndroidViewViewOnCl).setValue(listener));
-                // read android.view.View.OnClickListener~listener~~onButtonOpen
-                androidViewViewOnCli1 = (((mAndroidViewViewOnCl1 == null) ? (mAndroidViewViewOnCl1 = new OnClickListenerImpl1()) : mAndroidViewViewOnCl1).setValue(listener));
-                // read android.view.View.OnClickListener~listener~~onButtonCancel
-                androidViewViewOnCli2 = (((mAndroidViewViewOnCl2 == null) ? (mAndroidViewViewOnCl2 = new OnClickListenerImpl2()) : mAndroidViewViewOnCl2).setValue(listener));
-            }
+
+
+
+                if (listener != null) {
+                    // read listener::onButtonNavigate
+                    androidViewViewOnCli = (((mAndroidViewViewOnCl == null) ? (mAndroidViewViewOnCl = new OnClickListenerImpl()) : mAndroidViewViewOnCl).setValue(listener));
+                    // read listener::onButtonOpen
+                    androidViewViewOnCli1 = (((mAndroidViewViewOnCl1 == null) ? (mAndroidViewViewOnCl1 = new OnClickListenerImpl1()) : mAndroidViewViewOnCl1).setValue(listener));
+                    // read listener::onButtonCancel
+                    androidViewViewOnCli2 = (((mAndroidViewViewOnCl2 == null) ? (mAndroidViewViewOnCl2 = new OnClickListenerImpl2()) : mAndroidViewViewOnCl2).setValue(listener));
+                }
         }
         // batch finished
         if ((dirtyFlags & 0x3L) != 0) {
             // api target 1
+
             this.btnCancel.setOnClickListener(androidViewViewOnCli2);
             this.btnNavigate.setOnClickListener(androidViewViewOnCli);
             this.btnOpen.setOnClickListener(androidViewViewOnCli1);
@@ -150,9 +154,10 @@ public class OpenCarDialog extends android.databinding.ViewDataBinding {
             this.value.onButtonCancel(arg0);
         }
     }
+    // callback impls
     // dirty flag
     private  long mDirtyFlags = 0xffffffffffffffffL;
-    
+
     public static OpenCarDialog inflate(android.view.LayoutInflater inflater, android.view.ViewGroup root, boolean attachToRoot) {
         return inflate(inflater, root, attachToRoot, android.databinding.DataBindingUtil.getDefaultComponent());
     }
@@ -174,9 +179,9 @@ public class OpenCarDialog extends android.databinding.ViewDataBinding {
         }
         return new OpenCarDialog(bindingComponent, view);
     }
-}
     /* flag mapping
-        flag 0: listener~
-        flag 1: INVALIDATE ANY
+        flag 0 (0x1L): listener
+        flag 1 (0x2L): null
     flag mapping end*/
     //end
+}

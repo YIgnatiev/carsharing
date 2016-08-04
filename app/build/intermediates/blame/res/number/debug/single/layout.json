@@ -1,19 +1,11 @@
 [
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/md_stub_titleframe.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout/md_stub_titleframe.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/abc_select_dialog_material.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_select_dialog_material.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.6.2/res/layout/md_stub_titleframe.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/fragment_about_fourth.xml",
         "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/fragment_about_fourth.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/select_dialog_singlechoice_material.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/select_dialog_singlechoice_material.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/month_box.xml",
@@ -24,28 +16,16 @@
         "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/layout/dialog_progress.xml"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/fragment_about_fourth.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/layout/fragment_about_fourth.xml"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_screen_content_include.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_screen_content_include.xml"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/md_dialog_basic.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout/md_dialog_basic.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/abc_action_mode_bar.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_mode_bar.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/notification_template_part_time.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_part_time.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/month_box.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/layout/month_box.xml"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/activity_login.xml",
+        "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/activity_login.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/design_navigation_item.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_navigation_item.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/design/24.1.1/res/layout/design_navigation_item.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/marker_info.xml",
@@ -53,15 +33,19 @@
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_screen_simple.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/abc_screen_simple.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_screen_simple.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/design_layout_snackbar_include.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_layout_snackbar_include.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/design/24.1.1/res/layout/design_layout_snackbar_include.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/md_dialog_custom.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout/md_dialog_custom.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.6.2/res/layout/md_dialog_custom.xml"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/md_dialog_list.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.6.2/res/layout/md_dialog_list.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/item_image.xml",
@@ -72,12 +56,12 @@
         "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/custom_activity.xml"
     },
     {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/item_email.xml",
-        "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/item_email.xml"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/md_stub_titleframe_lesspadding.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.6.2/res/layout/md_stub_titleframe_lesspadding.xml"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/md_dialog_input.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout/md_dialog_input.xml"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/item_email.xml",
+        "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/item_email.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/popup_open_car.xml",
@@ -93,27 +77,19 @@
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_dialog_title_material.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/abc_dialog_title_material.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/abc_activity_chooser_view_list_item.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_activity_chooser_view_list_item.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/abc_screen_content_include.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_screen_content_include.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_dialog_title_material.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/select_dialog_multichoice_material.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/select_dialog_multichoice_material.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/fragment_about_second.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/layout/fragment_about_second.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/select_dialog_multichoice_material.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_action_bar_title_item.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/abc_action_bar_title_item.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_action_bar_title_item.xml"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/progress_dialog.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/layout/progress_dialog.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/activity_thanks.xml",
@@ -124,372 +100,24 @@
         "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/spinner_dropdown_item.xml"
     },
     {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/design_layout_tab_icon.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_layout_tab_icon.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/notification_media_action.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/notification_media_action.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_action_menu_layout.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/abc_action_menu_layout.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/abc_action_bar_up_container.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_bar_up_container.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/md_listitem.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout/md_listitem.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/design_navigation_menu_item.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_navigation_menu_item.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/activity_search_car.xml",
-        "source": "/Users/Sergio/carsharing-android/app/src/number/res/layout/activity_search_car.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/abc_action_bar_title_item.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_bar_title_item.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/select_dialog_multichoice_material.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/select_dialog_multichoice_material.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/abc_action_mode_close_item_material.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_mode_close_item_material.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_list_menu_item_layout.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/abc_list_menu_item_layout.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/dialog_progress.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/layout/dialog_progress.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/spinner_dropdown_item.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/layout/spinner_dropdown_item.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/md_dialog_input.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout/md_dialog_input.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/notification_media_action.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_media_action.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_screen_simple_overlay_action_mode.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/abc_screen_simple_overlay_action_mode.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/design_navigation_item_separator.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_navigation_item_separator.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_list_menu_item_radio.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/abc_list_menu_item_radio.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/fragment_register_payments.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/layout/fragment_register_payments.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/md_dialog_progress_indeterminate.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout/md_dialog_progress_indeterminate.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/activity_invite.xml",
-        "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/activity_invite.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/activity_maps.xml",
-        "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/activity_maps.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/abc_list_menu_item_layout.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_list_menu_item_layout.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/marker_info.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/layout/marker_info.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/activity_wellcome.xml",
-        "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/activity_wellcome.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/activity_inform.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/layout/activity_inform.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/design_navigation_menu.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_navigation_menu.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_action_mode_bar.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/abc_action_mode_bar.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/design_layout_tab_text.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_layout_tab_text.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_search_view.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/abc_search_view.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/popup_open_car.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/layout/popup_open_car.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/design_navigation_menu_item.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_navigation_menu_item.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/abc_search_dropdown_item_icons_2line.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_search_dropdown_item_icons_2line.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/activity_login.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/layout/activity_login.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/abc_dialog_title_material.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_dialog_title_material.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/popup_start_rent.xml",
-        "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/popup_start_rent.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/popup_close_car.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/layout/popup_close_car.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_popup_menu_item_layout.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/abc_popup_menu_item_layout.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/abc_alert_dialog_material.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_alert_dialog_material.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/abc_list_menu_item_icon.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_list_menu_item_icon.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/abc_search_view.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_search_view.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/notification_media_cancel_action.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_media_cancel_action.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/abc_list_menu_item_radio.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_list_menu_item_radio.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/abc_screen_toolbar.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_screen_toolbar.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/notification_template_big_media.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_big_media.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/md_listitem_multichoice.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout/md_listitem_multichoice.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/fragment_payment.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/layout/fragment_payment.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/abc_activity_chooser_view.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_activity_chooser_view.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/support_simple_spinner_dropdown_item.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/support_simple_spinner_dropdown_item.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/abc_list_menu_item_checkbox.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_list_menu_item_checkbox.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/item_image.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/layout/item_image.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/activity_maps.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/layout/activity_maps.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/md_dialog_progress_indeterminate.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout/md_dialog_progress_indeterminate.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_alert_dialog_button_bar_material.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/abc_alert_dialog_button_bar_material.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_action_bar_view_list_nav_layout.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/abc_action_bar_view_list_nav_layout.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_list_menu_item_checkbox.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/abc_list_menu_item_checkbox.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/md_dialog_custom.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout/md_dialog_custom.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/abc_action_menu_layout.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_menu_layout.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/card_number_view.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/layout/card_number_view.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/item_spinner.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/layout/item_spinner.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/design_layout_snackbar.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_layout_snackbar.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/md_listitem.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout/md_listitem.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/popup_copy.xml",
-        "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/popup_copy.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/md_stub_progress.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout/md_stub_progress.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/md_dialog_progress.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout/md_dialog_progress.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/design_navigation_item_separator.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_navigation_item_separator.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/md_dialog_basic.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout/md_dialog_basic.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/header_profile.xml",
-        "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/header_profile.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/custom_activity.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/layout/custom_activity.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/progress_dialog.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/layout/progress_dialog.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/popup_distance.xml",
-        "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/popup_distance.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/notification_template_part_chronometer.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_part_chronometer.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/md_stub_progress_indeterminate_horizontal.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout/md_stub_progress_indeterminate_horizontal.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/md_listitem_multichoice.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout/md_listitem_multichoice.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/abc_action_menu_item_layout.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_menu_item_layout.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_screen_content_include.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/abc_screen_content_include.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/card_data_view.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/layout/card_data_view.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/activity_login.xml",
-        "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/activity_login.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/abc_alert_dialog_button_bar_material.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_alert_dialog_button_bar_material.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/design_navigation_item_header.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_navigation_item_header.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/design_navigation_item.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_navigation_item.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/select_dialog_item_material.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/select_dialog_item_material.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/fragment_register_profile.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/layout/fragment_register_profile.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/md_dialog_list.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout/md_dialog_list.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/md_stub_titleframe_lesspadding.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout/md_stub_titleframe_lesspadding.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/md_listitem_singlechoice.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout/md_listitem_singlechoice.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/item_profile.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/layout/item_profile.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/progress_dialog.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/layout/progress_dialog.xml"
-    },
-    {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/activity_order_car.xml",
         "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/activity_order_car.xml"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/fragment_about_first.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/layout/fragment_about_first.xml"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/design_bottom_sheet_dialog.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/design/24.1.1/res/layout/design_bottom_sheet_dialog.xml"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/popup_distance.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/layout/popup_distance.xml"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/design_layout_tab_icon.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/design/24.1.1/res/layout/design_layout_tab_icon.xml"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/md_stub_titleframe.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout/md_stub_titleframe.xml"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/notification_media_action.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/notification_media_action.xml"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_action_menu_layout.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_action_menu_layout.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/fragment_register_offert.xml",
@@ -497,31 +125,31 @@
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_alert_dialog_material.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/abc_alert_dialog_material.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_alert_dialog_material.xml"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/md_dialog_progress_indeterminate_horizontal.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout/md_dialog_progress_indeterminate_horizontal.xml"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/design_navigation_menu_item.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/design/24.1.1/res/layout/design_navigation_menu_item.xml"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/activity_search_car.xml",
+        "source": "/Users/Sergio/carsharing-android/app/src/number/res/layout/activity_search_car.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/fragment_register_payments.xml",
         "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/fragment_register_payments.xml"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/card_holder_view.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/layout/card_holder_view.xml"
-    },
-    {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/item_popup.xml",
         "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/item_popup.xml"
     },
     {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/notification_media_cancel_action.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/notification_media_cancel_action.xml"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_list_menu_item_layout.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_list_menu_item_layout.xml"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/md_dialog_list.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout/md_dialog_list.xml"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/notification_media_cancel_action.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/notification_media_cancel_action.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/activity_referal.xml",
@@ -529,7 +157,7 @@
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_activity_chooser_view_list_item.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/abc_activity_chooser_view_list_item.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_activity_chooser_view_list_item.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/fragment_register_profile.xml",
@@ -537,31 +165,31 @@
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/design_navigation_item_subheader.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_navigation_item_subheader.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/design/24.1.1/res/layout/design_navigation_item_subheader.xml"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/activity_complete.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/layout/activity_complete.xml"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/md_dialog_input.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.6.2/res/layout/md_dialog_input.xml"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/md_stub_titleframe_lesspadding.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout/md_stub_titleframe_lesspadding.xml"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_screen_simple_overlay_action_mode.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_screen_simple_overlay_action_mode.xml"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/dialog_chooser.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/layout/dialog_chooser.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/abc_screen_simple.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_screen_simple.xml"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/design_navigation_item_separator.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/design/24.1.1/res/layout/design_navigation_item_separator.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/item_spinner.xml",
         "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/item_spinner.xml"
     },
     {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_list_menu_item_radio.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_list_menu_item_radio.xml"
+    },
+    {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/select_dialog_item_material.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/select_dialog_item_material.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/select_dialog_item_material.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/item_phone_invite.xml",
@@ -569,15 +197,11 @@
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/design_navigation_item_header.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_navigation_item_header.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/design/24.1.1/res/layout/design_navigation_item_header.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/md_stub_actionbuttons.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout/md_stub_actionbuttons.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/abc_action_bar_view_list_nav_layout.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_bar_view_list_nav_layout.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.6.2/res/layout/md_stub_actionbuttons.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/card_holder_view.xml",
@@ -588,104 +212,80 @@
         "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/layout/title_bar.xml"
     },
     {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/activity_invite.xml",
+        "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/activity_invite.xml"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/activity_maps.xml",
+        "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/activity_maps.xml"
+    },
+    {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/notification_template_media.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/notification_template_media.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/notification_template_media.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/design_layout_tab_text.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_layout_tab_text.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/design/24.1.1/res/layout/design_layout_tab_text.xml"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/abc_popup_menu_item_layout.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_popup_menu_item_layout.xml"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/activity_wellcome.xml",
+        "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/activity_wellcome.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/activity_inform.xml",
         "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/activity_inform.xml"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/activity_order_car.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/layout/activity_order_car.xml"
-    },
-    {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/design_navigation_menu.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_navigation_menu.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/design/24.1.1/res/layout/design_navigation_menu.xml"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/notification_template_big_media_narrow.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_big_media_narrow.xml"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_action_mode_bar.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_action_mode_bar.xml"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_search_view.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_search_view.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/card_data_view.xml",
         "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/card_data_view.xml"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/widget.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/layout/widget.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/year_box.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/layout/year_box.xml"
-    },
-    {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/widget.xml",
         "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/layout/widget.xml"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/md_stub_progress.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout/md_stub_progress.xml"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/popup_start_rent.xml",
+        "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/popup_start_rent.xml"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/header_profile.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/layout/header_profile.xml"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_popup_menu_item_layout.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_popup_menu_item_layout.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/activity_confirmation.xml",
         "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/activity_confirmation.xml"
     },
     {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/md_stub_progress_indeterminate_horizontal.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout/md_stub_progress_indeterminate_horizontal.xml"
-    },
-    {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_action_menu_item_layout.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/abc_action_menu_item_layout.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_action_menu_item_layout.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/notification_template_part_time.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/notification_template_part_time.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/support_simple_spinner_dropdown_item.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/support_simple_spinner_dropdown_item.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/md_stub_progress_indeterminate.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout/md_stub_progress_indeterminate.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/activity_registration.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/layout/activity_registration.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/notification_template_part_time.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/year_box.xml",
         "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/layout/year_box.xml"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/md_stub_actionbuttons.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout/md_stub_actionbuttons.xml"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/md_listitem_multichoice.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.6.2/res/layout/md_listitem_multichoice.xml"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/fragment_register_offert.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/layout/fragment_register_offert.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/popup_start_rent.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/layout/popup_start_rent.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/notification_template_media.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_media.xml"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/support_simple_spinner_dropdown_item.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/support_simple_spinner_dropdown_item.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/card_number_view.xml",
@@ -696,44 +296,44 @@
         "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/fragment_register_documents.xml"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/design_navigation_item_subheader.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_navigation_item_subheader.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/abc_screen_simple_overlay_action_mode.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_screen_simple_overlay_action_mode.xml"
-    },
-    {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/select_dialog_singlechoice_material.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/select_dialog_singlechoice_material.xml"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_activity_chooser_view.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_activity_chooser_view.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/md_listitem_singlechoice.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout/md_listitem_singlechoice.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.6.2/res/layout/md_listitem_singlechoice.xml"
     },
     {
-        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_activity_chooser_view.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/abc_activity_chooser_view.xml"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/select_dialog_singlechoice_material.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/select_dialog_singlechoice_material.xml"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/notification_template_lines.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_lines.xml"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_alert_dialog_button_bar_material.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_alert_dialog_button_bar_material.xml"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/md_dialog_progress_indeterminate.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.6.2/res/layout/md_dialog_progress_indeterminate.xml"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_action_bar_view_list_nav_layout.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_action_bar_view_list_nav_layout.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_expanded_menu_layout.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/abc_expanded_menu_layout.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/design_layout_snackbar.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_layout_snackbar.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_expanded_menu_layout.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/dialog_info_contents.xml",
         "source": "/Users/Sergio/carsharing-android/app/src/number/res/layout/dialog_info_contents.xml"
     },
     {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_list_menu_item_checkbox.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_list_menu_item_checkbox.xml"
+    },
+    {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/design_menu_item_action_area.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_menu_item_action_area.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/design/24.1.1/res/layout/design_menu_item_action_area.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/activity_registration.xml",
@@ -741,43 +341,43 @@
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_search_dropdown_item_icons_2line.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/abc_search_dropdown_item_icons_2line.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_search_dropdown_item_icons_2line.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/notification_template_big_media_narrow.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/notification_template_big_media_narrow.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/notification_template_big_media_narrow.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/fragment_about_third.xml",
         "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/fragment_about_third.xml"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/abc_expanded_menu_layout.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_expanded_menu_layout.xml"
-    },
-    {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/md_dialog_progress_indeterminate_horizontal.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout/md_dialog_progress_indeterminate_horizontal.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.6.2/res/layout/md_dialog_progress_indeterminate_horizontal.xml"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/dialog_info_contents.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/number/res/layout/dialog_info_contents.xml"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/design_layout_snackbar.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/design/24.1.1/res/layout/design_layout_snackbar.xml"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/design_layout_tab_icon.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_layout_tab_icon.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/item_popup.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/layout/item_popup.xml"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/md_listitem.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.6.2/res/layout/md_listitem.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/notification_template_part_chronometer.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/notification_template_part_chronometer.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_popup_menu_header_item_layout.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_popup_menu_header_item_layout.xml"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/popup_copy.xml",
+        "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/popup_copy.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/notification_template_big_media.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/notification_template_big_media.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/notification_template_big_media.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/fragment_about_first.xml",
@@ -796,75 +396,51 @@
         "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/item_profile.xml"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/md_stub_progress_indeterminate.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout/md_stub_progress_indeterminate.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/activity_wellcome.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/layout/activity_wellcome.xml"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/md_dialog_progress.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.6.2/res/layout/md_dialog_progress.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_action_bar_up_container.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/abc_action_bar_up_container.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_action_bar_up_container.xml"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/title_bar.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/CloudPayments_AndroidSDK/res/layout/title_bar.xml"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/md_dialog_basic.xml",
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.6.2/res/layout/md_dialog_basic.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_screen_toolbar.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/abc_screen_toolbar.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_screen_toolbar.xml"
+    },
+    {
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/header_profile.xml",
+        "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/header_profile.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/notification_template_lines.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/notification_template_lines.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/notification_template_lines.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_select_dialog_material.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/abc_select_dialog_material.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/md_dialog_progress.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.3/res/layout/md_dialog_progress.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_select_dialog_material.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/popup_close_car.xml",
         "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/popup_close_car.xml"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/fragment_about_third.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/layout/fragment_about_third.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/design_layout_snackbar_include.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_layout_snackbar_include.xml"
-    },
-    {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/activity_complete.xml",
         "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/activity_complete.xml"
     },
     {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/activity_thanks.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/layout/activity_thanks.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/fragment_register_documents.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/layout/fragment_register_documents.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/design_menu_item_action_area.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_menu_item_action_area.xml"
-    },
-    {
-        "merged": "/Users/andreykuprikov/Desktop/Code/cs-android/app/build/intermediates/res/merged/number/debug/layout/activity_confirmation.xml",
-        "source": "/Users/andreykuprikov/Desktop/Code/cs-android/app/src/main/res/layout/activity_confirmation.xml"
+        "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/popup_distance.xml",
+        "source": "/Users/Sergio/carsharing-android/app/src/main/res/layout/popup_distance.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_action_mode_close_item_material.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/abc_action_mode_close_item_material.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_action_mode_close_item_material.xml"
     },
     {
         "merged": "/Users/Sergio/carsharing-android/app/build/intermediates/res/merged/number/debug/layout/abc_list_menu_item_icon.xml",
-        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/res/layout/abc_list_menu_item_icon.xml"
+        "source": "/Users/Sergio/carsharing-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_list_menu_item_icon.xml"
     }
 ]

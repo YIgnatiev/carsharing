@@ -2,8 +2,8 @@ package youdrive.today.databinding;
 import youdrive.today.R;
 import youdrive.today.BR;
 import android.view.View;
-public class FragmentPaymentBinding extends android.databinding.ViewDataBinding {
-    
+public class FragmentPaymentBinding extends android.databinding.ViewDataBinding  {
+
     private static final android.databinding.ViewDataBinding.IncludedLayouts sIncludes;
     private static final android.util.SparseIntArray sViewsWithIds;
     static {
@@ -26,7 +26,8 @@ public class FragmentPaymentBinding extends android.databinding.ViewDataBinding 
     // values
     // listeners
     private OnClickListenerImpl mAndroidViewViewOnCl;
-    
+    // Inverse Binding Event Handlers
+
     public FragmentPaymentBinding(android.databinding.DataBindingComponent bindingComponent, View root) {
         super(bindingComponent, root, 0);
         final Object[] bindings = mapBindings(bindingComponent, root, 6, sIncludes, sViewsWithIds);
@@ -39,17 +40,18 @@ public class FragmentPaymentBinding extends android.databinding.ViewDataBinding 
         this.mboundView0 = (android.widget.LinearLayout) bindings[0];
         this.mboundView0.setTag(null);
         setRootTag(root);
+        // listeners
         invalidateAll();
     }
-    
+
     @Override
     public void invalidateAll() {
         synchronized(this) {
-            mDirtyFlags = 0x2L;
+                mDirtyFlags = 0x2L;
         }
         requestRebind();
     }
-    
+
     @Override
     public boolean hasPendingBindings() {
         synchronized(this) {
@@ -59,7 +61,7 @@ public class FragmentPaymentBinding extends android.databinding.ViewDataBinding 
         }
         return false;
     }
-    
+
     public boolean setVariable(int variableId, Object variable) {
         switch(variableId) {
             case BR.listener :
@@ -68,25 +70,26 @@ public class FragmentPaymentBinding extends android.databinding.ViewDataBinding 
         }
         return false;
     }
-    
+
     public void setListener(youdrive.today.fragments.PaymentDialogFragment listener) {
         this.mListener = listener;
         synchronized(this) {
             mDirtyFlags |= 0x1L;
         }
+        notifyPropertyChanged(BR.listener);
         super.requestRebind();
     }
     public youdrive.today.fragments.PaymentDialogFragment getListener() {
         return mListener;
     }
-    
+
     @Override
     protected boolean onFieldChange(int localFieldId, Object object, int fieldId) {
         switch (localFieldId) {
         }
         return false;
     }
-    
+
     @Override
     protected void executeBindings() {
         long dirtyFlags = 0;
@@ -96,19 +99,20 @@ public class FragmentPaymentBinding extends android.databinding.ViewDataBinding 
         }
         youdrive.today.fragments.PaymentDialogFragment listener = mListener;
         android.view.View.OnClickListener androidViewViewOnCli = null;
-    
+
         if ((dirtyFlags & 0x3L) != 0) {
-            // read listener~
-            listener = listener;
-        
-            if (listener != null) {
-                // read android.view.View.OnClickListener~listener~~onPay
-                androidViewViewOnCli = (((mAndroidViewViewOnCl == null) ? (mAndroidViewViewOnCl = new OnClickListenerImpl()) : mAndroidViewViewOnCl).setValue(listener));
-            }
+
+
+
+                if (listener != null) {
+                    // read listener::onPay
+                    androidViewViewOnCli = (((mAndroidViewViewOnCl == null) ? (mAndroidViewViewOnCl = new OnClickListenerImpl()) : mAndroidViewViewOnCl).setValue(listener));
+                }
         }
         // batch finished
         if ((dirtyFlags & 0x3L) != 0) {
             // api target 1
+
             this.btnPay.setOnClickListener(androidViewViewOnCli);
         }
     }
@@ -124,9 +128,10 @@ public class FragmentPaymentBinding extends android.databinding.ViewDataBinding 
             this.value.onPay(arg0);
         }
     }
+    // callback impls
     // dirty flag
     private  long mDirtyFlags = 0xffffffffffffffffL;
-    
+
     public static FragmentPaymentBinding inflate(android.view.LayoutInflater inflater, android.view.ViewGroup root, boolean attachToRoot) {
         return inflate(inflater, root, attachToRoot, android.databinding.DataBindingUtil.getDefaultComponent());
     }
@@ -148,9 +153,9 @@ public class FragmentPaymentBinding extends android.databinding.ViewDataBinding 
         }
         return new FragmentPaymentBinding(bindingComponent, view);
     }
-}
     /* flag mapping
-        flag 0: listener~
-        flag 1: INVALIDATE ANY
+        flag 0 (0x1L): listener
+        flag 1 (0x2L): null
     flag mapping end*/
     //end
+}

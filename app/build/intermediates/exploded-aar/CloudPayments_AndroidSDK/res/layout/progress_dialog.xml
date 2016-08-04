@@ -30,4 +30,4 @@
             android:text="@string/please_wait" />
 
     </LinearLayout>
-</FrameLayout><!-- From: file:/E:/Projects/CloudPayments/cloudpayments.android/sdk/CloudPayments_AndroidSDK/res/layout/progress_dialog.xml -->
+</FrameLayout><!-- From: file:/E:/Projects/CloudPayments/cloudpayments.android.release/sdk/CloudPayments_AndroidSDK/res/layout/progress_dialog.xml -->

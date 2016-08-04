@@ -2,8 +2,8 @@ package youdrive.today.databinding;
 import youdrive.today.R;
 import youdrive.today.BR;
 import android.view.View;
-public class ItemImageBinding extends android.databinding.ViewDataBinding {
-    
+public class ItemImageBinding extends android.databinding.ViewDataBinding  {
+
     private static final android.databinding.ViewDataBinding.IncludedLayouts sIncludes;
     private static final android.util.SparseIntArray sViewsWithIds;
     static {
@@ -19,7 +19,8 @@ public class ItemImageBinding extends android.databinding.ViewDataBinding {
     // variables
     // values
     // listeners
-    
+    // Inverse Binding Event Handlers
+
     public ItemImageBinding(android.databinding.DataBindingComponent bindingComponent, View root) {
         super(bindingComponent, root, 0);
         final Object[] bindings = mapBindings(bindingComponent, root, 3, sIncludes, sViewsWithIds);
@@ -28,17 +29,18 @@ public class ItemImageBinding extends android.databinding.ViewDataBinding {
         this.mboundView0.setTag(null);
         this.pbLoading = (android.widget.ProgressBar) bindings[2];
         setRootTag(root);
+        // listeners
         invalidateAll();
     }
-    
+
     @Override
     public void invalidateAll() {
         synchronized(this) {
-            mDirtyFlags = 0x1L;
+                mDirtyFlags = 0x1L;
         }
         requestRebind();
     }
-    
+
     @Override
     public boolean hasPendingBindings() {
         synchronized(this) {
@@ -48,20 +50,20 @@ public class ItemImageBinding extends android.databinding.ViewDataBinding {
         }
         return false;
     }
-    
+
     public boolean setVariable(int variableId, Object variable) {
         switch(variableId) {
         }
         return false;
     }
-    
+
     @Override
     protected boolean onFieldChange(int localFieldId, Object object, int fieldId) {
         switch (localFieldId) {
         }
         return false;
     }
-    
+
     @Override
     protected void executeBindings() {
         long dirtyFlags = 0;
@@ -72,9 +74,10 @@ public class ItemImageBinding extends android.databinding.ViewDataBinding {
         // batch finished
     }
     // Listener Stub Implementations
+    // callback impls
     // dirty flag
     private  long mDirtyFlags = 0xffffffffffffffffL;
-    
+
     public static ItemImageBinding inflate(android.view.LayoutInflater inflater, android.view.ViewGroup root, boolean attachToRoot) {
         return inflate(inflater, root, attachToRoot, android.databinding.DataBindingUtil.getDefaultComponent());
     }
@@ -96,8 +99,8 @@ public class ItemImageBinding extends android.databinding.ViewDataBinding {
         }
         return new ItemImageBinding(bindingComponent, view);
     }
-}
     /* flag mapping
-        flag 0: INVALIDATE ANY
+        flag 0 (0x1L): null
     flag mapping end*/
     //end
+}

@@ -2,8 +2,8 @@ package youdrive.today.databinding;
 import youdrive.today.R;
 import youdrive.today.BR;
 import android.view.View;
-public class FragmentAboutFirstBinding extends android.databinding.ViewDataBinding {
-    
+public class FragmentAboutFirstBinding extends android.databinding.ViewDataBinding  {
+
     private static final android.databinding.ViewDataBinding.IncludedLayouts sIncludes;
     private static final android.util.SparseIntArray sViewsWithIds;
     static {
@@ -15,24 +15,26 @@ public class FragmentAboutFirstBinding extends android.databinding.ViewDataBindi
     // variables
     // values
     // listeners
-    
+    // Inverse Binding Event Handlers
+
     public FragmentAboutFirstBinding(android.databinding.DataBindingComponent bindingComponent, View root) {
         super(bindingComponent, root, 0);
         final Object[] bindings = mapBindings(bindingComponent, root, 1, sIncludes, sViewsWithIds);
         this.mboundView0 = (android.widget.LinearLayout) bindings[0];
         this.mboundView0.setTag(null);
         setRootTag(root);
+        // listeners
         invalidateAll();
     }
-    
+
     @Override
     public void invalidateAll() {
         synchronized(this) {
-            mDirtyFlags = 0x1L;
+                mDirtyFlags = 0x1L;
         }
         requestRebind();
     }
-    
+
     @Override
     public boolean hasPendingBindings() {
         synchronized(this) {
@@ -42,20 +44,20 @@ public class FragmentAboutFirstBinding extends android.databinding.ViewDataBindi
         }
         return false;
     }
-    
+
     public boolean setVariable(int variableId, Object variable) {
         switch(variableId) {
         }
         return false;
     }
-    
+
     @Override
     protected boolean onFieldChange(int localFieldId, Object object, int fieldId) {
         switch (localFieldId) {
         }
         return false;
     }
-    
+
     @Override
     protected void executeBindings() {
         long dirtyFlags = 0;
@@ -66,9 +68,10 @@ public class FragmentAboutFirstBinding extends android.databinding.ViewDataBindi
         // batch finished
     }
     // Listener Stub Implementations
+    // callback impls
     // dirty flag
     private  long mDirtyFlags = 0xffffffffffffffffL;
-    
+
     public static FragmentAboutFirstBinding inflate(android.view.LayoutInflater inflater, android.view.ViewGroup root, boolean attachToRoot) {
         return inflate(inflater, root, attachToRoot, android.databinding.DataBindingUtil.getDefaultComponent());
     }
@@ -90,8 +93,8 @@ public class FragmentAboutFirstBinding extends android.databinding.ViewDataBindi
         }
         return new FragmentAboutFirstBinding(bindingComponent, view);
     }
-}
     /* flag mapping
-        flag 0: INVALIDATE ANY
+        flag 0 (0x1L): null
     flag mapping end*/
     //end
+}

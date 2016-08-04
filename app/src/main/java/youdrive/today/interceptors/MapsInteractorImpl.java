@@ -15,7 +15,9 @@ import youdrive.today.models.ReferralRules;
 import youdrive.today.models.Status;
 import youdrive.today.network.ApiClient;
 import youdrive.today.response.CarResponse;
+import youdrive.today.response.PayoffResponse;
 import youdrive.today.response.PolygonResponse;
+import youdrive.today.response.UserProfileResponse;
 
 public class MapsInteractorImpl implements MapsInteractor {
 
@@ -47,10 +49,11 @@ public class MapsInteractorImpl implements MapsInteractor {
 
         if (response.isSuccess()) {
 
+            listener.onStatus(Status.fromString(response.getStatus()));
+
             if (response.getCars() != null) listener.onCars(response.getCars());
             else if (response.getCar() != null) listener.onCar(response.getCar());
 
-            listener.onStatus(Status.fromString(response.getStatus()));
 
             if (response.getCheck() != null) listener.onCheck(response.getCheck());
 
@@ -81,6 +84,47 @@ public class MapsInteractorImpl implements MapsInteractor {
             listener.onPolygonFailed();
         }
     }
+
+    @Override
+    public void getUserProfile(final MapsActionListener listener) {
+        subscriptions.add(mApiClient
+                .getUserProfile()
+                .retry(3)
+                .timeout(5, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> onGetUserProfile(response, listener),
+                        error -> handleNetworkError(error, listener)));
+    }
+
+    private void onGetUserProfile(UserProfileResponse response, MapsActionListener listener) {
+        if (response.isSuccess()) {
+            listener.onUserProfileSuccess(response);
+        } else {
+            handlingError(new ApiError(response.getCode(), response.getText()), listener);
+        }
+    }
+
+    @Override
+    public void payoff(final MapsActionListener listener) {
+        subscriptions.add(mApiClient
+                .payoff()
+                .retry(3)
+                .timeout(5, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> onPayoff(response, listener),
+                        error -> handleNetworkError(error, listener)));
+    }
+
+    private void onPayoff(PayoffResponse response, MapsActionListener listener) {
+        if (response.isSuccess()) {
+            listener.onPayoffSuccess(response);
+        } else {
+            handlingError(new ApiError(response.getCode(), response.getText()), listener);
+        }
+    }
+
 
     @Override
     public void getStatusCars(final double lat, final double lon, final MapsActionListener listener) {
@@ -153,5 +197,10 @@ public class MapsInteractorImpl implements MapsInteractor {
 
     public Subscription getSubscription() {
         return subscriptions;
+    }
+
+    public void clearSubscriptions() {
+        subscriptions.unsubscribe();
+        subscriptions = new CompositeSubscription();
     }
 }

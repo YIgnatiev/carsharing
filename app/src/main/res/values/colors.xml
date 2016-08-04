@@ -2,8 +2,9 @@
 <resources>
     <color name="translucent_white">#AAFFFFFF</color>
     <color name="white">#FFFFFF</color>
-    <color name="main">#00DEAC</color>
+
     <color name="maintransparent">#8000deac</color>
+    <color name="main">#00b764</color>
 
     <color name="hint">#CCCCCC</color>
     <color name="error">#FF98C0</color>

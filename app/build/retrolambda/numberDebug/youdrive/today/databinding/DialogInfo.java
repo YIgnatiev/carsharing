@@ -2,8 +2,8 @@ package youdrive.today.databinding;
 import youdrive.today.R;
 import youdrive.today.BR;
 import android.view.View;
-public class DialogInfo extends android.databinding.ViewDataBinding {
-    
+public class DialogInfo extends android.databinding.ViewDataBinding  {
+
     private static final android.databinding.ViewDataBinding.IncludedLayouts sIncludes;
     private static final android.util.SparseIntArray sViewsWithIds;
     static {
@@ -29,7 +29,8 @@ public class DialogInfo extends android.databinding.ViewDataBinding {
     // values
     // listeners
     private OnClickListenerImpl mAndroidViewViewOnCl;
-    
+    // Inverse Binding Event Handlers
+
     public DialogInfo(android.databinding.DataBindingComponent bindingComponent, View root) {
         super(bindingComponent, root, 0);
         final Object[] bindings = mapBindings(bindingComponent, root, 12, sIncludes, sViewsWithIds);
@@ -58,17 +59,18 @@ public class DialogInfo extends android.databinding.ViewDataBinding {
         this.txtType = (android.widget.TextView) bindings[4];
         this.txtType.setTag(null);
         setRootTag(root);
+        // listeners
         invalidateAll();
     }
-    
+
     @Override
     public void invalidateAll() {
         synchronized(this) {
-            mDirtyFlags = 0x4L;
+                mDirtyFlags = 0x4L;
         }
         requestRebind();
     }
-    
+
     @Override
     public boolean hasPendingBindings() {
         synchronized(this) {
@@ -78,7 +80,7 @@ public class DialogInfo extends android.databinding.ViewDataBinding {
         }
         return false;
     }
-    
+
     public boolean setVariable(int variableId, Object variable) {
         switch(variableId) {
             case BR.car :
@@ -90,12 +92,13 @@ public class DialogInfo extends android.databinding.ViewDataBinding {
         }
         return false;
     }
-    
+
     public void setCar(youdrive.today.models.Car car) {
         this.mCar = car;
         synchronized(this) {
             mDirtyFlags |= 0x1L;
         }
+        notifyPropertyChanged(BR.car);
         super.requestRebind();
     }
     public youdrive.today.models.Car getCar() {
@@ -106,19 +109,20 @@ public class DialogInfo extends android.databinding.ViewDataBinding {
         synchronized(this) {
             mDirtyFlags |= 0x2L;
         }
+        notifyPropertyChanged(BR.activity);
         super.requestRebind();
     }
     public youdrive.today.activities.MapsActivity getActivity() {
         return mActivity;
     }
-    
+
     @Override
     protected boolean onFieldChange(int localFieldId, Object object, int fieldId) {
         switch (localFieldId) {
         }
         return false;
     }
-    
+
     @Override
     protected void executeBindings() {
         long dirtyFlags = 0;
@@ -129,157 +133,167 @@ public class DialogInfo extends android.databinding.ViewDataBinding {
         youdrive.today.models.Car car = mCar;
         int parkingTariffCar = 0;
         int carGetDiscountCar = 0;
-        long SECONDSTimeUnitToMin = 0L;
-        java.lang.String FuelCarObjectnullAnd = null;
+        long sECONDSTimeUnitToMin = 0L;
         youdrive.today.models.Tariff tariffCar = null;
         java.lang.String transmissionCar = null;
-        boolean NumberCarObjectnull = false;
+        boolean numberCarObjectnull = false;
         int usageTariffCar = 0;
-        boolean CarGetDiscountCarInt = false;
+        boolean carGetDiscountCarInt = false;
         java.lang.String idCar = null;
         java.lang.String SECONDSTimeUnitToMin1 = null;
-        java.lang.String AppUtilsToKmAppUtils = null;
+        java.lang.String appUtilsToKmAppUtils = null;
         int walktimeCar = 0;
         java.lang.Integer fuelCar = null;
         android.view.View.OnClickListener androidViewViewOnCli = null;
         java.lang.String activityConvertRubPe = null;
-        java.lang.String fuelCarStringLitr = null;
         youdrive.today.activities.MapsActivity activity = mActivity;
         java.lang.String modelCar = null;
         java.lang.String activityConvertRubPe1 = null;
-        java.lang.String StringCarGetDiscount = null;
+        java.lang.String stringCarGetDiscount = null;
+        java.lang.String fuelCarString = null;
         int CarGetDiscountCarInt1 = 0;
-        boolean FuelCarObjectnull = false;
+        boolean fuelCarObjectnull = false;
         java.lang.String StringCarGetDiscount1 = null;
         int distanceCar = 0;
         java.lang.String numberCar = null;
-        java.lang.String NumberCarObjectnullS = null;
-    
+        java.lang.String numberCarObjectnullS = null;
+        java.lang.String fuelCarObjectnullAnd = null;
+
         if ((dirtyFlags & 0x7L) != 0) {
-            // read car~
-            car = car;
-            // read activity~
-            activity = activity;
-        
+
+
             if ((dirtyFlags & 0x5L) != 0) {
+
+                    if (car != null) {
+                        // read car.getDiscount()
+                        carGetDiscountCar = car.getDiscount();
+                        // read car.transmission
+                        transmissionCar = car.getTransmission();
+                        // read car.id
+                        idCar = car.getId();
+                        // read car.walktime
+                        walktimeCar = car.getWalktime();
+                        // read car.fuel
+                        fuelCar = car.getFuel();
+                        // read car.model
+                        modelCar = car.getModel();
+                        // read car.distance
+                        distanceCar = car.getDistance();
+                        // read car.number
+                        numberCar = car.getNumber();
+                    }
+
+
+                    // read car.getDiscount() == 0
+                    carGetDiscountCarInt = (carGetDiscountCar) == (0);
+                    // read ("-") + (car.getDiscount())
+                    StringCarGetDiscount1 = ("-") + (carGetDiscountCar);
+                    // read TimeUnit.SECONDS.toMinutes(car.walktime)
+                    sECONDSTimeUnitToMin = java.util.concurrent.TimeUnit.SECONDS.toMinutes(walktimeCar);
+                    // read car.fuel == null
+                    fuelCarObjectnull = (fuelCar) == (null);
+                    // read AppUtils.toKm(car.distance)
+                    appUtilsToKmAppUtils = youdrive.today.helpers.AppUtils.toKm(distanceCar);
+                    // read car.number == null
+                    numberCarObjectnull = (numberCar) == (null);
+                    if((dirtyFlags & 0x5L) != 0) {
+                        if (carGetDiscountCarInt) {
+                            dirtyFlags |= 0x10L;
+                        } else {
+                            dirtyFlags |= 0x8L;
+                        }}
+                    if((dirtyFlags & 0x5L) != 0) {
+                        if (fuelCarObjectnull) {
+                            dirtyFlags |= 0x100L;
+                        } else {
+                            dirtyFlags |= 0x80L;
+                        }}
+                    if((dirtyFlags & 0x5L) != 0) {
+                        if (numberCarObjectnull) {
+                            dirtyFlags |= 0x40L;
+                        } else {
+                            dirtyFlags |= 0x20L;
+                        }}
+
+
+                    // read car.getDiscount() == 0 ? View.GONE : View.VISIBLE
+                    CarGetDiscountCarInt1 = (carGetDiscountCarInt) ? (android.view.View.GONE) : (android.view.View.VISIBLE);
+                    // read (("-") + (car.getDiscount())) + ("%")
+                    stringCarGetDiscount = (StringCarGetDiscount1) + ("%");
+                    // read (TimeUnit.SECONDS.toMinutes(car.walktime)) + (" min.")
+                    SECONDSTimeUnitToMin1 = (sECONDSTimeUnitToMin) + (" min.");
+            }
+
                 if (car != null) {
-                    // read car~~getDiscount~car~
-                    carGetDiscountCar = car.getDiscount();
-                    // read transmission~.~car~
-                    transmissionCar = car.getTransmission();
-                    // read id~.~car~
-                    idCar = car.getId();
-                    // read walktime~.~car~
-                    walktimeCar = car.getWalktime();
-                    // read fuel~.~car~
-                    fuelCar = car.getFuel();
-                    // read model~.~car~
-                    modelCar = car.getModel();
-                    // read distance~.~car~
-                    distanceCar = car.getDistance();
-                    // read number~.~car~
-                    numberCar = car.getNumber();
+                    // read car.tariff
+                    tariffCar = car.getTariff();
                 }
-            
-                // read ==~car~~getDiscount~car~~int0
-                CarGetDiscountCarInt = carGetDiscountCar==0;
-                // read String"-"~+~car~~getDiscount~car~
-                StringCarGetDiscount1 = "-"+carGetDiscountCar;
-                // read SECONDS~.~TimeUnit~~toMinutes~SECONDS~.~TimeUnit~~walktime~.~car~
-                SECONDSTimeUnitToMin = java.util.concurrent.TimeUnit.SECONDS.toMinutes(walktimeCar);
-                // read ==~fuel~.~car~~Objectnull
-                FuelCarObjectnull = fuelCar==null;
-                // read AppUtils~~toKm~AppUtils~~distance~.~car~
-                AppUtilsToKmAppUtils = youdrive.today.helpers.AppUtils.toKm(distanceCar);
-                // read ==~number~.~car~~Objectnull
-                NumberCarObjectnull = numberCar==null;
-                if((dirtyFlags & 0x5L) != 0) {
-                    if (CarGetDiscountCarInt) {
-                        dirtyFlags |= 0x40L;
-                    } else {
-                        dirtyFlags |= 0x20L;
-                    }}
-                if((dirtyFlags & 0x5L) != 0) {
-                    if (FuelCarObjectnull) {
-                        dirtyFlags |= 0x10L;
-                    } else {
-                        dirtyFlags |= 0x8L;
-                    }}
-                if((dirtyFlags & 0x5L) != 0) {
-                    if (NumberCarObjectnull) {
-                        dirtyFlags |= 0x100L;
-                    } else {
-                        dirtyFlags |= 0x80L;
-                    }}
-            
-                // read ?:==~car~~getDiscount~car~~int0~GONE~.~View~~VISIBLE~.~View~
-                CarGetDiscountCarInt1 = CarGetDiscountCarInt ? android.view.View.GONE : android.view.View.VISIBLE;
-                // read String"-"~+~car~~getDiscount~car~~+~String"%"
-                StringCarGetDiscount = StringCarGetDiscount1+"%";
-                // read SECONDS~.~TimeUnit~~toMinutes~SECONDS~.~TimeUnit~~walktime~.~car~~+~String" min."
-                SECONDSTimeUnitToMin1 = SECONDSTimeUnitToMin+" min.";
-            }
-            if (car != null) {
-                // read tariff~.~car~
-                tariffCar = car.getTariff();
-            }
-        
-            if (tariffCar != null) {
-                // read parking~.~tariff~.~car~
-                parkingTariffCar = tariffCar.getParking();
-                // read usage~.~tariff~.~car~
-                usageTariffCar = tariffCar.getUsage();
-            }
-        
-            if (activity != null) {
-                // read activity~~convertRubPerMin~activity~~parking~.~tariff~.~car~
-                activityConvertRubPe1 = activity.convertRubPerMin(parkingTariffCar);
-                // read activity~~convertRubPerMin~activity~~usage~.~tariff~.~car~
-                activityConvertRubPe = activity.convertRubPerMin(usageTariffCar);
-            }
-            if ((dirtyFlags & 0x6L) != 0) {
+
+
+                if (tariffCar != null) {
+                    // read car.tariff.parking
+                    parkingTariffCar = tariffCar.getParking();
+                    // read car.tariff.usage
+                    usageTariffCar = tariffCar.getUsage();
+                }
+
+
                 if (activity != null) {
-                    // read android.view.View.OnClickListener~activity~~onBookClicked
-                    androidViewViewOnCli = (((mAndroidViewViewOnCl == null) ? (mAndroidViewViewOnCl = new OnClickListenerImpl()) : mAndroidViewViewOnCl).setValue(activity));
+                    // read activity.convertRubPerMin(car.tariff.parking)
+                    activityConvertRubPe1 = activity.convertRubPerMin(parkingTariffCar);
+                    // read activity.convertRubPerMin(car.tariff.usage)
+                    activityConvertRubPe = activity.convertRubPerMin(usageTariffCar);
                 }
+            if ((dirtyFlags & 0x6L) != 0) {
+
+                    if (activity != null) {
+                        // read activity::onBookClicked
+                        androidViewViewOnCli = (((mAndroidViewViewOnCl == null) ? (mAndroidViewViewOnCl = new OnClickListenerImpl()) : mAndroidViewViewOnCl).setValue(activity));
+                    }
             }
         }
         // batch finished
-    
-        if ((dirtyFlags & 0x8L) != 0) {
-            // read fuel~.~car~~+~String" litr"
-            fuelCarStringLitr = fuelCar+" litr";
+
+        if ((dirtyFlags & 0x80L) != 0) {
+
+                // read (car.fuel) + (" %")
+                fuelCarString = (fuelCar) + (" %");
         }
         if ((dirtyFlags & 0x5L) != 0) {
-            // read ?:==~number~.~car~~Objectnull~String"unknown"~number~.~car~
-            NumberCarObjectnullS = NumberCarObjectnull ? "unknown" : numberCar;
+
+                // read car.number == null ? "unknown" : car.number
+                numberCarObjectnullS = (numberCarObjectnull) ? ("unknown") : (numberCar);
         }
-    
+
         if ((dirtyFlags & 0x5L) != 0) {
-            // read ?:==~fuel~.~car~~Objectnull~@android:string/unknown~~fuel~.~car~~+~String" litr"
-            FuelCarObjectnullAnd = FuelCarObjectnull ? getRoot().getResources().getString(R.string.unknown) : fuelCarStringLitr;
+
+                // read car.fuel == null ? @android:string/unknown : (car.fuel) + (" %")
+                fuelCarObjectnullAnd = (fuelCarObjectnull) ? (getRoot().getResources().getString(R.string.unknown)) : (fuelCarString);
         }
         // batch finished
         if ((dirtyFlags & 0x6L) != 0) {
             // api target 1
+
             this.btnBook.setOnClickListener(androidViewViewOnCli);
         }
         if ((dirtyFlags & 0x5L) != 0) {
             // api target 1
+
             this.btnBook.setTag(idCar);
-            this.mboundView10.setText(StringCarGetDiscount);
+            android.databinding.adapters.TextViewBindingAdapter.setText(this.mboundView10, stringCarGetDiscount);
             this.mboundView9.setVisibility(CarGetDiscountCarInt1);
-            this.txtDistance.setText(AppUtilsToKmAppUtils);
-            this.txtFuel.setText(FuelCarObjectnullAnd);
-            this.txtModel.setText(modelCar);
-            this.txtNumber.setText(NumberCarObjectnullS);
-            this.txtTimeTo.setText(SECONDSTimeUnitToMin1);
-            this.txtType.setText(transmissionCar);
+            android.databinding.adapters.TextViewBindingAdapter.setText(this.txtDistance, appUtilsToKmAppUtils);
+            android.databinding.adapters.TextViewBindingAdapter.setText(this.txtFuel, fuelCarObjectnullAnd);
+            android.databinding.adapters.TextViewBindingAdapter.setText(this.txtModel, modelCar);
+            android.databinding.adapters.TextViewBindingAdapter.setText(this.txtNumber, numberCarObjectnullS);
+            android.databinding.adapters.TextViewBindingAdapter.setText(this.txtTimeTo, SECONDSTimeUnitToMin1);
+            android.databinding.adapters.TextViewBindingAdapter.setText(this.txtType, transmissionCar);
         }
         if ((dirtyFlags & 0x7L) != 0) {
             // api target 1
-            this.txtTaxDrive.setText(activityConvertRubPe);
-            this.txtTaxPark.setText(activityConvertRubPe1);
+
+            android.databinding.adapters.TextViewBindingAdapter.setText(this.txtTaxDrive, activityConvertRubPe);
+            android.databinding.adapters.TextViewBindingAdapter.setText(this.txtTaxPark, activityConvertRubPe1);
         }
     }
     // Listener Stub Implementations
@@ -294,9 +308,10 @@ public class DialogInfo extends android.databinding.ViewDataBinding {
             this.value.onBookClicked(arg0);
         }
     }
+    // callback impls
     // dirty flag
     private  long mDirtyFlags = 0xffffffffffffffffL;
-    
+
     public static DialogInfo inflate(android.view.LayoutInflater inflater, android.view.ViewGroup root, boolean attachToRoot) {
         return inflate(inflater, root, attachToRoot, android.databinding.DataBindingUtil.getDefaultComponent());
     }
@@ -318,16 +333,16 @@ public class DialogInfo extends android.databinding.ViewDataBinding {
         }
         return new DialogInfo(bindingComponent, view);
     }
-}
     /* flag mapping
-        flag 0: car~
-        flag 1: activity~
-        flag 2: INVALIDATE ANY
-        flag 3: ?:==~fuel~.~car~~Objectnull~@android:string/unknown~~fuel~.~car~~+~String" litr"== false
-        flag 4: ?:==~fuel~.~car~~Objectnull~@android:string/unknown~~fuel~.~car~~+~String" litr"== true
-        flag 5: ?:==~car~~getDiscount~car~~int0~GONE~.~View~~VISIBLE~.~View~== false
-        flag 6: ?:==~car~~getDiscount~car~~int0~GONE~.~View~~VISIBLE~.~View~== true
-        flag 7: ?:==~number~.~car~~Objectnull~String"unknown"~number~.~car~== false
-        flag 8: ?:==~number~.~car~~Objectnull~String"unknown"~number~.~car~== true
+        flag 0 (0x1L): car
+        flag 1 (0x2L): activity
+        flag 2 (0x3L): null
+        flag 3 (0x4L): car.getDiscount() == 0 ? View.GONE : View.VISIBLE
+        flag 4 (0x5L): car.getDiscount() == 0 ? View.GONE : View.VISIBLE
+        flag 5 (0x6L): car.number == null ? "unknown" : car.number
+        flag 6 (0x7L): car.number == null ? "unknown" : car.number
+        flag 7 (0x8L): car.fuel == null ? @android:string/unknown : (car.fuel) + (" %")
+        flag 8 (0x9L): car.fuel == null ? @android:string/unknown : (car.fuel) + (" %")
     flag mapping end*/
     //end
+}

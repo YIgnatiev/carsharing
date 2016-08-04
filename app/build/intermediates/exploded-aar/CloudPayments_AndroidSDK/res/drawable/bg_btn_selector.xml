@@ -6,4 +6,4 @@
     <item android:state_focused="true"
           android:drawable="@drawable/edit_bg_sltd" /> <!-- focused -->
     <item android:drawable="@drawable/edit_bg" /> <!-- default -->
-</selector><!-- From: file:/E:/Projects/CloudPayments/cloudpayments.android/sdk/CloudPayments_AndroidSDK/res/drawable/bg_btn_selector.xml -->
+</selector><!-- From: file:/E:/Projects/CloudPayments/cloudpayments.android.release/sdk/CloudPayments_AndroidSDK/res/drawable/bg_btn_selector.xml -->

@@ -2,22 +2,23 @@ package youdrive.today.databinding;
 import youdrive.today.R;
 import youdrive.today.BR;
 import android.view.View;
-public class DialogCloseCar extends android.databinding.ViewDataBinding {
-    
+public class DialogCloseCar extends android.databinding.ViewDataBinding  {
+
     private static final android.databinding.ViewDataBinding.IncludedLayouts sIncludes;
     private static final android.util.SparseIntArray sViewsWithIds;
     static {
         sIncludes = null;
         sViewsWithIds = new android.util.SparseIntArray();
-        sViewsWithIds.put(R.id.txtTariff, 3);
-        sViewsWithIds.put(R.id.txtPerMin, 4);
-        sViewsWithIds.put(R.id.txtTotalUsage, 5);
-        sViewsWithIds.put(R.id.txtParking, 6);
-        sViewsWithIds.put(R.id.txtTotal, 7);
+        sViewsWithIds.put(R.id.txtTariff, 4);
+        sViewsWithIds.put(R.id.txtPerMin, 5);
+        sViewsWithIds.put(R.id.txtTotalUsage, 6);
+        sViewsWithIds.put(R.id.txtParking, 7);
+        sViewsWithIds.put(R.id.txtTotal, 8);
     }
     // views
     public final com.dd.CircularProgressButton btnCloseOrOpen;
     public final com.dd.CircularProgressButton btnCloseRent;
+    public final com.dd.CircularProgressButton btnNavigate;
     private final android.widget.ScrollView mboundView0;
     public final android.widget.TextView txtParking;
     public final android.widget.TextView txtPerMin;
@@ -30,33 +31,38 @@ public class DialogCloseCar extends android.databinding.ViewDataBinding {
     // listeners
     private OnClickListenerImpl mAndroidViewViewOnCl;
     private OnClickListenerImpl1 mAndroidViewViewOnCl1;
-    
+    private OnClickListenerImpl2 mAndroidViewViewOnCl2;
+    // Inverse Binding Event Handlers
+
     public DialogCloseCar(android.databinding.DataBindingComponent bindingComponent, View root) {
         super(bindingComponent, root, 0);
-        final Object[] bindings = mapBindings(bindingComponent, root, 8, sIncludes, sViewsWithIds);
+        final Object[] bindings = mapBindings(bindingComponent, root, 9, sIncludes, sViewsWithIds);
         this.btnCloseOrOpen = (com.dd.CircularProgressButton) bindings[1];
         this.btnCloseOrOpen.setTag(null);
         this.btnCloseRent = (com.dd.CircularProgressButton) bindings[2];
         this.btnCloseRent.setTag(null);
+        this.btnNavigate = (com.dd.CircularProgressButton) bindings[3];
+        this.btnNavigate.setTag(null);
         this.mboundView0 = (android.widget.ScrollView) bindings[0];
         this.mboundView0.setTag(null);
-        this.txtParking = (android.widget.TextView) bindings[6];
-        this.txtPerMin = (android.widget.TextView) bindings[4];
-        this.txtTariff = (android.widget.TextView) bindings[3];
-        this.txtTotal = (android.widget.TextView) bindings[7];
-        this.txtTotalUsage = (android.widget.TextView) bindings[5];
+        this.txtParking = (android.widget.TextView) bindings[7];
+        this.txtPerMin = (android.widget.TextView) bindings[5];
+        this.txtTariff = (android.widget.TextView) bindings[4];
+        this.txtTotal = (android.widget.TextView) bindings[8];
+        this.txtTotalUsage = (android.widget.TextView) bindings[6];
         setRootTag(root);
+        // listeners
         invalidateAll();
     }
-    
+
     @Override
     public void invalidateAll() {
         synchronized(this) {
-            mDirtyFlags = 0x2L;
+                mDirtyFlags = 0x2L;
         }
         requestRebind();
     }
-    
+
     @Override
     public boolean hasPendingBindings() {
         synchronized(this) {
@@ -66,7 +72,7 @@ public class DialogCloseCar extends android.databinding.ViewDataBinding {
         }
         return false;
     }
-    
+
     public boolean setVariable(int variableId, Object variable) {
         switch(variableId) {
             case BR.listener :
@@ -75,25 +81,26 @@ public class DialogCloseCar extends android.databinding.ViewDataBinding {
         }
         return false;
     }
-    
+
     public void setListener(youdrive.today.activities.MapsActivity listener) {
         this.mListener = listener;
         synchronized(this) {
             mDirtyFlags |= 0x1L;
         }
+        notifyPropertyChanged(BR.listener);
         super.requestRebind();
     }
     public youdrive.today.activities.MapsActivity getListener() {
         return mListener;
     }
-    
+
     @Override
     protected boolean onFieldChange(int localFieldId, Object object, int fieldId) {
         switch (localFieldId) {
         }
         return false;
     }
-    
+
     @Override
     protected void executeBindings() {
         long dirtyFlags = 0;
@@ -104,23 +111,28 @@ public class DialogCloseCar extends android.databinding.ViewDataBinding {
         youdrive.today.activities.MapsActivity listener = mListener;
         android.view.View.OnClickListener androidViewViewOnCli = null;
         android.view.View.OnClickListener androidViewViewOnCli1 = null;
-    
+        android.view.View.OnClickListener androidViewViewOnCli2 = null;
+
         if ((dirtyFlags & 0x3L) != 0) {
-            // read listener~
-            listener = listener;
-        
-            if (listener != null) {
-                // read android.view.View.OnClickListener~listener~~onCloseRent
-                androidViewViewOnCli = (((mAndroidViewViewOnCl == null) ? (mAndroidViewViewOnCl = new OnClickListenerImpl()) : mAndroidViewViewOnCl).setValue(listener));
-                // read android.view.View.OnClickListener~listener~~onCloseOrOpen
-                androidViewViewOnCli1 = (((mAndroidViewViewOnCl1 == null) ? (mAndroidViewViewOnCl1 = new OnClickListenerImpl1()) : mAndroidViewViewOnCl1).setValue(listener));
-            }
+
+
+
+                if (listener != null) {
+                    // read listener::onButtonNavigate
+                    androidViewViewOnCli = (((mAndroidViewViewOnCl == null) ? (mAndroidViewViewOnCl = new OnClickListenerImpl()) : mAndroidViewViewOnCl).setValue(listener));
+                    // read listener::onCloseRent
+                    androidViewViewOnCli1 = (((mAndroidViewViewOnCl1 == null) ? (mAndroidViewViewOnCl1 = new OnClickListenerImpl1()) : mAndroidViewViewOnCl1).setValue(listener));
+                    // read listener::onCloseOrOpen
+                    androidViewViewOnCli2 = (((mAndroidViewViewOnCl2 == null) ? (mAndroidViewViewOnCl2 = new OnClickListenerImpl2()) : mAndroidViewViewOnCl2).setValue(listener));
+                }
         }
         // batch finished
         if ((dirtyFlags & 0x3L) != 0) {
             // api target 1
-            this.btnCloseOrOpen.setOnClickListener(androidViewViewOnCli1);
-            this.btnCloseRent.setOnClickListener(androidViewViewOnCli);
+
+            this.btnCloseOrOpen.setOnClickListener(androidViewViewOnCli2);
+            this.btnCloseRent.setOnClickListener(androidViewViewOnCli1);
+            this.btnNavigate.setOnClickListener(androidViewViewOnCli);
         }
     }
     // Listener Stub Implementations
@@ -132,7 +144,7 @@ public class DialogCloseCar extends android.databinding.ViewDataBinding {
         }
         @Override
         public void onClick(android.view.View arg0) {
-            this.value.onCloseRent(arg0);
+            this.value.onButtonNavigate(arg0);
         }
     }
     public static class OnClickListenerImpl1 implements android.view.View.OnClickListener{
@@ -143,12 +155,24 @@ public class DialogCloseCar extends android.databinding.ViewDataBinding {
         }
         @Override
         public void onClick(android.view.View arg0) {
+            this.value.onCloseRent(arg0);
+        }
+    }
+    public static class OnClickListenerImpl2 implements android.view.View.OnClickListener{
+        private youdrive.today.activities.MapsActivity value;
+        public OnClickListenerImpl2 setValue(youdrive.today.activities.MapsActivity value) {
+            this.value = value;
+            return value == null ? null : this;
+        }
+        @Override
+        public void onClick(android.view.View arg0) {
             this.value.onCloseOrOpen(arg0);
         }
     }
+    // callback impls
     // dirty flag
     private  long mDirtyFlags = 0xffffffffffffffffL;
-    
+
     public static DialogCloseCar inflate(android.view.LayoutInflater inflater, android.view.ViewGroup root, boolean attachToRoot) {
         return inflate(inflater, root, attachToRoot, android.databinding.DataBindingUtil.getDefaultComponent());
     }
@@ -170,9 +194,9 @@ public class DialogCloseCar extends android.databinding.ViewDataBinding {
         }
         return new DialogCloseCar(bindingComponent, view);
     }
-}
     /* flag mapping
-        flag 0: listener~
-        flag 1: INVALIDATE ANY
+        flag 0 (0x1L): listener
+        flag 1 (0x2L): null
     flag mapping end*/
     //end
+}

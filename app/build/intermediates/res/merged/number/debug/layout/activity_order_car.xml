@@ -19,7 +19,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#c824ddad"/>
+        android:background="@color/main"/>
     <LinearLayout
         android:orientation="vertical"
         android:layout_below="@id/toolbar"

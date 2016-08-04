@@ -2,8 +2,8 @@ package youdrive.today.databinding;
 import youdrive.today.R;
 import youdrive.today.BR;
 import android.view.View;
-public class FragmentRegisterPaymentsBinding extends android.databinding.ViewDataBinding {
-    
+public class FragmentRegisterPaymentsBinding extends android.databinding.ViewDataBinding  {
+
     private static final android.databinding.ViewDataBinding.IncludedLayouts sIncludes;
     private static final android.util.SparseIntArray sViewsWithIds;
     static {
@@ -26,7 +26,8 @@ public class FragmentRegisterPaymentsBinding extends android.databinding.ViewDat
     private OnClickListenerImpl mAndroidViewViewOnCl;
     private OnClickListenerImpl1 mAndroidViewViewOnCl1;
     private OnClickListenerImpl2 mAndroidViewViewOnCl2;
-    
+    // Inverse Binding Event Handlers
+
     public FragmentRegisterPaymentsBinding(android.databinding.DataBindingComponent bindingComponent, View root) {
         super(bindingComponent, root, 0);
         final Object[] bindings = mapBindings(bindingComponent, root, 6, sIncludes, sViewsWithIds);
@@ -41,17 +42,18 @@ public class FragmentRegisterPaymentsBinding extends android.databinding.ViewDat
         this.tvReady.setTag(null);
         this.wvPayment = (android.webkit.WebView) bindings[5];
         setRootTag(root);
+        // listeners
         invalidateAll();
     }
-    
+
     @Override
     public void invalidateAll() {
         synchronized(this) {
-            mDirtyFlags = 0x2L;
+                mDirtyFlags = 0x2L;
         }
         requestRebind();
     }
-    
+
     @Override
     public boolean hasPendingBindings() {
         synchronized(this) {
@@ -61,7 +63,7 @@ public class FragmentRegisterPaymentsBinding extends android.databinding.ViewDat
         }
         return false;
     }
-    
+
     public boolean setVariable(int variableId, Object variable) {
         switch(variableId) {
             case BR.listener :
@@ -70,25 +72,26 @@ public class FragmentRegisterPaymentsBinding extends android.databinding.ViewDat
         }
         return false;
     }
-    
+
     public void setListener(youdrive.today.fragments.RegisterPaymentsFragment listener) {
         this.mListener = listener;
         synchronized(this) {
             mDirtyFlags |= 0x1L;
         }
+        notifyPropertyChanged(BR.listener);
         super.requestRebind();
     }
     public youdrive.today.fragments.RegisterPaymentsFragment getListener() {
         return mListener;
     }
-    
+
     @Override
     protected boolean onFieldChange(int localFieldId, Object object, int fieldId) {
         switch (localFieldId) {
         }
         return false;
     }
-    
+
     @Override
     protected void executeBindings() {
         long dirtyFlags = 0;
@@ -100,23 +103,24 @@ public class FragmentRegisterPaymentsBinding extends android.databinding.ViewDat
         android.view.View.OnClickListener androidViewViewOnCli = null;
         android.view.View.OnClickListener androidViewViewOnCli1 = null;
         android.view.View.OnClickListener androidViewViewOnCli2 = null;
-    
+
         if ((dirtyFlags & 0x3L) != 0) {
-            // read listener~
-            listener = listener;
-        
-            if (listener != null) {
-                // read android.view.View.OnClickListener~listener~~onBack
-                androidViewViewOnCli = (((mAndroidViewViewOnCl == null) ? (mAndroidViewViewOnCl = new OnClickListenerImpl()) : mAndroidViewViewOnCl).setValue(listener));
-                // read android.view.View.OnClickListener~listener~~onCardLink
-                androidViewViewOnCli1 = (((mAndroidViewViewOnCl1 == null) ? (mAndroidViewViewOnCl1 = new OnClickListenerImpl1()) : mAndroidViewViewOnCl1).setValue(listener));
-                // read android.view.View.OnClickListener~listener~~onForvard
-                androidViewViewOnCli2 = (((mAndroidViewViewOnCl2 == null) ? (mAndroidViewViewOnCl2 = new OnClickListenerImpl2()) : mAndroidViewViewOnCl2).setValue(listener));
-            }
+
+
+
+                if (listener != null) {
+                    // read listener::onBack
+                    androidViewViewOnCli = (((mAndroidViewViewOnCl == null) ? (mAndroidViewViewOnCl = new OnClickListenerImpl()) : mAndroidViewViewOnCl).setValue(listener));
+                    // read listener::onCardLink
+                    androidViewViewOnCli1 = (((mAndroidViewViewOnCl1 == null) ? (mAndroidViewViewOnCl1 = new OnClickListenerImpl1()) : mAndroidViewViewOnCl1).setValue(listener));
+                    // read listener::onForvard
+                    androidViewViewOnCli2 = (((mAndroidViewViewOnCl2 == null) ? (mAndroidViewViewOnCl2 = new OnClickListenerImpl2()) : mAndroidViewViewOnCl2).setValue(listener));
+                }
         }
         // batch finished
         if ((dirtyFlags & 0x3L) != 0) {
             // api target 1
+
             this.btnLogin.setOnClickListener(androidViewViewOnCli1);
             this.mboundView3.setOnClickListener(androidViewViewOnCli);
             this.tvReady.setOnClickListener(androidViewViewOnCli2);
@@ -156,9 +160,10 @@ public class FragmentRegisterPaymentsBinding extends android.databinding.ViewDat
             this.value.onForvard(arg0);
         }
     }
+    // callback impls
     // dirty flag
     private  long mDirtyFlags = 0xffffffffffffffffL;
-    
+
     public static FragmentRegisterPaymentsBinding inflate(android.view.LayoutInflater inflater, android.view.ViewGroup root, boolean attachToRoot) {
         return inflate(inflater, root, attachToRoot, android.databinding.DataBindingUtil.getDefaultComponent());
     }
@@ -180,9 +185,9 @@ public class FragmentRegisterPaymentsBinding extends android.databinding.ViewDat
         }
         return new FragmentRegisterPaymentsBinding(bindingComponent, view);
     }
-}
     /* flag mapping
-        flag 0: listener~
-        flag 1: INVALIDATE ANY
+        flag 0 (0x1L): listener
+        flag 1 (0x2L): null
     flag mapping end*/
     //end
+}

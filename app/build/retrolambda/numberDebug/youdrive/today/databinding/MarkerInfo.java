@@ -2,8 +2,8 @@ package youdrive.today.databinding;
 import youdrive.today.R;
 import youdrive.today.BR;
 import android.view.View;
-public class MarkerInfo extends android.databinding.ViewDataBinding {
-    
+public class MarkerInfo extends android.databinding.ViewDataBinding  {
+
     private static final android.databinding.ViewDataBinding.IncludedLayouts sIncludes;
     private static final android.util.SparseIntArray sViewsWithIds;
     static {
@@ -27,7 +27,8 @@ public class MarkerInfo extends android.databinding.ViewDataBinding {
     // variables
     // values
     // listeners
-    
+    // Inverse Binding Event Handlers
+
     public MarkerInfo(android.databinding.DataBindingComponent bindingComponent, View root) {
         super(bindingComponent, root, 0);
         final Object[] bindings = mapBindings(bindingComponent, root, 7, sIncludes, sViewsWithIds);
@@ -40,17 +41,18 @@ public class MarkerInfo extends android.databinding.ViewDataBinding {
         this.txtNumber = (android.widget.TextView) bindings[4];
         this.txtStartUsage = (android.widget.TextView) bindings[6];
         setRootTag(root);
+        // listeners
         invalidateAll();
     }
-    
+
     @Override
     public void invalidateAll() {
         synchronized(this) {
-            mDirtyFlags = 0x1L;
+                mDirtyFlags = 0x1L;
         }
         requestRebind();
     }
-    
+
     @Override
     public boolean hasPendingBindings() {
         synchronized(this) {
@@ -60,20 +62,20 @@ public class MarkerInfo extends android.databinding.ViewDataBinding {
         }
         return false;
     }
-    
+
     public boolean setVariable(int variableId, Object variable) {
         switch(variableId) {
         }
         return false;
     }
-    
+
     @Override
     protected boolean onFieldChange(int localFieldId, Object object, int fieldId) {
         switch (localFieldId) {
         }
         return false;
     }
-    
+
     @Override
     protected void executeBindings() {
         long dirtyFlags = 0;
@@ -84,9 +86,10 @@ public class MarkerInfo extends android.databinding.ViewDataBinding {
         // batch finished
     }
     // Listener Stub Implementations
+    // callback impls
     // dirty flag
     private  long mDirtyFlags = 0xffffffffffffffffL;
-    
+
     public static MarkerInfo inflate(android.view.LayoutInflater inflater, android.view.ViewGroup root, boolean attachToRoot) {
         return inflate(inflater, root, attachToRoot, android.databinding.DataBindingUtil.getDefaultComponent());
     }
@@ -108,8 +111,8 @@ public class MarkerInfo extends android.databinding.ViewDataBinding {
         }
         return new MarkerInfo(bindingComponent, view);
     }
-}
     /* flag mapping
-        flag 0: INVALIDATE ANY
+        flag 0 (0x1L): null
     flag mapping end*/
     //end
+}

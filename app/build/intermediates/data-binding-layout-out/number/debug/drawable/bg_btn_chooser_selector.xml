@@ -10,4 +10,4 @@
     <item android:state_focused="true"
           android:drawable="@drawable/bg_title" /> <!-- focused -->
     <item android:drawable="@drawable/down" /> <!-- default -->
-</selector><!-- From: file:/E:/Projects/CloudPayments/cloudpayments.android/sdk/CloudPayments_AndroidSDK/res/drawable/bg_btn_chooser_selector.xml -->
+</selector><!-- From: file:/E:/Projects/CloudPayments/cloudpayments.android.release/sdk/CloudPayments_AndroidSDK/res/drawable/bg_btn_chooser_selector.xml -->

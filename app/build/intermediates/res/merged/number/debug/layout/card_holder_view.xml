@@ -12,4 +12,4 @@
         android:id="@+id/cardHolderName"
         android:nextFocusForward="@+id/btnPay" />
 
-</LinearLayout><!-- From: file:/E:/Projects/CloudPayments/cloudpayments.android/sdk/CloudPayments_AndroidSDK/res/layout/card_holder_view.xml -->
+</LinearLayout><!-- From: file:/E:/Projects/CloudPayments/cloudpayments.android.release/sdk/CloudPayments_AndroidSDK/res/layout/card_holder_view.xml -->

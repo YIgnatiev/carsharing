@@ -2,17 +2,17 @@ package youdrive.today.databinding;
 import youdrive.today.R;
 import youdrive.today.BR;
 import android.view.View;
-public class ActivityMapsBinding extends android.databinding.ViewDataBinding {
-    
+public class ActivityMapsBinding extends android.databinding.ViewDataBinding  {
+
     private static final android.databinding.ViewDataBinding.IncludedLayouts sIncludes;
     private static final android.util.SparseIntArray sViewsWithIds;
     static {
         sIncludes = null;
         sViewsWithIds = new android.util.SparseIntArray();
-        sViewsWithIds.put(R.id.toolbar, 4);
-        sViewsWithIds.put(R.id.ltMap, 5);
-        sViewsWithIds.put(R.id.ltInfo, 6);
-        sViewsWithIds.put(R.id.ltContainer, 7);
+        sViewsWithIds.put(R.id.toolbar, 5);
+        sViewsWithIds.put(R.id.ltMap, 6);
+        sViewsWithIds.put(R.id.ltInfo, 7);
+        sViewsWithIds.put(R.id.ltContainer, 8);
     }
     // views
     public final android.widget.ImageButton btnZoomIn;
@@ -22,42 +22,48 @@ public class ActivityMapsBinding extends android.databinding.ViewDataBinding {
     public final android.widget.FrameLayout ltInfo;
     public final android.widget.FrameLayout ltMap;
     public final android.widget.ListView lvProfile;
+    private final android.widget.ImageView mboundView3;
     public final android.support.v7.widget.Toolbar toolbar;
     // variables
     private youdrive.today.activities.MapsActivity mListener;
     // values
     // listeners
     private OnClickListenerImpl mAndroidViewViewOnCl;
-    private OnItemClickListenerI mAndroidWidgetAdapte;
     private OnClickListenerImpl1 mAndroidViewViewOnCl1;
-    
+    private OnItemClickListenerI mAndroidWidgetAdapte;
+    private OnClickListenerImpl2 mAndroidViewViewOnCl2;
+    // Inverse Binding Event Handlers
+
     public ActivityMapsBinding(android.databinding.DataBindingComponent bindingComponent, View root) {
         super(bindingComponent, root, 0);
-        final Object[] bindings = mapBindings(bindingComponent, root, 8, sIncludes, sViewsWithIds);
+        final Object[] bindings = mapBindings(bindingComponent, root, 9, sIncludes, sViewsWithIds);
         this.btnZoomIn = (android.widget.ImageButton) bindings[1];
         this.btnZoomIn.setTag(null);
         this.btnZoomOut = (android.widget.ImageButton) bindings[2];
         this.btnZoomOut.setTag(null);
         this.drawer = (android.support.v4.widget.DrawerLayout) bindings[0];
         this.drawer.setTag(null);
-        this.ltContainer = (android.widget.FrameLayout) bindings[7];
-        this.ltInfo = (android.widget.FrameLayout) bindings[6];
-        this.ltMap = (android.widget.FrameLayout) bindings[5];
-        this.lvProfile = (android.widget.ListView) bindings[3];
+        this.ltContainer = (android.widget.FrameLayout) bindings[8];
+        this.ltInfo = (android.widget.FrameLayout) bindings[7];
+        this.ltMap = (android.widget.FrameLayout) bindings[6];
+        this.lvProfile = (android.widget.ListView) bindings[4];
         this.lvProfile.setTag(null);
-        this.toolbar = (android.support.v7.widget.Toolbar) bindings[4];
+        this.mboundView3 = (android.widget.ImageView) bindings[3];
+        this.mboundView3.setTag(null);
+        this.toolbar = (android.support.v7.widget.Toolbar) bindings[5];
         setRootTag(root);
+        // listeners
         invalidateAll();
     }
-    
+
     @Override
     public void invalidateAll() {
         synchronized(this) {
-            mDirtyFlags = 0x2L;
+                mDirtyFlags = 0x2L;
         }
         requestRebind();
     }
-    
+
     @Override
     public boolean hasPendingBindings() {
         synchronized(this) {
@@ -67,7 +73,7 @@ public class ActivityMapsBinding extends android.databinding.ViewDataBinding {
         }
         return false;
     }
-    
+
     public boolean setVariable(int variableId, Object variable) {
         switch(variableId) {
             case BR.listener :
@@ -76,25 +82,26 @@ public class ActivityMapsBinding extends android.databinding.ViewDataBinding {
         }
         return false;
     }
-    
+
     public void setListener(youdrive.today.activities.MapsActivity listener) {
         this.mListener = listener;
         synchronized(this) {
             mDirtyFlags |= 0x1L;
         }
+        notifyPropertyChanged(BR.listener);
         super.requestRebind();
     }
     public youdrive.today.activities.MapsActivity getListener() {
         return mListener;
     }
-    
+
     @Override
     protected boolean onFieldChange(int localFieldId, Object object, int fieldId) {
         switch (localFieldId) {
         }
         return false;
     }
-    
+
     @Override
     protected void executeBindings() {
         long dirtyFlags = 0;
@@ -104,34 +111,50 @@ public class ActivityMapsBinding extends android.databinding.ViewDataBinding {
         }
         youdrive.today.activities.MapsActivity listener = mListener;
         android.view.View.OnClickListener androidViewViewOnCli = null;
-        android.widget.AdapterView.OnItemClickListener androidWidgetAdapter = null;
         android.view.View.OnClickListener androidViewViewOnCli1 = null;
-    
+        android.widget.AdapterView.OnItemClickListener androidWidgetAdapter = null;
+        android.view.View.OnClickListener androidViewViewOnCli2 = null;
+
         if ((dirtyFlags & 0x3L) != 0) {
-            // read listener~
-            listener = listener;
-        
-            if (listener != null) {
-                // read android.view.View.OnClickListener~listener~~onZoomIn
-                androidViewViewOnCli = (((mAndroidViewViewOnCl == null) ? (mAndroidViewViewOnCl = new OnClickListenerImpl()) : mAndroidViewViewOnCl).setValue(listener));
-                // read android.widget.AdapterView.OnItemClickListener~listener~~onItemSelected
-                androidWidgetAdapter = (((mAndroidWidgetAdapte == null) ? (mAndroidWidgetAdapte = new OnItemClickListenerI()) : mAndroidWidgetAdapte).setValue(listener));
-                // read android.view.View.OnClickListener~listener~~onZoomOut
-                androidViewViewOnCli1 = (((mAndroidViewViewOnCl1 == null) ? (mAndroidViewViewOnCl1 = new OnClickListenerImpl1()) : mAndroidViewViewOnCl1).setValue(listener));
-            }
+
+
+
+                if (listener != null) {
+                    // read listener::onMyLocation
+                    androidViewViewOnCli = (((mAndroidViewViewOnCl == null) ? (mAndroidViewViewOnCl = new OnClickListenerImpl()) : mAndroidViewViewOnCl).setValue(listener));
+                    // read listener::onZoomIn
+                    androidViewViewOnCli1 = (((mAndroidViewViewOnCl1 == null) ? (mAndroidViewViewOnCl1 = new OnClickListenerImpl1()) : mAndroidViewViewOnCl1).setValue(listener));
+                    // read listener::onItemSelected
+                    androidWidgetAdapter = (((mAndroidWidgetAdapte == null) ? (mAndroidWidgetAdapte = new OnItemClickListenerI()) : mAndroidWidgetAdapte).setValue(listener));
+                    // read listener::onZoomOut
+                    androidViewViewOnCli2 = (((mAndroidViewViewOnCl2 == null) ? (mAndroidViewViewOnCl2 = new OnClickListenerImpl2()) : mAndroidViewViewOnCl2).setValue(listener));
+                }
         }
         // batch finished
         if ((dirtyFlags & 0x3L) != 0) {
             // api target 1
-            this.btnZoomIn.setOnClickListener(androidViewViewOnCli);
-            this.btnZoomOut.setOnClickListener(androidViewViewOnCli1);
+
+            this.btnZoomIn.setOnClickListener(androidViewViewOnCli1);
+            this.btnZoomOut.setOnClickListener(androidViewViewOnCli2);
             this.lvProfile.setOnItemClickListener(androidWidgetAdapter);
+            this.mboundView3.setOnClickListener(androidViewViewOnCli);
         }
     }
     // Listener Stub Implementations
     public static class OnClickListenerImpl implements android.view.View.OnClickListener{
         private youdrive.today.activities.MapsActivity value;
         public OnClickListenerImpl setValue(youdrive.today.activities.MapsActivity value) {
+            this.value = value;
+            return value == null ? null : this;
+        }
+        @Override
+        public void onClick(android.view.View arg0) {
+            this.value.onMyLocation(arg0);
+        }
+    }
+    public static class OnClickListenerImpl1 implements android.view.View.OnClickListener{
+        private youdrive.today.activities.MapsActivity value;
+        public OnClickListenerImpl1 setValue(youdrive.today.activities.MapsActivity value) {
             this.value = value;
             return value == null ? null : this;
         }
@@ -151,9 +174,9 @@ public class ActivityMapsBinding extends android.databinding.ViewDataBinding {
             this.value.onItemSelected(arg0, arg1, arg2, arg3);
         }
     }
-    public static class OnClickListenerImpl1 implements android.view.View.OnClickListener{
+    public static class OnClickListenerImpl2 implements android.view.View.OnClickListener{
         private youdrive.today.activities.MapsActivity value;
-        public OnClickListenerImpl1 setValue(youdrive.today.activities.MapsActivity value) {
+        public OnClickListenerImpl2 setValue(youdrive.today.activities.MapsActivity value) {
             this.value = value;
             return value == null ? null : this;
         }
@@ -162,9 +185,10 @@ public class ActivityMapsBinding extends android.databinding.ViewDataBinding {
             this.value.onZoomOut(arg0);
         }
     }
+    // callback impls
     // dirty flag
     private  long mDirtyFlags = 0xffffffffffffffffL;
-    
+
     public static ActivityMapsBinding inflate(android.view.LayoutInflater inflater, android.view.ViewGroup root, boolean attachToRoot) {
         return inflate(inflater, root, attachToRoot, android.databinding.DataBindingUtil.getDefaultComponent());
     }
@@ -186,9 +210,9 @@ public class ActivityMapsBinding extends android.databinding.ViewDataBinding {
         }
         return new ActivityMapsBinding(bindingComponent, view);
     }
-}
     /* flag mapping
-        flag 0: listener~
-        flag 1: INVALIDATE ANY
+        flag 0 (0x1L): listener
+        flag 1 (0x2L): null
     flag mapping end*/
     //end
+}

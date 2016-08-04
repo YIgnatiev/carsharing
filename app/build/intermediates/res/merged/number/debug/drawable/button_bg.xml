@@ -6,4 +6,4 @@
         android:centerColor="@color/line_gray"
         android:endColor="@color/line_gray_light" android:angle="270"/>
 </shape>
-<!-- From: file:/E:/Projects/CloudPayments/cloudpayments.android/sdk/CloudPayments_AndroidSDK/res/drawable/button_bg.xml -->
+<!-- From: file:/E:/Projects/CloudPayments/cloudpayments.android.release/sdk/CloudPayments_AndroidSDK/res/drawable/button_bg.xml -->

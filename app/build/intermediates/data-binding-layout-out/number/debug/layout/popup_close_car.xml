@@ -196,6 +196,23 @@
                 app:cpb_textError="@string/error"
                 app:cpb_textIdle="@string/close_rent" />
 
+            <com.dd.CircularProgressButton
+                android:id="@+id/btnNavigate"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@color/main"
+                android:layout_marginLeft="5dp"
+                app:cpb_iconComplete="@drawable/ic_navigate"
+                android:textColor="@color/white"
+                app:cpb_colorIndicator="@color/main"
+                app:cpb_colorProgress="@color/cpb_white"
+                app:cpb_cornerRadius="5dp"
+                app:cpb_selectorComplete="@drawable/complete_state_selector"
+                app:cpb_selectorError="@drawable/error_state_selector"
+                app:cpb_selectorIdle="@drawable/idle_state_selector"
+                android:tag="binding_3"                       
+                />
+
         </LinearLayout>
 
     </LinearLayout>
