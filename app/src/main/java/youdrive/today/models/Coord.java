@@ -12,10 +12,9 @@ public class Coord {
 
     private double longitude;
 
-    public LatLng toLatLng(){
-        return new LatLng(latitude,longitude);
+    public LatLng toLatLng() {
+        return new LatLng(latitude, longitude);
     }
-
 
 
 }

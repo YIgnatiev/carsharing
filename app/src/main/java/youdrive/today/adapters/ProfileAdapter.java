@@ -10,8 +10,8 @@ import android.widget.ArrayAdapter;
 
 import java.util.List;
 
-import youdrive.today.models.Menu;
 import youdrive.today.databinding.ItemProfileBinding;
+import youdrive.today.models.Menu;
 
 /**
  * Created by psuhoterin on 17.04.15.
@@ -34,23 +34,20 @@ public class ProfileAdapter extends ArrayAdapter<Menu> {
         View row = convertView;
         ItemHolder holder = null;
 
-        if(row == null)
-        {
+        if (row == null) {
             LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
             row = inflater.inflate(mResource, parent, false);
 
             holder = new ItemHolder(row);
 
             row.setTag(holder);
-        }
-        else
-        {
-            holder = (ItemHolder)row.getTag();
+        } else {
+            holder = (ItemHolder) row.getTag();
         }
 
         Menu item = mObjects.get(position);
         holder.binding.txtTitle.setText(item.title);
-        
+
         return row;
     }
 
@@ -59,7 +56,7 @@ public class ProfileAdapter extends ArrayAdapter<Menu> {
         ItemProfileBinding binding;
 
         public ItemHolder(View view) {
-             binding = DataBindingUtil.bind(view);
+            binding = DataBindingUtil.bind(view);
         }
     }
 }

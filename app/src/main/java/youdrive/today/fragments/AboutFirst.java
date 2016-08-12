@@ -13,6 +13,7 @@ import youdrive.today.App;
 import youdrive.today.R;
 import youdrive.today.databinding.FragmentAboutFirstBinding;
 
+
 /**
  * Created by Oleh Makhobey
  * email : tajcig@ya.ru
@@ -20,10 +21,11 @@ import youdrive.today.databinding.FragmentAboutFirstBinding;
  */
 public class AboutFirst extends BaseFragment {
     private FragmentAboutFirstBinding b;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-     b = DataBindingUtil.inflate(inflater, R.layout.fragment_about_first,container,false);
-    return b.getRoot();
+        b = DataBindingUtil.inflate(inflater, R.layout.fragment_about_first, container, false);
+        return b.getRoot();
     }
 
     @Override

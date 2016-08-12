@@ -1,7 +1,6 @@
 package youdrive.today.activities;
 
 import android.databinding.DataBindingUtil;
-import android.os.Bundle;
 
 import youdrive.today.BaseActivity;
 import youdrive.today.R;

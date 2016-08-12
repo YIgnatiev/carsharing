@@ -35,25 +35,25 @@ public class AppUtils {
         }, 1500);
     }
 
-    /*** Текст для шаринга */
-    public static String getShareText(Context cntx, ReferralRules referralRules)
-    {
+    /***
+     * Текст для шаринга
+     */
+    public static String getShareText(Context cntx, ReferralRules referralRules) {
         return cntx.getString(R.string.referral_sms_text,
                 referralRules.referral_code,
                 referralRules.invitee_bonus_part,
-                referralRules.max_invitee_bonus/100,
+                referralRules.max_invitee_bonus / 100,
                 referralRules.registration_link);
     }
 
 
-
-    public static void about(Context context){
+    public static void about(Context context) {
         context.startActivity(new Intent(Intent.ACTION_VIEW,
                 Uri.parse("http://youdrive.today/")));
     }
 
 
-    public static void restore(Context context){
+    public static void restore(Context context) {
         context.startActivity(new Intent(Intent.ACTION_VIEW,
                 Uri.parse("http://youdrive.today/password_reset")));
     }
@@ -63,7 +63,7 @@ public class AppUtils {
     }
 
     public static String toTime(int seconds) {
-        long minute = seconds/60;
+        long minute = seconds / 60;
         return (String.valueOf(minute) + " мин");
     }
 
@@ -71,17 +71,19 @@ public class AppUtils {
         button.setProgress(100);
     }
 
-    /*** Входит ли точка в область */
+    /***
+     * Входит ли точка в область
+     */
     public static boolean isPointInPolygon(double latitude, double longitude, PolygonOptions polygonOptions) {
         int intersectCount = 0;
-        int size=polygonOptions.getPoints().size();
-        for (int i = 0; i < size-1; i++) {
-            if( rayCastIntersect(latitude, longitude, polygonOptions.getPoints().get(i), polygonOptions.getPoints().get(i+1)) ) {
+        int size = polygonOptions.getPoints().size();
+        for (int i = 0; i < size - 1; i++) {
+            if (rayCastIntersect(latitude, longitude, polygonOptions.getPoints().get(i), polygonOptions.getPoints().get(i + 1))) {
                 intersectCount++;
             }
         }
 
-        return (intersectCount%2) == 1; // odd = inside, even = outside;
+        return (intersectCount % 2) == 1; // odd = inside, even = outside;
     }
 
     private static boolean rayCastIntersect(double latitude, double longitude, LatLng vertA, LatLng vertB) {
@@ -93,11 +95,11 @@ public class AppUtils {
         double pY = latitude;
         double pX = longitude;
 
-        if ( (aY>pY && bY>pY) || (aY<pY && bY<pY) || (aX<pX && bX<pX) ) {
+        if ((aY > pY && bY > pY) || (aY < pY && bY < pY) || (aX < pX && bX < pX)) {
             return false; // a and b can't both be above or below pt.y, and a or b must be east of pt.x
         }
 
-        double m = (aY-bY) / (aX-bX);               // Rise over run
+        double m = (aY - bY) / (aX - bX);               // Rise over run
         double bee = (-aX) * m + aY;                // y = mx + b
         double x = (pY - bee) / m;                  // algebra is neat!
 

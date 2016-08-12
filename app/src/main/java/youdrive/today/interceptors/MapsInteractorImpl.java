@@ -79,7 +79,7 @@ public class MapsInteractorImpl implements MapsInteractor {
 
     private void onGetInfoSuccess(PolygonResponse response, PolygonListener listener) {
         if (response.isSuccess()) {
-                listener.onPolygonSuccess(response);
+            listener.onPolygonSuccess(response);
         } else {
             listener.onPolygonFailed();
         }

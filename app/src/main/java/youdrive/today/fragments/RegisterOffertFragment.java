@@ -6,15 +6,11 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Html;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
-import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -43,19 +39,21 @@ public class RegisterOffertFragment extends BaseFragment<RegistrationActivity> i
 
     private FragmentRegisterOffertBinding b;
     private Subscription mSubscription;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        b = DataBindingUtil.inflate(inflater, R.layout.fragment_register_offert,container,false);
+        b = DataBindingUtil.inflate(inflater, R.layout.fragment_register_offert, container, false);
         b.setListener(this);
         setData();
         return b.getRoot();
     }
 
-    private void setData(){
+    private void setData() {
         initWebView();
         b.checkbox.setOnCheckedChangeListener(this);
         b.tvForvard.setEnabled(false);
     }
+
     private void initWebView() {
 
         b.webView.getSettings().setJavaScriptEnabled(true);
@@ -76,9 +74,7 @@ public class RegisterOffertFragment extends BaseFragment<RegistrationActivity> i
                 super.onPageFinished(view, url);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                     b.webView.evaluateJavascript("javascript:window.document.getElementsByTagName('body')[0].style.color='white';", null);
-                }
-                else
-                {
+                } else {
                     b.webView.loadUrl("javascript:window.document.getElementsByTagName('body')[0].style.color='white';");
                 }
                 b.webView.setVisibility(View.VISIBLE);
@@ -101,21 +97,21 @@ public class RegisterOffertFragment extends BaseFragment<RegistrationActivity> i
     }
 
 
-    public void onBack(View view){
+    public void onBack(View view) {
         startActivity(new Intent(mActivity, WellcomeActivity.class));
         mActivity.finish();
     }
 
-    public void onForvard(View view){
-            createUser();
+    public void onForvard(View view) {
+        createUser();
 
     }
 
     public void createUser() {
         mActivity.showProgress();
         mSubscription = mActivity.mClient
-                        .createUser()
-                        .subscribe(this::onCreateSucccess, mActivity::onCreateFailure);
+                .createUser()
+                .subscribe(this::onCreateSucccess, mActivity::onCreateFailure);
 
     }
 
@@ -127,7 +123,7 @@ public class RegisterOffertFragment extends BaseFragment<RegistrationActivity> i
         App.tracker().send(new HitBuilders.ScreenViewBuilder().build());
     }
 
-    public void onCreateSucccess(RegistrationModel model){
+    public void onCreateSucccess(RegistrationModel model) {
         mActivity.hideProgress();
         mActivity.userId = model.getId();
         mActivity.mUser = model.getData();
@@ -137,8 +133,8 @@ public class RegisterOffertFragment extends BaseFragment<RegistrationActivity> i
 
     @Override
     public void onStop() {
-        if(mSubscription != null)
-        mSubscription.unsubscribe();
+        if (mSubscription != null)
+            mSubscription.unsubscribe();
         super.onStop();
     }
 

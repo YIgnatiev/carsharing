@@ -8,8 +8,7 @@ import youdrive.today.response.BaseResponse;
 /**
  * Created by Leonov Oleg, http://pandorika-it.com on 29.03.16.
  */
-public class ReferralRules extends BaseResponse implements Parcelable
-{
+public class ReferralRules extends BaseResponse implements Parcelable {
     public int max_inviter_bonus;
     public int inviter_bonus_part;
     public int max_invitee_bonus;

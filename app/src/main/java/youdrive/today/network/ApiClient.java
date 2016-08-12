@@ -42,7 +42,7 @@ import youdrive.today.response.UserProfileResponse;
  */
 public class ApiClient {
 
-	private static String HOST = "https://youdrive.today";
+    private static String HOST = "https://youdrive.today";
 
 //    private static String HOST = "http://188.166.36.215:3000";
 
@@ -64,7 +64,7 @@ public class ApiClient {
                 .build()
                 .create(CarsharingService.class);
 
-       mUploadService = new RestAdapter.Builder()
+        mUploadService = new RestAdapter.Builder()
                 .setEndpoint("https://upload.uploadcare.com")
                 .setClient(new OkClient(new OkHttpClient()))
                 .setLogLevel(RestAdapter.LogLevel.FULL)
@@ -123,7 +123,7 @@ public class ApiClient {
         return mService.result(token);
     }
 
-    public Observable<RegistrationModel> createUser(){
+    public Observable<RegistrationModel> createUser() {
         return mService
                 .createAccount(new RegistrationModel())
                 .retry(3)
@@ -132,7 +132,7 @@ public class ApiClient {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<RegistrationModel> updateUser(String userId,RegistrationUser user){
+    public Observable<RegistrationModel> updateUser(String userId, RegistrationUser user) {
         return mService
                 .updateAccount(userId, user)
                 .retry(3)
@@ -141,7 +141,7 @@ public class ApiClient {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
- public Observable<RegistrationModel> createUser(String userId){
+    public Observable<RegistrationModel> createUser(String userId) {
         return mService
                 .createAccount(userId)
                 .retry(3)
@@ -150,14 +150,14 @@ public class ApiClient {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<CreditCardResponse> initCard(CreditCardModel model){
+    public Observable<CreditCardResponse> initCard(CreditCardModel model) {
         return mService.initCreditCard(model)
-                .timeout(5,TimeUnit.SECONDS)
+                .timeout(5, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<BaseResponse> inviteUsersEmail(Invites inviteList){
+    public Observable<BaseResponse> inviteUsersEmail(Invites inviteList) {
         return mService.inviteUsersEmail(inviteList)
                 .retry(3)
                 .timeout(5, TimeUnit.SECONDS)
@@ -165,7 +165,7 @@ public class ApiClient {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<ReferralRules> getReferralRules(){
+    public Observable<ReferralRules> getReferralRules() {
         return mService.getReferralRules()
                 .retry(3)
                 .timeout(5, TimeUnit.SECONDS)
@@ -173,17 +173,17 @@ public class ApiClient {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<UploadCareResponse> uploadFile(File file){
+    public Observable<UploadCareResponse> uploadFile(File file) {
         TypedFile typedFile = new TypedFile("multipart/form-data", file);
-       return mUploadService.uploadFile(UPLOADCARE_KEY, 1, typedFile);
+        return mUploadService.uploadFile(UPLOADCARE_KEY, 1, typedFile);
     }
 
-    public Observable<UploadGroupResponse> uploadGroup(Map<String ,String>params){
-        return mUploadService.uploadGroup(UPLOADCARE_KEY,params);
+    public Observable<UploadGroupResponse> uploadGroup(Map<String, String> params) {
+        return mUploadService.uploadGroup(UPLOADCARE_KEY, params);
     }
 
     public Observable<SearchCarResponse> postSearchCar(double lat, double lon, double radius) {
-        return mService.createSearchCar(new SearchCar((float)lat,(float)lon, (int)radius));
+        return mService.createSearchCar(new SearchCar((float) lat, (float) lon, (int) radius));
     }
 
     public Observable<SearchCarResponse> getSearchCar() {

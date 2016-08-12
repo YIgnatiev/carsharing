@@ -29,7 +29,7 @@ public class Car implements Comparable<Car>, Parcelable {
     @SerializedName("in_transfer")
     boolean inTransfer;
 
-    public Car(String id,float lat, float lon){
+    public Car(String id, float lat, float lon) {
         this.id = id;
         this.lat = lat;
         this.lon = lon;

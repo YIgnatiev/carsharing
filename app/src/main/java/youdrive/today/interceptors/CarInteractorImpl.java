@@ -85,7 +85,7 @@ public class CarInteractorImpl implements CarInteractor {
     public void complete(final Command command, final CarActionListener listener) {
 
         mListener = listener;
-       Subscription subscription = mApiClient
+        Subscription subscription = mApiClient
                 .complete()
                 .retry(3)
                 .timeout(5, TimeUnit.SECONDS)

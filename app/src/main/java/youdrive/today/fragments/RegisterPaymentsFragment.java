@@ -95,11 +95,11 @@ public class RegisterPaymentsFragment extends BaseFragment<RegistrationActivity>
         if (App.getInstance().getPreference() != null) {
 
             String userString = new Gson().toJson(user);
-            Log.v("SESSION_ID", "trying to save "+ userString);
+            Log.v("SESSION_ID", "trying to save " + userString);
             App.getInstance().getPreference().putUser(userString);
 
 
-        }else {
+        } else {
             YandexMetrica.reportEvent("SessionID777777 not saved");
         }
 
@@ -111,7 +111,7 @@ public class RegisterPaymentsFragment extends BaseFragment<RegistrationActivity>
         Log.v("SESSION_ID", "trying to read saved user object" + App.getInstance().getPreference().getUser());
 
 
-        Set <String> set  = App.getInstance().getPreference().getSession();
+        Set<String> set = App.getInstance().getPreference().getSession();
         set.clear();
         set.add("session_id=" + sessionId);
         App.getInstance().getPreference().putSession(set);

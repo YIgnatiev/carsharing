@@ -10,7 +10,8 @@ import youdrive.today.databinding.ActivityInformBinding;
 
 public class InformActivity extends BaseActivity {
     private ActivityInformBinding b;
-  //listener
+
+    //listener
     public void auth(View view) {
         startActivity(new Intent(this, LoginActivity.class));
     }

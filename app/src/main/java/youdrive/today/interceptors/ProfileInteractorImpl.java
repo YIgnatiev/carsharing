@@ -73,7 +73,7 @@ public class ProfileInteractorImpl implements ProfileInteractor, Observer<BaseRe
             listener.onSessionNotFound();
         } else if (error.getCode() == ApiError.INVALID_REQUEST) {
             listener.onInvalidRequest();
-        } else if (error.getCode()== 101) {
+        } else if (error.getCode() == 101) {
             listener.onLogout();
         } else {
             listener.onError();

@@ -2,9 +2,10 @@
 <layout>
 
     <data>
+
         <variable
             name="listener"
-            type="youdrive.today.activities.SearchCarActivity"/>
+            type="youdrive.today.activities.SearchCarActivity" />
     </data>
 
 
@@ -22,23 +23,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.v7.widget.Toolbar
-                xmlns:android="http://schemas.android.com/apk/res/android"
+            <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/main">
 
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:background="@drawable/selector_search_button"
-                android:id="@+id/btnSearch"
-                android:layout_gravity="right"
-                android:layout_marginRight="20dp"
-                android:onClick="@{listener.onSearch}"
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/selector_search_button"
+                    android:id="@+id/btnSearch"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="20dp"
+                    android:onClick="@{listener.onSearch}"
 
-                />
+                    />
+
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
@@ -50,10 +51,10 @@
 
                     />
 
-        </android.support.v7.widget.Toolbar>
+            </android.support.v7.widget.Toolbar>
 
 
-        <FrameLayout
+            <FrameLayout
                 android:id="@+id/ltMap"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -71,7 +72,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="top"
-                    android:background="@color/translucent_white"/>
+                    android:background="@color/translucent_white" />
 
                 <FrameLayout
                     android:id="@+id/ltContainer"
@@ -80,14 +81,14 @@
                     android:layout_gravity="bottom"
                     android:paddingBottom="10dp"
                     android:paddingRight="5dp"
-                    android:paddingLeft="5dp"/>
-            <youdrive.today.view.RadiusView
-                android:id="@+id/RadiusView"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                custom:circleColor="@color/maintransparent"
-                custom:circleRadius="50"
-                />
+                    android:paddingLeft="5dp" />
+
+                <youdrive.today.view.RadiusView
+                    android:id="@+id/RadiusView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    custom:circleColor="@color/maintransparent"
+                    custom:circleRadius="50" />
 
             </FrameLayout>
 
@@ -99,7 +100,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/button_plus"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true" />
 
             <ImageButton
                 android:id="@+id/btnZoomOut"
@@ -110,9 +111,9 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
-                android:background="@drawable/button_minus"/>
-           
-            <LinearLayout 
+                android:background="@drawable/button_minus" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -121,36 +122,34 @@
                 android:layout_marginLeft="20dp"
                 android:padding="10dp"
                 android:background="@drawable/layout_bg_seekbar"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvRadius"
                     android:text="1000 м"
                     android:textColor="#000000"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_gravity="center_horizontal" />
+
+                <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Radius"
+                    android:layout_below="@id/tvRadius"
+                    app:dsb_min="50"
+                    app:dsb_max="2500"
+                    app:dsb_value="1000"
+                    app:dsb_indicatorColor="@color/main"
+                    app:dsb_rippleColor="@color/main"
+                    app:dsb_progressColor="@color/main"
+                    app:dsb_indicatorTextAppearance="@style/CustomFloaterTextAppearance"
+
+
                     />
-               <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/Radius"
-                android:layout_below="@id/tvRadius"
-                app:dsb_min="50"
-                app:dsb_max="2500"
-                app:dsb_value="1000"
-                app:dsb_indicatorColor="@color/main"
-                app:dsb_rippleColor="@color/main"
-                app:dsb_progressColor="@color/main"
-                app:dsb_indicatorTextAppearance="@style/CustomFloaterTextAppearance"
 
-
-
-                   />
-                
-          </LinearLayout>
+            </LinearLayout>
         </RelativeLayout>
-
 
 
     </android.support.v4.widget.DrawerLayout>

@@ -4,7 +4,8 @@ import youdrive.today.response.SearchCarResponse;
 
 
 public interface SearchActionListener {
-    void onError() ;
+    void onError();
+
     void onSuccess(SearchCarResponse search, int type);
 
     void onAccessDenied(String text);

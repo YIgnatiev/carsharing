@@ -15,7 +15,7 @@ public class BaseFragment<T extends Activity> extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-       mActivity = (T) getActivity();
+        mActivity = (T) getActivity();
         super.onCreate(savedInstanceState);
     }
 }

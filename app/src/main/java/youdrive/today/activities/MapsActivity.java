@@ -33,6 +33,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -76,13 +77,11 @@ import youdrive.today.listeners.CarActionListener;
 import youdrive.today.listeners.MapsActionListener;
 import youdrive.today.listeners.PolygonListener;
 import youdrive.today.listeners.ProfileActionListener;
-import youdrive.today.listeners.ValueFunction;
 import youdrive.today.models.Car;
 import youdrive.today.models.Check;
 import youdrive.today.models.Command;
 import youdrive.today.models.Coord;
 import youdrive.today.models.Menu;
-import youdrive.today.models.ReferralRules;
 import youdrive.today.models.Status;
 import youdrive.today.models.User;
 import youdrive.today.response.PayoffResponse;
@@ -95,7 +94,7 @@ import static youdrive.today.models.Status.PARKING;
 import static youdrive.today.models.Status.USAGE;
 
 public class MapsActivity extends BaseActivity implements MapsActionListener, ProfileActionListener, CarActionListener,
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, PolygonListener {
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, PolygonListener, OnMapReadyCallback {
 
     private static final int RC_BOOK = 0;
     private static final int RC_CHECK = 1;
@@ -120,7 +119,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
     private int mBookingTimeLeft;
-    private Status mStatus=NORMAL;
+    private Status mStatus = NORMAL;
     private MaterialDialog mDialog;
     private User mUser;
     private Subscription timerSubscription;
@@ -132,7 +131,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     private boolean isFake = false;
 
-    private static final int REQUEST_CODE_FINE_LOCATION=222;
+    private static final int REQUEST_CODE_FINE_LOCATION = 222;
 
 
     private void startUpdates() {
@@ -171,7 +170,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         setSupportActionBar(b.toolbar);
         setUpMapIfNeeded();
         createLocationRequest();
-        if(mMap!=null) mZoomLevel = mMap.getMinZoomLevel();
+        if (mMap != null) mZoomLevel = mMap.getMinZoomLevel();
 
         if (App.getInstance().getPreference() != null) {
             if (App.getInstance().getPreference().getUser() != null) {
@@ -209,7 +208,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     protected void onResume() {
         super.onResume();
-        setUpMapIfNeeded();
+
         if (mGoogleApiClient.isConnected()) startLocationWithCheckPermissions();
 
         startUpdates();
@@ -313,8 +312,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     private void setUpMapIfNeeded() {
         if (mMap == null) {
-            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
-                    .getMap();
+            ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMapAsync(this);
         }
     }
 
@@ -325,17 +323,13 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
 
-    private void startLocationWithCheckPermissions()
-    {
+    private void startLocationWithCheckPermissions() {
         // Here, thisActivity is the current activity
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-        {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     REQUEST_CODE_FINE_LOCATION);
-        }
-        else
-        {
+        } else {
             LocationServices.FusedLocationApi.requestLocationUpdates(
                     mGoogleApiClient, mLocationRequest, this);
         }
@@ -423,9 +417,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 //        mMarkerCar.put(mMap.addMarker(markerOptionsPercent), car);
 
 
-
-
-
     }
 
 
@@ -471,8 +462,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         } else if (bInfo != null && bInfo.btnBook != null && bInfo.btnBook.getProgress() == 50) {
             AppUtils.error(text, bInfo.btnBook);
-        }
-        else if (headerBinding != null && headerBinding.bPayoff.getProgress() == 50) {
+        } else if (headerBinding != null && headerBinding.bPayoff.getProgress() == 50) {
             AppUtils.error(text, headerBinding.bPayoff);
         }
     }
@@ -515,7 +505,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             }
         }
 
-        if(bOpenCar != null){
+        if (bOpenCar != null) {
             bOpenCar.btnCancel.setEnabled(true);
             AppUtils.success(bOpenCar.btnCancel, getString(R.string.transfer_car));
             bOpenCar.btnCancel.setVisibility(View.GONE);
@@ -625,8 +615,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         mCar = car;
 
-        if (mCar.isInTransfer()){
-            if (bCloseCar != null){
+        if (mCar.isInTransfer()) {
+            if (bCloseCar != null) {
                 bCloseCar.btnCloseRent.setVisibility(View.GONE);
             }
         }
@@ -760,30 +750,25 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         }
     }
 
-    /*** Обновить хедер с балансом */
-    private void updateHeader()
-    {
-        if(userProfile==null)
-        {
+    /***
+     * Обновить хедер с балансом
+     */
+    private void updateHeader() {
+        if (userProfile == null) {
             headerBinding.bPayoff.setVisibility(View.GONE);
             headerBinding.tvBalance.setVisibility(View.GONE);
-        }
-        else if(userProfile.debt>0)
-        {
+        } else if (userProfile.debt > 0) {
             headerBinding.bPayoff.setVisibility(View.VISIBLE);
             headerBinding.tvBalance.setVisibility(View.VISIBLE);
-            headerBinding.tvBalance.setText(getString(R.string.debts, userProfile.debt/100));
-        }
-        else
-        {
+            headerBinding.tvBalance.setText(getString(R.string.debts, userProfile.debt / 100));
+        } else {
             headerBinding.bPayoff.setVisibility(View.GONE);
             headerBinding.tvBalance.setVisibility(View.VISIBLE);
             headerBinding.tvBalance.setText(getString(R.string.balance, userProfile.bonus));
         }
     }
 
-    public void onPayoffClick(View view)
-    {
+    public void onPayoffClick(View view) {
         if (headerBinding.bPayoff.getProgress() == 0 && isConnected()) {
             headerBinding.bPayoff.setIndeterminateProgressMode(true);
             headerBinding.bPayoff.setProgress(50);
@@ -813,10 +798,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onUserProfileSuccess(UserProfileResponse userProfile) {
-        this.userProfile=userProfile;
+        this.userProfile = userProfile;
         updateHeader();
     }
-
 
 
     @Override
@@ -886,6 +870,16 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onConnected(Bundle bundle) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         startLocationWithCheckPermissions();
         if (mLastLocation != null) {
@@ -1063,7 +1057,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
     public void onMyLocation(View v) {
-        if (mMap != null && mMarker!=null) {
+        if (mMap != null && mMarker != null) {
             animateCamera(mMarker.getPosition());
         }
     }
@@ -1097,10 +1091,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         }
     }
 
-    private boolean isInsideGreenZone(Car car)
-    {
+    private boolean isInsideGreenZone(Car car) {
         for (PolygonOptions mPolygon : mPolygons)
-            if(AppUtils.isPointInPolygon(car.getLat(), car.getLon(), mPolygon)) return true;
+            if (AppUtils.isPointInPolygon(car.getLat(), car.getLon(), mPolygon)) return true;
         return false;
     }
 
@@ -1108,7 +1101,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         mDialog.getBuilder().autoDismiss(false);
         if (view.getTag() != null && mLastLocation.getLatitude() > 0.0d && mLastLocation.getLongitude() > 0.0d) {
 
-            if (!isInsideGreenZone(mCar)||mCar.isTransferable()) {
+            if (!isInsideGreenZone(mCar) || mCar.isTransferable()) {
                 new MaterialDialog
                         .Builder(MapsActivity.this)
                         .title(R.string.transfer_book_title)
@@ -1153,7 +1146,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         bCloseCar.setListener(this);
 
         bCloseCar.btnCloseRent.setVisibility(mCar.isInTransfer() ? View.GONE : View.VISIBLE);
-        bCloseCar.btnCloseRent.setText(mCar.isTransferable() && !mCar.isInTransfer()  ? getString(R.string.transfer_car) : getString(R.string.close_rent));
+        bCloseCar.btnCloseRent.setText(mCar.isTransferable() && !mCar.isInTransfer() ? getString(R.string.transfer_car) : getString(R.string.close_rent));
         bCloseCar.btnCloseRent.setIdleText(mCar.isTransferable() && !mCar.isInTransfer() ? getString(R.string.transfer_car) : getString(R.string.close_rent));
 
         bCloseCar.btnCloseOrOpen.setIndeterminateProgressMode(true);
@@ -1227,7 +1220,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
 
-
     public String convertRub(long kopeck) {
         return String.format("%.2f", (float) kopeck / 100) + " руб.";
     }
@@ -1248,6 +1240,20 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     }
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        //DO WHATEVER YOU WANT WITH GOOGLEMAP
+
+        if (mMap != null) {
+            return;
+        }
+        mMap = googleMap;
+
+        setUpMapIfNeeded();
+
+
+   }
+
     private class CustomWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
         @Override
@@ -1261,8 +1267,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 return null;
             }
             MarkerInfo bMarkerInfo = DataBindingUtil.inflate(getLayoutInflater(), R.layout.marker_info, null, false);
-            bMarkerInfo.rlDiscount.setVisibility(mCar.getDiscount()>0 ? View.VISIBLE : View.GONE);
-            bMarkerInfo.tvDiscount.setText("-"+mCar.getDiscount()+"%");
+            bMarkerInfo.rlDiscount.setVisibility(mCar.getDiscount() > 0 ? View.VISIBLE : View.GONE);
+            bMarkerInfo.tvDiscount.setText("-" + mCar.getDiscount() + "%");
             bMarkerInfo.txtColor.setText(mCar.getColor());
             bMarkerInfo.txtModel.setText(mCar.getModel());
             bMarkerInfo.txtNumber.setText(mCar.getNumber());

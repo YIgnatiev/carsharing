@@ -79,7 +79,6 @@
     <string name="need_internet_for_registration">Для регистрации необходимо подключение к интернету</string>
 
 
-
     <string name="email_not_valid">Email введен не корректно</string>
     <string name="internal_error">Внутренняя ошибка</string>
     <string name="inform">Мы сообщим Вам, когда начнем работать в Вашем регионе.</string>
@@ -226,7 +225,7 @@
     <!-- Ошибки -->
     <string name="no_contacts_permissions">Разрешите доступ к контактам для возможности отправки приглашений</string>
 
-<string name="registration_driver_experience_warning">ВНИМАНИЕ:  Для регистрации в сервисе ваш водительский стаж по категории «В» должен быть не менее 2-х лет.</string>
+    <string name="registration_driver_experience_warning">ВНИМАНИЕ:  Для регистрации в сервисе ваш водительский стаж по категории «В» должен быть не менее 2-х лет.</string>
     <string name="searchcar">Поиск Авто</string>
     <string name="action_search">Поиск</string>
 </resources>

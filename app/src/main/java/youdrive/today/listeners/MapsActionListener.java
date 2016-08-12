@@ -30,5 +30,6 @@ public interface MapsActionListener {
     void onUnknownError(String text);
 
     void onUserProfileSuccess(UserProfileResponse userProfile);
+
     void onPayoffSuccess(PayoffResponse userProfile);
 }

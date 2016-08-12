@@ -1,9 +1,12 @@
 package youdrive.today.activities;
 
+import android.Manifest;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 
@@ -16,6 +19,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
@@ -41,7 +45,7 @@ import youdrive.today.response.SearchCarResponse;
 import youdrive.today.view.RadiusView;
 
 
-public class SearchCarActivity extends BaseActivity implements SearchActionListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+public class SearchCarActivity extends BaseActivity implements SearchActionListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, OnMapReadyCallback {
     private ActivitySearchCarBinding b;
     private GoogleApiClient mGoogleApiClient;
     private GoogleMap mMap;
@@ -69,12 +73,12 @@ public class SearchCarActivity extends BaseActivity implements SearchActionListe
         });
         setUpMapIfNeeded();
         createLocationRequest();
-        mZoomLevel = mMap.getMinZoomLevel();
+
         buildGoogleApiClient();
         checkInternet();
         Radius = b.Radius;
-        setRadiusSeekBar();
-        radiusCircle=b.RadiusView;
+
+        radiusCircle = b.RadiusView;
         mSearchCarInteractor = new SearchInteractorImpl();
         mSearchCarInteractor.getSearchCar(this);
         b.btnDelete.setVisibility(View.GONE);
@@ -88,7 +92,7 @@ public class SearchCarActivity extends BaseActivity implements SearchActionListe
         super.onBackPressed();
     }
 
-    private void set_radius(int value){
+    private void set_radius(int value) {
         VisibleRegion vr = mMap.getProjection().getVisibleRegion();
         double left = vr.latLngBounds.southwest.longitude;
         Location center = new Location("center");
@@ -99,9 +103,9 @@ public class SearchCarActivity extends BaseActivity implements SearchActionListe
         middleLeftCornerLocation.setLongitude(left);
         float mapWidthmeter = center.distanceTo(middleLeftCornerLocation);
         SupportMapFragment mMapn = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map));
-        float mapWidthpixel =  mMapn.getView().getWidth()/2;
-        float pixelonmeter=mapWidthpixel/mapWidthmeter;
-        radiusCircle.setCircleRadius(Math.round((value*pixelonmeter)/2));
+        float mapWidthpixel = mMapn.getView().getWidth() / 2;
+        float pixelonmeter = mapWidthpixel / mapWidthmeter;
+        radiusCircle.setCircleRadius(Math.round((value * pixelonmeter) / 2));
 
 
     }
@@ -111,7 +115,7 @@ public class SearchCarActivity extends BaseActivity implements SearchActionListe
         Radius.setOnProgressChangeListener(new OnProgressChangeListener() {
             @Override
             public void onProgressChanged(DiscreteSeekBar seekBar, int value, boolean fromUser) {
-                b.tvRadius.setText(String.valueOf(value)+" м");
+                b.tvRadius.setText(String.valueOf(value) + " м");
                 set_radius(value);
             }
 
@@ -133,20 +137,22 @@ public class SearchCarActivity extends BaseActivity implements SearchActionListe
                 mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
                     @Override
                     public void onMapLoaded() {
-                        int value= Radius.getProgress();
-                        set_radius( value);
+                        int value = Radius.getProgress();
+                        set_radius(value);
 
                     }
                 });
             }
         });
     }
+
     private void checkInternet() {
         if (!isNetworkConnected()) {
             showToast("Нет подключения к интернету");
             animateCamera(new LatLng(55.749792, 37.632495));
         }
     }
+
     private void animateCamera(LatLng position) {
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(position, 11);
         mMap.animateCamera(cameraUpdate);
@@ -156,7 +162,7 @@ public class SearchCarActivity extends BaseActivity implements SearchActionListe
     public void onZoomIn(View v) {
         if (mMap != null) {
 
-                mZoomLevel = mMap.getCameraPosition().zoom;
+            mZoomLevel = mMap.getCameraPosition().zoom;
             if (mZoomLevel < mMap.getMaxZoomLevel()) {
                 mMap.animateCamera(CameraUpdateFactory.zoomTo(++mZoomLevel));
             }
@@ -175,32 +181,29 @@ public class SearchCarActivity extends BaseActivity implements SearchActionListe
 
     public void onSearch(View v) {
         if (mMap != null) {
-            int radius =Radius.getProgress();
+            int radius = Radius.getProgress();
             VisibleRegion vr = mMap.getProjection().getVisibleRegion();
-            double lat=vr.latLngBounds.getCenter().latitude;
-            double lon=vr.latLngBounds.getCenter().longitude;
-            mSearchCarInteractor.postSearchCars(lat, lon, radius , this);
+            double lat = vr.latLngBounds.getCenter().latitude;
+            double lon = vr.latLngBounds.getCenter().longitude;
+            mSearchCarInteractor.postSearchCars(lat, lon, radius, this);
             b.btnSearch.setEnabled(false);
             radiusCircle.setVisibility(View.GONE);
             Radius.setVisibility(View.GONE);
-            drawSearchCircle(new LatLng(lat,lon),radius);
+            drawSearchCircle(new LatLng(lat, lon), radius);
 
         }
     }
 
     public void onDelete(View v) {
         if (mMap != null) {
-             mSearchCarInteractor.deleteSearchCars(this);
+            mSearchCarInteractor.deleteSearchCars(this);
             b.btnDelete.setEnabled(false);
         }
     }
 
-    public void onBack(View v){
+    public void onBack(View v) {
 
     }
-
-
-
 
 
     @Override
@@ -214,21 +217,19 @@ public class SearchCarActivity extends BaseActivity implements SearchActionListe
         switch (type) {
             case 1:
                 enableDeleteButton();
-                String text=search.getText();
+                String text = "Message from API";
                 showalert(text);
                 break;
             case 2:
                 Float lat = search.getLatResponse();
                 Float lon = search.getLonResponse();
-                int rad= search.getRadiusResponse();
-                if (lat!=null&&lon!=null&&rad!=0) {
+                int rad = search.getRadiusResponse();
+                if (lat != null && lon != null && rad != 0) {
                     enableDeleteButton();
-                    drawSearchCircle(new LatLng(lat,lon),rad);
-                    b.tvRadius.setText(String.valueOf(rad)+" м");
+                    drawSearchCircle(new LatLng(lat, lon), rad);
+                    b.tvRadius.setText(String.valueOf(rad) + " м");
 
-                }
-                else
-                {
+                } else {
                     enableSearchButton();
                 }
                 break;
@@ -238,35 +239,35 @@ public class SearchCarActivity extends BaseActivity implements SearchActionListe
 
         }
     }
-    public void enableDeleteButton()
-    {
+
+    public void enableDeleteButton() {
         b.btnDelete.setEnabled(true);
         b.btnDelete.setVisibility(View.VISIBLE);
         b.btnSearch.setVisibility(View.GONE);
         radiusCircle.setVisibility(View.GONE);
         Radius.setVisibility(View.GONE);
     }
-    public void enableSearchButton()
-    {
+
+    public void enableSearchButton() {
         b.btnSearch.setEnabled(true);
         radiusCircle.setVisibility(View.VISIBLE);
         Radius.setVisibility(View.VISIBLE);
         b.btnSearch.setVisibility(View.VISIBLE);
         b.btnDelete.setVisibility(View.GONE);
-        if(mCircle!=null){
+        if (mCircle != null) {
             mCircle.remove();
         }
     }
-    private void drawSearchCircle(LatLng position, double  radius) {
-        CircleOptions circleOptions = new CircleOptions().center(position).radius(radius/2).fillColor(getResources().getColor(R.color.maintransparent)).strokeColor(getResources().getColor(R.color.maintransparent)).strokeWidth(1);
+
+    private void drawSearchCircle(LatLng position, double radius) {
+        CircleOptions circleOptions = new CircleOptions().center(position).radius(radius / 2).fillColor(getResources().getColor(R.color.maintransparent)).strokeColor(getResources().getColor(R.color.maintransparent)).strokeWidth(1);
         mCircle = mMap.addCircle(circleOptions);
-System.out.println(position+" "+radius);
+        System.out.println(position + " " + radius);
     }
 
-        private void showalert(String text) {
+    private void showalert(String text) {
         AlertDialog.Builder builder = new AlertDialog.Builder(SearchCarActivity.this);
-//            builder.setMessage(text);
-        builder.setMessage(text)
+        builder.setTitle(text)
                 .setCancelable(false)
                 .setNegativeButton("ОК",
                         new DialogInterface.OnClickListener() {
@@ -301,6 +302,7 @@ System.out.println(position+" "+radius);
     public void onUnknownError(String text) {
 
     }
+
     protected void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -310,15 +312,24 @@ System.out.println(position+" "+radius);
     }
 
 
-
-
     protected void createLocationRequest() {
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(10000);
         mLocationRequest.setFastestInterval(5000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
+
     protected void startLocationUpdates() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         LocationServices.FusedLocationApi.requestLocationUpdates(
                 mGoogleApiClient, mLocationRequest, this);
     }
@@ -332,28 +343,40 @@ System.out.println(position+" "+radius);
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.user_location));
         mMarker = mMap.addMarker(options);
         if (isFake) mMarker.setVisible(false);
-      CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(myPosition, 15);
-      mMap.animateCamera(cameraUpdate);
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(myPosition, 15);
+        mMap.animateCamera(cameraUpdate);
 
     }
+
     void updateLocation(Location location) {
         if (mMarker == null) {
             buildUserLocation(location);
         } else {
             mMarker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
-            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),location.getLongitude()), 15);
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15);
             mMap.animateCamera(cameraUpdate);
         }
     }
+
     private void setUpMapIfNeeded() {
         if (mMap == null) {
-            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
-                    .getMap();
+            ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMapAsync(this);
 
         }
     }
+
     @Override
     public void onConnected(Bundle bundle) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         startLocationUpdates();
         if (mLastLocation != null) {
@@ -408,7 +431,7 @@ System.out.println(position+" "+radius);
     protected void onPause() {
         super.onPause();
         if (mGoogleApiClient.isConnected()) {
-           // stopLocationUpdates();
+            // stopLocationUpdates();
         }
     }
     @Override
@@ -419,8 +442,23 @@ System.out.println(position+" "+radius);
             mGoogleApiClient.disconnect();
         }
 
-       // if (timerSubscription != null) timerSubscription.unsubscribe();
+        // if (timerSubscription != null) timerSubscription.unsubscribe();
     }
 
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        //DO WHATEVER YOU WANT WITH GOOGLEMAP
+
+        if (mMap != null) {
+            return;
+        }
+        mMap = googleMap;
+
+        setUpMapIfNeeded();
+        setRadiusSeekBar();
+        mZoomLevel = mMap.getMinZoomLevel();
+
+
+    }
 }

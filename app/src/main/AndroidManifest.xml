@@ -55,14 +55,13 @@
             android:name=".activities.ReferralActivity"
             android:theme="@style/AppTheme.Invite"
             android:label="@string/free_drive"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".activities.InviteActivity"
             android:theme="@style/AppTheme.Invite"
             android:windowSoftInputMode="stateHidden"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
 
         <activity android:name=".activities.LoginActivity" />
         <activity android:name=".activities.MapsActivity" />

@@ -13,7 +13,7 @@ import youdrive.today.models.ApiError;
 import youdrive.today.network.ApiClient;
 import youdrive.today.response.SearchCarResponse;
 
-public class SearchInteractorImpl  implements SearchInteractor  {
+public class SearchInteractorImpl implements SearchInteractor {
     private final ApiClient mApiClient;
     private SearchActionListener mListener;
     CompositeSubscription subscriptions = new CompositeSubscription();
@@ -35,15 +35,17 @@ public class SearchInteractorImpl  implements SearchInteractor  {
                         error -> handleNetworkError(error, listener));
         subscriptions.add(subscription);
     }
+
     private void onPostSearchSuccess(SearchCarResponse response, SearchActionListener listener) {
         if (response.isSuccess()) {
-            listener.onSuccess(response,1);
+            listener.onSuccess(response, 1);
         } else {
             handlingError(new ApiError(response.getCode(), response.getText()), mListener);
 
         }
     }
-    public void getSearchCar( SearchActionListener listener) {
+
+    public void getSearchCar(SearchActionListener listener) {
         mListener = listener;
         Subscription subscription = mApiClient
                 .getSearchCar()
@@ -58,7 +60,7 @@ public class SearchInteractorImpl  implements SearchInteractor  {
 
     private void onGetSearchSuccess(SearchCarResponse response, SearchActionListener listener) {
         if (response.isSuccess()) {
-            listener.onSuccess(response,2);
+            listener.onSuccess(response, 2);
 
         } else {
             handlingError(new ApiError(response.getCode(), response.getText()), mListener);
@@ -84,13 +86,13 @@ public class SearchInteractorImpl  implements SearchInteractor  {
 
     private void onDeleteSearchSuccess(SearchCarResponse response, SearchActionListener listener) {
         if (response.isSuccess()) {
-            listener.onSuccess(response,3);
-        }
-        else {
+            listener.onSuccess(response, 3);
+        } else {
             handlingError(new ApiError(response.getCode(), response.getText()), mListener);
 
         }
     }
+
     private void handlingError(ApiError error, SearchActionListener listener) {
         if (error.getCode() == ApiError.ACCESS_DENIED) {
             listener.onAccessDenied(error.getText());
@@ -109,12 +111,6 @@ public class SearchInteractorImpl  implements SearchInteractor  {
         listener.onError();
 
     }
-
-
-
-
-
-
 
 
     public Subscription getSubscription() {

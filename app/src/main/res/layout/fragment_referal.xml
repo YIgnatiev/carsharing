@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+
     <data>
+
         <variable
             name="listener"
-            type="youdrive.today.fragments.ReferalFragment"/>
+            type="youdrive.today.fragments.ReferalFragment" />
     </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg"
         android:fillViewport="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:padding="20dp">
+
             <ImageView
                 android:id="@+id/ivReferalLogo"
                 android:src="@drawable/ic_referal_logo"
@@ -24,11 +29,13 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:layout_height="100dp" />
+
             <RelativeLayout
                 android:id="@+id/rlReferalText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal">
+
                 <TextView
                     android:id="@+id/tvFreeDrives"
                     android:layout_margin="10dp"
@@ -37,6 +44,7 @@
                     android:textColor="@android:color/white"
                     android:text="@string/get_free_drives"
                     android:textSize="18sp" />
+
                 <TextView
                     android:layout_marginTop="15dp"
                     android:layout_height="wrap_content"
@@ -49,6 +57,7 @@
                     android:text="@string/referal_description"
                     android:textSize="14sp" />
             </RelativeLayout>
+
             <TextView
                 android:id="@+id/tvMore"
                 android:layout_marginTop="10dp"
@@ -58,6 +67,7 @@
                 android:textColor="@color/main"
                 android:text="@string/more"
                 android:textSize="14sp" />
+
             <TextView
                 android:id="@+id/tvCodeDescription"
                 android:layout_marginTop="20dp"
@@ -66,6 +76,7 @@
                 android:textColor="@android:color/white"
                 android:text="@string/give_promo_title"
                 android:textSize="12sp" />
+
             <TextView
                 android:id="@+id/tvCode"
                 android:layout_marginTop="10dp"
@@ -79,18 +90,21 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <Button
                     android:id="@+id/bShareSocial"
                     android:text="@string/share_social"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick='@{listener.onShareSocial}'
-                    style="@style/AppTheme.ReferalButton"/>
+                    style="@style/AppTheme.ReferalButton" />
+
                 <Button
                     android:id="@+id/bInviteEmail"
                     android:text="@string/invite_email"
@@ -98,7 +112,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick='@{listener.onShareEmail}'
-                    style="@style/AppTheme.ReferalButton"/>
+                    style="@style/AppTheme.ReferalButton" />
+
                 <Button
                     android:id="@+id/bInviteSMS"
                     android:text="@string/invite_sms"
@@ -106,7 +121,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick='@{listener.onShareSMS}'
-                    style="@style/AppTheme.ReferalButton"/>
+                    style="@style/AppTheme.ReferalButton" />
             </LinearLayout>
 
         </LinearLayout>

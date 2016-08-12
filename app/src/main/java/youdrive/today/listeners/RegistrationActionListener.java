@@ -10,11 +10,15 @@ import youdrive.today.models.Region;
 public interface RegistrationActionListener {
 
     void onInvite();
+
     void onRegions(List<Region> regions);
 
     void onError();
+
     void onUnknownError(String text);
+
     void onRegionNotFound(String text);
+
     void onUserAlreadyExist(String text);
 
 }

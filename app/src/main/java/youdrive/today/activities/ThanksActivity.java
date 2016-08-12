@@ -13,6 +13,7 @@ import youdrive.today.databinding.ActivityThanksBinding;
  */
 public class ThanksActivity extends BaseActivity {
     ActivityThanksBinding b;
+
     //listener
     public void onAuth(View view) {
         startActivity(new Intent(this, LoginActivity.class));

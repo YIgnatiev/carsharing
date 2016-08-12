@@ -74,8 +74,7 @@
                 app:cpb_selectorComplete="@drawable/complete_state_selector"
                 app:cpb_selectorError="@drawable/error_state_selector"
                 app:cpb_selectorIdle="@drawable/idle_state_selector"
-                android:onClick='@{listener.onButtonNavigate}'
-                />
+                android:onClick='@{listener.onButtonNavigate}' />
 
         </LinearLayout>
     </LinearLayout>

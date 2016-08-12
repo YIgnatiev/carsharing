@@ -7,15 +7,9 @@
         <item name="windowNoTitle">true</item>
 
 
-
         <!--Dialog style-->
         <item name="md_dark_theme">false</item>
         <item name="md_background_color">@color/white</item>
-
-
-
-
-
 
 
         <!--Spinner style-->
@@ -31,9 +25,11 @@
         <item name="android:windowEnterAnimation">@anim/bottom_up</item>
         <item name="android:windowExitAnimation">@anim/bottom_down</item>
     </style>
+
     <style name="AppTheme.Splash" parent="AppTheme">
         <item name="android:windowBackground">@drawable/splash_background</item>
     </style>
+
     <style name="AppTheme.Invite" parent="AppTheme">
         <item name="android:typeface">normal</item>
         <item name="android:windowBackground">@color/invite_back</item>
@@ -41,8 +37,10 @@
         <item name="android:textColorSecondary">@color/main</item>
         <item name="android:popupMenuStyle">@style/PopupMenu</item>
         <item name="popupMenuStyle">@style/PopupMenu</item>
-        <item name="android:textAppearanceLargePopupMenu">@style/myPopupMenuTextAppearanceLarge</item>
-        <item name="android:textAppearanceSmallPopupMenu">@style/myPopupMenuTextAppearanceSmall</item>
+        <item name="android:textAppearanceLargePopupMenu">@style/myPopupMenuTextAppearanceLarge
+        </item>
+        <item name="android:textAppearanceSmallPopupMenu">@style/myPopupMenuTextAppearanceSmall
+        </item>
 
     </style>
 
@@ -55,6 +53,7 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">12sp</item>
     </style>
+
     <style name="myPopupMenuTextAppearanceLarge" parent="@android:style/TextAppearance.DeviceDefault.Widget.PopupMenu.Large">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">16sp</item>
@@ -118,11 +117,9 @@
     </style>
 
 
-
     <style name="CustomFloaterTextAppearance" parent="android:TextAppearance.Small">
         <item name="android:textColor">@android:color/white</item>
     </style>
-
 
 
 </resources>

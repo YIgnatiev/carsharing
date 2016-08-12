@@ -12,7 +12,7 @@ public class InviteUser {
     private boolean readyToUse;
     private String email;
 
-    public InviteUser (String email,long phone, String region, boolean readyToUse){
+    public InviteUser(String email, long phone, String region, boolean readyToUse) {
         this.email = email;
         this.phone = phone;
         this.region = region;
