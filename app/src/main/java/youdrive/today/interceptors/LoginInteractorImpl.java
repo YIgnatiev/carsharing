@@ -18,7 +18,7 @@ import youdrive.today.models.User;
 import youdrive.today.network.ApiClient;
 import youdrive.today.response.LoginResponse;
 
-public class LoginInteractorImpl implements LoginInteractor , Observer<LoginResponse>{
+public class LoginInteractorImpl implements LoginInteractor, Observer<LoginResponse> {
 
     private final ApiClient mApiClient;
     private LoginActionListener mListener;
@@ -41,7 +41,6 @@ public class LoginInteractorImpl implements LoginInteractor , Observer<LoginResp
     }
 
 
-
     public Subscription getSubscription() {
         return subscription;
     }
@@ -60,7 +59,7 @@ public class LoginInteractorImpl implements LoginInteractor , Observer<LoginResp
             LoginResponse response = new Gson().fromJson(message, LoginResponse.class);
             handlingError(new ApiError(response.getCode(),
                     response.getText()), mListener);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             mListener.onError();
         }
     }
@@ -99,7 +98,6 @@ public class LoginInteractorImpl implements LoginInteractor , Observer<LoginResp
         }
 
     }
-
 
 
 }

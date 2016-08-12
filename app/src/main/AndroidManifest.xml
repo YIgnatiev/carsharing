@@ -55,14 +55,13 @@
             android:name=".activities.ReferralActivity"
             android:theme="@style/AppTheme.Invite"
             android:label="@string/free_drive"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".activities.InviteActivity"
             android:theme="@style/AppTheme.Invite"
             android:windowSoftInputMode="stateHidden"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
 
         <activity android:name=".activities.LoginActivity" />
         <activity android:name=".activities.MapsActivity" />
@@ -71,6 +70,7 @@
         <activity android:name=".activities.BookCarActivity" />
         <activity android:name=".activities.CompleteActivity" />
         <activity android:name=".activities.InformActivity" />
+        <activity android:name=".activities.SearchCarActivity" />
 
         <!-- Used for Google Play Store Campaign Measurement-->
         <service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
@@ -82,14 +82,5 @@
                 <action android:name="com.android.vending.INSTALL_REFERRER" />
             </intent-filter>
         </receiver>
-
-
     </application>
-
-    <service android:name="com.google.analytics.tracking.android.CampaignTrackingService" />
-    <receiver android:name="com.google.analytics.tracking.android.CampaignTrackingReceiver" android:exported="true">
-        <intent-filter>
-            <action android:name="com.android.vending.INSTALL_REFERRER" />
-        </intent-filter>
-    </receiver>
 </manifest>

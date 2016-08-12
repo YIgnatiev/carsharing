@@ -6,7 +6,7 @@ package youdrive.today.response;
  * on 11/1/15.
  */
 public class UploadCareResponse {
-    private String  file;
+    private String file;
 
     public String getFile() {
         return file;

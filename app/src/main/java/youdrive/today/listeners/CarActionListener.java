@@ -35,6 +35,8 @@ public interface CarActionListener {
 
     void onComplete(Check check);
 
+    void onTransfer();
+
     void onBookingTimeLeft(int bookingTimeLeft);
 
     void onSessionNotFound(String text);

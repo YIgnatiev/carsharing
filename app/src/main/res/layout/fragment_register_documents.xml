@@ -5,9 +5,10 @@
 
 
     <data>
+
         <variable
             name="listener"
-            type="youdrive.today.fragments.RegisterDocumentsFragment"/>
+            type="youdrive.today.fragments.RegisterDocumentsFragment" />
     </data>
 
     <RelativeLayout
@@ -35,7 +36,6 @@
                 android:text="@string/load_documents" />
 
 
-
             <com.dd.CircularProgressButton
                 android:id="@+id/btnLoad"
                 android:onClick="@{listener.onLoad}"
@@ -53,29 +53,26 @@
                 app:cpb_colorProgress="@color/cpb_white"
                 app:cpb_textError="@string/error"
                 app:cpb_textIdle="Загрузить"
-                app:cpb_iconComplete="@drawable/ic_action_accept"/>
+                app:cpb_iconComplete="@drawable/ic_action_accept" />
 
 
-        <GridLayout
-            android:columnCount="3"
-            android:layout_width="300dp"
-            android:id="@+id/glImages"
-            android:layout_height="wrap_content"/>
-
-
-
-
+            <GridLayout
+                android:columnCount="3"
+                android:layout_width="300dp"
+                android:id="@+id/glImages"
+                android:layout_height="wrap_content" />
 
 
         </LinearLayout>
 
 
-        <TextView style="@style/AppTheme.Forvard"
+        <TextView
+            style="@style/AppTheme.Forvard"
             android:id="@+id/tvForvard"
-            android:onClick="@{listener.onForvard}"
-            />
+            android:onClick="@{listener.onForvard}" />
 
-        <TextView style="@style/AppTheme.Back"
+        <TextView
+            style="@style/AppTheme.Back"
             android:onClick="@{listener.onBack}"
 
             />

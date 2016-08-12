@@ -1,6 +1,5 @@
 package youdrive.today.activities;
 
-import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
@@ -100,21 +99,20 @@ public class InviteActivity extends BaseActivity implements PhoneNumberAdapter.O
         });
 
     }
-    private void fillRecyclerView()
-    {
-        if (mode == MODE_EMAIL) emailAdapter.setData(getEmailContacts(b.etSearch.getText().toString().toLowerCase()));
+
+    private void fillRecyclerView() {
+        if (mode == MODE_EMAIL)
+            emailAdapter.setData(getEmailContacts(b.etSearch.getText().toString().toLowerCase()));
         else phoneNumberAdapter.setData(getPhones(b.etSearch.getText().toString().toLowerCase()));
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        if(mode==MODE_EMAIL) {
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (mode == MODE_EMAIL) {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_send_email, menu);
             return true;
-        }
-        else return super.onCreateOptionsMenu(menu);
+        } else return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -137,13 +135,10 @@ public class InviteActivity extends BaseActivity implements PhoneNumberAdapter.O
 
                     @Override
                     public void onNext(BaseResponse baseResponse) {
-                        if(baseResponse.isSuccess())
-                        {
+                        if (baseResponse.isSuccess()) {
                             Toast.makeText(getApplicationContext(), R.string.invitation_send_success, Toast.LENGTH_LONG).show();
                             finish();
-                        }
-                        else
-                        {
+                        } else {
                             Toast.makeText(getApplicationContext(), R.string.invitation_send_fail, Toast.LENGTH_LONG).show();
                         }
                     }
@@ -155,10 +150,10 @@ public class InviteActivity extends BaseActivity implements PhoneNumberAdapter.O
         }
     }
 
-    private static ArrayList<EmailAdapter.EmailContact> contacts=null;
-    private ArrayList<EmailAdapter.EmailContact> getEmailContacts(String searchString)
-    {
-        if(contacts==null) {
+    private static ArrayList<EmailAdapter.EmailContact> contacts = null;
+
+    private ArrayList<EmailAdapter.EmailContact> getEmailContacts(String searchString) {
+        if (contacts == null) {
             contacts = new ArrayList<>();
             HashSet<String> emlRecsHS = new HashSet<>();
             ContentResolver cr = getContentResolver();
@@ -192,13 +187,12 @@ public class InviteActivity extends BaseActivity implements PhoneNumberAdapter.O
             }
         }
 
-        if(TextUtils.isEmpty(searchString)||contacts==null) return contacts;
-        else
-        {
-            ArrayList<EmailAdapter.EmailContact> filteredContacts=new ArrayList<>();
-            final int size=contacts.size();
-            for(int i=0;i<size;++i) {
-                EmailAdapter.EmailContact emailContact=contacts.get(i);
+        if (TextUtils.isEmpty(searchString) || contacts == null) return contacts;
+        else {
+            ArrayList<EmailAdapter.EmailContact> filteredContacts = new ArrayList<>();
+            final int size = contacts.size();
+            for (int i = 0; i < size; ++i) {
+                EmailAdapter.EmailContact emailContact = contacts.get(i);
                 if (emailContact.name.toLowerCase().contains(searchString) || emailContact.email.toLowerCase().contains(searchString))
                     filteredContacts.add(emailContact);
             }
@@ -206,10 +200,10 @@ public class InviteActivity extends BaseActivity implements PhoneNumberAdapter.O
         }
     }
 
-    private ArrayList<PhoneNumberAdapter.PhoneContact> phoneContacts=null;
-    private ArrayList<PhoneNumberAdapter.PhoneContact> getPhones(String searchString)
-    {
-        if(phoneContacts==null) {
+    private ArrayList<PhoneNumberAdapter.PhoneContact> phoneContacts = null;
+
+    private ArrayList<PhoneNumberAdapter.PhoneContact> getPhones(String searchString) {
+        if (phoneContacts == null) {
             phoneContacts = new ArrayList<>();
             HashSet<String> emlRecsHS = new HashSet<>();
             Cursor cursor = getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, null, null, null, ContactsContract.Contacts.DISPLAY_NAME);
@@ -238,13 +232,12 @@ public class InviteActivity extends BaseActivity implements PhoneNumberAdapter.O
                 cursor.close();
             }
         }
-        if(TextUtils.isEmpty(searchString)||phoneContacts==null) return phoneContacts;
-        else
-        {
-            ArrayList<PhoneNumberAdapter.PhoneContact> filteredPhoneContacts=new ArrayList<>();
-            final int size=phoneContacts.size();
-            for(int i=0;i<size;++i) {
-                PhoneNumberAdapter.PhoneContact phoneContact=phoneContacts.get(i);
+        if (TextUtils.isEmpty(searchString) || phoneContacts == null) return phoneContacts;
+        else {
+            ArrayList<PhoneNumberAdapter.PhoneContact> filteredPhoneContacts = new ArrayList<>();
+            final int size = phoneContacts.size();
+            for (int i = 0; i < size; ++i) {
+                PhoneNumberAdapter.PhoneContact phoneContact = phoneContacts.get(i);
                 if (phoneContact.name.toLowerCase().contains(searchString) || phoneContact.phone.contains(searchString))
                     filteredPhoneContacts.add(phoneContact);
             }
@@ -252,16 +245,17 @@ public class InviteActivity extends BaseActivity implements PhoneNumberAdapter.O
         }
     }
 
-    public void onSearchClear(View view)
-    {
+    public void onSearchClear(View view) {
         b.etSearch.setText("");
         fillRecyclerView();
     }
 
-    /*** Клик по кнопке в списке телефонов */
+    /***
+     * Клик по кнопке в списке телефонов
+     */
     @Override
     public void onClick(PhoneNumberAdapter.PhoneContact phoneContact) {
-        Uri uri = Uri.parse("smsto:"+phoneContact.phone);
+        Uri uri = Uri.parse("smsto:" + phoneContact.phone);
         Intent it = new Intent(Intent.ACTION_SENDTO, uri);
         it.putExtra("sms_body", AppUtils.getShareText(this, referralRules));
         startActivity(it);

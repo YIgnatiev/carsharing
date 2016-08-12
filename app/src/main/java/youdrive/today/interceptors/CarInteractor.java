@@ -1,7 +1,7 @@
 package youdrive.today.interceptors;
 
-import youdrive.today.models.Command;
 import youdrive.today.listeners.CarActionListener;
+import youdrive.today.models.Command;
 
 /**
  * Created by psuhoterin on 26.04.15.

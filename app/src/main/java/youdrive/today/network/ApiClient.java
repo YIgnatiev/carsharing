@@ -23,23 +23,29 @@ import youdrive.today.models.Invites;
 import youdrive.today.models.LoginUser;
 import youdrive.today.models.ReferralRules;
 import youdrive.today.models.RegistrationUser;
+import youdrive.today.models.SearchCar;
 import youdrive.today.response.BaseResponse;
 import youdrive.today.response.CarResponse;
 import youdrive.today.response.CommandResponse;
 import youdrive.today.response.LoginResponse;
+import youdrive.today.response.PayoffResponse;
 import youdrive.today.response.PolygonResponse;
 import youdrive.today.response.RegionsResponse;
 import youdrive.today.response.RegistrationModel;
+import youdrive.today.response.SearchCarResponse;
 import youdrive.today.response.UploadCareResponse;
 import youdrive.today.response.UploadGroupResponse;
+import youdrive.today.response.UserProfileResponse;
 
 /**
  * Created by psuhoterin on 21.04.15.
  */
 public class ApiClient {
 
-	//private static String HOST = "https://youdrive.today";
-    private static String HOST = "http://188.166.36.215:3000";
+    private static String HOST = "https://youdrive.today";
+
+//    private static String HOST = "http://188.166.36.215:3000";
+
     private static String UPLOADCARE_KEY = "507278759b3577e5f137";
     private static final boolean enableLog = BuildConfig.DEBUG;
     private CarsharingService mService;
@@ -58,7 +64,7 @@ public class ApiClient {
                 .build()
                 .create(CarsharingService.class);
 
-       mUploadService = new RestAdapter.Builder()
+        mUploadService = new RestAdapter.Builder()
                 .setEndpoint("https://upload.uploadcare.com")
                 .setClient(new OkClient(new OkHttpClient()))
                 .setLogLevel(RestAdapter.LogLevel.FULL)
@@ -72,6 +78,13 @@ public class ApiClient {
 
     public Observable<BaseResponse> logout() {
         return mService.logout();
+    }
+
+    public Observable<UserProfileResponse> getUserProfile() {
+        return mService.getUser();
+    }
+    public Observable<PayoffResponse> payoff() {
+        return mService.payoff(new Object());
     }
 
     public Observable<CarResponse> getStatusCars(double lat, double lon) {
@@ -110,7 +123,7 @@ public class ApiClient {
         return mService.result(token);
     }
 
-    public Observable<RegistrationModel> createUser(){
+    public Observable<RegistrationModel> createUser() {
         return mService
                 .createAccount(new RegistrationModel())
                 .retry(3)
@@ -119,7 +132,7 @@ public class ApiClient {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<RegistrationModel> updateUser(String userId,RegistrationUser user){
+    public Observable<RegistrationModel> updateUser(String userId, RegistrationUser user) {
         return mService
                 .updateAccount(userId, user)
                 .retry(3)
@@ -128,7 +141,7 @@ public class ApiClient {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
- public Observable<RegistrationModel> createUser(String userId){
+    public Observable<RegistrationModel> createUser(String userId) {
         return mService
                 .createAccount(userId)
                 .retry(3)
@@ -137,14 +150,14 @@ public class ApiClient {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<CreditCardResponse> initCard(CreditCardModel model){
+    public Observable<CreditCardResponse> initCard(CreditCardModel model) {
         return mService.initCreditCard(model)
-                .timeout(5,TimeUnit.SECONDS)
+                .timeout(5, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<BaseResponse> inviteUsersEmail(Invites inviteList){
+    public Observable<BaseResponse> inviteUsersEmail(Invites inviteList) {
         return mService.inviteUsersEmail(inviteList)
                 .retry(3)
                 .timeout(5, TimeUnit.SECONDS)
@@ -152,7 +165,7 @@ public class ApiClient {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<ReferralRules> getReferralRules(){
+    public Observable<ReferralRules> getReferralRules() {
         return mService.getReferralRules()
                 .retry(3)
                 .timeout(5, TimeUnit.SECONDS)
@@ -160,12 +173,23 @@ public class ApiClient {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<UploadCareResponse> uploadFile(File file){
+    public Observable<UploadCareResponse> uploadFile(File file) {
         TypedFile typedFile = new TypedFile("multipart/form-data", file);
-       return mUploadService.uploadFile(UPLOADCARE_KEY, 1, typedFile);
+        return mUploadService.uploadFile(UPLOADCARE_KEY, 1, typedFile);
     }
 
-    public Observable<UploadGroupResponse> uploadGroup(Map<String ,String>params){
-        return mUploadService.uploadGroup(UPLOADCARE_KEY,params);
+    public Observable<UploadGroupResponse> uploadGroup(Map<String, String> params) {
+        return mUploadService.uploadGroup(UPLOADCARE_KEY, params);
+    }
+
+    public Observable<SearchCarResponse> postSearchCar(double lat, double lon, double radius) {
+        return mService.createSearchCar(new SearchCar((float) lat, (float) lon, (int) radius));
+    }
+
+    public Observable<SearchCarResponse> getSearchCar() {
+        return mService.getSearchCar();
+    }
+    public Observable<SearchCarResponse> deleteSearchCar() {
+        return mService.deleteSearchCar();
     }
 }

@@ -19,6 +19,7 @@ public class RegistrationUser {
     private String card_number;
     private String promocode;
     private String user_id;
+
     public boolean getOnline_contract_signed() {
         return online_contract_signed;
     }
@@ -27,7 +28,7 @@ public class RegistrationUser {
         this.online_contract_signed = online_contract_signed;
     }
 
-    public String getUserId(){
+    public String getUserId() {
         return user_id;
     }
 

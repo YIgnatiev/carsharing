@@ -1,64 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="listener"
-            type="youdrive.today.activities.InviteActivity"/>
+            type="youdrive.today.activities.InviteActivity" />
     </data>
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    <android.support.v7.widget.Toolbar
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:titleTextColor="@color/main"
-        android:background="@color/dark_toolbar"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:layout_margin="12dp"
-            android:src="@drawable/ic_search"/>
-        <EditText
-            android:id="@+id/etSearch"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:hint="@string/search"
-            android:textCursorDrawable="@null"
-            android:textColorHint="@android:color/darker_gray"
-            android:textColor="@android:color/black"
-            android:background="@android:color/transparent"/>
-        <ImageView
-            android:id="@+id/ivClear"
-            android:layout_width="wrap_content"
-            android:clickable="true"
-            android:layout_height="match_parent"
-            android:padding="@dimen/default_margin"
-            android:onClick="@{listener.onSearchClear}"
-            android:src="@drawable/ic_close"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:titleTextColor="@color/main"
+            android:background="@color/dark_toolbar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_margin="12dp"
+                android:src="@drawable/ic_search" />
+
+            <EditText
+                android:id="@+id/etSearch"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="@string/search"
+                android:textCursorDrawable="@null"
+                android:textColorHint="@android:color/darker_gray"
+                android:textColor="@android:color/black"
+                android:background="@android:color/transparent" />
+
+            <ImageView
+                android:id="@+id/ivClear"
+                android:layout_width="wrap_content"
+                android:clickable="true"
+                android:layout_height="match_parent"
+                android:padding="@dimen/default_margin"
+                android:onClick="@{listener.onSearchClear}"
+                android:src="@drawable/ic_close" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/dark_toolbar" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/dark_toolbar"/>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-</LinearLayout>
 
 </layout>

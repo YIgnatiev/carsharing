@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <data>
+
         <variable
             name="phoneContact"
             type="youdrive.today.adapters.PhoneNumberAdapter.PhoneContact" />
     </data>
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TextView
             android:id="@+id/tvName"
             android:layout_toLeftOf="@+id/bInviteSMS"
@@ -22,7 +26,8 @@
             android:textColor="@color/dark_toolbar"
             android:singleLine="true"
             tools:text="Name"
-            android:text="@{phoneContact.name}"/>
+            android:text="@{phoneContact.name}" />
+
         <TextView
             android:id="@+id/tvPhone"
             android:layout_below="@id/tvName"
@@ -37,7 +42,8 @@
             android:textColor="@color/dark_toolbar"
             android:singleLine="true"
             tools:text="Email"
-            android:text="@{phoneContact.phone}"/>
+            android:text="@{phoneContact.phone}" />
+
         <Button
             android:id="@+id/bInviteSMS"
             android:text="@string/invite"
@@ -48,11 +54,12 @@
             android:layout_marginRight="@dimen/default_margin"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            style="@style/AppTheme.InviteSMS"/>
+            style="@style/AppTheme.InviteSMS" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/dark_toolbar"/>
+            android:background="@color/dark_toolbar" />
     </RelativeLayout>
 </layout>

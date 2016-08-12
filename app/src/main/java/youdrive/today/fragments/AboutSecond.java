@@ -20,11 +20,13 @@ import youdrive.today.databinding.FragmentAboutSecondBinding;
  */
 public class AboutSecond extends BaseFragment {
     private FragmentAboutSecondBinding b;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         b = DataBindingUtil.inflate(inflater, R.layout.fragment_about_second, container, false);
         return b.getRoot();
     }
+
     @Override
     public void onStart() {
         super.onStart();

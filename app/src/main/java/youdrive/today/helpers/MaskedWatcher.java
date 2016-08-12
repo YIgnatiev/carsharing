@@ -54,7 +54,8 @@ public class MaskedWatcher implements TextWatcher {
     //endregion
 
     //region Text Watcher
-    @Override public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+    @Override
+    public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
         if (mIsUpdating) {
             mIsUpdating = false;
             return;
@@ -84,11 +85,14 @@ public class MaskedWatcher implements TextWatcher {
         }
     }
 
-    @Override public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
 
     }
 
-    @Override public void afterTextChanged(Editable editable) {}
+    @Override
+    public void afterTextChanged(Editable editable) {
+    }
     //endregion
 
     //region Private
@@ -103,7 +107,7 @@ public class MaskedWatcher implements TextWatcher {
     }
     //endregion
 
-    public String getPhone(){
+    public String getPhone() {
         return mEditText.getText().toString()
                 .replace(" ", "")
                 .replace("(", "")

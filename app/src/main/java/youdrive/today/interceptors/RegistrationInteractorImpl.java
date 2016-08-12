@@ -24,6 +24,7 @@ public class RegistrationInteractorImpl implements RegistrationInteractor {
     private final ApiClient mApiClient;
     private RegistrationActionListener mListener;
     private CompositeSubscription subscriptions = new CompositeSubscription();
+
     public RegistrationInteractorImpl() {
         mApiClient = App.getInstance().getApiClient();
     }
@@ -34,20 +35,20 @@ public class RegistrationInteractorImpl implements RegistrationInteractor {
 
         mListener = listener;
         Subscription subscription = mApiClient
-                .invite(email,phone,region,readyToUse)
+                .invite(email, phone, region, readyToUse)
                 .retry(3)
                 .timeout(5, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onSuccessInvite,this::onFailureInvite);
+                .subscribe(this::onSuccessInvite, this::onFailureInvite);
 
         subscriptions.add(subscription);
     }
 
-    private void onSuccessInvite(BaseResponse response){
+    private void onSuccessInvite(BaseResponse response) {
         mListener.onInvite();
     }
 
-    private void onFailureInvite(Throwable throwable){
+    private void onFailureInvite(Throwable throwable) {
         try {
             RetrofitError error = (RetrofitError) throwable;
             TypedByteArray byteArray = (TypedByteArray) error.getResponse().getBody();
@@ -55,7 +56,7 @@ public class RegistrationInteractorImpl implements RegistrationInteractor {
             BaseResponse response = new Gson().fromJson(message, BaseResponse.class);
             handlingError(new ApiError(response.getCode(),
                     response.getText()), mListener);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             mListener.onError();
         }
     }
@@ -68,14 +69,14 @@ public class RegistrationInteractorImpl implements RegistrationInteractor {
                 .retry(3)
                 .timeout(5, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onRegionsRespnseSuccess,this::onRegionsFailure);
+                .subscribe(this::onRegionsRespnseSuccess, this::onRegionsFailure);
         subscriptions.add(subscription);
 
     }
 
     public void onRegionsRespnseSuccess(RegionsResponse response) {
 
-        if (response.isSuccess()){
+        if (response.isSuccess()) {
             mListener.onRegions(response.getRegions());
         } else {
             handlingError(new ApiError(response.getCode(),
@@ -91,17 +92,17 @@ public class RegistrationInteractorImpl implements RegistrationInteractor {
             RegionsResponse response = new Gson().fromJson(message, RegionsResponse.class);
             handlingError(new ApiError(response.getCode(),
                     response.getText()), mListener);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             mListener.onError();
         }
     }
 
     private void handlingError(ApiError error, RegistrationActionListener listener) {
-        if (error.getCode() == ApiError.USER_ALREADY_EXISTS){
+        if (error.getCode() == ApiError.USER_ALREADY_EXISTS) {
             listener.onUserAlreadyExist(error.getText());
-        } else if (error.getCode() == ApiError.REGION_NOT_FOUND){
+        } else if (error.getCode() == ApiError.REGION_NOT_FOUND) {
             listener.onRegionNotFound(error.getText());
-        } else if (error.getText() != null){
+        } else if (error.getText() != null) {
             listener.onUnknownError(error.getText());
         } else {
             listener.onError();
@@ -111,11 +112,6 @@ public class RegistrationInteractorImpl implements RegistrationInteractor {
     public Subscription getSubscription() {
         return subscriptions;
     }
-
-
-
-
-
 
 
 }

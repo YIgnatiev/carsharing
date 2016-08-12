@@ -60,45 +60,40 @@
             android:textSize="12sp" />
 
 
-
-            <TextView
-                android:id="@+id/txtNumber"
-                android:layout_margin="10dp"
-                android:layout_width="wrap_content"
-                android:drawableLeft="@drawable/icon_number"
-                android:layout_height="wrap_content"
-                android:drawablePadding="5dp"
-                android:textColor="@color/black"
-                android:textSize="10sp" />
-
+        <TextView
+            android:id="@+id/txtNumber"
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:drawableLeft="@drawable/icon_number"
+            android:layout_height="wrap_content"
+            android:drawablePadding="5dp"
+            android:textColor="@color/black"
+            android:textSize="10sp" />
 
 
-
-            <TextView
-                android:id="@+id/txtColor"
-                android:layout_width="wrap_content"
-                android:drawableLeft="@drawable/icon_brush"
-                android:drawablePadding="5dp"
-                android:layout_height="wrap_content"
-                android:textAppearance="@android:style/TextAppearance.Small"
-                android:textColor="@color/black"
-                android:layout_margin="10dp"
-                android:textSize="10sp" />
-
+        <TextView
+            android:id="@+id/txtColor"
+            android:layout_width="wrap_content"
+            android:drawableLeft="@drawable/icon_brush"
+            android:drawablePadding="5dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="@android:style/TextAppearance.Small"
+            android:textColor="@color/black"
+            android:layout_margin="10dp"
+            android:textSize="10sp" />
 
 
-            <TextView
-                android:drawableLeft="@drawable/icon_alarm"
-                android:id="@+id/txtStartUsage"
-                android:drawablePadding="5dp"
-                android:layout_margin="10dp"
-                android:visibility="gone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:textColor="@color/black"
-                android:textSize="10sp" />
-
+        <TextView
+            android:drawableLeft="@drawable/icon_alarm"
+            android:id="@+id/txtStartUsage"
+            android:drawablePadding="5dp"
+            android:layout_margin="10dp"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="10sp" />
 
 
     </LinearLayout>

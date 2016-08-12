@@ -3,83 +3,79 @@
 <layout>
 
     <data>
+
         <variable
             name="listener"
-            type="youdrive.today.fragments.AboutThird"/>
+            type="youdrive.today.fragments.AboutThird" />
     </data>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center|left"
-    android:orientation="vertical"
-    android:padding="20dp">
 
-    <TextView
-
-        style="@style/AppTheme.TextView"
-        android:layout_gravity="center_horizontal"
-
-        android:padding="10dp"
-        android:text="Основные преимущества"
-        android:textSize="18sp" />
-
-
-    <TextView
-        style="@style/AppTheme.TextView"
-        android:id="@+id/tvMinuteTarification"
-        android:drawablePadding="10dp"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:gravity="center|left"
-        android:padding="10dp"
-        android:onClick='@{listener.onMinuteTarrification}'
-        android:drawableLeft="@drawable/ic_clock" />
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+
+            style="@style/AppTheme.TextView"
+            android:layout_gravity="center_horizontal"
+
+            android:padding="10dp"
+            android:text="Основные преимущества"
+            android:textSize="18sp" />
 
 
-    <TextView
-        style="@style/AppTheme.TextView"
-        android:id="@+id/tvFreeParking"
-        android:drawablePadding="10dp"
-        android:gravity="center|left"
-        android:padding="10dp"
-        android:onClick='@{listener.onFreeParking}'
-        android:drawableLeft="@drawable/ic_ruble"
-        />
+        <TextView
+            style="@style/AppTheme.TextView"
+            android:id="@+id/tvMinuteTarification"
+            android:drawablePadding="10dp"
+            android:gravity="center|left"
+            android:padding="10dp"
+            android:onClick='@{listener.onMinuteTarrification}'
+            android:drawableLeft="@drawable/ic_clock" />
 
 
-
-    <TextView
-        style="@style/AppTheme.TextView"
-        android:layout_width="wrap_content"
-        android:drawablePadding="10dp"
-        android:gravity="center|left"
-        android:padding="10dp"
-        android:onClick='@{listener.onFuelIsPayed}'
-        android:id="@+id/tvFreeFuel"
-        android:drawableLeft="@drawable/ic_car"
-         />
+        <TextView
+            style="@style/AppTheme.TextView"
+            android:id="@+id/tvFreeParking"
+            android:drawablePadding="10dp"
+            android:gravity="center|left"
+            android:padding="10dp"
+            android:onClick='@{listener.onFreeParking}'
+            android:drawableLeft="@drawable/ic_ruble" />
 
 
+        <TextView
+            style="@style/AppTheme.TextView"
+            android:layout_width="wrap_content"
+            android:drawablePadding="10dp"
+            android:gravity="center|left"
+            android:padding="10dp"
+            android:onClick='@{listener.onFuelIsPayed}'
+            android:id="@+id/tvFreeFuel"
+            android:drawableLeft="@drawable/ic_car" />
 
-    <TextView
-        style="@style/AppTheme.TextView"
-        android:id="@+id/tvFreeNight"
-        android:drawablePadding="10dp"
-        android:gravity="center|left"
-        android:padding="10dp"
-        android:drawableLeft="@drawable/ic_hotel"
-        android:onClick='@{listener.onFreeNightParking}'
-       />
+
+        <TextView
+            style="@style/AppTheme.TextView"
+            android:id="@+id/tvFreeNight"
+            android:drawablePadding="10dp"
+            android:gravity="center|left"
+            android:padding="10dp"
+            android:drawableLeft="@drawable/ic_hotel"
+            android:onClick='@{listener.onFreeNightParking}' />
 
 
-    <TextView
-        style="@style/AppTheme.TextView"
-        android:drawablePadding="10dp"
-        android:gravity="center|left"
-        android:id="@+id/tvFarRides"
-        android:padding="10dp"
-        android:drawableLeft="@drawable/ic_road_sign"
-        android:onClick='@{listener.onFarRides}'
-        />
+        <TextView
+            style="@style/AppTheme.TextView"
+            android:drawablePadding="10dp"
+            android:gravity="center|left"
+            android:id="@+id/tvFarRides"
+            android:padding="10dp"
+            android:drawableLeft="@drawable/ic_road_sign"
+            android:onClick='@{listener.onFarRides}' />
 
-</LinearLayout>
+    </LinearLayout>
 
 </layout>

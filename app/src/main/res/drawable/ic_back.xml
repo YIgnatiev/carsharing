@@ -5,7 +5,6 @@
     android:viewportHeight="100">
 
 
-
     <path
         android:strokeWidth="5"
         android:strokeLineCap="round"
@@ -14,11 +13,7 @@
         android:pathData="M65,20
        L 35 50
         65 80
-         "
-        />
-
-
-
+         " />
 
 
 </vector>

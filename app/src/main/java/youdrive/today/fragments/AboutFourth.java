@@ -144,7 +144,7 @@ public class AboutFourth extends BaseFragment<WellcomeActivity> {
         for (SimpleCar c : cars) {
             addMarker(c);
         }
-        for (List<Coord> coords : response.getArea()){
+        for (List<Coord> coords : response.getArea()) {
             drawPolygon(coords);
         }
 

@@ -127,7 +127,7 @@ public class RegisterProfileFragment extends BaseFragment<RegistrationActivity> 
                 })
                 .doOnNext(bool -> {
                     if (!bool) b.etPhone.setError(getString(R.string.phone_error));
-                    else mActivity.mUser.setPhone(b.etPhone.getText().toString().substring(2));
+                    else mActivity.mUser.setPhone(b.etPhone.getText().toString().substring(1));
                 });
 
         Observable<Boolean> password = WidgetObservable.text(b.etPassword)

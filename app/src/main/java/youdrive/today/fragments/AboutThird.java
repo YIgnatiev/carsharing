@@ -23,6 +23,7 @@ import youdrive.today.databinding.FragmentAboutThirdBinding;
 public class AboutThird extends BaseFragment {
 
     private FragmentAboutThirdBinding b;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         b = DataBindingUtil.inflate(inflater, R.layout.fragment_about_third, container, false);
@@ -40,7 +41,7 @@ public class AboutThird extends BaseFragment {
     }
 
 
-    private void showTextDialog(String _message){
+    private void showTextDialog(String _message) {
         AlertDialog dialog = new AlertDialog.Builder(mActivity)
                 .setMessage(_message)
                 .setPositiveButton("OK", (num, window) -> {
@@ -60,22 +61,23 @@ public class AboutThird extends BaseFragment {
 
     }
 
-    public void onMinuteTarrification(View view){
+    public void onMinuteTarrification(View view) {
         showTextDialog(getString(R.string.minute_tarification));
     }
-    public void onFreeParking(View view){
+
+    public void onFreeParking(View view) {
         showTextDialog(getString(R.string.free_parking));
     }
 
-    public void onFuelIsPayed(View view){
+    public void onFuelIsPayed(View view) {
         showTextDialog(getString(R.string.fuelIsPayed));
     }
 
-    public void onFreeNightParking(View view){
+    public void onFreeNightParking(View view) {
         showTextDialog(getString(R.string.free_night_parking));
     }
 
-    public void onFarRides(View view){
+    public void onFarRides(View view) {
         showTextDialog(getString(R.string.far_rides));
     }
 

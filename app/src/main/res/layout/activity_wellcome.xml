@@ -1,62 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
     <data>
+
         <variable
             name="listener"
-            type="youdrive.today.activities.WellcomeActivity"/>
+            type="youdrive.today.activities.WellcomeActivity" />
     </data>
 
 
-
-
-<RelativeLayout
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg">
-
-
-
-<FrameLayout
-    android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:layout_alignParentBottom="true"
-    android:id="@+id/flIndicator">
-
-<youdrive.today.indicator.viewpagerindicator.CirclePageIndicator
-    android:id="@+id/cpIndicator"
-    android:layout_gravity="center"
-    android:padding="10dp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    app:radius="5dp"
-    app:centered="true"
-    app:fillColor="#ffffff"
-    app:strokeColor="#ffffff"
-    app:strokeWidth="1px"
-    app:snap="true"
-
-    />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick='@{listener.onBack}'
-        android:src="@drawable/ic_cancel"
-        android:padding="10dp"
-        android:layout_gravity="center|right"
-
-        />
-</FrameLayout>
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewPager"
+    <RelativeLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/flIndicator"/>
+        android:background="@drawable/bg">
 
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/flIndicator">
 
-</RelativeLayout>
+            <youdrive.today.indicator.viewpagerindicator.CirclePageIndicator
+                android:id="@+id/cpIndicator"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:radius="5dp"
+                app:centered="true"
+                app:fillColor="#ffffff"
+                app:strokeColor="#ffffff"
+                app:strokeWidth="1px"
+                app:snap="true"
+
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick='@{listener.onBack}'
+                android:src="@drawable/ic_cancel"
+                android:padding="10dp"
+                android:layout_gravity="center|right"
+
+                />
+        </FrameLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/flIndicator" />
+
+
+    </RelativeLayout>
 
 </layout>

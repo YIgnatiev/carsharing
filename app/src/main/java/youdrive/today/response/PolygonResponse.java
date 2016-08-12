@@ -17,7 +17,7 @@ public class PolygonResponse extends BaseResponse {
     private List<SimpleCar> cars;
 
 
-    public List<SimpleCar> getCars(){
+    public List<SimpleCar> getCars() {
         return cars;
     }
 

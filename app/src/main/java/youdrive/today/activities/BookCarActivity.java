@@ -6,6 +6,8 @@ import android.view.View;
 
 import com.bumptech.glide.Glide;
 
+import java.util.Locale;
+
 import youdrive.today.BaseActivity;
 import youdrive.today.R;
 import youdrive.today.databinding.ActivityOrderCarBinding;
@@ -13,14 +15,13 @@ import youdrive.today.models.Car;
 
 public class BookCarActivity extends BaseActivity {
 
-   private ActivityOrderCarBinding b;
+    private ActivityOrderCarBinding b;
 
     @Override
     public void bindActivity() {
-        b = DataBindingUtil.setContentView(this,R.layout.activity_order_car);
+        b = DataBindingUtil.setContentView(this, R.layout.activity_order_car);
         b.setListener(this);
     }
-
 
 
     @Override
@@ -28,10 +29,10 @@ public class BookCarActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         Car mCar = getIntent().getParcelableExtra("car");
-        if (mCar != null){
+        if (mCar != null) {
             b.txtModel.setText(getString(R.string.car_model, mCar.getModel()));
             b.txtColor.setText(getString(R.string.car_color, mCar.getColor()));
-            b.txtNumber.setText(getString(R.string.car_number, mCar.getNumber()));
+            b.txtNumber.setText(String.format(Locale.getDefault(), "%s %s", getString(R.string.car_number), mCar.getNumber()));
             Glide.with(this)
                     .load(mCar.getImg())
                     .centerCrop()

@@ -1,5 +1,6 @@
 package youdrive.today.network;
 
+
 import java.util.Map;
 
 import retrofit.http.Multipart;
@@ -20,16 +21,13 @@ public interface UploadService {
 
     @Multipart
     @POST("/base/")
-    Observable<UploadCareResponse>uploadFile(@Part("UPLOADCARE_PUB_KEY") String publicKey,
-                                   @Part("UPLOADCARE_STORE") int store,
-                                   @Part("file") TypedFile file);
-
-
-
+    Observable<UploadCareResponse> uploadFile(@Part("UPLOADCARE_PUB_KEY") String publicKey,
+                                              @Part("UPLOADCARE_STORE") int store,
+                                              @Part("file") TypedFile file);
 
 
     @Multipart
     @POST("/group/")
-    Observable<UploadGroupResponse> uploadGroup(@Part("pub_key" ) String publicKey, @PartMap Map<String ,String> params);
+    Observable<UploadGroupResponse> uploadGroup(@Part("pub_key") String publicKey, @PartMap Map<String, String> params);
 
 }

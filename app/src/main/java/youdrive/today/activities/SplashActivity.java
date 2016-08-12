@@ -10,7 +10,8 @@ public class SplashActivity extends BaseActivity {
 
 
     @Override
-    public void bindActivity() {}
+    public void bindActivity() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

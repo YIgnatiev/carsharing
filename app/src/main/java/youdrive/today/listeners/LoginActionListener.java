@@ -8,9 +8,11 @@ import youdrive.today.models.User;
 public interface LoginActionListener {
 
     void onSuccess(User user);
+
     void onError();
 
     void onErrorUserNotFound(String message);
+
     void onErrorFieldEmpty(String message);
 
     void onUnknownError(String text);

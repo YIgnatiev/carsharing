@@ -1,6 +1,8 @@
 package youdrive.today.activities;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -8,6 +10,8 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -29,6 +33,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -72,16 +77,16 @@ import youdrive.today.listeners.CarActionListener;
 import youdrive.today.listeners.MapsActionListener;
 import youdrive.today.listeners.PolygonListener;
 import youdrive.today.listeners.ProfileActionListener;
-import youdrive.today.listeners.ValueFunction;
 import youdrive.today.models.Car;
 import youdrive.today.models.Check;
 import youdrive.today.models.Command;
 import youdrive.today.models.Coord;
 import youdrive.today.models.Menu;
-import youdrive.today.models.ReferralRules;
 import youdrive.today.models.Status;
 import youdrive.today.models.User;
+import youdrive.today.response.PayoffResponse;
 import youdrive.today.response.PolygonResponse;
+import youdrive.today.response.UserProfileResponse;
 
 import static youdrive.today.models.Status.BOOKING;
 import static youdrive.today.models.Status.NORMAL;
@@ -89,11 +94,12 @@ import static youdrive.today.models.Status.PARKING;
 import static youdrive.today.models.Status.USAGE;
 
 public class MapsActivity extends BaseActivity implements MapsActionListener, ProfileActionListener, CarActionListener,
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, PolygonListener {
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, PolygonListener, OnMapReadyCallback {
 
     private static final int RC_BOOK = 0;
     private static final int RC_CHECK = 1;
     private ActivityMapsBinding b;
+    private HeaderProfileBinding headerBinding;
     private DialogInfo bInfo;
     private OpenCarDialog bOpenCar;
     private DialogCloseCar bCloseCar;
@@ -103,6 +109,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private Command mCommand;
     private GoogleMap mMap;
     private List<PolygonOptions> mPolygons;
+    private UserProfileResponse userProfile;
     private ProfileInteractorImpl mProfileInteractor;
     private CarInteractorImpl mCarInteractor;
     private MapsInteractorImpl mMapsInteractor;
@@ -112,7 +119,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
     private int mBookingTimeLeft;
-    private Status mStatus;
+    private Status mStatus = NORMAL;
     private MaterialDialog mDialog;
     private User mUser;
     private Subscription timerSubscription;
@@ -123,6 +130,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     private boolean isMoveCameraWithMe = false;
 
     private boolean isFake = false;
+
+    private static final int REQUEST_CODE_FINE_LOCATION = 222;
 
 
     private void startUpdates() {
@@ -136,6 +145,11 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
 
     private void loadCars(long seconds) {
+        if (isProcessing()) {
+            mMapsInteractor.clearSubscriptions();
+            return;
+        }
+
         if (mStatus != null && mLastLocation != null) {
             if (NORMAL.equals(mStatus) || BOOKING.equals(mStatus)) {
                 if (isNetworkConnected())
@@ -156,14 +170,15 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         setSupportActionBar(b.toolbar);
         setUpMapIfNeeded();
         createLocationRequest();
-        if(mMap!=null) mZoomLevel = mMap.getMinZoomLevel();
+        if (mMap != null) mZoomLevel = mMap.getMinZoomLevel();
 
         if (App.getInstance().getPreference() != null) {
             if (App.getInstance().getPreference().getUser() != null) {
                 mUser = new Gson().fromJson(App.getInstance().getPreference().getUser(), User.class);
             }
         }
-        HeaderProfileBinding headerBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.header_profile, null, false);
+        headerBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.header_profile, null, false);
+        headerBinding.setListener(this);
 
         if (mUser != null) {
             headerBinding.txtName.setText(mUser.getName());
@@ -193,10 +208,13 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     protected void onResume() {
         super.onResume();
-        setUpMapIfNeeded();
-        if (mGoogleApiClient.isConnected()) startLocationUpdates();
+
+        if (mGoogleApiClient.isConnected()) startLocationWithCheckPermissions();
 
         startUpdates();
+        updateHeader();
+        //Получаем профиль
+        mMapsInteractor.getUserProfile(this);
     }
 
 
@@ -219,11 +237,38 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         if (timerSubscription != null) timerSubscription.unsubscribe();
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST_CODE_FINE_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    startLocationWithCheckPermissions();
+                }/* else {
+
+                    new AlertDialog.Builder(this)
+                            .setMessage(R.string.need_location_permissions)
+                            .setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> {
+                                finish();
+                            })
+                            .setPositiveButton(R.string.accept, (dialogInterface, i) -> {
+                                startLocationWithCheckPermissions();
+                            }).show();
+                }*/
+                break;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+
+    }
 
     private void checkInternet() {
         if (!isNetworkConnected()) {
             showToast("Нет подключения к интернету");
-            animateCamera(new LatLng(55.749792, 37.632495));
+            animateCamera(PreferenceHelper.MOSCOW_CENTER);
         }
     }
 
@@ -243,12 +288,14 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     private List<Menu> getMenu() {
         List<Menu> items = new ArrayList<>();
+
+        items.add(new Menu(getString(R.string.searchcar)));
         items.add(new Menu(getString(R.string.profile)));
         items.add(new Menu(getString(R.string.tariff)));
         items.add(new Menu(getString(R.string.help)));
         items.add(new Menu(getString(R.string.call)));
-        items.add(new Menu(getString(R.string.free_drive)));
         items.add(new Menu(getString(R.string.exit)));
+
         return items;
     }
 
@@ -265,8 +312,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     private void setUpMapIfNeeded() {
         if (mMap == null) {
-            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
-                    .getMap();
+            ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMapAsync(this);
         }
     }
 
@@ -277,9 +323,16 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
 
-    protected void startLocationUpdates() {
-        LocationServices.FusedLocationApi.requestLocationUpdates(
-                mGoogleApiClient, mLocationRequest, this);
+    private void startLocationWithCheckPermissions() {
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_CODE_FINE_LOCATION);
+        } else {
+            LocationServices.FusedLocationApi.requestLocationUpdates(
+                    mGoogleApiClient, mLocationRequest, this);
+        }
     }
 
     protected void stopLocationUpdates() {
@@ -364,9 +417,6 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 //        mMarkerCar.put(mMap.addMarker(markerOptionsPercent), car);
 
 
-
-
-
     }
 
 
@@ -375,14 +425,25 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         Timber.tag("Action").d("Logout");
         startActivity(new Intent(this, LoginActivity.class));
         new PreferenceHelper(this).clear();
+        finish();
     }
 
     @Override
     public void onError() {
-        animateCamera(new LatLng(55.749792, 37.632495));
+        //animateCamera(PreferenceHelper.MOSCOW_CENTER);
 
         Timber.tag("Error").d("Internal Error");
         String text = getString(R.string.internal_error);
+        unlock(text);
+    }
+
+    @Override
+    public void onAccessDenied(String text) {
+        Timber.tag("Error").e("onAccessDenied");
+        unlock(text);
+    }
+
+    private void unlock(String text) {
         if (bOpenCar != null && bOpenCar.btnCancel != null && bOpenCar.btnCancel.getProgress() == 50) {
             AppUtils.error(text, bOpenCar.btnCancel);
             bOpenCar.btnOpen.setEnabled(true);
@@ -401,31 +462,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         } else if (bInfo != null && bInfo.btnBook != null && bInfo.btnBook.getProgress() == 50) {
             AppUtils.error(text, bInfo.btnBook);
-        }
-    }
-
-    @Override
-    public void onAccessDenied(String text) {
-        Timber.tag("Error").e("onAccessDenied");
-        unlock(text);
-    }
-
-    private void unlock(String text) {
-        if (bOpenCar.btnCancel != null && bOpenCar.btnCancel.getProgress() == 50) {
-            AppUtils.error(text, bOpenCar.btnCancel);
-            bOpenCar.btnOpen.setEnabled(true);
-
-        } else if (bCloseCar.btnCloseRent != null && bCloseCar.btnCloseRent.getProgress() == 50) {
-            AppUtils.error(text, bCloseCar.btnCloseRent);
-            bCloseCar.btnCloseOrOpen.setEnabled(true);
-
-        } else if (bOpenCar.btnOpen != null && bOpenCar.btnOpen.getProgress() == 50) {
-            AppUtils.error(text, bOpenCar.btnOpen);
-            bOpenCar.btnCancel.setEnabled(true);
-
-        } else if (bCloseCar.btnCloseOrOpen != null && bCloseCar.btnCloseOrOpen.getProgress() == 50) {
-            AppUtils.error(text, bCloseCar.btnCloseOrOpen);
-            bCloseCar.btnCloseRent.setEnabled(true);
+        } else if (headerBinding != null && headerBinding.bPayoff.getProgress() == 50) {
+            AppUtils.error(text, headerBinding.bPayoff);
         }
     }
 
@@ -437,13 +475,13 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onClose() {
-        Timber.tag("Action").d("onClose");
+        mMapsInteractor.getStatusCar(this);
         onStatus(PARKING);
+        Timber.tag("Action").d("onClose");
         if (bCloseCar.btnCloseOrOpen != null) {
             bCloseCar.btnCloseRent.setEnabled(true);
             AppUtils.success(bCloseCar.btnCloseOrOpen, getString(R.string.open_car));
         }
-        mMapsInteractor.getStatusCar(this);
     }
 
     @Override
@@ -452,6 +490,27 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         hideBottomWindow();
         startActivityForResult(new Intent(this, CompleteActivity.class).putExtra("check", check), RC_CHECK);
         mMapsInteractor.getStatusCar(this);
+    }
+
+    @Override
+    public void onTransfer() {
+        Timber.tag("Action").d("onTransfer ");
+        if (bCloseCar != null) {
+            if (mStatus == USAGE) {
+                bCloseCar.btnCloseOrOpen.setEnabled(false);
+                mCarInteractor.command(Command.CLOSE, MapsActivity.this);
+            } else {
+                bCloseCar.btnCloseRent.setVisibility(View.GONE);
+                mMapsInteractor.getStatusCar(this);
+            }
+        }
+
+        if (bOpenCar != null) {
+            bOpenCar.btnCancel.setEnabled(true);
+            AppUtils.success(bOpenCar.btnCancel, getString(R.string.transfer_car));
+            bOpenCar.btnCancel.setVisibility(View.GONE);
+        }
+
     }
 
     @Override
@@ -556,6 +615,13 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         mCar = car;
 
+        if (mCar.isInTransfer()) {
+            if (bCloseCar != null) {
+                bCloseCar.btnCloseRent.setVisibility(View.GONE);
+            }
+        }
+
+
         clear();
         if (mPolygons != null)
             for (PolygonOptions polygon : mPolygons)
@@ -597,11 +663,12 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 if (!isInfoPopup) showDistancePopup(mCar.getWalktime());
                 if (!isShowCommandPopup) showCommandPopup();
                 mMap.setInfoWindowAdapter(new CustomWindowAdapter());
+                mMap.getUiSettings().setMapToolbarEnabled(false);
                 break;
             case PARKING:
             case USAGE:
                 hideTopWindow();
-                if (!isShowClosePopup) showClosePopup();
+                showClosePopup();
                 mMap.setInfoWindowAdapter(new CustomWindowAdapter());
                 break;
             default:
@@ -610,7 +677,32 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                     showCarsDialog(mMarkerCar.get(marker));
                     return false;
                 });
+                mMap.getUiSettings().setMapToolbarEnabled(true);
         }
+
+    }
+
+    private boolean isProcessing() {
+        if (isShowClosePopup && bCloseCar != null) {
+            if (bCloseCar.btnCloseOrOpen != null && bCloseCar.btnCloseOrOpen.getProgress() == 50) {
+                return true;
+            }
+            if (bCloseCar.btnCloseRent != null && bCloseCar.btnCloseRent.getProgress() == 50) {
+                return true;
+            }
+
+        }
+
+        if (isShowCommandPopup && bOpenCar != null) {
+            if (bOpenCar.btnOpen != null && bOpenCar.btnOpen.getProgress() == 50) {
+                return true;
+            }
+            if (bOpenCar.btnCancel != null && bOpenCar.btnCancel.getProgress() == 50) {
+                return true;
+            }
+        }
+
+        return false;
 
     }
 
@@ -653,13 +745,63 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     public void onCheck(Check check) {
         onBookingTimeLeft(check.getBookingTimeLeft());
         mCheck = check;
-        updateCheck();
+        if (isShowClosePopup) {
+            showClosePopup();
+        }
+    }
+
+    /***
+     * Обновить хедер с балансом
+     */
+    private void updateHeader() {
+        if (userProfile == null) {
+            headerBinding.bPayoff.setVisibility(View.GONE);
+            headerBinding.tvBalance.setVisibility(View.GONE);
+        } else if (userProfile.debt > 0) {
+            headerBinding.bPayoff.setVisibility(View.VISIBLE);
+            headerBinding.tvBalance.setVisibility(View.VISIBLE);
+            headerBinding.tvBalance.setText(getString(R.string.debts, userProfile.debt / 100));
+        } else {
+            headerBinding.bPayoff.setVisibility(View.GONE);
+            headerBinding.tvBalance.setVisibility(View.VISIBLE);
+            headerBinding.tvBalance.setText(getString(R.string.balance, userProfile.bonus));
+        }
+    }
+
+    public void onPayoffClick(View view) {
+        if (headerBinding.bPayoff.getProgress() == 0 && isConnected()) {
+            headerBinding.bPayoff.setIndeterminateProgressMode(true);
+            headerBinding.bPayoff.setProgress(50);
+            mMapsInteractor.payoff(this);
+        }
+    }
+
+    @Override
+    public void onPayoffSuccess(PayoffResponse payoffResponse) {
+        AppUtils.success(headerBinding.bPayoff, getString(R.string.payoff));
+        mMapsInteractor.getUserProfile(this);
+    }
+
+
+    private boolean isConnected() {
+        boolean isConnected = isNetworkConnected();
+        if (!isConnected) {
+            showToast(getString(R.string.no_internet));
+        }
+        return isConnected;
     }
 
     @Override
     public void onUnknownError(String text) {
         unlock(text);
     }
+
+    @Override
+    public void onUserProfileSuccess(UserProfileResponse userProfile) {
+        this.userProfile = userProfile;
+        updateHeader();
+    }
+
 
     @Override
     public void onCarNotFound(String text) {
@@ -703,16 +845,17 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onOpen() {
-        if (bOpenCar.btnOpen != null) {
+        mMapsInteractor.getStatusCar(this);/*onStatus(Status.USAGE);*/
+        onStatus(USAGE);
+        if (bOpenCar != null && bOpenCar.btnOpen != null) {
             AppUtils.success(bOpenCar.btnOpen);
         }
 
-        if (bCloseCar.btnCloseOrOpen != null) {
+        if (bCloseCar != null && bCloseCar.btnCloseOrOpen != null) {
             bCloseCar.btnCloseRent.setEnabled(true);
             AppUtils.success(bCloseCar.btnCloseOrOpen, getString(R.string.close_car));
         }
 
-        mMapsInteractor.getStatusCar(this);/*onStatus(Status.USAGE);*/
     }
 
     @Override
@@ -727,8 +870,18 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void onConnected(Bundle bundle) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        startLocationUpdates();
+        startLocationWithCheckPermissions();
         if (mLastLocation != null) {
             updateLocation(mLastLocation);
             if (mMarkerCar.isEmpty()) {
@@ -741,7 +894,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             mLastLocation = new Location("");
             mLastLocation.setLatitude(55.749792);
             mLastLocation.setLongitude(37.632495);// Create moscow coordinates;
-            animateCamera(new LatLng(55.749792, 37.632495));
+            animateCamera(PreferenceHelper.MOSCOW_CENTER);
             isFake = true;
             updateLocation(mLastLocation);
 
@@ -762,7 +915,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     @Override
     public void onConnectionFailed(ConnectionResult result) {
         Timber.e("Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
-        if(mMap!=null) animateCamera(new LatLng(55.749792, 37.632495));
+        animateCamera(PreferenceHelper.MOSCOW_CENTER);
+
     }
 
     @Override
@@ -772,9 +926,10 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
     private void addBottomWindow(View view) {
-        Animation anim = AnimationUtils.loadAnimation(MapsActivity.this, R.anim.bottom_up);
-
-        b.ltContainer.setAnimation(anim);
+        /*if (mCar == null || !mCar.isTransferable()) {
+            Animation anim = AnimationUtils.loadAnimation(MapsActivity.this, R.anim.bottom_up);
+            b.ltContainer.setAnimation(anim);
+        }*/
         b.ltContainer.addView(view);
     }
 
@@ -805,6 +960,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         if (NORMAL.equals(mStatus)) {
             popupDistance.txtDistance.setText(getString(R.string.distance_to_car, AppUtils.toTime(walktime)));
+            hideBottomWindow();
         } else {
             popupDistance.txtDistance.setText(getString(R.string.distance_to_book_car, AppUtils.toTime(walktime)));
         }
@@ -820,12 +976,15 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         bOpenCar.btnNavigate.setProgress(100);
         addBottomWindow(bOpenCar.getRoot());
         bOpenCar.setListener(this);
+        bOpenCar.btnCancel.setVisibility(mCar.isInTransfer() ? View.GONE : View.VISIBLE);
+        bOpenCar.btnCancel.setText(getString(mCar.isTransferable() ? R.string.transfer_car : R.string.cancel_reserve));
         bOpenCar.btnOpen.setIndeterminateProgressMode(true);
         bOpenCar.btnCancel.setIndeterminateProgressMode(true);
     }
 
 
     public void onButtonOpen(View view) {
+        mMapsInteractor.clearSubscriptions();
         bOpenCar.btnOpen.setProgress(50);
         bOpenCar.btnCancel.setEnabled(false);
 
@@ -833,9 +992,33 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
     }
 
     public void onButtonCancel(View view) {
-        bOpenCar.btnCancel.setProgress(50);
-        mCarInteractor.complete(Command.COMPLETE, MapsActivity.this);
-        bOpenCar.btnOpen.setEnabled(false);
+        if (mCar.isTransferable()) {
+            new MaterialDialog
+                    .Builder(MapsActivity.this)
+                    .title(R.string.transfer_finish_title)
+                    .content(R.string.transfer_finish_info)
+                    .widgetColorRes(R.color.white)
+                    .positiveText(R.string.ok_action)
+                    .negativeText(R.string.cancel_action)
+                    .onPositive((dialog, which) -> {
+                        mMapsInteractor.clearSubscriptions();
+                        bOpenCar.btnCancel.setEnabled(false);
+                        bOpenCar.btnCancel.setProgress(50);
+                        mCarInteractor.command(Command.TRANSFER, MapsActivity.this);
+                    })
+                    .onNegative((dialog, which) -> {
+
+                    })
+                    .positiveColor(getResources().getColor(R.color.main_dark))
+                    .negativeColor(getResources().getColor(R.color.main_dark))
+                    .autoDismiss(true)
+                    .show();
+        } else {
+            mMapsInteractor.clearSubscriptions();
+            bOpenCar.btnCancel.setProgress(50);
+            mCarInteractor.complete(Command.COMPLETE, MapsActivity.this);
+            bOpenCar.btnOpen.setEnabled(false);
+        }
     }
 
     public void onButtonNavigate(View view) {
@@ -873,49 +1056,79 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         }
     }
 
+    public void onMyLocation(View v) {
+        if (mMap != null && mMarker != null) {
+            animateCamera(mMarker.getPosition());
+        }
+    }
+
     //listener
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
         switch (position) {
             case 1:
-                openUrl("https://youdrive.today/profile.html");
+                b.drawer.closeDrawers();
+                startActivity(new Intent(this, SearchCarActivity.class));
                 break;
             case 2:
-                openUrl("http://youdrive.today/tariffs-regulations.html");
+                openUrl("https://youdrive.today/profile.html");
                 break;
             case 3:
-                openUrl("http://youdrive.copiny.com/");
+                openUrl("http://youdrive.today/tariffs-regulations.html");
                 break;
             case 4:
+                openUrl("http://youdrive.copiny.com/");
+                break;
+
+            case 5:
                 call();
                 break;
-            case 5: {
-                if (isNetworkConnected()) {
-                    mMapsInteractor.getReferralData(referralRules -> {
-                        Intent intent = new Intent(this, ReferralActivity.class);
-                        intent.putExtra("referralData", referralRules);
-                        startActivity(intent);
-                    }, throwable -> {
-                        showToast(getString(R.string.referral_data_fail));
-                    });
-                } else {
-                    showToast(getString(R.string.no_internet));
-                }
 
-                break;
-            }
             case 6:
                 App.getInstance().getPreference().clear();
                 mProfileInteractor.logout(this);
                 break;
+
         }
+    }
+
+    private boolean isInsideGreenZone(Car car) {
+        for (PolygonOptions mPolygon : mPolygons)
+            if (AppUtils.isPointInPolygon(car.getLat(), car.getLon(), mPolygon)) return true;
+        return false;
     }
 
     public void onBookClicked(View view) {
         mDialog.getBuilder().autoDismiss(false);
-        bInfo.btnBook.setProgress(50);
         if (view.getTag() != null && mLastLocation.getLatitude() > 0.0d && mLastLocation.getLongitude() > 0.0d) {
-            mCarInteractor.booking((String) view.getTag(), mLastLocation.getLatitude(), mLastLocation.getLongitude(), MapsActivity.this);
+
+            if (!isInsideGreenZone(mCar) || mCar.isTransferable()) {
+                new MaterialDialog
+                        .Builder(MapsActivity.this)
+                        .title(R.string.transfer_book_title)
+                        .content(R.string.transfer_book_info)
+                        .widgetColorRes(R.color.white)
+                        .positiveText(R.string.ok_action)
+                        .negativeText(R.string.cancel_action)
+                        .onPositive((dialog, which) -> {
+                            mMapsInteractor.clearSubscriptions();
+                            bInfo.btnBook.setProgress(50);
+                            mCarInteractor.booking((String) view.getTag(), mLastLocation.getLatitude(), mLastLocation.getLongitude(), MapsActivity.this);
+
+                        })
+                        .onNegative((dialog, which) -> {
+                            mDialog.dismiss();
+                        })
+                        .positiveColor(getResources().getColor(R.color.main_dark))
+                        .negativeColor(getResources().getColor(R.color.main_dark))
+                        .autoDismiss(true)
+                        .show();
+
+            } else {
+                mMapsInteractor.clearSubscriptions();
+                bInfo.btnBook.setProgress(50);
+                mCarInteractor.booking((String) view.getTag(), mLastLocation.getLatitude(), mLastLocation.getLongitude(), MapsActivity.this);
+            }
+
 
         } else {
 
@@ -931,56 +1144,81 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         bCloseCar = DataBindingUtil.inflate(getLayoutInflater(), R.layout.popup_close_car, null, false);
         addBottomWindow(bCloseCar.getRoot());
         bCloseCar.setListener(this);
+
+        bCloseCar.btnCloseRent.setVisibility(mCar.isInTransfer() ? View.GONE : View.VISIBLE);
+        bCloseCar.btnCloseRent.setText(mCar.isTransferable() && !mCar.isInTransfer() ? getString(R.string.transfer_car) : getString(R.string.close_rent));
+        bCloseCar.btnCloseRent.setIdleText(mCar.isTransferable() && !mCar.isInTransfer() ? getString(R.string.transfer_car) : getString(R.string.close_rent));
+
         bCloseCar.btnCloseOrOpen.setIndeterminateProgressMode(true);
         bCloseCar.btnCloseRent.setIndeterminateProgressMode(true);
-
-        if (PARKING.equals(mStatus)) {
+        if (PARKING.equals(mStatus) || BOOKING.equals(mStatus)) {
+            bCloseCar.btnNavigate.setVisibility(View.VISIBLE);
             bCloseCar.btnCloseOrOpen.setText(getString(R.string.open_car));
             bCloseCar.btnCloseOrOpen.setIdleText(getString(R.string.open_car));
+            bCloseCar.btnNavigate.setProgress(100);
         } else {
+            bCloseCar.btnNavigate.setVisibility(View.GONE);
             bCloseCar.btnCloseOrOpen.setText(getString(R.string.close_car));
-            bCloseCar.btnCloseOrOpen.setIdleText(getString(R.string.open_car));
+            bCloseCar.btnCloseOrOpen.setIdleText(getString(R.string.close_car));
         }
 
 
-        if (mCheck != null) {
-            updateCheck();
+        if (PARKING.equals(mStatus)) {
+            bCloseCar.txtTariff.setText("Парковка");
+            bCloseCar.txtPerMin.setText(convertRub(mCar.getTariff().getParking()));
+        } else if (USAGE.equals(mStatus)) {
+            bCloseCar.txtTariff.setText("Использование");
+            bCloseCar.txtPerMin.setText(convertRub(mCar.getTariff().getUsage()));
         }
+
+        if (mCheck == null) return;
+
+        bCloseCar.txtTotalUsage.setText(convertRub(mCheck.getUsageWeekendCost() + mCheck.getUsageWorkdayCost()));
+        bCloseCar.txtParking.setText(convertRub(mCheck.getParkingCost()));
+        bCloseCar.txtTotal.setText(convertRub(mCheck.getParkingCost() + mCheck.getUsageWorkdayCost() + mCheck.getUsageWeekendCost()));
     }
 
     public void onCloseRent(View view) {
-        bCloseCar.btnCloseOrOpen.setEnabled(false);
-        bCloseCar.btnCloseRent.setProgress(50);
-        mCarInteractor.complete(Command.COMPLETE, MapsActivity.this);
+        if (mCar.isTransferable()) {
+            new MaterialDialog
+                    .Builder(MapsActivity.this)
+                    .title(R.string.transfer_finish_title)
+                    .content(R.string.transfer_finish_info)
+                    .widgetColorRes(R.color.white)
+                    .positiveText(R.string.ok_action)
+                    .negativeText(R.string.cancel_action)
+                    .onPositive((dialog, which) -> {
+                        mMapsInteractor.clearSubscriptions();
+                        bCloseCar.btnCloseOrOpen.setEnabled(false);
+                        bCloseCar.btnCloseRent.setProgress(50);
+                        mCarInteractor.command(Command.TRANSFER, MapsActivity.this);
+                    })
+                    .onNegative((dialog, which) -> {
+
+                    })
+                    .positiveColor(getResources().getColor(R.color.main_dark))
+                    .negativeColor(getResources().getColor(R.color.main_dark))
+                    .autoDismiss(true)
+                    .show();
+        } else {
+            mMapsInteractor.clearSubscriptions();
+            bCloseCar.btnCloseOrOpen.setEnabled(false);
+            bCloseCar.btnCloseRent.setProgress(50);
+            mCarInteractor.complete(Command.COMPLETE, MapsActivity.this);
+        }
+
     }
 
     public void onCloseOrOpen(View view) {
+        mMapsInteractor.clearSubscriptions();
         bCloseCar.btnCloseRent.setEnabled(false);
         bCloseCar.btnCloseOrOpen.setProgress(50);
 
-        if (PARKING.equals(mStatus)) mCarInteractor.command(Command.OPEN, MapsActivity.this);
+        if (!USAGE.equals(mStatus)) mCarInteractor.command(Command.OPEN, MapsActivity.this);
         else mCarInteractor.command(Command.CLOSE, MapsActivity.this);
 
     }
 
-
-    private void updateCheck() {
-        if (bCloseCar != null) {
-
-
-            if (PARKING.equals(mStatus)) {
-                bCloseCar.txtTariff.setText("Парковка");
-                bCloseCar.txtPerMin.setText(convertRub(mCar.getTariff().getParking()));
-            } else if (USAGE.equals(mStatus)) {
-                bCloseCar.txtTariff.setText("Использование");
-                bCloseCar.txtPerMin.setText(convertRub(mCar.getTariff().getUsage()));
-            }
-
-            bCloseCar.txtTotalUsage.setText(convertRub(mCheck.getUsageWeekendCost() + mCheck.getUsageWorkdayCost()));
-            bCloseCar.txtParking.setText(convertRub(mCheck.getParkingCost()));
-            bCloseCar.txtTotal.setText(convertRub(mCheck.getParkingCost() + mCheck.getUsageWorkdayCost() + mCheck.getUsageWeekendCost()));
-        }
-    }
 
     public String convertRub(long kopeck) {
         return String.format("%.2f", (float) kopeck / 100) + " руб.";
@@ -1002,6 +1240,20 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     }
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        //DO WHATEVER YOU WANT WITH GOOGLEMAP
+
+        if (mMap != null) {
+            return;
+        }
+        mMap = googleMap;
+
+        setUpMapIfNeeded();
+
+
+   }
+
     private class CustomWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
         @Override
@@ -1015,8 +1267,8 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
                 return null;
             }
             MarkerInfo bMarkerInfo = DataBindingUtil.inflate(getLayoutInflater(), R.layout.marker_info, null, false);
-            bMarkerInfo.rlDiscount.setVisibility(mCar.getDiscount()>0 ? View.VISIBLE : View.GONE);
-            bMarkerInfo.tvDiscount.setText("-"+mCar.getDiscount()+"%");
+            bMarkerInfo.rlDiscount.setVisibility(mCar.getDiscount() > 0 ? View.VISIBLE : View.GONE);
+            bMarkerInfo.tvDiscount.setText("-" + mCar.getDiscount() + "%");
             bMarkerInfo.txtColor.setText(mCar.getColor());
             bMarkerInfo.txtModel.setText(mCar.getModel());
             bMarkerInfo.txtNumber.setText(mCar.getNumber());

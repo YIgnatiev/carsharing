@@ -17,44 +17,43 @@ import youdrive.today.models.Invites;
 /**
  * Created by Leonov Oleg, http://pandorika-it.com on 28.03.16.
  */
-public class EmailAdapter extends RecyclerView.Adapter<EmailAdapter.EmailViewHolder>
-{
+public class EmailAdapter extends RecyclerView.Adapter<EmailAdapter.EmailViewHolder> {
     private List<EmailContact> emailContactList;
-    private Set<EmailContact> selectedEmails=new HashSet<>();
+    private Set<EmailContact> selectedEmails = new HashSet<>();
 
-    public EmailAdapter(List<EmailContact> emailContactList)
-    {
-        this.emailContactList=emailContactList;
+    public EmailAdapter(List<EmailContact> emailContactList) {
+        this.emailContactList = emailContactList;
     }
-    public void setData(List<EmailContact> emailContactList)
-    {
-        this.emailContactList=emailContactList;
+
+    public void setData(List<EmailContact> emailContactList) {
+        this.emailContactList = emailContactList;
         selectedEmails.clear();
         notifyDataSetChanged();
     }
 
-    /*** Список выбранных компонентов */
-    public Invites getInvites()
-    {
+    /***
+     * Список выбранных компонентов
+     */
+    public Invites getInvites() {
         return new Invites(new ArrayList<>(selectedEmails));
     }
 
     @Override
     public EmailViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ItemEmailBinding listIemBinding= DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_email, parent, false);
+        ItemEmailBinding listIemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_email, parent, false);
         return new EmailViewHolder(listIemBinding);
     }
 
     @Override
     public void onBindViewHolder(EmailViewHolder viewHolder, int position) {
-        EmailContact emailContact=emailContactList.get(position);
+        EmailContact emailContact = emailContactList.get(position);
 
         viewHolder.mLayoutBinding.setEmailContact(emailContact);
         viewHolder.mLayoutBinding.tvCheckBox.setTag(position);
         viewHolder.mLayoutBinding.tvCheckBox.setOnCheckedChangeListener(null);
         viewHolder.mLayoutBinding.tvCheckBox.setChecked(selectedEmails.contains(emailContact));
         viewHolder.mLayoutBinding.tvCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if(isChecked) selectedEmails.add(emailContact);
+            if (isChecked) selectedEmails.add(emailContact);
             else selectedEmails.remove(emailContact);
         });
     }
@@ -65,16 +64,16 @@ public class EmailAdapter extends RecyclerView.Adapter<EmailAdapter.EmailViewHol
         return emailContactList.size();
     }
 
-    public static class EmailViewHolder extends RecyclerView.ViewHolder
-    {
+    public static class EmailViewHolder extends RecyclerView.ViewHolder {
         final ItemEmailBinding mLayoutBinding;
+
         public EmailViewHolder(ItemEmailBinding layoutBinding) {
             super(layoutBinding.getRoot());
             mLayoutBinding = layoutBinding;
         }
     }
-    public static class EmailContact
-    {
+
+    public static class EmailContact {
         public String name;
         public String email;
 

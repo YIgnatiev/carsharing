@@ -9,5 +9,6 @@ import youdrive.today.response.PolygonResponse;
  */
 public interface PolygonListener {
     void onPolygonSuccess(PolygonResponse coordList);
+
     void onPolygonFailed();
 }

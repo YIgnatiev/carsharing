@@ -95,7 +95,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
-    public void checkPhonePermission(Function phonePemission){
+    public void checkPhonePermission(Function phonePemission) {
         mPhonePemission = phonePemission;
         int permissionCheck = ContextCompat.checkSelfPermission(this,
                 "android.permission.CALL_PHONE");
@@ -108,7 +108,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions(this, new String[]{"android.permission.CALL_PHONE"}, PHONE);
 
             }
-        }else phonePemission.apply();
+        } else phonePemission.apply();
 
     }
 
@@ -144,7 +144,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     Toast.makeText(this, "You did not allow to choose picture`", Toast.LENGTH_LONG).show();
                 }
 
-            break;
+                break;
             case READ_CONTACTS_PERMISSION: {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     if (mReadContactsFunction != null) mReadContactsFunction.apply();

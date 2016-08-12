@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center|left"
-    android:orientation="vertical"
-    android:padding="20dp">
 
-    <TextView
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center|left"
+        android:orientation="vertical"
+        android:padding="20dp">
 
-        style="@style/AppTheme.TextView"
-        android:layout_gravity="center_horizontal"
+        <TextView
 
-        android:padding="10dp"
-        android:text="Как это работает?"
-        android:textSize="18sp" />
+            style="@style/AppTheme.TextView"
+            android:layout_gravity="center_horizontal"
 
-
+            android:padding="10dp"
+            android:text="Как это работает?"
+            android:textSize="18sp" />
 
 
         <TextView
@@ -29,51 +28,50 @@
             android:text="@string/open_app" />
 
 
-
-    <TextView
-        style="@style/AppTheme.TextView"
-        android:layout_width="wrap_content"
-        android:drawablePadding="10dp"
-        android:gravity="center|left"
-        android:padding="10dp"
-        android:drawableLeft="@drawable/ic_check"
-        android:text="Забронировать автомобиль и дойти до него (20 минут брони бесплатно)" />
-
-
-    <TextView
-        style="@style/AppTheme.TextView"
-        android:drawablePadding="10dp"
-        android:gravity="center|left"
-        android:padding="10dp"
-        android:drawableLeft="@drawable/ic_lock"
-
-        android:text="Открыть автомобиль из приложения и начать движение" />
-
-    <TextView
-        style="@style/AppTheme.TextView"
-        android:drawablePadding="10dp"
-        android:gravity="center|left"
-        android:padding="10dp"
-        android:drawableLeft="@drawable/ic_car"
-
-        android:text="Доехать до места назначения и закрыть автомобиль из приложения" />
+        <TextView
+            style="@style/AppTheme.TextView"
+            android:layout_width="wrap_content"
+            android:drawablePadding="10dp"
+            android:gravity="center|left"
+            android:padding="10dp"
+            android:drawableLeft="@drawable/ic_check"
+            android:text="Забронировать автомобиль и дойти до него (20 минут брони бесплатно)" />
 
 
-    <TextView
-        style="@style/AppTheme.TextView"
-        android:drawablePadding="10dp"
-        android:gravity="center|left"
-        android:padding="10dp"
-        android:drawableLeft="@drawable/ic_visa"
+        <TextView
+            style="@style/AppTheme.TextView"
+            android:drawablePadding="10dp"
+            android:gravity="center|left"
+            android:padding="10dp"
+            android:drawableLeft="@drawable/ic_lock"
 
-        android:text="Оплата поеоздки будет списана с вашей карты" />
+            android:text="Открыть автомобиль из приложения и начать движение" />
 
-    <TextView
-        style="@style/AppTheme.TextView"
-        android:layout_gravity="center_horizontal"
-        android:padding="10dp"
-        android:text="@string/registration_driver_experience_warning"
-        android:textSize="18sp" />
-</LinearLayout>
+        <TextView
+            style="@style/AppTheme.TextView"
+            android:drawablePadding="10dp"
+            android:gravity="center|left"
+            android:padding="10dp"
+            android:drawableLeft="@drawable/ic_car"
+
+            android:text="Доехать до места назначения и закрыть автомобиль из приложения" />
+
+
+        <TextView
+            style="@style/AppTheme.TextView"
+            android:drawablePadding="10dp"
+            android:gravity="center|left"
+            android:padding="10dp"
+            android:drawableLeft="@drawable/ic_visa"
+
+            android:text="Оплата поеоздки будет списана с вашей карты" />
+
+        <TextView
+            style="@style/AppTheme.TextView"
+            android:layout_gravity="center_horizontal"
+            android:padding="10dp"
+            android:text="@string/registration_driver_experience_warning"
+            android:textSize="18sp" />
+    </LinearLayout>
 
 </layout>

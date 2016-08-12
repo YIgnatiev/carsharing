@@ -1,5 +1,6 @@
 package youdrive.today;
 
+
 import android.app.Application;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
@@ -10,10 +11,12 @@ import timber.log.Timber;
 import youdrive.today.helpers.PreferenceHelper;
 import youdrive.today.network.ApiClient;
 
+
 /**
  * Created by psuhoterin on 21.04.15.
  */
 public class App extends Application {
+
 
     private static App sInstance;
     private PreferenceHelper mPreference;
@@ -22,6 +25,8 @@ public class App extends Application {
     private static GoogleAnalytics analytics;
 
     private final String YANDEX_API_KEY = "14cbd311-8785-44c6-97e5-4622679719f5";
+
+
     public App() {
         sInstance = this;
     }
@@ -46,7 +51,7 @@ public class App extends Application {
         }
     }
 
-    public PreferenceHelper getPreference(){
+    public PreferenceHelper getPreference() {
         return mPreference;
     }
 
@@ -58,11 +63,11 @@ public class App extends Application {
         return analytics;
     }
 
-    public ApiClient getApiClient(){
+    public ApiClient getApiClient() {
         return mApiClient;
     }
 
-    public static App getInstance(){
+    public static App getInstance() {
         return sInstance;
     }
 

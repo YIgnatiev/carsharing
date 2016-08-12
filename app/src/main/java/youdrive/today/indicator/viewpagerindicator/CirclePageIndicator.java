@@ -115,7 +115,6 @@ public class CirclePageIndicator extends View implements PageIndicator {
     }
 
 
-
     public void setCentered(boolean centered) {
         mCentered = centered;
         invalidate();
@@ -411,9 +410,6 @@ public class CirclePageIndicator extends View implements PageIndicator {
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-
-
 
 
         mCurrentPage = position;

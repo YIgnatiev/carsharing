@@ -85,7 +85,7 @@ public class CarInteractorImpl implements CarInteractor {
     public void complete(final Command command, final CarActionListener listener) {
 
         mListener = listener;
-       Subscription subscription = mApiClient
+        Subscription subscription = mApiClient
                 .complete()
                 .retry(3)
                 .timeout(5, TimeUnit.SECONDS)
@@ -136,6 +136,7 @@ public class CarInteractorImpl implements CarInteractor {
 
                     if (command.equals(Command.OPEN)) mListener.onOpen();
                     else if (command.equals(Command.CLOSE)) mListener.onClose();
+                    else if (command == Command.TRANSFER) mListener.onTransfer();
                     else mListener.onComplete(response.getCheck());
 
                 }

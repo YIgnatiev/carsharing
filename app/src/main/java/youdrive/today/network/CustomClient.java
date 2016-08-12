@@ -13,23 +13,24 @@ import retrofit.client.Response;
  * email : tajcig@ya.ru
  * on 10/5/15.
  */
-public class CustomClient  extends OkClient {
+public class CustomClient extends OkClient {
 
 
-        CustomClient (OkHttpClient client){
-            super(client);
-        }
+    CustomClient(OkHttpClient client) {
+        super(client);
+    }
 
-        @Override public Response execute(Request request) throws IOException {
-            Response originalRespone = super.execute(request);
+    @Override
+    public Response execute(Request request) throws IOException {
+        Response originalRespone = super.execute(request);
 
-            int statusCode = 0;
+        int statusCode = 0;
 
-            if(statusCode == 0) statusCode = 200;
-            return new Response(originalRespone.getUrl(),
-                    statusCode,
-                    originalRespone.getReason(),
-                    originalRespone.getHeaders(),
-                    originalRespone.getBody());
-        }
+        if (statusCode == 0) statusCode = 200;
+        return new Response(originalRespone.getUrl(),
+                statusCode,
+                originalRespone.getReason(),
+                originalRespone.getHeaders(),
+                originalRespone.getBody());
+    }
 }

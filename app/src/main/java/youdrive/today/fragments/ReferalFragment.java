@@ -13,7 +13,6 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +38,7 @@ public class ReferalFragment extends BaseFragment<BaseActivity> {
 
     private ReferralRules referralRules;
     private FragmentReferalBinding b;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         b = DataBindingUtil.inflate(inflater, R.layout.fragment_referal, container, false);
@@ -62,12 +62,12 @@ public class ReferalFragment extends BaseFragment<BaseActivity> {
 
     }
 
-    public void onMore(View view){
-        String referralDescription=getString(R.string.referral_dialog_description,
+    public void onMore(View view) {
+        String referralDescription = getString(R.string.referral_dialog_description,
                 referralRules.invitee_bonus_part,
-                referralRules.max_invitee_bonus/100,
+                referralRules.max_invitee_bonus / 100,
                 referralRules.inviter_bonus_part,
-                referralRules.max_inviter_bonus/100);
+                referralRules.max_inviter_bonus / 100);
 
         AlertDialog dialog = new AlertDialog.Builder(mActivity, R.style.ReferralDialog)
                 .setMessage(referralDescription)
@@ -76,11 +76,12 @@ public class ReferalFragment extends BaseFragment<BaseActivity> {
                 .create();
         dialog.show();
     }
-    public void onCodeClick(View view){
-        View popupView=LayoutInflater.from(getActivity()).inflate(R.layout.popup_copy, (ViewGroup)view.getParent(), false);
+
+    public void onCodeClick(View view) {
+        View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.popup_copy, (ViewGroup) view.getParent(), false);
         popupView.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
                 View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-        PopupWindow popupWindow=new PopupWindow(popupView, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
+        PopupWindow popupWindow = new PopupWindow(popupView, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
         popupView.setOnClickListener(v -> {
             ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
             ClipData clip = ClipData.newPlainText(referralRules.referral_code, referralRules.referral_code);
@@ -92,9 +93,10 @@ public class ReferalFragment extends BaseFragment<BaseActivity> {
         display.getSize(size);
         //System.out.printf("offset %d %d %d\n", view.getTop(), view.getHeight(), view.getTop() + view.getHeight() - size.y / 2);
         //popupWindow.showAtLocation(view, Gravity., 0, view.getTop()+view.getHeight()-size.y/2);
-        popupWindow.showAsDropDown(view, view.getWidth()/2-popupView.getMeasuredWidth()/2, 0);
+        popupWindow.showAsDropDown(view, view.getWidth() / 2 - popupView.getMeasuredWidth() / 2, 0);
     }
-    public void onShareSocial(View view){
+
+    public void onShareSocial(View view) {
         PackageManager pm = getActivity().getPackageManager();
         Intent sendIntent = new Intent(Intent.ACTION_SEND);
         sendIntent.setType("text/plain");
@@ -106,7 +108,7 @@ public class ReferalFragment extends BaseFragment<BaseActivity> {
             // Extract the label, append it, and repackage it in a LabeledIntent
             ResolveInfo ri = resInfo.get(i);
             String packageName = ri.activityInfo.packageName;
-            if(packageName.contains("twitter")
+            if (packageName.contains("twitter")
                     || packageName.contains("facebook")
                     || packageName.contains("vkontakte")
                     || packageName.contains("vkfree")) {
@@ -114,34 +116,35 @@ public class ReferalFragment extends BaseFragment<BaseActivity> {
                 intent.setComponent(new ComponentName(packageName, ri.activityInfo.name));
                 intent.setAction(Intent.ACTION_SEND);
                 intent.setType("text/plain");
-                if(packageName.contains("vkontakte")||packageName.contains("vkfree")) {
+                if (packageName.contains("vkontakte") || packageName.contains("vkfree")) {
                     intent.putExtra(Intent.EXTRA_TEXT, AppUtils.getShareText(getActivity(), referralRules));
                 }
-                if(packageName.contains("twitter")) {
+                if (packageName.contains("twitter")) {
                     intent.putExtra(Intent.EXTRA_TEXT, AppUtils.getShareText(getActivity(), referralRules));
-                }
-                else if(packageName.contains("facebook")) {
+                } else if (packageName.contains("facebook")) {
                     // Warning: Facebook IGNORES our text. They say "These fields are intended for users to express themselves. Pre-filling these fields erodes the authenticity of the user voice."
                     // One workaround is to use the Facebook SDK to post, but that doesn't allow the user to choose how they want to share. We can also make a custom landing page, and the link
                     // will show the <meta content ="..."> text from that page with our link in Facebook.
                     intent.putExtra(Intent.EXTRA_TEXT, referralRules.registration_link);
                 }
 
-                if(openInChooser==null) openInChooser=Intent.createChooser(intent, getString(R.string.share_social));
-                else intentList.add(new LabeledIntent(intent, packageName, ri.loadLabel(pm), ri.icon));
+                if (openInChooser == null)
+                    openInChooser = Intent.createChooser(intent, getString(R.string.share_social));
+                else
+                    intentList.add(new LabeledIntent(intent, packageName, ri.loadLabel(pm), ri.icon));
             }
         }
 
         // convert intentList to array
-        LabeledIntent[] extraIntents = intentList.toArray( new LabeledIntent[ intentList.size() ]);
+        LabeledIntent[] extraIntents = intentList.toArray(new LabeledIntent[intentList.size()]);
 
-        if(openInChooser!=null) {
+        if (openInChooser != null) {
             openInChooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, extraIntents);
             startActivity(openInChooser);
-        }
-        else Toast.makeText(getActivity(), R.string.no_social_detected, Toast.LENGTH_LONG).show();
+        } else Toast.makeText(getActivity(), R.string.no_social_detected, Toast.LENGTH_LONG).show();
     }
-    public void onShareEmail(View view){
+
+    public void onShareEmail(View view) {
         mActivity.getReadContactsPermission(() -> {
             Intent intent = new Intent(getActivity(), InviteActivity.class);
             intent.putExtra("mode", InviteActivity.MODE_EMAIL);
@@ -149,8 +152,7 @@ public class ReferalFragment extends BaseFragment<BaseActivity> {
         });
     }
 
-    public void onShareSMS(View view)
-    {
+    public void onShareSMS(View view) {
         mActivity.getReadContactsPermission(() -> {
             Intent intent = new Intent(getActivity(), InviteActivity.class);
             intent.putExtra("referralData", referralRules);

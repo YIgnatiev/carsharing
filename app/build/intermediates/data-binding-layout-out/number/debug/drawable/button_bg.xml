@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle" >
-    <corners android:radius="3dp" />
-	<gradient android:startColor="@color/line_gray"
-        android:centerColor="@color/line_gray"
-        android:endColor="@color/line_gray_light" android:angle="270"/>
-</shape>
-<!-- From: file:/E:/Projects/CloudPayments/cloudpayments.android/sdk/CloudPayments_AndroidSDK/res/drawable/button_bg.xml -->
