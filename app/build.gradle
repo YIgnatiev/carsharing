@@ -16,8 +16,8 @@ android {
         applicationId "youdrive.today"
         minSdkVersion 16
         targetSdkVersion 24
-        versionCode 7
-        versionName "1.4.2"
+        versionCode 10
+        versionName "1.4.4"
 
         multiDexEnabled true
 
