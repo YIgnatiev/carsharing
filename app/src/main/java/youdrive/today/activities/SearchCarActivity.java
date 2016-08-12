@@ -217,7 +217,7 @@ public class SearchCarActivity extends BaseActivity implements SearchActionListe
         switch (type) {
             case 1:
                 enableDeleteButton();
-                String text = "Message from API";
+                String text=search.getText();
                 showalert(text);
                 break;
             case 2:
@@ -267,7 +267,7 @@ public class SearchCarActivity extends BaseActivity implements SearchActionListe
 
     private void showalert(String text) {
         AlertDialog.Builder builder = new AlertDialog.Builder(SearchCarActivity.this);
-        builder.setTitle(text)
+        builder.setMessage(text)
                 .setCancelable(false)
                 .setNegativeButton("ОК",
                         new DialogInterface.OnClickListener() {
