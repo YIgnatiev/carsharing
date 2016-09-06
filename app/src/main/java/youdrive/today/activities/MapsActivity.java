@@ -760,7 +760,9 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         } else if (userProfile.debt > 0) {
             headerBinding.bPayoff.setVisibility(View.VISIBLE);
             headerBinding.tvBalance.setVisibility(View.VISIBLE);
-            headerBinding.tvBalance.setText(getString(R.string.debts, userProfile.debt / 100));
+
+            float z = (float) userProfile.debt / 100;
+            headerBinding.tvBalance.setText(getString(R.string.debts, z));
         } else {
             headerBinding.bPayoff.setVisibility(View.GONE);
             headerBinding.tvBalance.setVisibility(View.VISIBLE);
