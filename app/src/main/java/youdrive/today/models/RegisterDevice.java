@@ -6,9 +6,9 @@ package youdrive.today.models;
 public class RegisterDevice {
     String os;
     String token;
-    float os_version;
+    String os_version;
     String device_type;
-    public RegisterDevice(String os, String token, float os_version, String device_type) {
+    public RegisterDevice(String os, String token, String os_version, String device_type) {
         this.os = os;
         this.token = token;
         this.os_version = os_version;

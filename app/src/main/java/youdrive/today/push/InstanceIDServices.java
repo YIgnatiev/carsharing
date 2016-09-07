@@ -1,5 +1,6 @@
 package youdrive.today.push;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
@@ -38,10 +39,12 @@ public class InstanceIDServices extends FirebaseInstanceIdService{
      * @param token The new token.
      */
     private void sendRegistrationToServer(String token) {
-        SharedPreferences preferences = getSharedPreferences("temp", getApplicationContext().MODE_PRIVATE);
+        getApplicationContext();
+        SharedPreferences preferences = getSharedPreferences("temp", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("pushToken", token);
-        editor.commit();
+        editor.putBoolean("isNeedSendTokenToServer", true);
+        editor.apply();
 //        Log.d(TAG, "Refreshed token: " + token);
         // TODO: Implement this method to send token to your app server.
 

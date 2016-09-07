@@ -1,5 +1,8 @@
 package youdrive.today.interceptors;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.google.gson.Gson;
 
 import java.util.concurrent.TimeUnit;
@@ -21,13 +24,21 @@ public class ProfileInteractorImpl implements ProfileInteractor, Observer<BaseRe
     private final ApiClient mApiClient;
     private ProfileActionListener mListener;
     private Subscription subscription = Subscriptions.empty();
-
-    public ProfileInteractorImpl() {
+    private Context context;
+    public ProfileInteractorImpl(Context context) {
         mApiClient = new ApiClient();
+        this.context = context;
     }
 
     @Override
     public void logout(final ProfileActionListener listener) {
+        if (context != null) {
+            SharedPreferences preferences = context.getSharedPreferences("temp", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("isNeedSendTokenToServer", true);
+            editor.apply();
+            this.context = null;
+        }
         mListener = listener;
         subscription = mApiClient
                 .logout()

@@ -195,7 +195,7 @@ public class ApiClient {
         return mService.deleteSearchCar();
     }
 
-    public Observable<BaseResponse> postRegisterDevice(String os, String token, float os_version, String device_type) {
+    public Observable<BaseResponse> postRegisterDevice(String os, String token, String os_version, String device_type) {
         return mService.registerWithDevice(new RegisterDevice(os, token, os_version, device_type));
     }
 

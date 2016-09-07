@@ -1,7 +1,9 @@
 package youdrive.today.activities;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
@@ -195,8 +197,12 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         b.lvProfile.setAdapter(new ProfileAdapter(this, R.layout.item_profile, getMenu()));
 
         b.drawer.setDrawerShadow(R.drawable.drawer_shadow, Gravity.LEFT);
+        getApplicationContext();
+        Context context = getApplicationContext();
 
-        mProfileInteractor = new ProfileInteractorImpl();
+
+        mProfileInteractor = new ProfileInteractorImpl(context);
+
         mCarInteractor = new CarInteractorImpl();
         mMapsInteractor = new MapsInteractorImpl();
         buildGoogleApiClient();
@@ -211,6 +217,56 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         App.tracker().send(new HitBuilders.ScreenViewBuilder().build());
         mGoogleApiClient.connect();
 //        this.sendTestPush();
+
+        getApplicationContext();
+        SharedPreferences preferences=getSharedPreferences("temp", MODE_PRIVATE);
+        Boolean isNeedToSendToken = preferences.getBoolean("isNeedSendTokenToServer", false);
+        if (isNeedToSendToken){
+            String pushToken = preferences.getString("pushToken",null);
+            if (pushToken != null){
+                mClient = new ApiClient();
+                float version = (float) Build.VERSION.SDK_INT;
+
+//        String BrandName = android.os.Build.MANUFACTURE;      // Manufacturer will come I think, Correct me if I am wrong :)  Brand name like Samsung or Mircomax
+
+                String myDeviceModel = android.os.Build.MODEL;
+                String SDKName = android.os.Build.VERSION.SDK;      // API Level
+                String DeviceName = android.os.Build.DEVICE;           // Device
+                String DeviceModel = android.os.Build.MODEL;            // Model
+                String Productname = android.os.Build.PRODUCT;          // Product
+
+                String type = android.os.Build.DEVICE;
+                String model = android.os.Build.MODEL;
+                String versionRelease = Build.VERSION.RELEASE;
+
+                String product = android.os.Build.PRODUCT;
+                mClient.postRegisterDevice("android", pushToken, versionRelease, model).subscribe(new Observer<BaseResponse>() {
+
+                    @Override
+                    public void onCompleted() {
+                        getApplicationContext();
+                        SharedPreferences preferences=getSharedPreferences("temp", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putBoolean("isNeedSendTokenToServer", false);
+                        editor.apply();
+//                Log.v("Tag", );
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.v("", "" + e);
+                    }
+
+                    @Override
+                    public void onNext(BaseResponse baseResponse) {
+//                if (baseResponse.isSuccess()) {
+                        Log.v("", "" + baseResponse.isSuccess());
+
+//                }
+                    }
+                });
+            }
+        }
 
 
 
