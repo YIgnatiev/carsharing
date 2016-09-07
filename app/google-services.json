@@ -2,6 +2,8 @@
   "project_info": {
     "project_id": "xenon-bivouac-93015",
     "project_number": "957546682664",
+    "firebase_url": "https://xenon-bivouac-93015.firebaseio.com",
+    "storage_bucket": "xenon-bivouac-93015.appspot.com",
     "name": "YouDrive"
   },
   "client": [
@@ -14,7 +16,20 @@
           "package_name": "youdrive.today"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "957546682664-a9p97108sl6m2a307rlg5e3uqoel1vru.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "957546682664-1j31s4rmhu5a8lll678dea28ornvh3tm.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "957546682664-actafa2i13rdfejmkke1im394m25uc2g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": ""

@@ -116,6 +116,9 @@ dependencies {
     androidTestCompile 'com.android.support.test:runner:0.5'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
 
+    /*firebase*/
+    compile 'com.google.firebase:firebase-messaging:9.4.0'
+
 }
 apply plugin: 'com.google.gms.google-services'
 

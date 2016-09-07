@@ -22,8 +22,10 @@ import youdrive.today.models.InviteUser;
 import youdrive.today.models.Invites;
 import youdrive.today.models.LoginUser;
 import youdrive.today.models.ReferralRules;
+import youdrive.today.models.RegisterDevice;
 import youdrive.today.models.RegistrationUser;
 import youdrive.today.models.SearchCar;
+import youdrive.today.models.TestPush;
 import youdrive.today.response.BaseResponse;
 import youdrive.today.response.CarResponse;
 import youdrive.today.response.CommandResponse;
@@ -192,4 +194,13 @@ public class ApiClient {
     public Observable<SearchCarResponse> deleteSearchCar() {
         return mService.deleteSearchCar();
     }
+
+    public Observable<BaseResponse> postRegisterDevice(String os, String token, float os_version, String device_type) {
+        return mService.registerWithDevice(new RegisterDevice(os, token, os_version, device_type));
+    }
+
+    public Observable<BaseResponse> postTestPush(){
+        return mService.postWithTestPush(new TestPush());
+    }
+
 }

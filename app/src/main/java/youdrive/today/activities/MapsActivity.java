@@ -8,10 +8,12 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -49,10 +51,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
+import rx.Observer;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -84,6 +88,8 @@ import youdrive.today.models.Coord;
 import youdrive.today.models.Menu;
 import youdrive.today.models.Status;
 import youdrive.today.models.User;
+import youdrive.today.network.ApiClient;
+import youdrive.today.response.BaseResponse;
 import youdrive.today.response.PayoffResponse;
 import youdrive.today.response.PolygonResponse;
 import youdrive.today.response.UserProfileResponse;
@@ -95,7 +101,7 @@ import static youdrive.today.models.Status.USAGE;
 
 public class MapsActivity extends BaseActivity implements MapsActionListener, ProfileActionListener, CarActionListener,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, PolygonListener, OnMapReadyCallback {
-
+    public ApiClient mClient;
     private static final int RC_BOOK = 0;
     private static final int RC_CHECK = 1;
     private ActivityMapsBinding b;
@@ -164,6 +170,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
     @Override
     public void bindActivity() {
+
         b = DataBindingUtil.setContentView(this, R.layout.activity_maps);
         b.setListener(this);
         b.toolbar.setNavigationIcon(R.drawable.ic_ab_drawer);
@@ -203,6 +210,72 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         App.tracker().setScreenName("map_0_0");
         App.tracker().send(new HitBuilders.ScreenViewBuilder().build());
         mGoogleApiClient.connect();
+//        this.sendTestPush();
+
+
+
+
+
+//        float version = (float) Build.VERSION.SDK_INT;
+//
+////        String BrandName = android.os.Build.MANUFACTURE;      // Manufacturer will come I think, Correct me if I am wrong :)  Brand name like Samsung or Mircomax
+//
+//        String myDeviceModel = android.os.Build.MODEL;
+//        String SDKName = android.os.Build.VERSION.SDK;      // API Level
+//        String DeviceName = android.os.Build.DEVICE;           // Device
+//        String DeviceModel = android.os.Build.MODEL;            // Model
+//        String Productname = android.os.Build.PRODUCT;          // Product
+//
+//        String type = android.os.Build.DEVICE;
+//        String model = android.os.Build.MODEL;
+//        String versionRelease = Build.VERSION.RELEASE;
+//
+//        String product = android.os.Build.PRODUCT;
+//        mClient.postRegisterDevice("android", "asd", version, model).subscribe(new Observer<BaseResponse>() {
+//
+//            @Override
+//            public void onCompleted() {
+//
+////                Log.v("Tag", );
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//                Log.v("", "" + e);
+//            }
+//
+//            @Override
+//            public void onNext(BaseResponse baseResponse) {
+////                if (baseResponse.isSuccess()) {
+//                    Log.v("", "" + baseResponse.isSuccess());
+//
+////                }
+//            }
+//        });
+    }
+    private void sendTestPush(){
+        mClient = new ApiClient();
+        mClient.postTestPush().subscribe(new Observer<BaseResponse>() {
+
+            @Override
+            public void onCompleted() {
+
+                Log.v("Tag", "");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.v("", "" + e);
+            }
+
+            @Override
+            public void onNext(BaseResponse baseResponse) {
+//                if (baseResponse.isSuccess()) {
+                Log.v("", "" + baseResponse.isSuccess());
+
+//                }
+            }
+        });
     }
 
     @Override

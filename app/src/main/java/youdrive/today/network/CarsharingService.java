@@ -17,8 +17,10 @@ import youdrive.today.models.InviteUser;
 import youdrive.today.models.Invites;
 import youdrive.today.models.LoginUser;
 import youdrive.today.models.ReferralRules;
+import youdrive.today.models.RegisterDevice;
 import youdrive.today.models.RegistrationUser;
 import youdrive.today.models.SearchCar;
+import youdrive.today.models.TestPush;
 import youdrive.today.response.BaseResponse;
 import youdrive.today.response.CarResponse;
 import youdrive.today.response.CommandResponse;
@@ -29,6 +31,7 @@ import youdrive.today.response.RegionsResponse;
 import youdrive.today.response.RegistrationModel;
 import youdrive.today.response.SearchCarResponse;
 import youdrive.today.response.UserProfileResponse;
+;
 
 /**
  * Created by Oleh Makhobey
@@ -106,4 +109,9 @@ public interface CarsharingService {
     @DELETE("/search")
     Observable<SearchCarResponse> deleteSearchCar();
 
+    @POST("/devices")
+    Observable<BaseResponse>  registerWithDevice(@Body RegisterDevice registerDevice);
+
+    @POST("/messages/location")
+    Observable<BaseResponse>  postWithTestPush(@Body TestPush testPush);
 }
