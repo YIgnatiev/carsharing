@@ -220,6 +220,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
 
         getApplicationContext();
         SharedPreferences preferences=getSharedPreferences("temp", MODE_PRIVATE);
+
         Boolean isNeedToSendToken = preferences.getBoolean("isNeedSendTokenToServer", false);
         if (isNeedToSendToken){
             String pushToken = preferences.getString("pushToken",null);
