@@ -92,6 +92,7 @@ import youdrive.today.models.Status;
 import youdrive.today.models.User;
 import youdrive.today.network.ApiClient;
 import youdrive.today.response.BaseResponse;
+import youdrive.today.response.MessagesResponse;
 import youdrive.today.response.PayoffResponse;
 import youdrive.today.response.PolygonResponse;
 import youdrive.today.response.UserProfileResponse;
@@ -218,6 +219,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         mGoogleApiClient.connect();
 //        this.sendTestPush();
 //        this.sendTestInfoPush();
+//        this.getMessages();
 
         getApplicationContext();
         SharedPreferences preferences=getSharedPreferences("temp", MODE_PRIVATE);
@@ -270,6 +272,26 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             }
         }
 
+    }
+    private  void getMessages(){
+        mClient = new ApiClient();
+        mClient.getMesssage().subscribe(new Observer<MessagesResponse>() {
+
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(MessagesResponse messagesResponse) {
+                Log.v("", "" + messagesResponse);
+            }
+        });
     }
     private void sendTestInfoPush(){
         mClient = new ApiClient();

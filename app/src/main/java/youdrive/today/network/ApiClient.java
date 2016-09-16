@@ -31,6 +31,7 @@ import youdrive.today.response.BaseResponse;
 import youdrive.today.response.CarResponse;
 import youdrive.today.response.CommandResponse;
 import youdrive.today.response.LoginResponse;
+import youdrive.today.response.MessagesResponse;
 import youdrive.today.response.PayoffResponse;
 import youdrive.today.response.PolygonResponse;
 import youdrive.today.response.RegionsResponse;
@@ -205,6 +206,10 @@ public class ApiClient {
     }
     public Observable<BaseResponse> getTestInfoPush(){
         return mService.postWithInfoPush();
+    }
+
+    public Observable<MessagesResponse> getMesssage() {
+        return mService.getMessages();
     }
 
 }
