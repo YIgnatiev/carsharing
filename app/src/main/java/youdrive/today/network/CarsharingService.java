@@ -20,6 +20,7 @@ import youdrive.today.models.ReferralRules;
 import youdrive.today.models.RegisterDevice;
 import youdrive.today.models.RegistrationUser;
 import youdrive.today.models.SearchCar;
+import youdrive.today.models.TestInfoPush;
 import youdrive.today.models.TestPush;
 import youdrive.today.response.BaseResponse;
 import youdrive.today.response.CarResponse;
@@ -113,5 +114,8 @@ public interface CarsharingService {
     Observable<BaseResponse>  registerWithDevice(@Body RegisterDevice registerDevice);
 
     @POST("/messages/location")
-    Observable<BaseResponse>  postWithTestPush(@Body TestPush testPush);
+    Observable<BaseResponse> postWithTestPush(@Body TestPush testPush);
+
+    @GET("/messages/testinfo")
+    Observable<BaseResponse> postWithInfoPush();
 }

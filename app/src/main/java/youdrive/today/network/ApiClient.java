@@ -25,6 +25,7 @@ import youdrive.today.models.ReferralRules;
 import youdrive.today.models.RegisterDevice;
 import youdrive.today.models.RegistrationUser;
 import youdrive.today.models.SearchCar;
+import youdrive.today.models.TestInfoPush;
 import youdrive.today.models.TestPush;
 import youdrive.today.response.BaseResponse;
 import youdrive.today.response.CarResponse;
@@ -201,6 +202,9 @@ public class ApiClient {
 
     public Observable<BaseResponse> postTestPush(){
         return mService.postWithTestPush(new TestPush());
+    }
+    public Observable<BaseResponse> getTestInfoPush(){
+        return mService.postWithInfoPush();
     }
 
 }

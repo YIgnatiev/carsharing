@@ -217,6 +217,7 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
         App.tracker().send(new HitBuilders.ScreenViewBuilder().build());
         mGoogleApiClient.connect();
 //        this.sendTestPush();
+//        this.sendTestInfoPush();
 
         getApplicationContext();
         SharedPreferences preferences=getSharedPreferences("temp", MODE_PRIVATE);
@@ -269,46 +270,30 @@ public class MapsActivity extends BaseActivity implements MapsActionListener, Pr
             }
         }
 
+    }
+    private void sendTestInfoPush(){
+        mClient = new ApiClient();
+        mClient.getTestInfoPush().subscribe(new Observer<BaseResponse>() {
 
+            @Override
+            public void onCompleted() {
 
+                Log.v("Tag", "");
+            }
 
+            @Override
+            public void onError(Throwable e) {
+                Log.v("", "" + e);
+            }
 
-//        float version = (float) Build.VERSION.SDK_INT;
-//
-////        String BrandName = android.os.Build.MANUFACTURE;      // Manufacturer will come I think, Correct me if I am wrong :)  Brand name like Samsung or Mircomax
-//
-//        String myDeviceModel = android.os.Build.MODEL;
-//        String SDKName = android.os.Build.VERSION.SDK;      // API Level
-//        String DeviceName = android.os.Build.DEVICE;           // Device
-//        String DeviceModel = android.os.Build.MODEL;            // Model
-//        String Productname = android.os.Build.PRODUCT;          // Product
-//
-//        String type = android.os.Build.DEVICE;
-//        String model = android.os.Build.MODEL;
-//        String versionRelease = Build.VERSION.RELEASE;
-//
-//        String product = android.os.Build.PRODUCT;
-//        mClient.postRegisterDevice("android", "asd", version, model).subscribe(new Observer<BaseResponse>() {
-//
-//            @Override
-//            public void onCompleted() {
-//
-////                Log.v("Tag", );
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//                Log.v("", "" + e);
-//            }
-//
-//            @Override
-//            public void onNext(BaseResponse baseResponse) {
-////                if (baseResponse.isSuccess()) {
-//                    Log.v("", "" + baseResponse.isSuccess());
-//
-////                }
-//            }
-//        });
+            @Override
+            public void onNext(BaseResponse baseResponse) {
+//                if (baseResponse.isSuccess()) {
+                Log.v("", "" + baseResponse.isSuccess());
+
+//                }
+            }
+        });
     }
     private void sendTestPush(){
         mClient = new ApiClient();
